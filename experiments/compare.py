@@ -1,12 +1,20 @@
-"""Build a markdown comparison table from result JSON files.
+"""Markdown comparison table from result JSON files.
 
-Usage:
+[EN]
+- Role: read N result files, print one table: exp_id, config fields that DIFFER between the
+  runs, the chosen metrics, query count. --by-group adds one table per language pair.
+- Why "varying fields only": with full configs the table is unreadable; the diff is what
+  explains the metric change.
+- Usage:
     uv run python experiments/compare.py experiments/results/s1_*.json
     uv run python experiments/compare.py experiments/results/s1_*.json --by-group
     uv run python experiments/compare.py ... --metrics recall@5 mrr@10 ndcg@10
 
-Columns: exp_id, every config field whose value differs between the given runs, then the
-metrics. With --by-group one table per language pair (q_lang->doc_lang).
+[KO]
+- 역할: 결과 파일 N개를 읽어 표 하나를 출력: exp_id, 실험 간 "달라진" 설정 필드, 선택한 지표, 질의 수.
+  --by-group이면 언어쌍별 표를 추가.
+- "달라진 필드만" 보여주는 이유: 설정 전체를 넣으면 표를 읽을 수 없다. 지표 변화를 설명하는 건 차이뿐이다.
+- 사용법은 위 영문 예시와 같다.
 """
 
 from __future__ import annotations

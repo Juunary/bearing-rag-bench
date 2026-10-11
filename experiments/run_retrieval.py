@@ -1,10 +1,25 @@
-"""Run one retrieval experiment from a config file and write experiments/results/<exp_id>.json.
+"""Run one retrieval experiment from a config file -> experiments/results/<exp_id>.json.
 
-    uv run python experiments/run_retrieval.py configs/s1_bm25_kiwi.json
-    uv run python experiments/run_retrieval.py configs/s1_bm25_kiwi.json --dry-run   # index + 3 sample queries, no eval set needed
+[EN]
+- Role: config -> seed -> docs/chunks -> retriever (by method) -> index -> for each eval query:
+  map gold anchors to chunks, search, per-query metrics -> aggregate overall and per group ->
+  save result with environment snapshot and latency (p50/p95).
+- Group key = "{q_lang}->{doc_lang of the highest-grade gold}" ("mixed" if the top-grade golds
+  span several languages), so cross-language quality is reported per pair.
+- --dry-run: build the index and print top-3 for three sample queries; needs no eval set.
+  Used to sanity-check a retriever before the eval set exists.
+- Metrics are imported from ragbench.metrics (author-implemented).
+- Usage:
+    uv run python experiments/run_retrieval.py configs/s1_bm25_kiwi.json [--dry-run]
 
-Per query the group key is "{q_lang}->{doc_lang of the highest-grade gold}" ("mixed" if the
-top-grade golds span several languages), so cross-language results are aggregated per pair.
+[KO]
+- 역할: 설정 -> 시드 -> 문서/청크 -> 방식별 검색기 -> 인덱스 -> 평가 질의마다 gold anchor를 청크로
+  매핑, 검색, 질의별 지표 -> 전체·그룹별 집계 -> 환경 스냅샷과 지연(p50/p95)을 포함해 저장.
+- 그룹 키 = "{질문 언어}->{최고 등급 gold의 문서 언어}" (최고 등급 gold가 여러 언어면 "mixed").
+  교차 언어 품질을 언어쌍별로 보고한다.
+- --dry-run: 인덱스를 만들고 샘플 질의 3개의 상위 3개를 출력. 평가셋 없이 검색기 동작을 확인할 때 쓴다.
+- 지표는 ragbench.metrics(작성자 구현)에서 가져온다.
+- 사용: uv run python experiments/run_retrieval.py configs/s1_bm25_kiwi.json [--dry-run]
 """
 
 from __future__ import annotations

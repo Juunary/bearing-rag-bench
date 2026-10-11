@@ -1,12 +1,24 @@
-"""Fetch every source listed in data/sources.csv into data/raw/.
+"""Fetch every source in data/sources.csv into data/raw/.
 
-Wikipedia pages are fetched through the MediaWiki API (TextExtracts, plain text with
-``== Section ==`` markers) together with the revision id, so the exact text version is
-recorded. Nothing here is committed except what the licence allows (see data/sources.csv).
+[EN]
+- Role: for each Wikipedia row call the MediaWiki API (TextExtracts, plain text with
+  "== Section ==" markers) and save text + page id + revision id + timestamp + URL as JSON.
+- Why record revid: Wikipedia changes; the eval set's anchor sentences refer to one revision.
+- Why one request per page: whole-article extracts for multiple titles are capped by the API
+  (exlimit); 45 pages at 0.5 s spacing is cheap and polite.
+- Only source_type "wikipedia" is handled; PDF catalogues were dropped from stage 1 (decided
+  2026-10-11: official PDFs block scripted download, no time for PDF cleaning).
+- Usage: uv run python scripts/fetch_data.py [--only ko] [--force]
 
-Usage:
-    uv run python scripts/fetch_data.py            # fetch all
-    uv run python scripts/fetch_data.py --only ko  # one language
+[KO]
+- 역할: 위키백과 행마다 MediaWiki API(TextExtracts, "== 절 ==" 마커가 있는 평문)를 호출해
+  본문 + 페이지 ID + 리비전 ID + 시각 + URL을 JSON으로 저장.
+- revid를 기록하는 이유: 위키는 바뀐다. 평가셋의 근거 문장은 특정 리비전을 가리킨다.
+- 페이지당 요청 1회인 이유: 여러 제목의 전체 본문 추출은 API 제한(exlimit)이 있다. 45페이지를 0.5초
+  간격으로 받으면 충분히 싸고 예의에 맞다.
+- source_type "wikipedia"만 처리. PDF 카탈로그는 1단계에서 제외(2026-10-11 결정: 공식 PDF가 스크립트
+  다운로드를 막고, PDF 정제에 쓸 시간이 없음).
+- 사용: uv run python scripts/fetch_data.py [--only ko] [--force]
 """
 
 from __future__ import annotations
