@@ -6,10 +6,12 @@ authors = [{ name = "Juunary" }]
 requires-python = ">=3.12"
 dependencies = [
     "accelerate>=1.15.0",
+    "bitsandbytes>=0.50.2",
     "bm25s>=0.3.13",
     "hnswlib>=0.8.0",
     "kiwipiepy>=0.24.0",
     "numpy>=2.5.4",
+    "peft>=0.21.2",
     "torch>=2.14.1",
     "transformers>=5.19.0",
 ]
