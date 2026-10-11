@@ -12,6 +12,7 @@ wheels/
 # Raw / processed documents (copyright; re-fetch with scripts/fetch_data.py)
 data/raw/*
 data/processed/*
+!data/processed/docs.jsonl
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
