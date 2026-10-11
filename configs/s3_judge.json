@@ -1,0 +1,7 @@
+{
+  "exp_id": "s3_judge",
+  "stage": "s3",
+  "description": "LLM-as-a-judge (Qwen3-8B, two GPUs, thinking off, greedy): faithfulness, answer relevance, context relevance, correctness",
+  "generation": {"model": "Qwen/Qwen3-8B", "prompt_version": "judge_v1", "max_new_tokens": 80,
+                 "temperature": 0.0, "context_k": 5, "device": "auto"}
+}

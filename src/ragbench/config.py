@@ -51,7 +51,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 # Packages whose versions are recorded in every result file (only those installed).
 TRACKED_PACKAGES = (
     "numpy", "torch", "transformers", "sentence-transformers", "bm25s", "kiwipiepy",
-    "hnswlib", "pymupdf", "vllm",
+    "hnswlib", "pymupdf", "vllm", "accelerate", "peft", "bitsandbytes", "trl",
 )
 
 

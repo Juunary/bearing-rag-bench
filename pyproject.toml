@@ -5,6 +5,7 @@ description = "Multilingual (ko/en/de) technical-document RAG retrieval & genera
 authors = [{ name = "Juunary" }]
 requires-python = ">=3.12"
 dependencies = [
+    "accelerate>=1.15.0",
     "bm25s>=0.3.13",
     "hnswlib>=0.8.0",
     "kiwipiepy>=0.24.0",
