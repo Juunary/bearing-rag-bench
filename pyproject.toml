@@ -6,6 +6,7 @@ authors = [{ name = "Juunary" }]
 requires-python = ">=3.12"
 dependencies = [
     "numpy>=2.5.4",
+    "transformers>=5.19.0",
 ]
 
 [dependency-groups]
