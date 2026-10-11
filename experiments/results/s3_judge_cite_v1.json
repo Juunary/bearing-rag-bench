@@ -48,10 +48,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-10-11T19:52:22+00:00",
+    "timestamp": "2026-10-11T19:56:22+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "973af904adf5a66e17f3553c6649d94947db25f3",
+    "git_commit": "377a927350fb9fd39bf8aa59925ad50444c67859",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -65,8 +65,8 @@
   },
   "metrics": {
     "overall": {
-      "faithfulness": 0.9459459459459459,
-      "faithfulness_n": 37,
+      "faithfulness": 0.925,
+      "faithfulness_n": 40,
       "answer_relevance": 0.975,
       "answer_relevance_n": 40,
       "context_relevance": 0.8888888888888888,
@@ -127,7 +127,7 @@
         "n": 5
       },
       "ko->en": {
-        "faithfulness": 0.6,
+        "faithfulness": 0.5714285714285714,
         "answer_relevance": 0.8571428571428571,
         "context_relevance": 1.0,
         "correctness": 0.5714285714285714,
@@ -235,13 +235,13 @@
       "refused": false,
       "gold_in_context": false,
       "labels": {
-        "faithfulness": null,
+        "faithfulness": false,
         "answer_relevance": true,
         "context_relevance": true,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "금속 피로, 윤활 상태, 하중의 종류와 크기라는 세 가지 원인은 Passage에서 언급된 내용과 일치하지만, 하중의 종류와 크기만으로는 세 가지 원인을 완전히 설명하지 못하며, 정적 하중이나 브리넬링 등 구체적인 하중 관련 원",
+        "faithfulness": "금속 피로, 윤활 상태, 하중의 종류와 크기라는 세 가지 원인은 Passage에서 언급된 내용과 일치하지만, 하중의 종류와 크기만으로는 세 가지 원인을 완전히 설명하지 못하며, 정적 하중이나 브리넬링 등 구체적인 하중 관련 원인은 Answer에 명시되지 않았기 때문에 사실적으로 부정확하다.\n\nVERDICT: NO",
         "answer_relevance": "The answer identifies three factors that can limit bearing life or load capacity, which directly addresses the question.  \nVERDICT: YES",
         "context_relevance": "Passages discuss factors affecting bearing life, including load, lubrication, and material properties, which are relevant to the question.  \nVERDICT: YES",
         "correctness": "The Answer provides different factors (metal fatigue, lubrication state, load type and magnitude) compared to the Reference, which lists abrasion, fatigue, and pressure-induced welding as the three main causes.  \nVERDICT: NO"
@@ -382,18 +382,18 @@
       "refused": false,
       "gold_in_context": true,
       "labels": {
-        "faithfulness": null,
+        "faithfulness": true,
         "answer_relevance": true,
         "context_relevance": true,
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "구름 베어링이 실제로 윤활이 필요한 이유는 하중에 의한 차동 미끄럼과 리테이너와 전동체 사이의 마찰이 발생하며, 윤활을 통해 마찰을 줄이고 성능을 향상시킬 수 있다는 내용은 Passage에 명시적으로 언급되어 있다.\n\nVERDICT:",
+        "faithfulness": "구름 베어링이 실제로 윤활이 필요한 이유는 하중에 의한 차동 미끄럼과 리테이너와 전동체 사이의 마찰이 발생하며, 윤활을 통해 마찰을 줄이고 성능을 향상시킬 수 있다는 내용은 Passage에 명시적으로 언급되어 있다.\n\nVERDICT: YES",
         "answer_relevance": "구름 베어링에 대한 윤활 필요성에 대해 원인을 설명하려는 시도가 포함되어 있다.  \nVERDICT: YES",
         "context_relevance": "Passages explain that even though ball bearings rely on rolling friction, lubrication is still necessary to reduce sliding friction, prevent wear, and ensure proper operation.  \nVERDICT: YES",
         "correctness": "The Answer correctly explains that lubrication is necessary in roller bearings due to differential sliding and friction between components, which aligns with the Reference.  \nVERDICT: YES"
       },
-      "outcome": "generation_failure"
+      "outcome": "ok"
     },
     {
       "qid": "q013",
@@ -424,18 +424,18 @@
       "refused": false,
       "gold_in_context": true,
       "labels": {
-        "faithfulness": null,
+        "faithfulness": true,
         "answer_relevance": true,
         "context_relevance": true,
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Answer mentions that improper lubrication leads to increased friction, heat generation, surface damage, and \"seizure\" (서브), which is supported by [en_lubrication#3]. It also mentions increased wear, surface roughness, and reduced fatigue strength, which is supported by [en_fretting#0]. The mention of physical friction and chemical reactions leading to corrosion is supported",
+        "faithfulness": "Answer mentions that improper lubrication leads to increased friction, heat generation, surface damage, and \"seizure\" (서브), which is supported by [en_lubrication#3]. It also mentions increased wear, surface roughness, and reduced fatigue strength, which is supported by [en_fretting#0]. The mention of physical friction and chemical reactions leading to corrosion is supported by [en_lubrication#0]. All factual statements in the Answer are supported by the Passages.\n\nVERDICT: YES",
         "answer_relevance": "The answer explains the consequences of improper lubrication on contacting parts, addressing the question by describing the effects of increased friction, heat, wear, and corrosion.  \nVERDICT: YES",
         "context_relevance": "The passages discuss the consequences of inadequate lubrication, including heat generation, surface damage, and potential seizure of mechanical components.  \nVERDICT: YES",
         "correctness": "The Answer correctly describes the consequences of improper lubrication, including heat generation, surface damage, welding, and failure, which align with the information in the Reference.  \nVERDICT: YES"
       },
-      "outcome": "generation_failure"
+      "outcome": "ok"
     },
     {
       "qid": "q015",
@@ -1096,14 +1096,15 @@
     "judge_model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
     "judge_prompt_version": "judge_v1",
     "outcomes": {
-      "ok": 27,
+      "ok": 29,
       "correct_refusal": 4,
-      "generation_failure": 8,
+      "generation_failure": 6,
       "retrieval_failure": 5,
       "over_refusal": 1
     },
-    "judge_calls": 165,
-    "judge_cache_hits": 0,
+    "judge_calls": 168,
+    "judge_cache_hits": 165,
+    "judge_retries_for_cut_off_verdict": 3,
     "source_commit": "46ec541d7bc3c7147e072156e07136ccbdcbbe2b"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "source": "s3_gen_cite_refuse_v1",
+  "graded_by": "user",
+  "graded_on": "2026-10-12",
+  "labels": {
+    "q025": {"correctness": "맞음", "faithfulness": "예", "answer_relevance": "예"},
+    "q021": {"correctness": "맞음", "faithfulness": "아니오", "answer_relevance": "예"},
+    "q031": {"correctness": "맞음", "faithfulness": "예", "answer_relevance": "예"},
+    "q015": {"correctness": "부분", "faithfulness": "예", "answer_relevance": "예"},
+    "q027": {"correctness": "거절", "faithfulness": "예", "answer_relevance": "아니오"},
+    "q032": {"correctness": "맞음", "faithfulness": "예", "answer_relevance": "예"},
+    "q010": {"correctness": "틀림", "faithfulness": "아니오", "answer_relevance": "예"},
+    "q017": {"correctness": "맞음", "faithfulness": "예", "answer_relevance": "예"}
+  }
+}

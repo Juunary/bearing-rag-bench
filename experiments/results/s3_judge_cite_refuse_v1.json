@@ -48,10 +48,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-10-11T19:55:14+00:00",
+    "timestamp": "2026-10-11T19:56:31+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "973af904adf5a66e17f3553c6649d94947db25f3",
+    "git_commit": "377a927350fb9fd39bf8aa59925ad50444c67859",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -65,14 +65,14 @@
   },
   "metrics": {
     "overall": {
-      "faithfulness": 0.9487179487179487,
-      "faithfulness_n": 39,
+      "faithfulness": 0.95,
+      "faithfulness_n": 40,
       "answer_relevance": 1.0,
       "answer_relevance_n": 40,
       "context_relevance": 0.8888888888888888,
       "context_relevance_n": 45,
-      "correctness": 0.8205128205128205,
-      "correctness_n": 39,
+      "correctness": 0.8,
+      "correctness_n": 40,
       "judge_context_vs_gold_agreement": 0.8666666666666667,
       "n": 45
     },
@@ -109,7 +109,7 @@
         "faithfulness": 0.8888888888888888,
         "answer_relevance": 1.0,
         "context_relevance": 1.0,
-        "correctness": 1.0,
+        "correctness": 0.8888888888888888,
         "n": 9
       },
       "en->ko": {
@@ -340,13 +340,13 @@
       "refused": false,
       "gold_in_context": false,
       "labels": {
-        "faithfulness": null,
+        "faithfulness": true,
         "answer_relevance": true,
         "context_relevance": true,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "Answer에서 언급된 \"개스킷 또는 기계적 패킹\"은 Passage에 명시되어 있으며, 스타팅 박스(스터핑 박스)도 Passage에 언급된 밀봉 부품 중 하나로, 오일과 공기 누출 방지에 사용될 수 있음을 나타내므로, 모든 사실적 진술",
+        "faithfulness": "Answer에서 언급된 \"개스킷 또는 기계적 패킹\"은 Passage에 명시되어 있으며, 스타팅 박스(스터핑 박스)도 Passage에 언급된 밀봉 부품 중 하나로, 오일과 공기 누출 방지에 사용될 수 있음을 나타내므로, 모든 사실적 진술이 Passage에 지지된다.  \nVERDICT: YES",
         "answer_relevance": "The answer identifies possible sealing components used in motorcycle front forks, addressing the question by providing relevant sealing parts.  \nVERDICT: YES",
         "context_relevance": "The passages mention \"스터핑 박스 (기계적 패킹)\" which is a sealing system used to keep fluid from leaking out of a pressurized system through the plain bearing, which is relevant to the question about sealing parts on a motorcycle front fork.  \nVERDICT: YES",
         "correctness": "The Answer mentions general sealing parts like gaskets and mechanical packing, but the Reference specifically identifies RWDR as the sealing part used in motorcycle forks.  \nVERDICT: NO"
@@ -679,13 +679,13 @@
         "faithfulness": false,
         "answer_relevance": true,
         "context_relevance": true,
-        "correctness": null
+        "correctness": false
       },
       "reasons": {
         "faithfulness": "The Answer includes statements not supported by the Passages, such as the claim that CARB bearings can handle both radial and axial loads, which is not mentioned in the provided text.  \nVERDICT: NO",
         "answer_relevance": "The answer addresses the question by explaining the reasons a designer might choose a toroidal CARB roller bearing for a non-locating application, including its ability to handle misalignment and thermal expansion.  \nVERDICT: YES",
         "context_relevance": "The passages explain that CARB bearings can accommodate angular misalignment and axial displacement, and allow for thermal expansion, which directly answers why a designer would choose them as a non-locating bearing.  \nVERDICT: YES",
-        "correctness": "The answer correctly identifies that a toroidal CARB roller bearing allows for angular misalignment and axial displacement, and mentions thermal expansion independence, which aligns with the reference. However, it incorrectly states that CARB bearings are an intermediate form between spherical and cylindrical rollers, which is not mentioned in the reference. Additionally, the answer includes information about load-carrying capacity and dynamic environments not present in the"
+        "correctness": "The answer correctly identifies that a toroidal CARB roller bearing allows for angular misalignment and axial displacement, and mentions thermal expansion independence, which aligns with the reference. However, it incorrectly states that CARB bearings are an intermediate form between spherical and cylindrical rollers, which is not mentioned in the reference. Additionally, the answer includes information about load-carrying capacity and dynamic environments not present in the reference.\n\nVERDICT: NO"
       },
       "outcome": "generation_failure"
     },
@@ -1102,8 +1102,9 @@
       "retrieval_failure": 5,
       "over_refusal": 1
     },
-    "judge_calls": 330,
-    "judge_cache_hits": 72,
+    "judge_calls": 335,
+    "judge_cache_hits": 330,
+    "judge_retries_for_cut_off_verdict": 5,
     "source_commit": "46ec541d7bc3c7147e072156e07136ccbdcbbe2b"
   }
 }
