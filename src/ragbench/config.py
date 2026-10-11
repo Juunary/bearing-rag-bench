@@ -10,7 +10,8 @@
   - Nested dataclasses (chunking / retrieval / generation) so compare.py can diff only the fields
     that changed between runs.
   - environment_snapshot() records git commit (+"-dirty" if uncommitted changes), tracked package
-    versions, GPU name, UTC timestamp. "-dirty" flags numbers that cannot be reproduced from git.
+    versions, GPU name, UTC timestamp. "-dirty" flags numbers that cannot be reproduced from git
+    (changes under experiments/results and data/processed are ignored: they are outputs).
   - set_seed() fixes random / numpy / torch. GPU kernels may still differ at float precision.
 - Alternatives considered: Hydra/OmegaConf (more features, more magic), MLflow (server; overkill
   for a 2-day study).
@@ -24,7 +25,8 @@
   - YAML 대신 JSON: 결과도 JSON이라 형식 통일, 표준 라이브러리만 사용.
   - 중첩 dataclass(chunking/retrieval/generation): compare.py가 실험 간 달라진 필드만 뽑기 쉽다.
   - environment_snapshot(): git 커밋(미커밋 변경 시 "-dirty"), 추적 패키지 버전, GPU, UTC 시각.
-    "-dirty"는 git으로 재현 불가능한 숫자임을 표시한다.
+    "-dirty"는 git으로 재현 불가능한 숫자임을 표시한다(experiments/results, data/processed의 변경은
+    산출물이므로 무시).
   - set_seed(): random/numpy/torch 고정. GPU 커널 차이로 소수점 차이는 남을 수 있다.
 - 대안: Hydra/OmegaConf(기능 많지만 마법이 많음), MLflow(서버 필요, 2일짜리 실험엔 과함).
 """
@@ -156,7 +158,8 @@ def _git_commit() -> str | None:
             ["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, capture_output=True, text=True, check=True
         )
         dirty = subprocess.run(
-            ["git", "status", "--porcelain"], cwd=REPO_ROOT, capture_output=True, text=True, check=True
+            ["git", "status", "--porcelain", "--", ".", ":(exclude)experiments/results", ":(exclude)data/processed"],
+            cwd=REPO_ROOT, capture_output=True, text=True, check=True
         ).stdout.strip()
         return out.stdout.strip() + ("-dirty" if dirty else "")
     except (OSError, subprocess.CalledProcessError):

@@ -5,8 +5,9 @@
   (needed to map eval anchors), token count and section path.
 - Decisions (2026-10-11):
   - Unit = tokens of the embedding model's tokenizer (BAAI/bge-m3, XLM-R vocab) so the budget
-    equals what the embedder sees. Measured 1.7 chars/token for Korean vs 4.1-4.4 for en/de: a
-    character budget would give Korean chunks ~2.6x less content.
+    equals what the embedder sees. Measured over the whole corpus: Korean 1.74 chars/token, English 4.13, German 3.94 (English needs
+    ~2.4x fewer tokens per character than Korean), so a character budget would give Korean chunks
+    ~2.4x less content.
   - Size 384, overlap 48 (stage 1 baseline; 256/512 compared in stage 2).
   - Cut at paragraph/sentence boundaries, not hard token cuts, so anchor sentences rarely
     straddle chunks. Hard cut only when one sentence exceeds the budget (lists, tables).
@@ -23,7 +24,7 @@
   매핑에 필요), 토큰 수, 절 경로를 담는다.
 - 결정(2026-10-11):
   - 단위 = 임베딩 모델 토크나이저(BAAI/bge-m3, XLM-R 어휘)의 토큰. 예산이 임베더가 보는 길이와 일치한다.
-    측정값: 한국어 1.7자/토큰 vs en/de 4.1~4.4자/토큰. 문자 기준이면 한국어 청크 내용이 약 2.6배 적어진다.
+    측정값(코퍼스 전체): 한국어 1.74자/토큰, 영어 4.13, 독일어 3.94. 문자 기준이면 한국어 청크 내용이 약 2.4배 적어진다.
   - 크기 384, 오버랩 48(1단계 기준선, 2단계에서 256/512 비교).
   - 토큰 수에서 딱 자르지 않고 문단·문장 경계에서 자른다. 근거 문장이 청크 경계에 걸치는 일을 줄인다.
     한 문장이 예산을 넘을 때만(목록·표) hard cut.
