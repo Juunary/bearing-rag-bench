@@ -14,6 +14,8 @@
   as the output validation).
 - Reported per file: rate of YES per dimension among the answers it applies to, the judge's context
   relevance versus the gold label (a check of the judge), outcome counts, and rates by language pair.
+- A judgement whose verdict line is missing (reasoning cut off by the 80-token limit) is asked again once
+  with three times the limit; a second failure stays unparsable (None) and is excluded from the rates.
 - Usage: uv run python experiments/run_judge.py configs/s3_judge.json s3_gen_cite_v1 s3_gen_cite_refuse_v1
 
 [KO]
@@ -29,6 +31,8 @@
   거절 = NO_ANSWER 센티널 또는 첫 문장의 자연어 거절(출력 검증과 같은 규칙).
 - 파일별 보고: 해당되는 답변 중 항목별 YES 비율, 정답 라벨 대비 판정 모델의 컨텍스트 관련성(판정 모델
   점검), 결과 유형별 개수, 언어쌍별 비율.
+- 판정 줄이 없는 응답(추론이 80토큰 한도에서 잘림)은 한도를 3배로 늘려 한 번 더 묻고, 그래도 실패하면 파싱
+  불가(None)로 남겨 비율 계산에서 뺀다.
 - 사용: uv run python experiments/run_judge.py configs/s3_judge.json s3_gen_cite_v1 s3_gen_cite_refuse_v1
 """
 
@@ -79,7 +83,7 @@ def main() -> None:
     queries = {q["qid"]: q for q in load_queries(REPO / cfg.eval_path)}
     cache = LLMCache(REPO / "logs" / "judge_cache.sqlite")
     judge = Judge(cfg.generation.model, cache=cache)
-    n_calls = n_cached = 0
+    n_calls = n_cached = n_retries = 0
 
     for name in args.results:
         src = json.loads((REPO / "experiments" / "results" / f"{name}.json").read_text(encoding="utf-8"))
@@ -106,7 +110,14 @@ def main() -> None:
                 out = judge.ask(msgs, max_new_tokens=cfg.generation.max_new_tokens)
                 n_calls += 1
                 n_cached += out["cached"]
-                labels[dim], reasons[dim] = parse_verdict(out["text"]), out["text"]
+                verdict_label = parse_verdict(out["text"])
+                if verdict_label is None:      # the reasoning was cut off before the verdict line: ask once more with 3x the budget
+                    out = judge.ask(msgs, max_new_tokens=cfg.generation.max_new_tokens * 3)
+                    n_calls += 1
+                    n_cached += out["cached"]
+                    n_retries += 1
+                    verdict_label = parse_verdict(out["text"])
+                labels[dim], reasons[dim] = verdict_label, out["text"]
             cls = outcome(refused, gold_in_ctx, labels["correctness"], labels["faithfulness"])
             per_query.append({"qid": p["qid"], "group": p["group"], "question": p["question"], "answer": answer,
                               "refused": refused, "gold_in_context": gold_in_ctx, "labels": labels, "reasons": reasons, "outcome": cls})
@@ -130,7 +141,7 @@ def main() -> None:
             config=exp_cfg, environment=environment_snapshot(), metrics={"overall": overall, "by_group": by_group}, per_query=per_query,
             extra={"judged_result": name, "judge_model": cfg.generation.model, "judge_model_revision": judge.revision,
                    "judge_prompt_version": JUDGE_PROMPT_VERSION, "outcomes": dict(Counter(x["outcome"] for x in per_query)),
-                   "judge_calls": n_calls, "judge_cache_hits": n_cached,
+                   "judge_calls": n_calls, "judge_cache_hits": n_cached, "judge_retries_for_cut_off_verdict": n_retries,
                    "source_commit": src["environment"]["git_commit"]})
         path = result.save()
         print(f"== {name}: { {k: (round(v, 3) if isinstance(v, float) else v) for k, v in overall.items()} }")
