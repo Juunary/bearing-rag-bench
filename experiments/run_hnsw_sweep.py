@@ -9,8 +9,9 @@
 - Why exact search as truth: HNSW is approximate; "recall" here means how many of the true
   nearest neighbours the graph returns, independent of any human relevance labels.
 - Expectation: with ~350 vectors nearly every setting reaches recall 1.0; the sweep is kept
-  because the measurement harness matters (and --replicate can scale the vectors to show the
-  trade-off: each vector is duplicated with small noise, labelled as synthetic).
+  because the measurement harness matters. --replicate (duplicate vectors with noise) was tried
+  and dropped (2026-10-12): near-tie clusters make id-based recall meaningless (0.25-0.54 with no
+  ef_search effect). Scale effects are listed as future work in the README.
 - Output: experiments/results/s1_hnsw_sweep[_synthetic].json
 
 [KO]
@@ -21,8 +22,9 @@
   문장). 폴백은 파이프라인 점검용이며 결과에 표시된다.
 - 정확 검색을 기준으로 삼는 이유: HNSW는 근사다. 여기서 "recall"은 사람 라벨과 무관하게 그래프가 진짜
   최근접 이웃을 얼마나 돌려주는지다.
-- 예상: 벡터 약 350개면 거의 모든 설정이 recall 1.0에 도달한다. 측정 도구 자체가 의미 있어 유지하고,
-  --replicate로 벡터를 복제(작은 노이즈, synthetic 표시)해 trade-off를 보일 수 있다.
+- 예상: 벡터 약 350개면 거의 모든 설정이 recall 1.0에 도달한다. 측정 도구 자체가 의미 있어 유지한다.
+  --replicate(노이즈 복제)는 시도 후 폐기(2026-10-12): 근접 동점 군집에서는 ID 기준 recall이 무의미
+  (0.25~0.54, ef_search 효과 없음). 규모 효과는 README의 다음 단계로 남긴다.
 - 출력: experiments/results/s1_hnsw_sweep[_synthetic].json
 """
 
