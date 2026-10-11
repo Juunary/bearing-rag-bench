@@ -48,10 +48,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-10-11T17:21:59+00:00",
+    "timestamp": "2026-10-11T17:28:03+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "d41a3af1dd4bcd5f30e4f7feb223ea27ffd8ac93-dirty",
+    "git_commit": "b0664c61f896d13ad66663e26d5ff3720ffedfac",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -186,7 +186,7 @@
       "answer": "19세기 말 마차 바퀴 축에 쓰던 저널 베어링의 마찰 문제를 줄인 발명은 테이퍼드 롤러 베어링이었다 [en_tapered_roller_bearing#2]. 이 베어링은 타이핑된 롤러를 사용하여 축과 프레임 사이의 하중을 균형 있게 전달하고, 마찰을 줄였다 [en_tapered_roller_bearing#2]. 테이퍼드 롤러 베어링은 타이핑된 롤러와 강화된 스틸 내·외링을 통해 하중을 효율적으로 분산시켰다 [en_tapered_roller_bearing#2].",
       "prompt_tokens": 2149,
       "completion_tokens": 172,
-      "seconds": 5.665,
+      "seconds": 5.223,
       "parsed": {
         "refused": false,
         "cited": [
@@ -236,7 +236,7 @@
       "answer": "주어진 문맥에서 구름 베어링의 케이지 소재에 대해 구체적인 정보가 제공되어 있지 않습니다. [ko_ball_bearing#8]에서는 케이지의 기능과 구조에 대해 설명하지만, 케이지가 어떤 소재로 만들어지는지에 대한 내용은 포함되어 있지 않습니다. 따라서 요즘 구름 베어링의 케이지 소재나 그 이유에 대한 답변은 제공되지 않습니다. [ko_ball_bearing#8]",
       "prompt_tokens": 2316,
       "completion_tokens": 117,
-      "seconds": 3.571,
+      "seconds": 3.572,
       "parsed": {
         "refused": false,
         "cited": [
@@ -286,7 +286,7 @@
       "answer": "볼 베어링에 케이지를 달지 않으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장 날 수 있다 [ko_ball_bearing#4]. 또한 케이지가 없으면 접선 위치는 두 개의 볼록한 표면이 서로 미끄러지면서 안정화되며, 이는 볼에 흠집이 생기고 마찰이 증가할 수 있다 [ko_ball_bearing#8].",
       "prompt_tokens": 2472,
       "completion_tokens": 116,
-      "seconds": 3.52,
+      "seconds": 3.575,
       "parsed": {
         "refused": false,
         "cited": [
@@ -335,7 +335,7 @@
       "answer": "풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손",
       "prompt_tokens": 2093,
       "completion_tokens": 256,
-      "seconds": 7.336,
+      "seconds": 7.482,
       "parsed": {
         "refused": false,
         "cited": [],
@@ -382,7 +382,7 @@
       "answer": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 금속 피로, 윤활 상태, 그리고 하중의 종류와 크기입니다. 수명은 금속 피로에 의해 제한되며, 이는 베이불 분포로 설명될 수 있습니다 [ko_ball_bearing#11]. 윤활은 하중과 수명 간의 관계에 영향을 미치며, 점도가 너무 낮거나 높으면 수명이 감소하거나 증가할 수 있습니다 [ko_ball_bearing#14]. 하중은 베어링의 수명에 직접적인 영향을 미치며, 특히 정적 하중이나 짧은 시간 동안 발생하는 중간 하중은 수명을 감소시킬 수 있습니다 [ko_ball_bearing#10].",
       "prompt_tokens": 2301,
       "completion_tokens": 195,
-      "seconds": 5.502,
+      "seconds": 5.716,
       "parsed": {
         "refused": false,
         "cited": [
@@ -433,7 +433,7 @@
       "answer": "Friedrich Fischer는 1883년에 같은 크기와 정확한 진원도의 볼을 기계로 만들어 독립된 베어링 산업의 발판이 되는 방법을 개발했습니다 [en_bearing_mechanical#3].",
       "prompt_tokens": 2168,
       "completion_tokens": 63,
-      "seconds": 2.056,
+      "seconds": 2.014,
       "parsed": {
         "refused": false,
         "cited": [
@@ -481,7 +481,7 @@
       "answer": "주어진 문맥에서는 구름 베어링에 사용되는 강종의 탄소와 크롬 함량에 대한 구체적인 데이터가 제공되어 있지 않습니다. 따라서 구름 베어링에 가장 흔히 쓰는 강종의 탄소와 크롬 함량을 알 수 없습니다. [ko_bearing#2]",
       "prompt_tokens": 2394,
       "completion_tokens": 79,
-      "seconds": 2.439,
+      "seconds": 2.492,
       "parsed": {
         "refused": false,
         "cited": [
@@ -531,7 +531,7 @@
       "answer": "바늘 롤러 베어링을 쓸 때, 롤러가 얇기 때문에 레이스와 접촉할 때 뚜렷한 굴절을 겪어 피로가 빨리 발생하기 때문에 설계에 주의가 필요합니다 [en_rolling_element_bearing#5]. 이로 인해 베어링은 빠르게 피로 파손될 수 있으며, 설계 시 이러한 피로를 최소화하기 위한 조치가 필요합니다 [en_rolling_element_bearing#13].",
       "prompt_tokens": 1836,
       "completion_tokens": 124,
-      "seconds": 3.576,
+      "seconds": 3.596,
       "parsed": {
         "refused": false,
         "cited": [
@@ -581,7 +581,7 @@
       "answer": "EP 그리스는 \"극한 압력\"(Extreme Pressure)을 뜻하며, 고압 또는 충격 하중에서 정상적인 그리스 필름이 파괴될 경우, 산화 마모를 방지하기 위해 사상 코팅을 형성하거나 그래피트, 몰리브덴 디스уль파이드, 육각 보론 질화물(hBN) 같은 고체 윤활제를 포함하여 마모를 방지합니다 [en_grease#2]. 일반 그리스는 베어링이 너무 뜨거워지면 녹아 베어링 밖으로 흘러나오기 때문에 최대 하중이 감소하고, 이로 인해 베어링의 수명이 감소할 수 있으며, 특히 고온 또는 고압 조건에서 문제가 됩니다 [ko_grease#0].",
       "prompt_tokens": 1696,
       "completion_tokens": 193,
-      "seconds": 5.346,
+      "seconds": 5.328,
       "parsed": {
         "refused": false,
         "cited": [
@@ -630,7 +630,7 @@
       "answer": "오토바이 앞 포크에서 오일과 공기가 새지 않도록 막는 데 쓰는 밀봉 부품은 개스킷 또는 기계적 패킹입니다 [ko_seal#0]. 이는 압력을 가두고 오염 물질을 배제하여 시스템을 밀봉하는 데 사용되며, 특히 압력이 있는 시스템에서 효과적입니다 [ko_seal#1]. 또한, 플랜지 개스킷이나 O링과 같은 밀봉 유형도 포크 내부에서 유사한 기능을 수행할 수 있습니다 [ko_seal#1].",
       "prompt_tokens": 1890,
       "completion_tokens": 145,
-      "seconds": 4.362,
+      "seconds": 4.208,
       "parsed": {
         "refused": false,
         "cited": [
@@ -680,7 +680,7 @@
       "answer": "자동차가 커브를 돌 때 안쪽 바퀴와 바깥쪽 바퀴가 서로 다른 속도로 돌 수 있게 해 주는 장치는 차동기어입니다 [ko_differential#0].",
       "prompt_tokens": 1691,
       "completion_tokens": 47,
-      "seconds": 1.547,
+      "seconds": 1.512,
       "parsed": {
         "refused": false,
         "cited": [
@@ -728,7 +728,7 @@
       "answer": "구름 베어링은 이론적으로 구름 마찰에 의존하여 윤활이 필요 없을 수 있지만, 실제로는 하중에 의해 레이스 면에서 차동 미끄럼이 발생하고, 리테이너와 전동체 사이에서 미끄럼 마찰이 생기기 때문에 윤활이 필요하다 [ko_lubrication#0]. 이러한 마찰은 마모와 에너지 손실을 초래할 수 있으므로, 윤활을 통해 마찰을 감소하고 성능을 향상시킬 수 있다 [ko_ball_bearing#13]. 또한, 윤활제는 마찰을 줄이고 베어링의 수명을 연장하는 데 기여한다 [ko_bearing#0].",
       "prompt_tokens": 2460,
       "completion_tokens": 175,
-      "seconds": 5.211,
+      "seconds": 5.249,
       "parsed": {
         "refused": false,
         "cited": [
@@ -779,7 +779,7 @@
       "answer": "산업 현장에서는 접착 마모로 인해 표면에 덩어리가 생기는 현상을 '갈링(galling)'이라고 부릅니다 [en_wear#2]. 이는 두 표면이 접촉하면서 달라붙고, 작은 움직임으로 인해 떨어지며 표면에 떠오른 덩어리가 형성되는 현상입니다 [en_wear#2]. 이러한 덩어리가 형성되면 표면의 거칠기가 증가하고, 더 강한 접착과 플라스틱 흐름이 발생할 수 있습니다 [en_wear#2].",
       "prompt_tokens": 1743,
       "completion_tokens": 143,
-      "seconds": 4.234,
+      "seconds": 4.165,
       "parsed": {
         "refused": false,
         "cited": [
@@ -830,7 +830,7 @@
       "answer": "윤활이 제대로 되지 않으면 맞닿은 부품 사이에서 마찰이 증가하여 열이 발생하고, 이로 인해 표면이 빠르게 손상되며, 극단적인 경우에 표면이 실제로 뭉쳐서 움직임이 불가능해지는 '서브' 현상이 발생합니다 [en_lubrication#3]. 또한 부품 간의 직접적인 접촉으로 인해 마모가 심해지고, 이는 표면의 거칠기가 증가하며 피로 강도를 감소시켜 결함이나 파손을 유발합니다 [en_fretting#0]. 윤활이 부족하면 물리적 마찰과 화학적 반응(예: 산화)이 더 심해져 부식과 함께 성능 저하가 발생합니다 [en_lubrication#0].",
       "prompt_tokens": 1831,
       "completion_tokens": 201,
-      "seconds": 5.85,
+      "seconds": 5.692,
       "parsed": {
         "refused": false,
         "cited": [
@@ -881,7 +881,7 @@
       "answer": "앞바퀴 구동 차에서 조향할 때 큰 각도로 꺾이는 구동축 바깥쪽 조인트의 대표 형식은 Birfield 조인트입니다. 이 조인트는 Rzeppa 조인트를 기반으로 하며, 6개의 공을 타원형 궤도에 갇혀 움직임을 제한하여 효율을 향상시킵니다. 허용 각도는 일반적으로 45°–48°이며, 일부 모델에서는 54°까지 가능합니다 [en_cv_joint#3].",
       "prompt_tokens": 1858,
       "completion_tokens": 134,
-      "seconds": 3.826,
+      "seconds": 3.97,
       "parsed": {
         "refused": false,
         "cited": [
@@ -932,7 +932,7 @@
       "answer": "The pressing force must not be passed through the balls or rollers when a bearing is mounted to avoid brinelling, which is the permanent deformation of the bearing races caused by excessive pressure [en_brinelling#2]. Applying pressure through the balls or rollers can transfer the force to the wrong race, leading to surface damage and degradation of performance [en_brinelling#1]. This is especially critical in roller and ball bearings, which are prone to brinelling under high impact, lateral loading, or vibration [en_brinelling#1]. Using proper pressing techniques, such as flat plates or soft jaw covers, helps prevent brinell marks and ensures even load distribution [en_brinelling#2].",
       "prompt_tokens": 1668,
       "completion_tokens": 144,
-      "seconds": 4.173,
+      "seconds": 4.141,
       "parsed": {
         "refused": false,
         "cited": [
@@ -983,7 +983,7 @@
       "answer": "The flange on the inner ring stops the conical rollers from being squeezed out under load, as it provides a surface against which the large end of the rollers slides, preventing them from popping out due to the \"pumpkin seed effect\" of their conical shape [en_tapered_roller_bearing#0].",
       "prompt_tokens": 1662,
       "completion_tokens": 67,
-      "seconds": 1.961,
+      "seconds": 2.029,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1032,7 +1032,7 @@
       "answer": "Plain bushings are favored over roller bearings in applications where high impact loads, lateral loads, or vibration are present, such as in automotive crankshafts or pulley sheaves, to decrease the possibility of brinelling by distributing the force over a very large surface area [en_brinelling#1].",
       "prompt_tokens": 1599,
       "completion_tokens": 63,
-      "seconds": 1.839,
+      "seconds": 1.883,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1080,7 +1080,7 @@
       "answer": "When a grease is called shear-thinning, it means that its viscosity decreases under the application of shear stress [en_grease#0]. This reduction in viscosity allows the grease to behave like a liquid with the viscosity of the base oil when subjected to force [en_grease#1]. This property is characteristic of true greases and enables them to flow more easily under pressure, such as when applied with a grease gun [en_grease#1].",
       "prompt_tokens": 1790,
       "completion_tokens": 95,
-      "seconds": 2.655,
+      "seconds": 2.689,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1130,7 +1130,7 @@
       "answer": "Lithium-based grease has a maximum usable temperature of 120 °C [en_grease#2]. This is the temperature limit beyond which the grease may lose its effectiveness or degrade [en_grease#2]. Although lithium-based grease has a dropping point of 190 to 220 °C, this is not the same as the maximum usable temperature in service [en_grease#2].",
       "prompt_tokens": 1841,
       "completion_tokens": 90,
-      "seconds": 2.566,
+      "seconds": 2.65,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1181,7 +1181,7 @@
       "answer": "A self-aligning ball bearing combines a ball bearing with a spherical outer ring and a housing [en_ball_bearing#8]. The spherical outer ring allows the bearing to tolerate a small angular misalignment resulting from shaft or housing deflections or improper mounting [en_ball_bearing#8][en_ball_bearing#16]. This design enables the bearing to tilt inside the housing because the spherical raceway accommodates minor misalignments without causing excessive stress or failure [en_ball_bearing#8][en_ball_bearing#9].",
       "prompt_tokens": 1670,
       "completion_tokens": 109,
-      "seconds": 3.0,
+      "seconds": 3.218,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1233,7 +1233,7 @@
       "answer": "The crack growth phase uses up most of the component's life [en_fatigue_material#3]. This phase follows crack initiation and involves the gradual propagation of fatigue cracks, which ultimately leads to failure [en_fatigue_material#1]. Fatigue cracks grow from small defects like stress concentrations or grain boundaries, and their growth rate is influenced by cyclic loading, mean stress, and environment [en_fatigue_material#3]. Most of the fatigue life is consumed during this crack growth stage, especially in the stage II crack growth where cracks propagate rapidly [en_fatigue_material#1].",
       "prompt_tokens": 1775,
       "completion_tokens": 121,
-      "seconds": 3.572,
+      "seconds": 3.588,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1285,7 +1285,7 @@
       "answer": "Sleeve bearings are used in cheap case fans because they are inexpensive, compact, lightweight, and provide acceptable accuracy and life at minimal cost [en_bearing_mechanical#6]. Their weakness at high speed is relatively low durability and thermal resistance, which can lead to a rapid decrease in lifespan due to high friction and heat generation [ko_bearing#3].",
       "prompt_tokens": 1763,
       "completion_tokens": 75,
-      "seconds": 2.156,
+      "seconds": 2.224,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1334,7 +1334,7 @@
       "answer": "Fretting damage and false brinelling can be distinguished by the pattern and conditions of the wear. Fretting wear occurs under dry contact conditions with small oscillatory movements, leading to fine debris, pitted surfaces, and surface roughness, often with black debris in aluminum or red iron oxide dust in steel [en_fretting#0]. False brinelling, on the other hand, typically occurs during transportation or under lubricated conditions with no significant rotational motion, resulting in a finely polished surface that resembles brinelling but without permanent deformation [en_brinelling#2]. Fretting marks are usually wider and do not match the shape of the rolling elements, while false brinelling marks are more uniform and can disappear after a short break-in period [en_brinelling#3].",
       "prompt_tokens": 1765,
       "completion_tokens": 164,
-      "seconds": 4.416,
+      "seconds": 4.749,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1384,7 +1384,7 @@
       "answer": "The Birfield joint improves on the six-ball cage design by guiding the balls on elliptical tracks [en_cv_joint#3]. It is typically used in modern cars for the outboard driveshaft joints [en_cv_joint#3].",
       "prompt_tokens": 1458,
       "completion_tokens": 48,
-      "seconds": 1.508,
+      "seconds": 1.496,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1435,7 +1435,7 @@
       "answer": "A designer would choose a toroidal CARB roller bearing as the non-locating bearing on a shaft because it can accommodate both angular misalignment and axial displacement, allowing the shaft and housing to undergo thermal expansion independently [en_rolling_element_bearing#6]. This flexibility reduces stress due to thermal expansion and misalignment, improving the system's reliability and lifespan [en_rolling_element_bearing#6]. Unlike cylindrical roller bearings, CARB bearings do not locate axially, which makes them suitable for use in pairs with a locating bearing to allow independent movement [en_rolling_element_bearing#6]. This non-locating function is a key advantage in applications where thermal expansion or misalignment is a concern [en_rolling_element_bearing#6].",
       "prompt_tokens": 1659,
       "completion_tokens": 154,
-      "seconds": 4.459,
+      "seconds": 4.359,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1488,7 +1488,7 @@
       "answer": "The provided context does not mention any groove design specifically used in hydrodynamic plain bearings for particularly quiet computer fans. [ko_bearing#3][en_plain_bearing#12][en_plain_bearing#8][en_bearing_mechanical#7] None of these passages link a groove design to quiet computer fans or hydrodynamic plain bearings in that context.",
       "prompt_tokens": 1813,
       "completion_tokens": 75,
-      "seconds": 2.219,
+      "seconds": 2.33,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1539,7 +1539,7 @@
       "answer": "Simple bicycles use ball bearings in the wheels, bottom bracket, and pedals [en_rolling_element_bearing#7]. These bearings require regular lubrication to prevent wear and failure due to contamination or vibration [en_rolling_element_bearing#7].",
       "prompt_tokens": 1594,
       "completion_tokens": 51,
-      "seconds": 1.549,
+      "seconds": 1.576,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1588,7 +1588,7 @@
       "answer": "The context does not specify an exact temperature to which a bearing may be heated for shrink-fit mounting on a shaft. It only mentions that heating one part before fitting is necessary to allow thermal expansion for a temporary sliding fit, but no specific temperature is provided. [en_bearing_mechanical#12]",
       "prompt_tokens": 1983,
       "completion_tokens": 63,
-      "seconds": 1.888,
+      "seconds": 2.011,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1636,7 +1636,7 @@
       "answer": "유체베어링(fluid bearing)은 금속 간에 유체가 존재하여 금속 간 마찰이 없어 소음이 적고 수명이 길지만 저온에서 정상작동을 보장하기 힘들고, 기름이 유출되면 더 이상 회전이 불가능하다 [ko_bearing#3]. 이는 유체 필름을 통해 금속 접촉을 피하고 장시간 작동하면서 조용한 작동을 가능하게 한다 [ko_bearing#3].",
       "prompt_tokens": 1833,
       "completion_tokens": 119,
-      "seconds": 3.295,
+      "seconds": 3.495,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1685,7 +1685,7 @@
       "answer": "Ein Festlager nimmt sowohl radiale als auch axiale Kräfte auf [de_waelzlager#32]. Ein Loslager kann im Gegensatz dazu nur in axialer Richtung wandern und nimmt daher keine Axialkräfte auf [de_waelzlager#32].",
       "prompt_tokens": 2349,
       "completion_tokens": 66,
-      "seconds": 2.17,
+      "seconds": 2.104,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1736,7 +1736,7 @@
       "answer": "Ein hydrodynamisches Gleitlager verschleißt beim Anfahren besonders stark, weil zu Beginn der Betriebsphase noch kein vollständiger Schmierfilm vorhanden ist und daher Mischreibung auftritt [de_gleitlager#7]. Bei Mischreibung berühren sich die Oberflächen direkt, was zu Verhakungen der Mikrounebenheiten führt und somit zu einem erhöhten Reibungswiderstand und Verschleiß führt [de_gleitlager#2]. Der direkte Kontakt zwischen Welle und Lagerbuchse führt zu Materialabtrag und kann die Lebensdauer des Lagers beeinträchtigen [de_lager_maschinenelement#3]. Ein geeignetes Lagerdesign kann die Dauer und Intensität dieser Mischreibung reduzieren [de_gleitlager#6].",
       "prompt_tokens": 2343,
       "completion_tokens": 192,
-      "seconds": 5.691,
+      "seconds": 5.467,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1788,7 +1788,7 @@
       "answer": "Die Dichtlippe eines Radial-Wellendichtrings wird meist von einer Schlauchfeder (Wurmfeder) radial auf die Wellenoberfläche gedrückt [de_wellendichtring#0]. Im umgedrehten Fall kann die Dichtlippe gegen die Federkraft von der Welle weggedrückt werden; die Dichtwirkung geht dann verloren [de_wellendichtring#1].",
       "prompt_tokens": 2084,
       "completion_tokens": 100,
-      "seconds": 2.962,
+      "seconds": 3.054,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1837,7 +1837,7 @@
       "answer": "Weil bei fehlendem Schmierfilm die Oberflächen direkt aufeinander gleiten und durch die progressiv fortschreitende Grenz- und Mischreibung lokal zunehmend erwärmt werden, und ab einer vom Lagerwerkstoff abhängigen Temperatur verschweißen sie miteinander [de_fressen_technik#0]. Die Wärmeentwicklung aus der Reibung führt zu einem direkten Kontakt der Oberflächen, bei dem Mikroskopische Unebenheiten sich verhaken und die Temperatur den Schmelzpunkt der Werkstoffe erreicht [de_gleitlager#2]. Durch die anhaltende Bewegung werden die verschweißten Partien wieder voneinander getrennt, wobei Werkstoffteilchen verbleiben [de_fressen_technik#0].",
       "prompt_tokens": 2386,
       "completion_tokens": 191,
-      "seconds": 5.225,
+      "seconds": 5.507,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1888,7 +1888,7 @@
       "answer": "Ein Schmierfett besteht aus Schmieröl, Eindicker und verschiedenen Zusätzen oder Wirkstoffen (Additiven) [de_schmierfett#0]. In der Regel bestehen Schmierfette aus ca. 80 % Schmieröl, ca. 5 % bis 10 % Eindicker und ca. 10 % bis 15 % Additiven [de_schmierfett#0]. Der Eindicker bildet ein Gerüst, in dem das Schmieröl eingelagert ist, und steuert die Menge an freigesetztem Öl [de_schmierfett#2]. Additive verbessern Eigenschaften wie den Verschleißschutz oder den Schutz vor Korrosion [de_schmierfett#5].",
       "prompt_tokens": 2311,
       "completion_tokens": 185,
-      "seconds": 5.375,
+      "seconds": 5.377,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1939,7 +1939,7 @@
       "answer": "Beim V-Ring entsteht bei hohen Drehzahlen keine Verlustleistung mehr, weil die Dichtlippe abhebt und die Dichtung als Schleuderring funktioniert [de_wellendichtring#3]. In diesem Zustand wird keine kontinuierliche Reibung aufgebaut, da die Dichtung nicht mehr direkt an der Welle dichtet [de_wellendichtring#3]. Dadurch entsteht kein Widerstand, der als Verlustleistung betrachtet wird [de_wellendichtring#3]. Die Schleuderring-Funktion reduziert die Reibung und somit die Energieverluste [de_wellendichtring#3].",
       "prompt_tokens": 2140,
       "completion_tokens": 160,
-      "seconds": 4.715,
+      "seconds": 4.524,
       "parsed": {
         "refused": false,
         "cited": [
@@ -1990,7 +1990,7 @@
       "answer": "Die geforderten Lebensdauern von Wälzlagern reichen von wenigen hundert Stunden, zum Beispiel für Haushaltsgeräte oder medizinisch-technische Geräte, bis zu ca. 100.000 Stunden für Lauflager von Hochseeschiffen, Grubenpumpen und -gebläse und Papiermaschinen [de_waelzlager#7].",
       "prompt_tokens": 2179,
       "completion_tokens": 96,
-      "seconds": 2.921,
+      "seconds": 2.867,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2038,7 +2038,7 @@
       "answer": "Bei gerader Fahrt treten mahlende Klänge auf, wenn es zu einem Radlagerschaden kommt. [de_waelzlager#8]",
       "prompt_tokens": 2302,
       "completion_tokens": 35,
-      "seconds": 1.244,
+      "seconds": 1.258,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2087,7 +2087,7 @@
       "answer": "Der Schmierfilm bei einem hydrostatischen Gleitlager entsteht durch die unter Druck zugeführte Flüssigkeit, die mit Hilfe einer Ölpumpe an der kraftübertragenden Stelle eingeleitet wird [de_gleitlager#1]. Der Schmierstoff wird so unter Druck gehalten, dass er einen Schmierfilm zwischen den Lagerflächen bildet, der den direkten Kontakt der Oberflächen verhindert [de_lager_maschinenelement#4]. Dieser Film entsteht unabhängig von der Bewegung oder der Belastung des Lagers [de_gleitlager#2].",
       "prompt_tokens": 2430,
       "completion_tokens": 148,
-      "seconds": 4.253,
+      "seconds": 4.347,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2139,7 +2139,7 @@
       "answer": "Echtes Brinelling entsteht durch direkten, statischen Druck auf die Bearing-Race, der zu einer plastischen Deformation führt, während False Brinelling durch Vibrationen oder Fretting-Wear verursacht wird und keine plastische Deformation verursacht [en_brinelling#3]. False Brinelling zeigt sich oft als feinpolierte Oberflächen, die nach einer kurzen Betriebszeit verschwinden, während echtes Brinelling dauerhafte, tiefe Einpressungen verursacht [en_brinelling#2]. Fretting-Wear, das zu False Brinelling führen kann, zeigt sich durch breitere, unregelmäßige Schäden, die nicht exakt der Form der Kugeln oder Rollern entsprechen [en_brinelling#3]. Echtes Brinelling kann durch Druck beim Einbau verursacht werden, während False Brinelling bei Transport oder bei geringen Schwingungen auftritt [en_brinelling#3].",
       "prompt_tokens": 1595,
       "completion_tokens": 228,
-      "seconds": 6.36,
+      "seconds": 6.507,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2190,7 +2190,7 @@
       "answer": "Es wird in den gegebenen Kontexten nichts über die Anzahl der Nadellager in einer Kardanwelle eines Fahrzeugs mit Hinterradantrieb gesagt. [de_nadellager#0] [de_nadellager#1] [de_waelzlager#16] [de_waelzlager#18]",
       "prompt_tokens": 2371,
       "completion_tokens": 78,
-      "seconds": 2.394,
+      "seconds": 2.54,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2243,7 +2243,7 @@
       "answer": "Ein Lager fällt aus, wenn es ohne Schmierstoff läuft, weil der direkte Kontakt zwischen Welle und Lagerbuchse zu hoher Reibung, Verschleiß und Wärmeentwicklung führt [de_gleitlager#2]. Ohne Schmierstoff entsteht Festkörperreibung, bei der die Oberflächen direkt aufeinander gleiten und sich mikroskopisch verhaken [de_gleitlager#2]. Dies führt zu einem hohen Reibungswiderstand, einem erheblichen Verschleiß und einer möglichen Überhitzung der Komponenten [de_gleitlager#2]. Ungeschmierte Lager fallen sogleich aus, da kein Schmierfilm entsteht, der die Welle trennt und eine reibungsarme Bewegung ermöglicht [de_waelzlager#8].",
       "prompt_tokens": 2377,
       "completion_tokens": 196,
-      "seconds": 5.453,
+      "seconds": 5.442,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2294,7 +2294,7 @@
       "answer": "Die DIN-Norm, die Radial-Wellendichtringe für Kraftfahrzeuge regelt, ist DIN 3761 [en_radial_shaft_seal#2].",
       "prompt_tokens": 1907,
       "completion_tokens": 42,
-      "seconds": 1.351,
+      "seconds": 1.371,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2342,7 +2342,7 @@
       "answer": "Pimafet und Rapsöl gelten als relativ stabil und werden sogar in Verbrennungsmotoren eingesetzt [ko_lubricant#1].",
       "prompt_tokens": 2258,
       "completion_tokens": 36,
-      "seconds": 1.262,
+      "seconds": 1.297,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2391,7 +2391,7 @@
       "answer": "Ein synthetisches Schmieröl auf Naphthalinbasis wirkt auf der Metalloberfläche, indem das Naphthalinmolekül sich an der Oberfläche anlagert und die Alkylgruppen wie ein Tuch die Oberfläche bedecken, was die Reibung verringert und eine glatte Bewegung ermöglicht [ko_lubricant#2]. Dieses Verhalten ähnelt dem mechanischen Effekt von \"Gülle\" oder \"Gülle\" auf einer Oberfläche, wodurch die Reibung reduziert wird [ko_lubricant#2]. Die Naphthalinbasis bietet eine stabile, chemisch resistenten Schicht, die die Metalloberfläche schützt und die Reibung minimiert [de_schmierfett#2].",
       "prompt_tokens": 2055,
       "completion_tokens": 180,
-      "seconds": 4.995,
+      "seconds": 5.203,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2416,9 +2416,9 @@
   ],
   "timing": {
     "generation_seconds": {
-      "p50": 3.571267027989961,
-      "p95": 5.690650557051413,
-      "total": 161.6629313873127
+      "p50": 3.575282645993866,
+      "p95": 5.69197292404715,
+      "total": 163.09702973614912
     },
     "tokens": {
       "prompt_mean": 1996.8444444444444,
