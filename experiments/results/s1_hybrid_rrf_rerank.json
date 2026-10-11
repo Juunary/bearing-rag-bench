@@ -45,10 +45,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-10-11T16:48:38+00:00",
+    "timestamp": "2026-10-11T16:52:38+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "eaebb4a5be2ec0739fcd9b73454acef0ffadb80b",
+    "git_commit": "60620a2cbb872563eecfd585eae108eec83ed8b4-dirty",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -1913,8 +1913,8 @@
   "timing": {
     "index": {
       "bm25_kiwi": {
-        "build_seconds": 2.14393540204037,
-        "tokenize_seconds": 2.1111065150471404,
+        "build_seconds": 1.7286411100067198,
+        "tokenize_seconds": 1.701074365992099,
         "n_chunks": 346,
         "vocab_size": 12371,
         "avg_tokens_per_chunk": 207.73121387283237
@@ -1926,14 +1926,14 @@
         "cached": true,
         "path": "data/processed/emb_0235d9fe327f.npz",
         "encode_seconds": 0.0,
-        "build_seconds": 0.003548713051714003,
+        "build_seconds": 0.018427081988193095,
         "index_bytes": 1468360,
         "m": 16,
         "ef_construction": 128,
         "ef_search": 64,
         "exact": false
       },
-      "build_seconds": 2.154455715091899,
+      "build_seconds": 1.7539746289839968,
       "reranker": {
         "model": "BAAI/bge-reranker-v2-m3",
         "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
@@ -1941,9 +1941,9 @@
       }
     },
     "query_latency_ms": {
-      "p50": 168.52424503304064,
-      "p95": 174.31906890124083,
-      "mean": 176.9997444521222
+      "p50": 167.3969340045005,
+      "p95": 171.76767496857792,
+      "mean": 174.56737829165326
     }
   },
   "extra": {

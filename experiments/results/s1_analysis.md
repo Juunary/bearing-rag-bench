@@ -7,7 +7,7 @@
 | bm25_subword | 0.400 | 0.428 | 0.422 | 0.289 - 0.555 | 0.798 | 0.093 |
 | dense_bge_m3_exact | 0.511 | 0.505 | 0.510 | 0.399 - 0.619 | 0.697 | 0.345 |
 | dense_bge_m3 | 0.511 | 0.505 | 0.510 | 0.399 - 0.619 | 0.697 | 0.345 |
-| hybrid_rrf | 0.422 | 0.429 | 0.427 | 0.299 - 0.559 | 0.808 | 0.093 |
+| hybrid_rrf | 0.411 | 0.428 | 0.426 | 0.298 - 0.558 | 0.808 | 0.092 |
 | hybrid_rrf_rerank | 0.615 | 0.702 | 0.631 | 0.524 - 0.732 | 0.835 | 0.453 |
 
 ### 2. latency (ms per query) and index build
@@ -15,12 +15,12 @@
 | config | p50 | p95 | index build (s) |
 |---|---|---|---|
 | bm25_whitespace | 0.09 | 0.12 | 0.04 |
-| bm25_kiwi | 0.16 | 0.64 | 1.79 |
-| bm25_subword | 0.20 | 0.26 | 10.89 |
-| dense_bge_m3_exact | 10.83 | 13.72 | 0.00 |
-| dense_bge_m3 | 8.61 | 10.46 | 0.00 |
-| hybrid_rrf | 10.60 | 13.82 | 1.88 |
-| hybrid_rrf_rerank | 168.52 | 174.32 | 2.15 |
+| bm25_kiwi | 0.15 | 0.62 | 1.76 |
+| bm25_subword | 0.20 | 0.26 | 8.18 |
+| dense_bge_m3_exact | 8.28 | 10.22 | 0.00 |
+| dense_bge_m3 | 8.53 | 9.92 | 0.02 |
+| hybrid_rrf | 8.95 | 10.39 | 1.91 |
+| hybrid_rrf_rerank | 167.40 | 171.77 | 1.75 |
 
 ### 3. complete failures of the best config (Recall@5 = 0)
 
@@ -38,17 +38,17 @@
 
 ### 4. dense better than RRF hybrid (gold chunks in top 5)
 
-dense > hybrid: 10 queries; hybrid > dense: 4 queries
-dense > hybrid groups: ['de->ko', 'en->ko', 'ko->de', 'ko->en'] | cross: 10 of 10
+dense > hybrid: 11 queries; hybrid > dense: 4 queries
+dense > hybrid groups: ['de->ko', 'en->ko', 'ko->de', 'ko->en'] | cross: 11 of 11
 
 ### 5. paired bootstrap of nDCG@10 differences (same queries, 10000 draws, seed 42)
 
 | A - B | mean diff | 95% CI | A better in n queries |
 |---|---|---|---|
 | dense_bge_m3 - bm25_kiwi | +0.099 | -0.012 .. +0.211 | 18 / 11 (worse) |
-| hybrid_rrf - dense_bge_m3 | -0.083 | -0.188 .. +0.021 | 11 / 14 (worse) |
+| hybrid_rrf - dense_bge_m3 | -0.083 | -0.188 .. +0.020 | 11 / 14 (worse) |
 | hybrid_rrf_rerank - dense_bge_m3 | +0.122 | +0.047 .. +0.203 | 17 / 6 (worse) |
-| hybrid_rrf_rerank - hybrid_rrf | +0.205 | +0.101 .. +0.314 | 21 / 5 (worse) |
+| hybrid_rrf_rerank - hybrid_rrf | +0.205 | +0.102 .. +0.315 | 21 / 5 (worse) |
 | bm25_kiwi - bm25_whitespace | -0.011 | -0.038 .. +0.009 | 3 / 3 (worse) |
 | bm25_subword - bm25_whitespace | +0.001 | -0.030 .. +0.030 | 6 / 5 (worse) |
 
@@ -58,4 +58,4 @@ top-1 chunk is in the question language in 9 of 9 failures: [('q002', 'ko->de', 
 
 ### 7. HNSW vs exact: identical rankings?
 
-44 of 45 queries have identical top-10 lists
+45 of 45 queries have identical top-10 lists
