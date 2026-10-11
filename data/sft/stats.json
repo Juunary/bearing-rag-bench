@@ -1,0 +1,58 @@
+{
+ "funnel": {
+  "chunks_total": 346,
+  "eval_gold_chunks_excluded": 56,
+  "source_candidates": 235,
+  "sources_selected": 235,
+  "questions_generated": 235,
+  "questions_rejected": {
+   "refers_to_passage": 5,
+   "too_similar_to_eval": 2,
+   "duplicate_training_question": 1
+  },
+  "questions_kept": 227,
+  "source_in_top5": 182,
+  "questions_with_a_passing_sample": 138,
+  "mean_sentence_coverage_of_all_raw_samples": 0.881,
+  "share_of_prompts_where_a_sample_passes": 0.758
+ },
+ "train": 125,
+ "val": 13,
+ "train_by_q_lang": {
+  "de": 44,
+  "ko": 42,
+  "en": 39
+ },
+ "train_by_chunk_lang": {
+  "de": 40,
+  "en": 69,
+  "ko": 16
+ },
+ "train_cross_language_share": 0.488,
+ "base_model": "Qwen/Qwen3-4B-Instruct-2507",
+ "base_model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+ "seed": 42,
+ "sampling": {
+  "n": 4,
+  "temperature": 0.7,
+  "top_p": 0.9
+ },
+ "environment": {
+  "timestamp": "2026-10-11T20:07:35+00:00",
+  "python": "3.12.8",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "git_commit": "934a10fdb4d1ed6df3d307575664dd4795072aa5",
+  "gpu": "NVIDIA GeForce RTX 3080 Ti",
+  "packages": {
+   "numpy": "2.5.4",
+   "torch": "2.14.1+cu126",
+   "transformers": "5.19.0",
+   "bm25s": "0.3.13",
+   "kiwipiepy": "0.24.0",
+   "hnswlib": "0.8.0",
+   "accelerate": "1.15.0",
+   "peft": "0.21.2",
+   "bitsandbytes": "0.50.2"
+  }
+ }
+}
