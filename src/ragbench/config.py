@@ -95,8 +95,11 @@ class RetrievalConfig:
 class GenerationConfig:
     model: str | None = None
     prompt_version: str | None = None
-    max_new_tokens: int = 512
-    temperature: float = 0.0
+    max_new_tokens: int = 256
+    temperature: float = 0.0           # 0.0 = greedy decoding (deterministic)
+    context_k: int = 5                 # retrieved chunks placed in the prompt
+    retrieval_result: str | None = None   # experiments/results/<name>.json that supplies the ranked chunks
+    device: str = "cuda:0"
 
 
 @dataclass

@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from ragbench.chunking import chunk_set_id, load_chunks  # noqa: E402
 from ragbench.config import ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
-from ragbench.evalset import load_queries, map_gold_to_chunks  # noqa: E402
+from ragbench.evalset import load_queries, map_gold_to_chunks, primary_group  # noqa: E402
 from ragbench.ingest import REPO, load_docs  # noqa: E402
 
 SAMPLE_QUERIES = [
@@ -67,11 +67,6 @@ def build_retriever(cfg: ExperimentConfig):
         from ragbench.retrieval.rerank import RerankRetriever
         return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n)
     raise ValueError(f"unknown retrieval method {r.method!r}")
-
-
-def group_of(q: dict) -> str:
-    """Language pair of the question and its primary evidence (gold[0], which has the top grade)."""
-    return f"{q['q_lang']}->{q['gold'][0]['doc_lang']}"
 
 
 def main() -> None:
@@ -112,7 +107,7 @@ def main() -> None:
         latencies.append(time.perf_counter() - t0)
         ranked = [cid for cid, _ in hits]
         per_query.append({
-            "qid": q["qid"], "group": group_of(q), "q_lang": q["q_lang"], "type": q.get("type"),
+            "qid": q["qid"], "group": primary_group(q), "q_lang": q["q_lang"], "type": q.get("type"),
             "difficulty": q.get("difficulty"), "gold": gold, "ranked": ranked,
             "scores": [round(s, 4) for _, s in hits], "metrics": evaluate_query(ranked, gold),
         })

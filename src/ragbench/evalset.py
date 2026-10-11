@@ -72,5 +72,6 @@ def map_gold_to_chunks(
     return out
 
 
-def query_group(q: dict[str, Any], gold_doc_lang: str) -> str:
-    return f"{q['q_lang']}->{gold_doc_lang}"
+def primary_group(q: dict[str, Any]) -> str:
+    """Language pair of the question and its primary evidence: "{q_lang}->{gold[0].doc_lang}"."""
+    return f"{q['q_lang']}->{q['gold'][0]['doc_lang']}"
