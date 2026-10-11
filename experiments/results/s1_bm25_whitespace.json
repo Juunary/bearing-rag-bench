@@ -45,10 +45,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-10-11T16:14:16+00:00",
+    "timestamp": "2026-10-11T16:22:02+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "d0543935f8701a73ae60644c247ce22eff630cba-dirty",
+    "git_commit": "cb723bda798a6fabe1747357b4b6396d63794729-dirty",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -1900,16 +1900,16 @@
   ],
   "timing": {
     "index": {
-      "build_seconds": 0.038421413977630436,
-      "tokenize_seconds": 0.010604228940792382,
+      "build_seconds": 0.03929399198386818,
+      "tokenize_seconds": 0.010723983985371888,
       "n_chunks": 346,
       "vocab_size": 12408,
       "avg_tokens_per_chunk": 202.4277456647399
     },
     "query_latency_ms": {
-      "p50": 0.08718401659280062,
-      "p95": 0.11773209553211927,
-      "mean": 0.09294535395585829
+      "p50": 0.08956796955317259,
+      "p95": 0.12306100688874722,
+      "mean": 0.09383115555263227
     }
   },
   "extra": {

@@ -45,10 +45,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-10-11T16:15:04+00:00",
+    "timestamp": "2026-10-11T16:22:43+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "d0543935f8701a73ae60644c247ce22eff630cba-dirty",
+    "git_commit": "cb723bda798a6fabe1747357b4b6396d63794729-dirty",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -353,7 +353,7 @@
         0.0293,
         0.0289,
         0.0274,
-        0.0273,
+        0.0271,
         0.027
       ],
       "metrics": {
@@ -418,23 +418,23 @@
         "ko_ball_bearing#0",
         "ko_bearing#1",
         "ko_bearing#0",
+        "ko_ball_bearing#8",
         "ko_ball_bearing#9",
         "ko_ball_bearing#5",
         "ko_ball_bearing#17",
-        "ko_ball_bearing#3",
-        "ko_ball_bearing#19"
+        "ko_ball_bearing#3"
       ],
       "scores": [
         0.0323,
         0.0308,
         0.0296,
-        0.0295,
+        0.0293,
         0.0282,
-        0.028,
+        0.0282,
+        0.0278,
         0.0274,
-        0.0272,
-        0.027,
-        0.0267
+        0.0271,
+        0.0268
       ],
       "metrics": {
         "recall@5": 0.0,
@@ -461,8 +461,8 @@
         "en_grease#2",
         "de_schmierfett#15",
         "ko_ball_bearing#13",
-        "ko_wear#0",
-        "ko_bearing#4"
+        "ko_bearing#4",
+        "en_fatigue_material#13"
       ],
       "scores": [
         0.0325,
@@ -471,10 +471,10 @@
         0.0313,
         0.0306,
         0.029,
-        0.0276,
-        0.0269,
-        0.0257,
-        0.0227
+        0.0278,
+        0.0271,
+        0.023,
+        0.0152
       ],
       "metrics": {
         "recall@5": 0.0,
@@ -709,8 +709,8 @@
         0.0279,
         0.0278,
         0.0277,
-        0.0274,
-        0.0269,
+        0.0275,
+        0.027,
         0.0267
       ],
       "metrics": {
@@ -910,7 +910,7 @@
         0.0274,
         0.0272,
         0.0272,
-        0.0257
+        0.0256
       ],
       "metrics": {
         "recall@5": 1.0,
@@ -1225,8 +1225,8 @@
         0.0284,
         0.027,
         0.0261,
-        0.0251,
-        0.0251,
+        0.025,
+        0.025,
         0.0249,
         0.0244
       ],
@@ -1254,8 +1254,8 @@
         "en_bearing_mechanical#10",
         "en_ball_bearing#12",
         "en_bearing_mechanical#0",
-        "en_bearing_mechanical#9",
-        "en_plain_bearing#9"
+        "en_plain_bearing#9",
+        "en_ball_bearing#11"
       ],
       "scores": [
         0.0323,
@@ -1265,9 +1265,9 @@
         0.028,
         0.0276,
         0.0274,
-        0.0266,
-        0.0262,
-        0.0238
+        0.0269,
+        0.0241,
+        0.0234
       ],
       "metrics": {
         "recall@5": 0.0,
@@ -1302,10 +1302,10 @@
         0.0305,
         0.0289,
         0.0282,
+        0.0279,
         0.0278,
-        0.0277,
         0.0265,
-        0.0257,
+        0.0258,
         0.0255
       ],
       "metrics": {
@@ -1702,7 +1702,7 @@
         0.0303,
         0.029,
         0.0269,
-        0.0201,
+        0.0202,
         0.0154
       ],
       "metrics": {
@@ -1738,10 +1738,10 @@
         0.0304,
         0.0301,
         0.0299,
-        0.0248,
         0.0247,
-        0.0244,
-        0.0237,
+        0.0246,
+        0.0243,
+        0.0236,
         0.0236
       ],
       "metrics": {
@@ -1913,8 +1913,8 @@
   "timing": {
     "index": {
       "bm25_kiwi": {
-        "build_seconds": 1.730083754984662,
-        "tokenize_seconds": 1.7008076129714027,
+        "build_seconds": 1.7431699120206758,
+        "tokenize_seconds": 1.713320545037277,
         "n_chunks": 346,
         "vocab_size": 12371,
         "avg_tokens_per_chunk": 207.73121387283237
@@ -1926,19 +1926,19 @@
         "cached": true,
         "path": "data/processed/emb_0235d9fe327f.npz",
         "encode_seconds": 0.0,
-        "build_seconds": 0.003563822014257312,
+        "build_seconds": 0.0034577210899442434,
         "index_bytes": 1468360,
         "m": 16,
         "ef_construction": 128,
         "ef_search": 64,
         "exact": false
       },
-      "build_seconds": 1.7406730479560792
+      "build_seconds": 1.7533245040103793
     },
     "query_latency_ms": {
-      "p50": 8.427807013504207,
-      "p95": 10.043535963632166,
-      "mean": 15.19680557669037
+      "p50": 8.64190491847694,
+      "p95": 9.421096998266876,
+      "mean": 15.030454598470696
     }
   },
   "extra": {
