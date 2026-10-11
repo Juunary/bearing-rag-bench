@@ -27,3 +27,7 @@ logs/
 .vscode/
 .idea/
 .DS_Store
+
+# Stage 4 intermediates and model files
+data/sft/_work/
+outputs/

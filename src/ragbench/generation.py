@@ -92,25 +92,42 @@ def parse_answer(text: str, provided_ids: list[str], gold_ids: set[str] | list[s
 
 
 class Generator:
-    """Local causal LM, greedy decoding, one prompt at a time."""
+    """Local causal LM, greedy decoding, one prompt at a time.
 
-    def __init__(self, model_name: str, device: str = "cuda:0"):
+    quantize_4bit loads the weights as NF4 (the QLoRA base); adapter is the path of a LoRA/QLoRA
+    adapter trained in stage 4 and applied on top of the loaded base.
+    """
+
+    def __init__(self, model_name: str, device: str = "cuda:0", quantize_4bit: bool = False, adapter: str | None = None):
         import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
+        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
         from ragbench.embedding import hf_cached_revision
 
         self.model_name, self.device = model_name, device
+        self.quantize_4bit, self.adapter = quantize_4bit, adapter
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.bfloat16).to(device).eval()
+        if quantize_4bit:
+            bnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_use_double_quant=True,
+                                     bnb_4bit_compute_dtype=torch.bfloat16)
+            index = int(device.split(":")[1]) if ":" in device else 0
+            self.model = AutoModelForCausalLM.from_pretrained(model_name, quantization_config=bnb, device_map={"": index})
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.bfloat16).to(device)
+        if adapter:
+            from peft import PeftModel
+
+            self.model = PeftModel.from_pretrained(self.model, adapter)
+        self.model.eval()
         self.revision = hf_cached_revision(model_name)
+
+    def _encode(self, messages: list[dict[str, str]]):
+        return self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt", return_dict=True).to(self.device)
 
     def generate(self, messages: list[dict[str, str]], max_new_tokens: int = 256) -> dict[str, Any]:
         import torch
 
-        enc = self.tokenizer.apply_chat_template(
-            messages, add_generation_prompt=True, return_tensors="pt", return_dict=True
-        ).to(self.device)
+        enc = self._encode(messages)
         if self.device.startswith("cuda"):
             torch.cuda.synchronize(self.device)
         t0 = time.perf_counter()
@@ -126,3 +143,16 @@ class Generator:
             "completion_tokens": int(len(new)),
             "seconds": seconds,
         }
+
+    def sample(self, messages: list[dict[str, str]], n: int = 4, temperature: float = 0.7, top_p: float = 0.9,
+               max_new_tokens: int = 256, seed: int = 0) -> list[str]:
+        """n sampled answers for one prompt in a single batched call (used to build training data)."""
+        import torch
+
+        torch.manual_seed(seed)
+        enc = self._encode(messages)
+        with torch.no_grad():
+            out = self.model.generate(**enc, max_new_tokens=max_new_tokens, do_sample=True, temperature=temperature,
+                                      top_p=top_p, num_return_sequences=n)
+        k = enc["input_ids"].shape[1]
+        return [self.tokenizer.decode(o[k:], skip_special_tokens=True).strip() for o in out]
