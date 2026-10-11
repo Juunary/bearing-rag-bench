@@ -1,0 +1,10 @@
+{
+  "seed": 42,
+  "languages": ["ko", "en", "de"],
+  "paths": {
+    "raw": "data/raw",
+    "processed": "data/processed",
+    "eval": "eval/queries.jsonl",
+    "results": "experiments/results"
+  }
+}

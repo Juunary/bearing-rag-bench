@@ -1,0 +1,21 @@
+[project]
+name = "ragbench"
+version = "0.1.0"
+description = "Multilingual (ko/en/de) technical-document RAG retrieval & generation quality experiments, implemented without RAG frameworks"
+authors = [{ name = "Juunary" }]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.5.4",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

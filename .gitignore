@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Raw / processed documents (copyright; re-fetch with scripts/fetch_data.py)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Downloaded models, caches, large logs
+models/
+.cache/
+*.log
+experiments/results/*.jsonl
+logs/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
