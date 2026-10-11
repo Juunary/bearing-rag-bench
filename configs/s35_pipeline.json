@@ -1,0 +1,10 @@
+{
+  "exp_id": "s35_pipeline",
+  "stage": "s35",
+  "description": "End-to-end serving pipeline: RRF + bge-reranker retrieval, Qwen3-4B-Instruct-2507 greedy generation (cite_refuse_v1), SQLite LLM cache, output validation, request log",
+  "retrieval": {"method": "hybrid_rerank", "bm25_tokenizer": "kiwi", "embedding_model": "BAAI/bge-m3",
+                "rrf_k": 60, "fusion_candidates": 50, "rerank_model": "BAAI/bge-reranker-v2-m3",
+                "rerank_top_n": 30, "top_k": 10},
+  "generation": {"model": "Qwen/Qwen3-4B-Instruct-2507", "prompt_version": "cite_refuse_v1", "max_new_tokens": 256,
+                 "temperature": 0.0, "context_k": 5, "retrieval_result": "s1_hybrid_rrf_rerank", "device": "cuda:1"}
+}
