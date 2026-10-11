@@ -109,7 +109,7 @@ def main() -> None:
         idx = hnswlib.Index(space="ip", dim=emb.shape[1])
         t0 = time.perf_counter()
         idx.init_index(max_elements=n, M=m, ef_construction=efc, random_seed=args.seed)
-        idx.add_items(emb, np.arange(n))
+        idx.add_items(emb, np.arange(n), num_threads=1)   # deterministic graph
         build = time.perf_counter() - t0
         with tempfile.NamedTemporaryFile(suffix=".hnsw", delete=False) as f:
             tmp = f.name

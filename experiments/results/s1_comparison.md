@@ -7,7 +7,7 @@
 | s1_bm25_subword | subword | False | bm25 | - | 0.400 | 0.428 | 0.422 | 45 |
 | s1_dense_bge_m3_exact | whitespace | True | dense | - | 0.511 | 0.505 | 0.510 | 45 |
 | s1_dense_bge_m3 | whitespace | False | dense | - | 0.511 | 0.505 | 0.510 | 45 |
-| s1_hybrid_rrf | kiwi | False | hybrid | - | 0.411 | 0.428 | 0.426 | 45 |
+| s1_hybrid_rrf | kiwi | False | hybrid | - | 0.422 | 0.429 | 0.427 | 45 |
 | s1_hybrid_rrf_rerank | kiwi | False | hybrid_rerank | BAAI/bge-reranker-v2-m3 | 0.615 | 0.702 | 0.631 | 45 |
 
 ### de->de
@@ -103,7 +103,7 @@
 | s1_bm25_subword | subword | False | bm25 | - | 0.000 | 0.000 | 0.000 | 7 |
 | s1_dense_bge_m3_exact | whitespace | True | dense | - | 0.429 | 0.260 | 0.306 | 7 |
 | s1_dense_bge_m3 | whitespace | False | dense | - | 0.429 | 0.260 | 0.306 | 7 |
-| s1_hybrid_rrf | kiwi | False | hybrid | - | 0.000 | 0.024 | 0.057 | 7 |
+| s1_hybrid_rrf | kiwi | False | hybrid | - | 0.071 | 0.029 | 0.061 | 7 |
 | s1_hybrid_rrf_rerank | kiwi | False | hybrid_rerank | BAAI/bge-reranker-v2-m3 | 0.571 | 0.686 | 0.612 | 7 |
 
 ### ko->ko

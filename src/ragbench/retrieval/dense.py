@@ -9,6 +9,9 @@
 - Space "ip" (inner product) on L2-normalised vectors == cosine similarity; scores are in [-1, 1].
 - Index stats recorded: build seconds, bytes on disk (save_index to a temp file), m, ef_construction,
   ef_search, embed time, whether embeddings came from cache.
+- Reproducibility: the graph is built with num_threads=1. With the default (all cores) the
+  insertion order, and so the graph, differs per run: 31 of 60 test queries returned a different
+  top-50 list across 5 builds, 0 of 60 with one thread.
 - Caveat: with only ~350 vectors HNSW recall will be ~1.0 for almost any setting; the sweep
   reports that honestly and discusses corpus size as the cause.
 
@@ -21,6 +24,8 @@
 - "ip"(내적) 공간 + L2 정규화 벡터 = 코사인 유사도. 점수 범위 [-1, 1].
 - 기록하는 인덱스 통계: 빌드 시간, 디스크 바이트(임시 파일로 save_index), m, ef_construction,
   ef_search, 임베딩 시간, 캐시 사용 여부.
+- 재현성: 그래프를 num_threads=1로 만든다. 기본값(전체 코어)은 삽입 순서가 실행마다 달라 그래프도
+  달라진다: 테스트 질문 60개 중 31개가 5번 빌드에서 상위 50개 목록이 달랐고, 단일 스레드는 0개였다.
 - 주의: 벡터가 약 350개뿐이라 거의 모든 설정에서 HNSW recall이 1.0 근처가 된다. sweep 결과는 그대로
   기록하고 코퍼스 크기를 원인으로 분석한다.
 """
@@ -64,7 +69,8 @@ class DenseRetriever:
         self.index_ = hnswlib.Index(space="ip", dim=self.emb.shape[1])
         self.index_.init_index(max_elements=len(chunks), M=self.hnsw.m, ef_construction=self.hnsw.ef_construction,
                                random_seed=42)
-        self.index_.add_items(self.emb, np.arange(len(chunks)))
+        # single-threaded insertion: multi-threaded add_items builds a different graph on every run
+        self.index_.add_items(self.emb, np.arange(len(chunks)), num_threads=1)
         self.index_.set_ef(self.hnsw.ef_search)
         build = time.perf_counter() - t0
         with tempfile.NamedTemporaryFile(suffix=".hnsw", delete=False) as f:
