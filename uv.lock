@@ -24,6 +24,18 @@ wheels = [
 ]
 
 [[package]]
+name = "bm25s"
+version = "0.3.13"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/61/ed/5cef92cb5be8963f17a5d6a31bf20c8b0af466b0dc76fc7951f2b727df4a/bm25s-0.3.13.tar.gz", hash = "sha256:49d76bf892ee730beda6d280a13d34b05d630a63988ae246944a81ce8bd15a12", size = 81454 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8e/b7/88807a1bc1dfca8f88a0ed0bbc1eff59287c4636dbf3386117c552a682bd/bm25s-0.3.13-py3-none-any.whl", hash = "sha256:caf033369ec16586430544cf31321ff1a284c7c02f2aff87c4f7a2629f031f0e", size = 75516 },
+]
+
+[[package]]
 name = "click"
 version = "8.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -168,6 +180,35 @@ sdist = { url = "https://files.pythonhosted.org/packages/01/e1/2069291243c926a2f
 wheels = [
     { url = "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl", hash = "sha256:9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7", size = 7552 },
 ]
+
+[[package]]
+name = "kiwipiepy"
+version = "0.24.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "kiwipiepy-model" },
+    { name = "numpy" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8f/42/c95399e2295a48fa2d6a75d99e5bdc579cae175de940dabc432ceccd5256/kiwipiepy-0.24.0.tar.gz", hash = "sha256:4efcc87478b56f774d90bcb62a07502c83da8700aaa985e5f99ea792a2de7ea1", size = 2558959 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c4/53/910587c7d8877652f3560cf25200bfd107ed18393f71c46c8a38807962b9/kiwipiepy-0.24.0-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:8b95a3e7ea8cee453e02e4b4ab27427784e5d9de4ba77d8d5204f9d42a96ee81", size = 15193130 },
+    { url = "https://files.pythonhosted.org/packages/38/7b/015bad91b01ba4ce973a9ae1069a319409ebde58f1f5cf63db277dbe3891/kiwipiepy-0.24.0-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:855484c27de0c8d879d383fe3322b7cfab8039bb6a182b81cc09e15ac941b5a8", size = 5898431 },
+    { url = "https://files.pythonhosted.org/packages/42/d2/23d61741495cbc7aa8f00ee415024b1dd9e84c8211ddd03fd16a4f35cb06/kiwipiepy-0.24.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:8e38db8eb434341a8e83f98912d8020472700d73b57f1ba9b566485ca62c7fbc", size = 5201486 },
+    { url = "https://files.pythonhosted.org/packages/1e/ac/d8469ffb312bb6f3a36128153db05b803a2c1e50ed5ca45771fdc3997dd9/kiwipiepy-0.24.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:78816e1aa47a2a74903d9ebacf6382d867bde58d2605aef237a077ca2f4deeae", size = 11623365 },
+    { url = "https://files.pythonhosted.org/packages/2b/e2/36e79f0f6044c742c3e8447e443f5a90b9bcc0b7aa066283125886cf2396/kiwipiepy-0.24.0-cp314-cp314t-win_amd64.whl", hash = "sha256:5181431c192e3fa4be760d9eb1ff214e6d912cb068f6ec9d7bd98fdb25c6c065", size = 3809752 },
+    { url = "https://files.pythonhosted.org/packages/c5/d8/54ce5b8fa2a35f317fce32f67dca03a4c41cf69f3cdafcdb2b6d2bbf95f5/kiwipiepy-0.24.0-cp39-abi3-macosx_10_14_x86_64.whl", hash = "sha256:7562736e29f89ed0c94970b273b80e61e15968784de8f5d934acf447be081dd8", size = 15186889 },
+    { url = "https://files.pythonhosted.org/packages/e9/4c/dc973f1d6406a06cb68aadb9aa78f18e14de59681143da22af7cf2c2c2f9/kiwipiepy-0.24.0-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:f6a665112296a0f617e25d8f01bdc25306b5389c0eb88098a529ecfaa96f3089", size = 5885799 },
+    { url = "https://files.pythonhosted.org/packages/44/e4/ca956b70b684c3075572e4d6ba8b082b737d9bef081011caf23d55e9a934/kiwipiepy-0.24.0-cp39-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:a6446f418c208409233dcb15f00d79d608aee84d3587a97e8014f8f81cd8369d", size = 5199257 },
+    { url = "https://files.pythonhosted.org/packages/a3/e5/de927cb506a097a7b27f8549a8c12686c2478157cef1edd32dfb47605072/kiwipiepy-0.24.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:062ef32ff5fa74e5f63c335ef5bf9409a38b1ddc60caf3908aff475d7662fa38", size = 11621189 },
+    { url = "https://files.pythonhosted.org/packages/1d/9d/b21fd77c308164e6727efe1ac436b11853fa2fb8598cc81866d1fcc722d7/kiwipiepy-0.24.0-cp39-abi3-win_amd64.whl", hash = "sha256:70f32435944d3bb5425e645048b90aecad739e6ad1dd28c3e59a937de55e20bb", size = 3703877 },
+]
+
+[[package]]
+name = "kiwipiepy-model"
+version = "0.24.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b8/b8/38c99548461844e0be45073cc84c58678024ccb8b5930cabfbaf2bbbe081/kiwipiepy_model-0.24.0.tar.gz", hash = "sha256:55c99505984e4fd99a08ff2aed8abe95be6911d61a132102eef40f63418e1d21", size = 87880791 }
 
 [[package]]
 name = "markdown-it-py"
@@ -357,6 +398,8 @@ name = "ragbench"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "bm25s" },
+    { name = "kiwipiepy" },
     { name = "numpy" },
     { name = "transformers" },
 ]
@@ -368,6 +411,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "bm25s", specifier = ">=0.3.13" },
+    { name = "kiwipiepy", specifier = ">=0.24.0" },
     { name = "numpy", specifier = ">=2.5.4" },
     { name = "transformers", specifier = ">=5.19.0" },
 ]

@@ -1,9 +1,22 @@
 """Evaluation set loading and anchor -> chunk mapping.
 
-Gold evidence is written as (doc_id, anchor sentence, grade). At evaluation time the anchor is
-located in the document text and every chunk covering at least `min_overlap` of the anchor's
-characters becomes a relevant chunk with that grade (if several golds hit one chunk, keep the
-highest grade). This keeps eval/queries.jsonl independent of the chunking configuration.
+[EN]
+- Role: load eval/queries.jsonl; turn each gold (doc_id, anchor sentence, grade) into
+  {chunk_id: grade} for the current chunking.
+- Why anchors instead of chunk ids: chunk ids change whenever chunking changes (stage 2);
+  anchoring on the sentence text keeps one eval set valid across all chunkings.
+- Rule: a chunk is relevant if it covers >= min_overlap (default 0.5) of the anchor's characters.
+  If several golds hit one chunk, the highest grade wins.
+- locate_anchor: exact substring first, then whitespace-insensitive regex; missing anchor raises
+  (a typo in the eval set must surface, not silently score 0).
+
+[KO]
+- 역할: eval/queries.jsonl을 읽고, 각 gold(doc_id, 근거 문장, 등급)를 현재 청킹 기준 {청크ID: 등급}으로 바꾼다.
+- 청크 ID 대신 근거 문장을 쓰는 이유: 청킹을 바꾸면(2단계) 청크 ID가 전부 바뀐다. 문장에 묶어 두면
+  평가셋 하나로 모든 청킹을 평가할 수 있다.
+- 규칙: 근거 문장 문자 수의 min_overlap(기본 0.5) 이상을 덮는 청크를 관련 청크로 본다.
+  여러 gold가 한 청크에 걸리면 높은 등급을 쓴다.
+- locate_anchor: 정확한 부분 문자열 -> 공백 무시 정규식 순. 못 찾으면 예외(평가셋 오타가 0점으로 묻히면 안 된다).
 """
 
 from __future__ import annotations

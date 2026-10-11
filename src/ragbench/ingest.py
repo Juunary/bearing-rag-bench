@@ -1,15 +1,27 @@
-"""Turn raw Wikipedia extracts (data/raw/wiki/*.json) into clean section-structured documents.
+"""Raw Wikipedia extracts -> clean, section-structured documents (data/processed/docs.jsonl).
 
-Output: data/processed/docs.jsonl, one document per line:
-    {"doc_id", "lang", "title", "url", "revid", "license",
-     "sections": [{"path": ["Overall design", "Ball bearing"], "level": 3, "text": "..."}],
-     "text": "<all section texts joined>", "n_chars"}
+[EN]
+- Role: parse TextExtracts plain text ("== Title ==" markers) into sections with heading paths,
+  drop boilerplate sections (See also / References / Einzelnachweise / 같이 보기 ...),
+  normalise whitespace, keep paragraph boundaries for the chunker.
+- Output record: doc_id, lang, title, url, revid, license, sections[{path, level, text}],
+  text (sections joined by blank line), n_chars.
+- Why TextExtracts (not HTML parsing): one API call gives clean prose with section markers,
+  enough for structure-based chunking in stage 2. Cost: tables and infoboxes are lost (limitation).
+- Why docs.jsonl is committed: Wikipedia text is CC BY-SA 4.0, and the eval set's anchor
+  sentences must point at an exact revision; pinning the text keeps the eval set stable.
+- Language tag comes from the source list (per-wiki), no language detection needed.
 
-- The TextExtracts plain text marks headings as ``== Title ==`` (level = number of '=').
-- Boilerplate sections (See also / References / Einzelnachweise / 같이 보기 ...) are dropped.
-- Runs of blank lines are collapsed; paragraph boundaries ("\n") are kept for chunking.
-- Wikipedia text is CC BY-SA 4.0, so the processed file is committed to pin the exact revision
-  the evaluation set's anchor sentences refer to.
+[KO]
+- 역할: TextExtracts 평문("== 제목 ==" 마커)을 절 단위로 나누고 제목 경로를 붙인다. 각주·같이 보기류
+  절은 버리고, 공백을 정리하되 문단 경계는 청킹용으로 남긴다.
+- 출력: doc_id, lang, title, url, revid, license, sections[{path, level, text}], text(절을 빈 줄로
+  이어 붙임), n_chars.
+- TextExtracts를 고른 이유: API 한 번으로 절 마커가 있는 깨끗한 본문을 얻어 2단계 구조 기반 청킹에
+  충분하다. 대가로 표·인포박스는 사라진다(한계로 기록).
+- docs.jsonl을 커밋하는 이유: 위키 본문은 CC BY-SA 4.0이고, 평가셋의 근거 문장은 특정 리비전 텍스트를
+  가리켜야 한다. 텍스트를 고정해야 평가셋이 깨지지 않는다.
+- 언어 태그는 출처 목록(언어별 위키)에서 오므로 언어 감지가 필요 없다.
 """
 
 from __future__ import annotations

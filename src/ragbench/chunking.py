@@ -1,22 +1,38 @@
 """Chunking: fixed token budget, cut at paragraph/sentence boundaries, sentence-level overlap.
 
-Decisions (2026-10-11): unit = tokens of the embedding model's tokenizer (BAAI/bge-m3, XLM-R
-vocabulary) because the budget must match what the embedder actually sees; Korean needs ~2.6x
-more tokens per character than English/German (measured 1.7 vs 4.1-4.4 chars/token), so a
-character budget would give Korean chunks far less content. No title prefix in stage 1.
+[EN]
+- Role: docs.jsonl -> chunks_{set_id}.jsonl with chunk_id "{doc_id}#{idx}", text, char offsets
+  (needed to map eval anchors), token count and section path.
+- Decisions (2026-10-11):
+  - Unit = tokens of the embedding model's tokenizer (BAAI/bge-m3, XLM-R vocab) so the budget
+    equals what the embedder sees. Measured 1.7 chars/token for Korean vs 4.1-4.4 for en/de: a
+    character budget would give Korean chunks ~2.6x less content.
+  - Size 384, overlap 48 (stage 1 baseline; 256/512 compared in stage 2).
+  - Cut at paragraph/sentence boundaries, not hard token cuts, so anchor sentences rarely
+    straddle chunks. Hard cut only when one sentence exceeds the budget (lists, tables).
+  - Overlap is sentence-level: the next chunk starts with the trailing sentences of the previous
+    one, bounded by `overlap` tokens AND by what still fits under `size`.
+  - No title/section prefix in stage 1 (kept for the stage 2 contextual-retrieval comparison).
+- Algorithm: split paragraphs -> sentences (light multilingual regex; over-splitting German
+  "z. B." only adds cut candidates) -> greedy packing -> emit with exact char spans.
+- Chunk set id (e.g. fixed_tok384_ov48) keeps different chunkings in separate files.
+- Usage: uv run python -m ragbench.chunking [--size 384] [--overlap 48]
 
-Algorithm (strategy "fixed"):
-  1. Split the document text into paragraphs (one per line in docs.jsonl), each paragraph
-     into sentences with a light multilingual regex. Each sentence keeps its char span.
-  2. Greedily append sentences while the token count stays <= size. When the next sentence
-     would overflow, emit the chunk and start a new one seeded with the trailing sentences of
-     the previous chunk whose total tokens <= overlap (sentence-level overlap).
-  3. A single sentence longer than `size` is hard-cut on token boundaries (rare: tables, lists).
-
-Chunk ids are "{doc_id}#{idx}". The chunk *set* id encodes the configuration
-(e.g. fixed_tok384_ov48) so different chunkings never mix.
-
-Usage: uv run python -m ragbench.chunking [--size 384] [--overlap 48]
+[KO]
+- 역할: docs.jsonl -> chunks_{set_id}.jsonl. 청크 ID "{doc_id}#{idx}", 본문, 문자 오프셋(평가셋 anchor
+  매핑에 필요), 토큰 수, 절 경로를 담는다.
+- 결정(2026-10-11):
+  - 단위 = 임베딩 모델 토크나이저(BAAI/bge-m3, XLM-R 어휘)의 토큰. 예산이 임베더가 보는 길이와 일치한다.
+    측정값: 한국어 1.7자/토큰 vs en/de 4.1~4.4자/토큰. 문자 기준이면 한국어 청크 내용이 약 2.6배 적어진다.
+  - 크기 384, 오버랩 48(1단계 기준선, 2단계에서 256/512 비교).
+  - 토큰 수에서 딱 자르지 않고 문단·문장 경계에서 자른다. 근거 문장이 청크 경계에 걸치는 일을 줄인다.
+    한 문장이 예산을 넘을 때만(목록·표) hard cut.
+  - 오버랩은 문장 단위: 다음 청크가 이전 청크의 끝 문장들로 시작. `overlap` 토큰과 `size` 잔여분 둘 다로 제한.
+  - 1단계는 제목/절 제목을 붙이지 않는다(2단계 contextual retrieval 비교를 위해 남겨 둠).
+- 알고리즘: 문단 -> 문장(가벼운 다국어 정규식; 독일어 "z. B."가 과분할돼도 자를 후보만 늘어남)
+  -> 탐욕적 채우기 -> 정확한 문자 범위로 출력.
+- 청크 세트 ID(예: fixed_tok384_ov48)로 청킹 설정별 파일을 분리한다.
+- 사용: uv run python -m ragbench.chunking [--size 384] [--overlap 48]
 """
 
 from __future__ import annotations

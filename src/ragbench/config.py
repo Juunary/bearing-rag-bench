@@ -1,9 +1,32 @@
-"""Experiment configuration, reproducibility helpers and result container.
+"""Experiment config / reproducibility / result container.
 
-Every experiment is described by one JSON file (configs/*.json) that maps 1:1 onto
-``ExperimentConfig``. Every run writes one JSON file (experiments/results/<exp_id>.json)
-that contains the full config, an environment snapshot, aggregate metrics and the
-per-query outputs, so a result file is self-describing without the code that made it.
+[EN]
+- Role: one JSON config file == one experiment (ExperimentConfig); one JSON result file ==
+  one run (ExperimentResult) holding config + environment snapshot + metrics + per-query output.
+- Why: a result file must be self-describing. Anyone (or compare.py) can read it months later
+  and know which code commit, package versions, model revision and seed produced each number.
+- Choices:
+  - JSON, not YAML: results are JSON already; stdlib only, one format for configs and logs.
+  - Nested dataclasses (chunking / retrieval / generation) so compare.py can diff only the fields
+    that changed between runs.
+  - environment_snapshot() records git commit (+"-dirty" if uncommitted changes), tracked package
+    versions, GPU name, UTC timestamp. "-dirty" flags numbers that cannot be reproduced from git.
+  - set_seed() fixes random / numpy / torch. GPU kernels may still differ at float precision.
+- Alternatives considered: Hydra/OmegaConf (more features, more magic), MLflow (server; overkill
+  for a 2-day study).
+
+[KO]
+- 역할: 설정 JSON 1개 = 실험 1개(ExperimentConfig), 결과 JSON 1개 = 실행 1회(ExperimentResult).
+  결과 파일에 설정·환경 스냅샷·지표·질의별 출력을 전부 담는다.
+- 이유: 결과 파일이 코드 없이도 자기 설명이 되어야 한다. 나중에 어떤 커밋·패키지 버전·모델 리비전·
+  시드에서 나온 숫자인지 파일만 보고 알 수 있게 한다.
+- 선택:
+  - YAML 대신 JSON: 결과도 JSON이라 형식 통일, 표준 라이브러리만 사용.
+  - 중첩 dataclass(chunking/retrieval/generation): compare.py가 실험 간 달라진 필드만 뽑기 쉽다.
+  - environment_snapshot(): git 커밋(미커밋 변경 시 "-dirty"), 추적 패키지 버전, GPU, UTC 시각.
+    "-dirty"는 git으로 재현 불가능한 숫자임을 표시한다.
+  - set_seed(): random/numpy/torch 고정. GPU 커널 차이로 소수점 차이는 남을 수 있다.
+- 대안: Hydra/OmegaConf(기능 많지만 마법이 많음), MLflow(서버 필요, 2일짜리 실험엔 과함).
 """
 
 from __future__ import annotations

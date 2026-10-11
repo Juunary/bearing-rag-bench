@@ -1,0 +1,6 @@
+{
+  "exp_id": "s1_bm25_whitespace",
+  "stage": "s1",
+  "description": "BM25 (bm25s, k1=1.5 b=0.75) with 'whitespace' tokenizer; fixed 384-token chunks, overlap 48",
+  "retrieval": {"method": "bm25", "bm25_tokenizer": "whitespace", "top_k": 10}
+}
