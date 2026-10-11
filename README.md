@@ -1,5 +1,7 @@
 # bearing-rag-bench
 
+한국어 | [English](README.en.md)
+
 한국어·영어·독일어 베어링·자동차 부품 기술문서를 대상으로 RAG의 검색, 생성, 평가, 운영, 파인튜닝을 구현하고 측정한 실험 저장소입니다.
 LangChain, LlamaIndex 같은 프레임워크 없이 청킹, BM25, 임베딩, HNSW, RRF, 리랭킹, 지표, 캐시, 검증, LoRA 학습 루프를 직접 구현했습니다.
 
