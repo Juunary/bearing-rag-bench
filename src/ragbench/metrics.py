@@ -13,8 +13,7 @@
   - Empty gold -> ValueError (data error must not silently become 0).
   - ranked shorter than k is fine.
 - Why graded nDCG: the eval set marks core vs supporting evidence, so ordering quality matters.
-- Implementation: the author writes these; tests/test_metrics.py holds
-  hand-computed expectations.
+
 
 [KO]
 - 역할: 라이브러리 없이 직접 쓴 지표 함수. 수식이 코드에 드러나고 테스트로 검증한다.
@@ -28,7 +27,6 @@
   - gold가 비면 ValueError (데이터 오류가 조용히 0이 되면 안 된다).
   - ranked가 k보다 짧아도 된다.
 - 등급형 nDCG를 쓰는 이유: 평가셋이 핵심/보조 근거를 구분하므로 순서 품질을 반영한다.
-- 구현: 작성자가 직접 쓴다. 기대값은 tests/test_metrics.py에 손계산으로 둔다.
 """
 
 from __future__ import annotations
@@ -39,21 +37,42 @@ from typing import Any
 
 
 def recall_at_k(ranked: list[str], gold: dict[str, int], k: int) -> float:
-    raise NotImplementedError
-
+    if not gold:
+        raise ValueError("gold must not be empty")
+    relevant = set(gold)
+    hit = sum(1 for chunk_id in ranked[:k] if chunk_id in relevant)
+    return hit / len(relevant)
 
 def mrr_at_k(ranked: list[str], gold: dict[str, int], k: int = 10) -> float:
-    raise NotImplementedError
+    if not gold:
+        raise ValueError("gold must not be empty")
+    for rank, chunk_id in enumerate(ranked[:k], start=1):
+        if chunk_id in gold:
+            return 1.0 / rank
+    return 0.0
 
 
 def ndcg_at_k(ranked: list[str], gold: dict[str, int], k: int = 10) -> float:
-    # Hint: write a small dcg(grades: list[int]) helper and call it twice.
-    raise NotImplementedError
+    if not gold:
+        raise ValueError("gold must not be empty")
+    # DCG
+    dcg = 0.0
+    for rank, chunk_id in enumerate(ranked[:k], start=1):
+        grade = gold.get(chunk_id, 0)
+        dcg += grade / math.log2(rank + 1)
+    # IDCG
+    ideal_grades = sorted(gold.values(), reverse=True)[:k]
+    idcg = sum(grade / math.log2(rank + 1) for rank, grade in enumerate(ideal_grades, start=1))
+    return dcg / idcg if idcg > 0 else 0.0
 
 
 def evaluate_query(ranked: list[str], gold: dict[str, int]) -> dict[str, float]:
     """Return {"recall@5": ..., "mrr@10": ..., "ndcg@10": ...} for one query."""
-    raise NotImplementedError
+    return {
+        "recall@5": recall_at_k(ranked, gold, k=5),
+        "mrr@10": mrr_at_k(ranked, gold, k=10),
+        "ndcg@10": ndcg_at_k(ranked, gold, k=10)
+    }
 
 
 def aggregate(per_query: list[dict[str, Any]], group_key: str | None = None) -> dict[str, dict[str, float]]:
@@ -63,4 +82,17 @@ def aggregate(per_query: list[dict[str, Any]], group_key: str | None = None) -> 
     With ``group_key=None`` return {"overall": {metric: mean}}; with ``group_key="group"`` return
     {"ko->en": {...}, "en->en": {...}, ...} plus "overall". Also include "n" (query count) per group.
     """
-    raise NotImplementedError
+    groups: dict[str, list[dict[str, float]]] = defaultdict(list)
+    for q in per_query:
+        metrics = q["metrics"]
+        groups["overall"].append(metrics)
+        if group_key:
+            groups[q[group_key]].append(metrics)
+
+    result: dict[str, dict[str, float]] = {}
+    for name, items in groups.items():
+        metric_names = list(items[0].keys())
+        averaged = {metric_name: sum(m[metric_name] for m in items) / len(items) for metric_name in metric_names}
+        averaged["n"] = len(items)
+        result[name] = averaged
+    return result
