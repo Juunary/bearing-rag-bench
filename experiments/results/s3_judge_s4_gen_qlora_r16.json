@@ -1,0 +1,1137 @@
+{
+  "config": {
+    "exp_id": "s3_judge_s4_gen_qlora_r16",
+    "stage": "s3",
+    "description": "LLM-as-a-judge (Qwen3-8B, two GPUs, thinking off, greedy): faithfulness, answer relevance, context relevance, correctness; judged file: s4_gen_qlora_r16",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3"
+    },
+    "retrieval": {
+      "method": "bm25",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": "Qwen/Qwen3-8B",
+      "prompt_version": "judge_v1",
+      "max_new_tokens": 80,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "auto",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-10-11T21:19:52+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "ee39d5b13fc2a037e75eea3e984a3fc6ee403418",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "faithfulness": 0.975609756097561,
+      "faithfulness_n": 41,
+      "answer_relevance": 0.926829268292683,
+      "answer_relevance_n": 41,
+      "context_relevance": 0.8888888888888888,
+      "context_relevance_n": 45,
+      "correctness": 0.7804878048780488,
+      "correctness_n": 41,
+      "judge_context_vs_gold_agreement": 0.8666666666666667,
+      "n": 45
+    },
+    "by_group": {
+      "de->de": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 1.0,
+        "correctness": 1.0,
+        "n": 9
+      },
+      "de->en": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 0.75,
+        "correctness": 0.6666666666666666,
+        "n": 4
+      },
+      "de->ko": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 1.0,
+        "correctness": 0.5,
+        "n": 2
+      },
+      "en->de": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 0.5,
+        "correctness": 1.0,
+        "n": 4
+      },
+      "en->en": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 1.0,
+        "correctness": 1.0,
+        "n": 9
+      },
+      "en->ko": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 1.0,
+        "correctness": 1.0,
+        "n": 2
+      },
+      "ko->de": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.5,
+        "context_relevance": 0.6,
+        "correctness": 0.5,
+        "n": 5
+      },
+      "ko->en": {
+        "faithfulness": 0.8571428571428571,
+        "answer_relevance": 0.8571428571428571,
+        "context_relevance": 1.0,
+        "correctness": 0.42857142857142855,
+        "n": 7
+      },
+      "ko->ko": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 1.0,
+        "correctness": 0.6666666666666666,
+        "n": 3
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "q001",
+      "group": "ko->en",
+      "question": "19세기 말 마차 바퀴 축에 쓰던 저널 베어링의 마찰 문제를 줄인 발명은 무엇이었나?",
+      "answer": "19세기 말 마차 바퀴 축에 쓰던 저널 베어링의 마찰 문제를 줄인 발명은 테이퍼드 롤러 베어링이었다 [en_tapered_roller_bearing#1]. 이 베어링은 콘형 롤러를 사용하여 하중을 균일하게 전달하고, 마찰을 줄여 전반적인 마모를 감소시켰다 [en_tapered_roller_bearing#2]. 테이퍼드 롤러 베어링은 하중을 롤러가 실제로 굴러가며 수용함으로써 마찰을 크게 줄였으며, 이는 저널 베어링이 기존의 유체 윤활에 의존하는 방식에서 벗어나 더 안정적이고 지속 가능한 성능을 제공했다 [en_tapered_roller_bearing#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The answer correctly identifies the tapered roller bearing as the invention that reduced friction in journal bearings used on 19th-century wagon axles, and accurately describes its function and advantages as stated in the passages.  \nVERDICT: YES",
+        "answer_relevance": "테이퍼드 롤러 베어링이 19세기 말 마차 바퀴 축의 저널 베어링 마찰 문제를 줄인 발명이라고 언급하여 질문에 답하려 시도했다.  \nVERDICT: YES",
+        "context_relevance": "The passage mentions that John Lincoln Scott invented a roller bearing in 1895 for use on wagon axles, and Henry Timken later developed the tapered roller bearing, which significantly reduced friction in axle bearings during the late 19th century.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the tapered roller bearing as the invention that reduced friction in journal bearings and aligns with the information provided in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q002",
+      "group": "ko->de",
+      "question": "요즘 구름 베어링의 케이지는 보통 무슨 소재로 만들고, 그 이유는 무엇인가요?",
+      "answer": "주어진 문맥에서 구름 베어링의 케이지 소재에 대한 구체적인 정보는 제공되지 않습니다 [ko_ball_bearing#8]. 케이지의 기능은 볼을 고정하고 마찰을 줄이며, 볼에 흠집이 생기지 않도록 하며, 안정성을 제공하는 데 있습니다 [ko_ball_bearing#8]. 그러나 케이지의 소재는 문맥에서 언급되지 않았습니다. 따라서 요즘 구름 베어링의 케이지 소재와 그 이유는 문맥에서 명시되지 않았습니다 [ko_ball_bearing#8].",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention that cage materials in ball bearings are used to hold the balls in place and reduce friction, but they do not specifically state what material the cage is typically made of.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "q003",
+      "group": "ko->ko",
+      "question": "볼 베어링에 케이지를 달지 않으면 어떤 일이 생기나요?",
+      "answer": "볼 베어링에 케이지를 달지 않으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장날 수 있습니다 [ko_ball_bearing#4]. 또한 케이지가 없으면 접선 위치는 두 개의 볼록한 표면이 서로 미끄러지면서 안정화되며, 이는 볼에 흠집이 생기고 마찰이 증가할 수 있습니다 [ko_ball_bearing#8].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "볼 베어링에 케이지를 달지 않으면 볼이 제자리를 벗어나고, 볼에 흠집이 생기며 마찰이 증가할 수 있다는 내용은 Passage에 명시 또는 암시되어 있다.\n\nVERDICT: YES",
+        "answer_relevance": "볼 베어링에 케이지를 달지 않는 경우의 결과에 대해 설명하려는 시도가 포함되어 있으므로 질문을 다루고 있습니다.  \nVERDICT: YES",
+        "context_relevance": "콘래드 스타일 볼 베어링의 설명에서 케이지가 없으면 볼이 제자리를 벗어나고 베어링이 고장날 수 있음을 명시하고 있습니다.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states that without a cage, the balls can drift out of position and cause the bearing to fail, which matches the Reference. However, it also incorrectly adds information about the contact position and surface sliding that is not mentioned in the Reference.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "q004",
+      "group": "ko->en",
+      "question": "풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 무엇인가요?",
+      "answer": "풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": false,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The answer is repetitive and does not provide any meaningful information or reference the passages to identify the type of damage.  \nVERDICT: NO",
+        "answer_relevance": "The answer repeats the question and does not provide any meaningful information or attempt to address the actual question about the type of damage caused by bearings that do not rotate but oscillate.  \nVERDICT: NO",
+        "context_relevance": "Passages discuss fretting and false brinelling as types of damage in bearings with limited motion, which matches the question about damage in bearings that do not rotate continuously.\nVERDICT: YES",
+        "correctness": "The answer is repetitive and does not provide any meaningful information or correctly identify the type of damage described in the reference.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "q005",
+      "group": "ko->en",
+      "question": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 무엇인가요?",
+      "answer": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 금속 피로, 윤활 조건, 그리고 하중에 따른 소성 변형입니다 [ko_ball_bearing#11]. 금속 피로는 수명을 제한하며, 베이불 분포로 설명될 수 있다고 가정합니다 [ko_ball_bearing#11]. 윤활 조건은 점도가 너무 높거나 낮을 경우 수명에 영향을 미치며, 점도가 권장보다 높으면 수명이 증가하고 낮으면 감소합니다 [ko_ball_bearing#14]. 또한 회전하지 않는 경우, 요소나 레이스웨이의 소성 변형은 응력을 집중시켜 균열을 유발할 수 있어 하중 용량을 제한합니다 [ko_ball_bearing#11].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Answer는 Passage에 기반하여 베어링의 수명이나 하중 용량을 제한하는 세 가지 원인을 제시하고 있으며, 모든 사실적 주장이 Passage에 명시되거나 명확히 암시되어 있으므로 정확한 정보를 반영하고 있습니다.  \nVERDICT: YES",
+        "answer_relevance": "The answer lists three factors that can limit bearing life or load capacity, which directly addresses the question.  \nVERDICT: YES",
+        "context_relevance": "Passages discuss factors affecting bearing life, including load, lubrication, and material properties, which are relevant to the question.  \nVERDICT: YES",
+        "correctness": "The Answer incorrectly identifies \"윤활 조건\" (lubrication conditions) and \"하중에 따른 소성 변형\" (plastic deformation due to load) as the three causes, while the Reference states the three causes are abrasion, fatigue, and pressure-induced welding.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "q006",
+      "group": "ko->de",
+      "question": "같은 크기와 정확한 진원도의 볼을 기계로 만들어 독립된 베어링 산업의 발판이 된 방법은 누가, 언제 개발했나요?",
+      "answer": "Friedrich Fischer는 1883년에 같은 크기와 정확한 진원도의 볼을 기계로 만들어 독립된 베어링 산업의 발판이 되는 방법을 개발했습니다 [en_bearing_mechanical#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Friedrich Fischer is mentioned in the passage as developing a method for milling and grinding balls of equal size and exact roundness in 1883, which set the stage for the independent bearing industry.  \nVERDICT: YES",
+        "answer_relevance": "Friedrich Fischer의 기계적 방법이 질문에서 언급된 조건을 만족하는지 확인하기 위해 필요한 정보가 제공되었습니다.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that Friedrich Fischer developed a method for milling and grinding balls of equal size and exact roundness in 1883, which set the stage for the independent bearing industry.  \nVERDICT: YES",
+        "correctness": "Friedrich Fischer는 1883년에 같은 크기와 정확한 진원도의 볼을 기계로 만든 방법을 개발했으며, 이는 독립된 베어링 산업의 발판이 되었습니다.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q007",
+      "group": "ko->de",
+      "question": "구름 베어링에 가장 흔히 쓰는 강종의 탄소와 크롬 함량은 어느 정도인가요?",
+      "answer": "주어진 문맥에서는 구름 베어링에 사용되는 강종의 탄소와 크롬 함량에 대한 구체적인 데이터를 제공하지 않습니다 [ko_bearing#0]. 따라서 구름 베어링에 가장 흔히 쓰는 강종의 탄소와 크롬 함량을 알 수 없습니다 [ko_bearing#0].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": false,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "주어진 문맥에서는 구름 베어링에 사용되는 강종의 탄소와 크롬 함량에 대한 정보가 전혀 제공되지 않았기 때문에 답변은 문맥에 기반하여 사실을 전달하고 있다.  \nVERDICT: YES",
+        "answer_relevance": "The answer acknowledges the lack of specific information in the provided context but does not attempt to provide an answer based on general knowledge or external sources.  \nVERDICT: NO",
+        "context_relevance": "The passages mention various materials used in bearings, including carbon and chromium content in specific types of steel, but do not specifically state the typical carbon and chromium content in the most commonly used steel for roller bearings.  \nVERDICT: NO",
+        "correctness": "The Answer incorrectly states that the Reference does not provide specific data, while the Reference actually mentions the carbon and chromium content of 100Cr6 steel, which is commonly used for roller bearings.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "q008",
+      "group": "ko->de",
+      "question": "바늘 롤러 베어링을 쓸 때 어떤 약점 때문에 설계에 주의가 필요한가요?",
+      "answer": "바늘 롤러 베어링을 쓸 때, 롤러가 얇기 때문에 접촉 지점에서 긁히는 경향이 크고, 이로 인해 피로가 빨리 발생하기 때문에 설계에 주의가 필요합니다 [en_rolling_element_bearing#5]. 또한, 작은 롤러는 뚜렷한 굴절을 겪어 피로 파손이 빨리 일어나기 때문에, 설계 시 피로 수명을 고려해야 합니다 [en_rolling_element_bearing#13].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the fatigue caused by sharp bending at contact points and the need to consider fatigue life, both of which are supported by the passages.  \nVERDICT: YES",
+        "answer_relevance": "바늘 롤러 베어링의 약점과 설계에 주의해야 하는 사항에 대해 언급하고 있으므로 질문을 답하려고 시도했다.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss the design considerations for needle roller bearings, including fatigue due to sharp bending of thin rollers.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the fatigue due to sharp bending of small rollers and the risk of high edge pressure, which aligns with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q009",
+      "group": "ko->en",
+      "question": "EP 그리스는 무엇을 뜻하고, 일반 그리스는 어떤 조건에서 문제가 되나요?",
+      "answer": "EP 그리스는 \"극한 압력\"을 의미하며, 고압 또는 충격 하중에서 정상 윤활 영화가 파괴될 경우에도 마모를 방지하기 위해 희생 코팅을 형성하거나 그래피트, 몬테이드 스파이드, 헥사고날 보론 아이디드 등 고체 윤활제를 포함하여 보호를 제공합니다 [en_grease#2]. 일반 그리스는 베어링이 너무 뜨거워지면 녹아 베어링 밖으로 흘러나오기 때문에 최대 하중이 감소하고, 이로 인해 마모가 심해질 수 있습니다 [ko_grease#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies EP grease as \"extreme pressure\" grease and mentions its protective features, while the part about general grease refers to the melting point issue implied by the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides information about EP 그리스 and general grease, addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passages explain what EP grease means and discuss the conditions under which regular grease may be problematic, specifically in terms of bearing life and performance.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies EP grease as \"extreme pressure\" grease and mentions its function, while the Reference supports this definition and explains the purpose of EP greases. The Answer also touches on the issues with normal grease under high pressure, though it misrepresents the cause of problems in normal grease.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "q010",
+      "group": "ko->de",
+      "question": "오토바이 앞 포크에서 오일과 공기가 새지 않도록 막는 데 쓰는 밀봉 부품은 무엇인가요?",
+      "answer": "오토바이 앞 포크에서 오일과 공기가 새지 않도록 막는 데 쓰는 밀봉 부품은 개스킷 또는 기계적 패킹입니다 [ko_seal#0]. 이는 압력을 가두고 오염 물질을 배제하여 시스템을 밀봉하는 데 사용되며, 특히 압력이 있는 시스템에서 효과적입니다 [ko_seal#0]. 또한, 스타팅 박스(Stuffing box)는 압력이 있는 시스템에서 유체가 새지 않도록 막는 데 사용되며, 이는 평면 베어링과 함께 사용되는 일반적인 밀봉 시스템입니다 [en_plain_bearing#12].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": false,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The Answer mentions \"개스킷 또는 기계적 패킹\" and \"스타팅 박스\" as sealing components, both of which are supported by the passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies possible sealing components used in motorcycle front forks but does not specifically name the correct part.  \nVERDICT: NO",
+        "context_relevance": "The passages mention \"스터핑 박스 (기계적 패킹)\" which is a sealing system used to keep fluid from leaking out of a pressurized system through the plain bearing, which is relevant to the question about sealing parts on a motorcycle front fork.  \nVERDICT: YES",
+        "correctness": "The Answer incorrectly identifies the sealing part as a gasket or mechanical packing, while the Reference specifically mentions RWDR (which stands for Ring with Dimpled Radial Groove) as the sealing component used in motorcycle forks.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "q011",
+      "group": "ko->ko",
+      "question": "자동차가 커브를 돌 때 안쪽 바퀴와 바깥쪽 바퀴가 서로 다른 속도로 돌 수 있게 해 주는 장치는 무엇인가요?",
+      "answer": "자동차가 커브를 돌 때 안쪽 바퀴와 바깥쪽 바퀴가 서로 다른 속도로 돌 수 있게 해 주는 장치는 차동기어입니다 [ko_differential#0]. 차동기어는 한 기어가 다른 기어 주위를 돌며 동력을 전달하는 장치로, 내측 차륜의 회전이 줄어들면 외측 차륜의 회전이 증가하여 무리 없이 커브를 돌 수 있도록 합니다 [ko_differential#0]. 이 동력전달 장치는 차량의 차륜 간 속도 차이를 조절하여 안정적인 운행을 가능하게 합니다 [ko_differential#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "차동기어가 자동차의 안쪽 바퀴와 바깥쪽 바퀴의 속도 차이를 조절하는 장치라는 사실은 Passage에서 명시적으로 언급되어 있으며, Answer는 이 정보를 정확히 반영하고 있습니다.  \nVERDICT: YES",
+        "answer_relevance": "차량의 안쪽 바퀴와 바깥쪽 바퀴가 서로 다른 속도로 회전할 수 있도록 하는 장치에 대해 설명하고 있으므로 질문을 답하려고 시도했다.  \nVERDICT: YES",
+        "context_relevance": "Passages describe a differential gear as the mechanism that allows wheels to rotate at different speeds when turning, which directly answers the question.  \nVERDICT: YES",
+        "correctness": "차동기어가 자동차가 커브를 돌 때 안쪽과 바깥쪽 바퀴의 속도 차이를 조절하는 장치라는 사실은 Reference와 일치합니다.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q012",
+      "group": "ko->ko",
+      "question": "구름 베어링은 구름 마찰만 일어나서 윤활이 필요 없을 것 같은데, 실제로는 왜 윤활이 필요한가요?",
+      "answer": "구름 베어링은 이론적으로 구름 마찰에 의하여 마찰이 줄어들고 윤활이 필요하지 않을 수 있지만, 실제로는 하중에 의해 궤도 면이 변형되어 차동 미끄럼이 발생하고, 리테이너와 전동체 사이에서 미끄럼 마찰이 생기기 때문에 윤활이 필요하다 [ko_lubrication#0]. 이 미끄럼 마찰은 마모를 초래하고 성능을 저하시킬 수 있으므로 윤활을 통해 마찰을 감소하고 마모를 방지해야 한다 [ko_ball_bearing#13]. 또한 윤활은 열 발생을 줄이고, 이물질의 배제 및 녹의 방지를 통해 베어링의 수명과 신뢰성을 향상시킨다 [ko_lubrication#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "구름 베어링에서 윤활이 필요한 이유는 하중에 의한 차동 미끄럼과 리테이너와 전동체 사이의 마찰, 마모 방지, 냉각, 이물 배제 등이 언급되어 있으며, 이는 답변에 모두 반영되어 있다.  \nVERDICT: YES",
+        "answer_relevance": "구름 베어링의 실제 윤활 필요성에 대해 설명하며 질문에 답하려고 시도했다.  \nVERDICT: YES",
+        "context_relevance": "Passages explain that even though ball bearings rely on rolling friction, lubrication is still necessary to reduce sliding friction, prevent wear, and ensure proper operation.  \nVERDICT: YES",
+        "correctness": "The Answer correctly explains that lubrication is necessary in roller bearings due to sliding friction and wear, which aligns with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q013",
+      "group": "ko->en",
+      "question": "금속 표면이 서로 달라붙었다 떨어지며 표면에 덩어리가 생기는 접착 마모를 산업 현장에서는 뭐라고 부르나요?",
+      "answer": "산업 현장에서는 접착 마모로 인해 표면이 달라붙고 떨어지며 덩어리가 생기는 현상을 \"갈링\"(galling)이라고 부릅니다 [en_wear#2]. 이는 마찰로 인해 표면이 달라붙고, 산화층이 파열되어 아래층의 물질과 연결되어 발생하는 현상입니다 [en_wear#2]. 갈링은 표면의 거칠기 증가와 함께 마모를 유도하며, 특히 고속·고하중 조건에서 발생합니다 [ko_wear#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Answer는 제공된 Passage에 기반하여 \"갈링\"(galling)이라는 용어를 사용하여 접착 마모 현상을 설명하고 있으며, 이는 Passage에서 언급된 내용과 일치합니다.  \nVERDICT: YES",
+        "answer_relevance": "산업 현장에서 접착 마모로 인해 표면에 덩어리가 생기는 현상에 대해 \"갈링\"이라는 용어를 언급하고 있으므로 질문을 답변하고 있습니다.  \nVERDICT: YES",
+        "context_relevance": "The passage in English (en_wear#2) explicitly mentions \"galling\" as the term used in industrial manufacturing for adhesive wear that results in surface lumps.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies \"갈링\" (galling) as the term used in industrial settings for the described phenomenon and aligns with the information provided in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q014",
+      "group": "ko->en",
+      "question": "윤활이 제대로 되지 않으면 맞닿은 부품에는 어떤 일이 일어나나요?",
+      "answer": "윤활이 제대로 되지 않으면 맞닿은 부품 사이의 압력이 충분한 열을 발생시켜 표면이 빠르게 손상되며, 이는 결국 표면이 녹아서 서로 결합하게 되는 '시즈'를 유발할 수 있습니다 [en_lubrication#3]. 이러한 상황에서는 부품이 마찰을 통해 파손되거나, 열이 축적되어 파손되거나, 마모가 심해지며, 결국 기계적 작동이 불가능해질 수 있습니다 [en_lubrication#0]. 또한 윤활이 부족하면 물이나 이물질이 표면에 닿아 부식이 발생할 가능성이 높아집니다 [en_lubrication#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer accurately reflects the information from the Passages about the consequences of improper lubrication, including surface damage, heat generation, welding, and mechanical failure.  \nVERDICT: YES",
+        "answer_relevance": "The answer discusses the consequences of improper lubrication, including damage, heat, corrosion, and mechanical failure, which directly addresses the question about what happens when lubrication is inadequate.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss the consequences of inadequate lubrication, including heat generation, surface damage, and potential seizure of mechanical components.  \nVERDICT: YES",
+        "correctness": "The Answer correctly describes the consequences of improper lubrication as stated in the Reference, including heat generation, surface damage, welding, and mechanical failure.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q015",
+      "group": "ko->en",
+      "question": "앞바퀴 구동 차에서 조향할 때 큰 각도로 꺾이는 구동축 바깥쪽 조인트의 대표 형식과 허용 각도는 어느 정도인가요?",
+      "answer": "앞바퀴 구동 차에서 조향할 때 큰 각도로 꺾이는 구동축 바깥쪽 조인트의 대표 형식은 Birfield 조인트입니다 [en_cv_joint#3]. 이 조인트는 Rzeppa 조인트를 기반으로 하며, 6개의 볼을 타고 있는 경로를 타고 움직이게 하여 효율을 향상시킵니다 [en_cv_joint#3]. 허용 각도는 일반적으로 45°–48°이며, 일부 모델에서는 54°까지 가능합니다 [en_cv_joint#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the Birfield joint as the representative form and mentions the typical articulation angles, which are supported by the Passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies the representative form and approximate allowable angle of the outer joint in a front-wheel drive vehicle's steering system, which addresses the question.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that typical Rzeppa joints allow 45°–48° of articulation and some can give 54°, which answers the question about the representative form and allowable angle of the outboard joint in front-wheel drive vehicles.  \nVERDICT: YES",
+        "correctness": "The Answer incorrectly identifies the joint type as Birfield, while the Reference refers to Rzeppa joints, and the Answer also misattributes the joint's design features.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "q016",
+      "group": "en->en",
+      "question": "Why must the pressing force not be passed through the balls or rollers when a bearing is mounted?",
+      "answer": "The pressing force must not be passed through the balls or rollers when a bearing is mounted to avoid transferring the pressure from one bearing race to the other, which can cause brinelling—a form of surface damage that leads to premature failure [en_brinelling#2]. Applying pressure through the balls or rollers can induce localized high pressures that deform the bearing surfaces, especially in the races [en_brinelling#1]. This is particularly critical in roller bearings, where such pressure can lead to loss of preload and degradation of performance [en_brinelling#1]. Using flat pressing plates or soft jaw covers helps prevent brinell marks and ensures even pressure distribution [en_brinelling#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The answer accurately reflects the passages' content about avoiding pressure transfer through balls or rollers to prevent brinelling and mentions relevant details about installation procedures and damage prevention.  \nVERDICT: YES",
+        "answer_relevance": "The answer explains the consequences of passing pressing force through the balls or rollers and provides reasoning related to bearing damage and performance, which addresses the question.  \nVERDICT: YES",
+        "context_relevance": "The passages explain that applying pressure through the balls or rollers can cause brinelling by transferring force between races, which directly answers the question.  \nVERDICT: YES",
+        "correctness": "The answer correctly explains that applying pressing force through the balls or rollers can transfer pressure between races, causing brinelling and surface damage, which aligns with the reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q017",
+      "group": "en->en",
+      "question": "What stops the conical rollers of a tapered bearing from being squeezed out under load?",
+      "answer": "The flange on the inner ring stabilizes and restrains the conical rollers, against which their large end slides, which stops the rollers from popping out due to the \"pumpkin seed effect\" of their conical shape [en_tapered_roller_bearing#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the flange on the inner ring as the feature that stops the conical rollers from being squeezed out, as stated in the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer mentions the flange on the inner ring and the \"pumpkin seed effect\" as factors preventing conical rollers from being squeezed out, which directly addresses the question.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that the rollers are stabilized and restrained by a flange on the inner ring, which prevents them from being squeezed out under load.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the flange on the inner ring as the mechanism that stabilizes and restrains the conical rollers, matching the information in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q018",
+      "group": "en->en",
+      "question": "Where are plain bushings favored over roller bearings to avoid dents from impact loads?",
+      "answer": "Plain bushings are favored over roller bearings in applications where high impact loads, lateral loads, or vibration are experienced, such as in automotive crankshafts or pulley sheaves, to decrease the possibility of brinelling by distributing the force over a very large surface area [en_brinelling#1].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The answer correctly identifies that plain bushings are favored over roller bearings in high impact, lateral, or vibratory applications to prevent brinelling, as supported by the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer addresses the question by explaining in which applications plain bushings are favored over roller bearings to avoid dents from impact loads.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss brinelling in roller bearings and mention that plain bearings (like bronze bushings) are used in applications with high impact loads to avoid brinelling.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies that plain bushings are favored over roller bearings in applications with impact loads, such as automotive crankshafts or pulley sheaves, to prevent brinelling by distributing force over a larger surface area, which aligns with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q019",
+      "group": "en->en",
+      "question": "What does it mean when a grease is called shear-thinning?",
+      "answer": "When a grease is called shear-thinning, it means that its viscosity decreases under the application of shear stress [en_grease#0]. This results in the grease behaving like a liquid with a viscosity similar to its base oil when force is applied [en_grease#1]. This property allows the grease to flow easily under pressure, such as when applied with a grease gun, while maintaining its structure at rest [en_grease#1].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer accurately reflects the information in the Passages about shear-thinning grease, stating that viscosity decreases under shear stress and that this allows the grease to flow under pressure while maintaining structure at rest.  \nVERDICT: YES",
+        "answer_relevance": "The answer explains the meaning of shear-thinning in grease by describing how its viscosity changes under shear stress and provides examples of its behavior.  \nVERDICT: YES",
+        "context_relevance": "The passages explain that shear-thinning refers to the reduction in viscosity of grease under shear stress, which is a key characteristic of greases.  \nVERDICT: YES",
+        "correctness": "The Answer correctly explains that shear-thinning grease reduces viscosity under shear stress and behaves like its base oil, aligning with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q020",
+      "group": "en->en",
+      "question": "Up to what temperature can lithium grease actually be used in service?",
+      "answer": "Lithium-based grease has a maximum usable temperature of 120 °C [en_grease#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly states the maximum usable temperature for lithium-based grease as 120 °C, which is explicitly mentioned in the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a specific temperature value for the maximum usable temperature of lithium-based grease, which directly addresses the question.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that lithium-based grease has a dropping point at 190 to 220 °C but the maximum usable temperature is 120 °C.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the maximum usable temperature of lithium-based grease as 120 °C, which matches the information in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q021",
+      "group": "en->de",
+      "question": "What kind of ready-made bearing unit combines a ball bearing with a spherical outer ring and a housing, and why can the bearing tilt inside the housing?",
+      "answer": "A self-aligning ball bearing combines a ball bearing with a spherical outer ring and a housing [en_ball_bearing#8]. The spherical outer ring allows the bearing to tolerate a small angular misalignment resulting from shaft or housing deflections or improper mounting [en_ball_bearing#8]. This design enables the bearing to tilt inside the housing because the spherical raceway permits rotation and misalignment without immediate failure [en_ball_bearing#16].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the self-aligning ball bearing as the type that combines a ball bearing with a spherical outer ring and a housing, and accurately explains the tilting mechanism based on the spherical raceway and misalignment tolerance.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies the type of bearing and explains the mechanism allowing tilt, addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passage mentions self-aligning ball bearings with a spherical outer ring and housing, and explains that the bearing can tilt inside the housing to tolerate misalignment.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the self-aligning ball bearing and explains that the spherical outer ring allows for angular misalignment, which aligns with the Reference's mention of a spherical outer ring and the ability to adjust for misalignment.  \nVERDICT: YES"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "q022",
+      "group": "en->en",
+      "question": "Which phase of a fatigue failure uses up most of the component's life?",
+      "answer": "The crack growth phase uses up most of the component's life [en_fatigue_material#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The passage explicitly states that \"Most of the fatigue life is generally consumed in the crack growth phase,\" which directly supports the answer.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies the crack growth phase as the one that uses up most of the component's life, which directly addresses the question.  \nVERDICT: YES",
+        "context_relevance": "The passage [en_fatigue_material#3] explicitly states that most of the fatigue life is generally consumed in the crack growth phase.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies that the crack growth phase consumes most of the component's life, as stated in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q023",
+      "group": "en->ko",
+      "question": "Why are sleeve bearings used in cheap case fans, and what is their weakness at high speed?",
+      "answer": "Sleeve bearings are used in cheap case fans because they are the least expensive type of bearing, compact, lightweight, and have a high load-carrying capacity, making them cost-effective for applications where high precision or speed is not required [en_plain_bearing#0]. Their weakness at high speed is their relatively low durability and thermal resistance, as high rotational speeds lead to significant friction and heat generation, which drastically shortens their lifespan [ko_bearing#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the reasons for using sleeve bearings in cheap case fans and their weakness at high speed, as supported by the Passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer addresses both parts of the question by explaining why sleeve bearings are used in cheap case fans and identifying their weakness at high speed.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss sleeve bearings, their characteristics, and their use in case fans, including their weakness at high speeds.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies that sleeve bearings are used in cheap case fans due to their cost-effectiveness and mentions their weakness at high speed related to heat and lifespan, aligning with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q024",
+      "group": "en->en",
+      "question": "How can I tell fretting damage from false brinelling in a bearing?",
+      "answer": "Fretting damage and false brinelling can be distinguished by their characteristics and conditions [en_brinelling#3]. Fretting wear occurs under dry contact conditions and results in deep, uneven wear marks that are often too wide and do not match the shape of the rolling elements, while false brinelling appears as finely polished surfaces with no permanent deformation and typically occurs during transportation [en_brinelling#2]. Fretting leads to pitted surfaces and fine debris (e.g., red iron oxide dust in steel or black oxide in aluminum), whereas false brinelling does not involve significant debris or surface pitting [en_fretting#0]. Additionally, fretting is caused by small oscillatory movements and adhesion-breaking cycles, while false brinelling results from vibration-induced lubricant displacement without rotational motion [en_brinelling#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The answer accurately reflects the distinctions between fretting damage and false brinelling as described in the passages, covering characteristics, conditions, and debris types.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides distinguishing characteristics between fretting damage and false brinelling, directly addressing how to differentiate the two.  \nVERDICT: YES",
+        "context_relevance": "The passages provide detailed descriptions of both fretting damage and false brinelling, including their causes, appearances, and distinguishing characteristics.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the key differences between fretting damage and false brinelling as outlined in the Reference, including the conditions (dry vs. lubricated), surface characteristics, and debris presence.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q025",
+      "group": "en->en",
+      "question": "Which CV joint improves on the six-ball cage design by guiding the balls on non-circular tracks, and where is it typically used?",
+      "answer": "The Birfield joint improves on the six-ball cage design by guiding the balls on elliptical tracks [en_cv_joint#3]. It is typically used in modern cars for the outboard driveshaft joints [en_cv_joint#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the Birfield joint as the improvement on the six-ball cage design and notes its use in modern cars for outboard driveshaft joints, both of which are supported by the passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies the Birfield joint and mentions it improves on the six-ball cage design by using elliptical tracks, and specifies its typical use in modern cars for outboard driveshaft joints, addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passages mention the Birfield joint as an improvement on the Rzeppa joint with elliptical tracks and note its use in modern cars for outboard driveshaft joints.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the Birfield joint as the improvement on the six-ball cage design with elliptical tracks and notes its typical use in modern cars for outboard driveshaft joints, as stated in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q026",
+      "group": "en->en",
+      "question": "Why would a designer choose a toroidal CARB roller bearing as the non-locating bearing on a shaft?",
+      "answer": "A designer would choose a toroidal CARB roller bearing as the non-locating bearing on a shaft because it can accommodate both angular misalignment and axial displacement, making it suitable for applications where such movements are expected [en_rolling_element_bearing#6]. It provides a good balance between load capacity and performance under misalignment [en_rolling_element_bearing#6]. Unlike cylindrical roller bearings, CARB bearings allow the shaft and housing to undergo thermal expansion independently, which reduces stress and improves reliability [en_rolling_element_bearing#6]. This flexibility is particularly advantageous in high-temperature or dynamically changing environments [en_rolling_element_bearing#6].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The answer correctly identifies the key advantages of CARB bearings as stated in the passage, including their ability to accommodate angular misalignment and axial displacement, their use as a non-locating bearing, and their role in allowing thermal expansion.  \nVERDICT: YES",
+        "answer_relevance": "The answer addresses the question by explaining the reasons a designer might choose a toroidal CARB roller bearing for a non-locating application, including its ability to handle misalignment and thermal expansion.  \nVERDICT: YES",
+        "context_relevance": "The passages explain that CARB bearings can accommodate angular misalignment and axial displacement, and allow for thermal expansion, which directly answers why a designer would choose them as a non-locating bearing.  \nVERDICT: YES",
+        "correctness": "The answer correctly identifies the key advantages of toroidal CARB roller bearings as described in the reference, including their ability to accommodate angular misalignment, axial displacement, and thermal expansion.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q027",
+      "group": "en->de",
+      "question": "Which groove design is used in hydrodynamic plain bearings for particularly quiet computer fans?",
+      "answer": "The provided context does not specify which groove design is used in hydrodynamic plain bearings for particularly quiet computer fans [ko_bearing#3]. While groove designs like spiral grooves are mentioned for aiding lubrication [en_plain_bearing#8], there is no direct link to hydrodynamic plain bearings or quiet computer fans in the given passages. Therefore, based on the information, the groove design for quiet computer fans cannot be identified.",
+      "refused": true,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention that spiral groove bearings are grooved to help lubrication enter and cover the whole journal, and that magnetic bearings are used in computer case fans for low noise. However, they do not explicitly state which groove design is used in hydrodynamic plain bearings for particularly quiet computer fans.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "over_refusal"
+    },
+    {
+      "qid": "q028",
+      "group": "en->de",
+      "question": "Which kind of bearing do simple bicycles use in the wheels, bottom bracket and pedals, and what upkeep does it need?",
+      "answer": "Simple bicycles use ball bearings in the wheels, bottom bracket, and pedals [en_rolling_element_bearing#7]. These bearings require regular lubrication to maintain performance and prevent wear [en_rolling_element_bearing#7].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies ball bearings as used in bicycles and mentions the need for lubrication, both of which are supported by the Passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies the type of bearing used in simple bicycles and mentions the required upkeep, addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss the types of bearings used in bicycles and their upkeep, including ball bearings for light loads and the need for lubrication and maintenance.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies ball bearings as the type used in simple bicycles and mentions the need for lubrication, which aligns with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "q029",
+      "group": "en->de",
+      "question": "To what temperature may a bearing be heated for shrink-fit mounting on a shaft?",
+      "answer": "The context does not specify the exact temperature to which a bearing may be heated for shrink-fit mounting on a shaft [en_bearing_mechanical#12]. It only mentions that one part is heated to allow thermal expansion for a temporary sliding fit, but no specific temperature is given [en_ball_bearing#16].",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention that for large bearings, one part is heated before fitting to allow a temporary sliding fit due to thermal expansion, but they do not specify the maximum temperature to which a bearing may be heated for shrink-fit mounting.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "q030",
+      "group": "en->ko",
+      "question": "Which bearing type avoids metal contact through a fluid film and runs quietly for long, but struggles at low temperature and stops turning if the oil leaks out?",
+      "answer": "The fluid bearing avoids metal contact through a fluid film and runs quietly for long, but struggles at low temperature and stops turning if the oil leaks out [ko_bearing#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the fluid bearing as the type that avoids metal contact through a fluid film, runs quietly, struggles at low temperatures, and stops turning if oil leaks out, as described in the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies \"fluid bearing\" as the type that meets the described characteristics.  \nVERDICT: YES",
+        "context_relevance": "The passage describes a fluid bearing, which avoids metal contact through a fluid film, runs quietly, struggles at low temperatures, and stops turning if the oil leaks out.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the fluid bearing as the type that avoids metal contact through a fluid film, runs quietly, struggles at low temperatures, and stops if oil leaks, as stated in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q031",
+      "group": "de->de",
+      "question": "Welche Kräfte nimmt ein Festlager auf und was gilt dagegen für ein Loslager?",
+      "answer": "Ein Festlager nimmt sowohl radiale als auch axiale Kräfte auf [de_waelzlager#32]. Ein Loslager nimmt keine axiale Kräfte auf und kann in axialer Richtung wandern [de_waelzlager#32].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort ist korrekt und wird durch die Passagen gestützt, da sie die Funktionen von Festlager und Loslager wie in den Passagen beschrieben wiedergibt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort versucht, die Frage nach den Kräften, die ein Festlager aufnimmt, sowie den Unterschied zu einem Loslager zu beantworten.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erklären, dass ein Festlager Radial- und Axialkräfte aufnimmt, während ein Loslager keine Axialkräfte aufnimmt und in axialer Richtung verschiebbar ist.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass ein Festlager radiale und axiale Kräfte aufnimmt und ein Loslager keine axialen Kräfte aufnimmt.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q032",
+      "group": "de->de",
+      "question": "Warum verschleißt ein hydrodynamisches Gleitlager beim Anfahren besonders stark?",
+      "answer": "Ein hydrodynamisches Gleitlager verschleißt beim Anfahren besonders stark, weil unterhalb der Mindestdrehzahl kein vollständiger Schmierfilm entsteht und daher Mischreibung auftritt [de_gleitlager#7]. Bei Mischreibung berühren sich die Oberflächen direkt, was zu einem erhöhten Verschleiß führt, da Mikroskopische Unebenheiten sich verhaken und Material abgetragen wird [de_gleitlager#2]. Während des Anlaufs kann der Schmierfilm nicht aufgebaut werden, sodass der direkte Kontakt und die resultierende Reibung das Verschleißverhalten beeinflussen [de_gleitlager#5].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt korrekt, dass unterhalb der Mindestdrehzahl kein vollständiger Schmierfilm entsteht und Mischreibung auftritt, was zu erhöhtem Verschleiß führt. Diese Informationen sind in den Passagen enthalten.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort erklärt, warum ein hydrodynamisches Gleitlager beim Anfahren besonders stark verschleißt, indem sie die Rolle des Schmierfilms und der Mischreibung beschreibt.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erklären, dass beim Anfahren hydrodynamische Gleitlager zunächst keinen vollständigen Schmierfilm haben und daher Mischreibung auftreten kann, was zu verstärktem Verschleiß führt.  \nVERDICT: YES",
+        "correctness": "Die Antwort beschreibt korrekt die Ursachen für den erhöhten Verschleiß beim Anfahren eines hydrodynamischen Gleitlagers und stimmt mit den Angaben der Referenz überein.  \nVERDICT: YES"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "q033",
+      "group": "de->de",
+      "question": "Wie wird die Dichtlippe eines Radial-Wellendichtrings an die Welle gedrückt?",
+      "answer": "Die Dichtlippe eines Radial-Wellendichtrings wird meist von einer Schlauchfeder (Wurmfeder) radial auf die Wellenoberfläche gedrückt [de_wellendichtring#0]. Im umgedrehten Fall kann die Dichtlippe gegen die Federkraft von der Welle weggedrückt werden; die Dichtwirkung geht dann verloren [de_wellendichtring#1].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort beschreibt korrekt, dass die Dichtlippe durch eine Schlauchfeder gedrückt wird und erwähnt den umgekehrten Fall, wie in den Passagen beschrieben.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort beschreibt, wie die Dichtlippe eines Radial-Wellendichtrings durch eine Schlauchfeder gedrückt wird, was die Frage adäquat beantwortet.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [de_wellendichtring#1] erklärt, dass die Dichtlippe eines Radial-Wellendichtrings durch den Druckunterschied an die Welle gedrückt wird.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass die Dichtlippe durch eine Schlauchfeder radial auf die Wellenoberfläche gedrückt wird.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q034",
+      "group": "de->de",
+      "question": "Warum verschweißen die Gleitpartner eines Lagers bei fehlendem Schmierfilm lokal miteinander?",
+      "answer": "Wenn kein Schmierfilm zwischen den Gleitpartnern vorhanden ist, treten direkter Kontakt und hohe Reibung auf, was zu einer erhöhten Temperatur führt [de_fressen_technik#0]. Die erhöhte Temperatur führt dazu, dass die Oberflächen sich lokal verschweisen, da die Werkstoffe bei bestimmten Temperaturen zusammenwachsen [de_fressen_technik#0]. Durch die anhaltende Bewegung werden die verschweißten Partien wieder voneinander getrennt, wobei Werkstoffteilchen verbleiben [de_fressen_technik#0]. Dieser Prozess kann zu einem Ausfall des Systems führen, wenn die Energie nicht mehr ausreicht, um die Reibung zu überwinden [de_fressen_technik#0].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort fasst die wesentlichen Faktoren aus dem Passage zusammen, einschließlich der Ursachen für das Fressen, des Temperaturanstiegs, des Verschweißens und der Folgen.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort erklärt den Prozess des Verschweißens von Gleitpartnern eines Lagers bei fehlendem Schmierfilm und beschreibt die Ursachen und Folgen dieses Phänomens.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erklären das Phänomen \"Fressen\", bei dem Gleitpartner eines Lagers bei fehlendem Schmierfilm lokal verschweißen, und beschreiben die damit verbundenen Mechanismen.  \nVERDICT: YES",
+        "correctness": "Die Antwort beschreibt korrekt den Prozess des Verschweißens und Losreißens der Gleitpartner bei fehlendem Schmierfilm, wie es in der Referenz beschrieben wird.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q035",
+      "group": "de->de",
+      "question": "Aus welchen Bestandteilen besteht ein Schmierfett?",
+      "answer": "Ein Schmierfett besteht aus Schmieröl, Eindicker (auch Verdicker genannt) und verschiedenen Zusätzen oder Wirkstoffen (Additiven) [de_schmierfett#0]. In der Regel bestehen Schmierfette aus ca. 80 % Schmieröl, ca. 5 % bis 10 % Eindicker und ca. 10 % bis 15 % Additiven [de_schmierfett#0]. Die Suspension aus Grundöl und Eindicker wird auch als Grundfett bezeichnet [de_schmierfett#1].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort fasst korrekt die Hauptbestandteile von Schmierfetten zusammen und gibt die typischen Anteilsverhältnisse aus den Passagen wieder.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt die Hauptbestandteile von Schmierfett und beschreibt deren Anteilsverhältnisse, was die Frage adressiert.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen beschreiben ausführlich die Bestandteile von Schmierfetten, einschließlich Schmieröl, Eindicker und Additive.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie die Bestandteile von Schmierfetten (Schmieröl, Eindicker und Additive) sowie die typischen Anteilsverhältnisse korrekt beschreibt.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q036",
+      "group": "de->de",
+      "question": "Warum entsteht bei einem V-Ring bei hohen Drehzahlen keine Verlustleistung mehr?",
+      "answer": "Beim V-Ring entsteht bei hohen Drehzahlen keine Verlustleistung mehr, weil die Dichtlippe abhebt und die Dichtung als Schleuderring funktioniert, wodurch keine Reibung mehr auftritt [de_wellendichtring#3].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort beschreibt korrekt, dass bei hohen Drehzahlen die Dichtlippe des V-Rings abhebt und die Dichtung als Schleuderring funktioniert, was zu keinem Verlustleistung mehr führt, wie in den Passagen erwähnt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort versucht, den Grund dafür zu erklären, warum bei einem V-Ring bei hohen Drehzahlen keine Verlustleistung mehr entsteht, indem sie eine mögliche Mechanik beschreibt.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [de_wellendichtring#3] erklärt direkt, dass bei hohen Drehzahlen der V-Ring als Schleuderring funktioniert und dadurch keine Verlustleistung mehr auftritt.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt beschreibt, dass bei hohen Drehzahlen der V-Ring als Schleuderring funktioniert und dadurch keine Verlustleistung mehr entsteht.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q037",
+      "group": "de->de",
+      "question": "In welchem Bereich liegen die geforderten Lebensdauern von Wälzlagern?",
+      "answer": "Die geforderten Lebensdauern von Wälzlagern liegen von wenigen hundert Stunden, beispielsweise für Haushaltsgeräte oder medizinisch-technische Geräte, bis zu ca. 100.000 Stunden für Lauflager von Hochseeschiffen, Grubenpumpen und -gebläse sowie Papiermaschinen [de_waelzlager#7]. Je nach Belastung wird von einer Lebensdauer von über 3 Milliarden Umdrehungen ausgegangen [de_waelzlager#26].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort berücksichtigt korrekt die in den Passagen genannten Lebensdauern von Wälzlagern, sowohl in Stunden als auch in Umdrehungen.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt konkrete Lebensdauern von Wälzlagern in verschiedenen Anwendungsbereichen, was die Frage adressiert.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen enthalten Angaben über die geforderten Lebensdauern von Wälzlagern, einschließlich der Range von wenigen hundert Stunden bis zu ca. 100.000 Stunden und über 3 Milliarden Umdrehungen.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie die angegebene Spanne der Lebensdauern von Wälzlagern korrekt wiedergibt.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q038",
+      "group": "de->de",
+      "question": "An welchen Geräuschen merkt man im Auto bei Geradeausfahrt einen Radlagerschaden?",
+      "answer": "Im Auto bei Geradeausfahrt merkt man einen Radlagerschaden an ungewöhnlichen Geräuschen wie mahlenden Klängen [de_waelzlager#8]. Diese mahlenden Klänge deuten auf mögliche Defekte an den Lagern hin [de_waelzlager#8].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt mahlende Klänge als Geräusche, die bei Radlagerschäden bei Geradeausfahrt wahrgenommen werden, was im Passage klar erwähnt wird.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt spezifische Geräusche, die auf einen Radlagerschaden hinweisen, und bezieht sich auf die Fragestellung.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [de_waelzlager#8] beschreibt explizit, dass bei Radlagerschäden im Auto ungewöhnliche Geräusche wie metallische Rollgeräusche, Pfeif- und Schleifgeräusche sowie mahlende Klänge bei gerader Fahrt auftreten können.  \nVERDICT: YES",
+        "correctness": "Die Antwort erwähnt mahlende Klänge, die im Einklang mit der Referenz stehen, die metallische Rollgeräusche, Pfeif- und Schleifgeräusche sowie mahlende Klänge bei gerader Fahrt nennt.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q039",
+      "group": "de->de",
+      "question": "Wie entsteht der Schmierfilm bei einem hydrostatischen Gleitlager?",
+      "answer": "Der Schmierfilm bei einem hydrostatischen Gleitlager entsteht durch die extern zugeführte Flüssigkeit, die unter Druck durch eine Ölpumpe in den Spalt zwischen den Lagerflächen gepresst wird [de_gleitlager#1]. Dieser Druck führt zu einem Schmierfilm, der die Kontaktflächen voneinander trennt und eine nahezu reibungsfreie Bewegung ermöglicht [de_lager_maschinenelement#4]. Im Gegensatz zum hydrodynamischen Lager wird der Schmierfilm nicht durch die Relativbewegung der Welle erzeugt, sondern aktiv durch die Pumpe unter Druck zugeführt [de_gleitlager#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Der Answer beschreibt korrekt, dass der Schmierfilm bei einem hydrostatischen Gleitlager durch unter Druck zugeführtes Fluid entsteht, wie in den Passagen erwähnt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort beschreibt, wie der Schmierfilm in einem hydrostatischen Gleitlager durch externe Zufuhr und Druck entsteht, was die Frage direkt anspricht.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erklären, wie ein hydrostatisches Gleitlager funktioniert, einschließlich der Erzeugung eines Schmierfilms durch unter Druck zugeführtes Fluid.  \nVERDICT: YES",
+        "correctness": "Die Antwort beschreibt korrekt, wie der Schmierfilm in einem hydrostatischen Gleitlager entsteht, und stimmt mit den Angaben der Referenz überein.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q040",
+      "group": "de->en",
+      "question": "Wodurch unterscheidet sich echtes Brinelling von False Brinelling?",
+      "answer": "Echtes Brinelling entsteht durch statische oder dynamische Belastung, die zu plastischer Deformation der Bearing-Races führt und die Oberfläche permanent verändert [en_brinelling#2]. False Brinelling hingegen entsteht durch Fretting-Wear bei kleinen Vibrationen oder oszillierenden Bewegungen und führt zu feinen, glatten Markierungen, die nicht die Oberfläche permanent verformen [en_brinelling#3]. Die Markierungen von False Brinelling sind oft zu breit und weisen ein ungleichmäßiges Muster auf, während echtes Brinelling eine präzise, tiefere Einbettung in der Oberfläche aufweist [en_brinelling#2]. Zudem kann False Brinelling durch Bewegung verursacht werden, während echtes Brinelling durch statische Druckkräfte entsteht [ko_ball_bearing#12].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The answer accurately reflects the distinctions between true and false brinelling as described in the passages, including the causes, characteristics, and differences between the two types of damage.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort beschreibt Unterschiede zwischen echtem und False Brinelling, indem sie Ursachen, Merkmale und Auswirkungen auf die Oberfläche vergleicht.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss both true brinelling and false brinelling, explaining their causes, characteristics, and differences.  \nVERDICT: YES",
+        "correctness": "Die Antwort enthält inhaltlich widersprüchliche und ungenaue Angaben, insbesondere bezüglich der Ursachen und Merkmale von False Brinelling, die nicht mit der Referenz übereinstimmen.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "q041",
+      "group": "de->en",
+      "question": "Wie viele Nadellager stecken typischerweise in der Kardanwelle eines Fahrzeugs mit Hinterradantrieb?",
+      "answer": "Es gibt keine Angabe in den Kontexten darüber, wie viele Nadellager typischerweise in der Kardanwelle eines Fahrzeugs mit Hinterradantrieb stecken [de_nadellager#0][de_waelzlager#17][de_waelzlager#16]. Die Kontexte erwähnen Anwendungen wie Ausrücklager, Lenkkopflager oder Getriebe, aber keine spezifische Anzahl an Nadellagern in der Kardanwelle [de_nadellager#1][de_waelzlager#18].",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "Die Passagen beschreiben Nadellager und ihre Anwendung in verschiedenen mechanischen Systemen, aber keine spezifische Anzahl von Nadellagern in einer Kardanwelle.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "q042",
+      "group": "de->en",
+      "question": "Warum fällt ein Lager aus, das ohne Schmierstoff läuft?",
+      "answer": "Ein Lager fällt aus, wenn es ohne Schmierstoff läuft, weil der direkte Kontakt zwischen Welle und Lagerbuchse führt, was zu hoher Reibung, Verschleiß, Wärmeentwicklung und Schäden führt [de_gleitlager#2]. Ohne Schmierstoff entsteht Festkörperreibung, bei der die Oberflächen direkt aufeinander gleiten und sich verhaken, was zu einem hohen Reibungswiderstand und Materialabtrag führt [de_gleitlager#2]. Zudem kann dies zu Überhitzung und einem sofortigen Ausfall des Lagers führen [de_gleitlager#2]. Ungeschmierte Lager fallen sogleich aus, da kein Schmierfilm entsteht, um den Kontakt zu vermeiden [de_waelzlager#8].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort basiert auf den in den Passagen beschriebenen Effekten von Festkörperreibung und dem Fehlen eines Schmierfilms, die zu Schäden und Ausfall des Lagers führen.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort erklärt, warum ein Lager ohne Schmierstoff ausfällt, indem sie die Folgen des direkten Kontakts und der Reibung beschreibt.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [de_waelzlager#8] erklärt direkt, dass ungeschmierte Lager sogleich ausfallen, was die Frage beantwortet.  \nVERDICT: YES",
+        "correctness": "Die Antwort beschreibt korrekt die Folgen von Schmierstoffmangel und stimmt mit der Referenz überein, indem sie die Ursachen für den Ausfall eines Lagers ohne Schmierstoff erläutert.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q043",
+      "group": "de->en",
+      "question": "Welche DIN-Norm regelt Radial-Wellendichtringe für Kraftfahrzeuge?",
+      "answer": "Die DIN-Norm, die Radial-Wellendichtringe für Kraftfahrzeuge regelt, ist DIN 3761 [en_radial_shaft_seal#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort nennt korrekt DIN 3761 als die Norm, die Radial-Wellendichtringe für Kraftfahrzeuge regelt, und dies wird in den Passagen bestätigt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt eine DIN-Norm und versucht, die gefragte Norm zu identifizieren, was der Frage entspricht.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [en_radial_shaft_seal#2] direkt nennt die DIN 3761 als Norm für Radial-Wellendichtringe für Kraftfahrzeuge.  \nVERDICT: YES",
+        "correctness": "Die Antwort nennt korrekt die DIN-Norm DIN 3761, die Radial-Wellendichtringe für Kraftfahrzeuge regelt, und stimmt mit der Referenz überein.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "q044",
+      "group": "de->ko",
+      "question": "Welche pflanzlichen Öle gelten als relativ stabil und werden sogar in Verbrennungsmotoren eingesetzt?",
+      "answer": "Pflanzliche Öle, die als relativ stabil gelten und in Verbrennungsmotoren eingesetzt werden, sind das Peimazey und das Dattuy [ko_lubricant#1].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort nennt korrekt die pflanzlichen Öle, die im Text erwähnt werden, und stellt sicher, dass sie als relativ stabil gelten und in Verbrennungsmotoren verwendet werden.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt spezifische pflanzliche Öle, die als stabil gelten und in Verbrennungsmotoren eingesetzt werden, und versucht somit die gestellte Frage zu beantworten.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erwähnen, dass pflanzliche Öle wie Rapsöl und Sojaöl relativ stabil sind und in Verbrennungsmotoren verwendet werden.  \nVERDICT: YES",
+        "correctness": "Die Antwort nennt falsche Öltypen (Peimazey und Dattuy), während die Referenz auf Sonnenblumenöl und Rapsöl (Kürbiskernöl) hinweist.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "q045",
+      "group": "de->ko",
+      "question": "Wie wirkt ein synthetisches Schmieröl auf Naphthalinbasis auf der Metalloberfläche?",
+      "answer": "Ein synthetisches Schmieröl auf Naphthalinbasis wirkt auf der Metalloberfläche, indem das Naphthalinmolekül sich auf die Metalloberfläche legt und die Alkylgruppen wie ein Tuch über die Oberfläche ausbreiten, was die Reibung reduziert und eine glatte Bewegung ermöglicht [ko_lubricant#2]. Die Naphthalinstrukturen fördern die Haftung an der Oberfläche, während die Alkylgruppen die Oberfläche schützen und die Reibung verringern [de_schmierfett#2]. Dieses Verhalten ähnelt dem Effekt von einem \"Gulld\" in der täglichen Nutzung, bei dem die Oberfläche glatt und leicht beweglich wird [ko_lubricant#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort enthält keine faktischen Aussagen, die nicht in den Passagen unterstützt werden.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort beschreibt das Verhalten eines synthetischen Schmieröls auf Naphthalinbasis auf der Metalloberfläche, indem sie die Wechselwirkung der Naphthalinmoleküle und Alkylgruppen erläutert.  \nVERDICT: YES",
+        "context_relevance": "Die Passage ko_lubricant#2 beschreibt direkt, wie ein synthetisches Schmieröl auf Naphthalinbasis auf der Metalloberfläche wirkt, indem es sich an der Oberfläche anlagert und die Reibung reduziert.  \nVERDICT: YES",
+        "correctness": "Die Antwort beschreibt korrekt, wie ein synthetisches Schmieröl auf Naphthalinbasis auf der Metalloberfläche wirkt, und stimmt mit den Angaben der Referenz überein.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    }
+  ],
+  "timing": {},
+  "extra": {
+    "judged_result": "s4_gen_qlora_r16",
+    "judge_model": "Qwen/Qwen3-8B",
+    "judge_model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "judge_prompt_version": "judge_v1",
+    "outcomes": {
+      "ok": 29,
+      "correct_refusal": 3,
+      "generation_failure": 6,
+      "retrieval_failure": 6,
+      "over_refusal": 1
+    },
+    "judge_calls": 337,
+    "judge_cache_hits": 120,
+    "judge_retries_for_cut_off_verdict": 1,
+    "source_commit": "6ca42fa6c8011f3e4c7d11c006c077d38188da5a"
+  }
+}

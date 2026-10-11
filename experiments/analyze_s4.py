@@ -4,7 +4,8 @@
 - Conditions (same prompt cite_v1, same top-5 contexts, greedy decoding): base bf16 (stage 3 run),
   base 4-bit, QLoRA-tuned (4-bit base), LoRA-tuned (bf16 base).
 - Sections: (1) automatic citation metrics, (2) paired bootstrap of the sentence-level citation
-  rate against the matching untuned base (bf16 base for LoRA, 4-bit base for QLoRA), (3) judged
+  rate: each tuned model against its matching untuned base (bf16 for LoRA, 4-bit for QLoRA), the
+  quantisation effect, QLoRA against the bf16 base, and QLoRA against LoRA, (3) judged
   quality (faithfulness, answer relevance, correctness) so that a gain in format is not bought
   with worse answers, (4) training cost and loss.
 - Paired bootstrap: resample the 45 questions 10000 times (seed 42) and report the 95% interval of
@@ -14,8 +15,8 @@
 [KO]
 - 조건(같은 프롬프트 cite_v1, 같은 상위 5개 컨텍스트, greedy 디코딩): 기반 bf16(3단계 실행), 기반 4비트,
   QLoRA 학습(4비트 기반), LoRA 학습(bf16 기반).
-- 구성: (1) 자동 인용 지표, (2) 문장 단위 인용률의 쌍체 부트스트랩(LoRA는 bf16 기반, QLoRA는 4비트 기반과
-  비교), (3) 판정 품질(충실도, 답변 관련성, 정확성)로 형식 개선이 답 품질 악화로 얻어진 것이 아닌지 확인,
+- 구성: (1) 자동 인용 지표, (2) 문장 단위 인용률의 쌍체 부트스트랩(각 학습 모델을 짝이 되는 미학습 기반과 비교: LoRA는 bf16,
+  QLoRA는 4비트. 그 외 양자화 효과, QLoRA 대 bf16 기반, QLoRA 대 LoRA), (3) 판정 품질(충실도, 답변 관련성, 정확성)로 형식 개선이 답 품질 악화로 얻어진 것이 아닌지 확인,
   (4) 학습 비용과 손실.
 - 쌍체 부트스트랩: 질문 45개를 10000번 재표집(시드 42)해 질문별 차이 평균의 95% 구간을 보고한다.
 - 사용: uv run python experiments/analyze_s4.py
@@ -31,7 +32,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 RES = REPO / "experiments" / "results"
 CONDITIONS = {"base bf16": "s3_gen_cite_v1", "base 4-bit": "s4_gen_base4bit", "QLoRA r16": "s4_gen_qlora_r16", "LoRA r16": "s4_gen_lora_r16"}
-PAIRS = {"LoRA r16": "base bf16", "QLoRA r16": "base 4-bit", "base 4-bit": "base bf16"}
+PAIRS = [("LoRA r16", "base bf16"), ("QLoRA r16", "base 4-bit"), ("base 4-bit", "base bf16"), ("QLoRA r16", "base bf16"), ("QLoRA r16", "LoRA r16")]
 
 
 def load(name: str) -> dict:
@@ -55,7 +56,7 @@ def main() -> None:
 
     print("\n### 2. sentence-level citation rate vs the matching untuned base (paired bootstrap)\n")
     print("| tuned/changed | vs | mean diff | 95% interval | better / worse questions |\n|---|---|---|---|---|")
-    for a, b in PAIRS.items():
+    for a, b in PAIRS:
         if a not in R or b not in R:
             continue
         pa = {p["qid"]: p["metrics"]["sentence_coverage"] for p in R[a]["per_query"]}
