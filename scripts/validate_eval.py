@@ -3,15 +3,16 @@
 [EN]
 - Role: run while writing the eval set. For every query checks required fields, that each gold
   doc_id exists, that each anchor is located in the document (exact or whitespace-insensitive),
-  and that it maps to at least one chunk under the default chunking. Prints a per-language /
+  and that it maps to at least one chunk under the default chunking. gold[0] is the primary
+  evidence (grade 2): its language decides mono vs cross and the group. Prints a per-language /
   mono-vs-cross coverage table at the end.
 - Exit code 1 if any problem, so it can double as a test later.
 - Usage: uv run python scripts/validate_eval.py [eval/queries.jsonl]
 
 [KO]
 - 역할: 평가셋을 쓰는 동안 돌리는 검사기. 질문마다 필수 필드, gold의 doc_id 존재, anchor가 문서에서
-  찾아지는지(정확/공백 무시), 기본 청킹에서 청크 1개 이상에 매핑되는지 확인한다. 끝에 언어별·
-  단일/교차 언어 분포 표를 출력한다.
+  찾아지는지(정확/공백 무시), 기본 청킹에서 청크 1개 이상에 매핑되는지 확인한다. gold[0]이 주 근거
+  (등급 2)이며 그 언어가 단일/교차와 그룹을 결정한다. 끝에 언어별 분포 표를 출력한다.
 - 문제가 하나라도 있으면 종료 코드 1 (나중에 테스트로도 쓸 수 있음).
 - 사용: uv run python scripts/validate_eval.py [eval/queries.jsonl]
 """
@@ -62,6 +63,8 @@ def main() -> None:
                 problems.append(f"{qid}: gold is empty")
             if golds and max(g.get("grade", 0) for g in golds) < 2:
                 problems.append(f"{qid}: no grade-2 (core) evidence")
+            if golds and golds[0].get("grade") != 2:
+                problems.append(f"{qid}: gold[0] is the primary evidence and must have grade 2")
             for i, g in enumerate(golds):
                 d = docs.get(g.get("doc_id"))
                 if d is None:
@@ -78,11 +81,11 @@ def main() -> None:
                 mapped = map_gold_to_chunks(golds, docs, chunks)
             except (ValueError, KeyError):
                 mapped = {}
-            golds_langs = {g.get("doc_lang") for g in golds}
-            is_cross = any(l != q.get("q_lang") for l in golds_langs)
+            primary_lang = golds[0].get("doc_lang") if golds else None
+            is_cross = primary_lang != q.get("q_lang")
             if q.get("type") != ("cross" if is_cross else "mono"):
-                problems.append(f"{qid}: type is {q.get('type')!r} but gold languages imply {'cross' if is_cross else 'mono'}")
-            rows.append((qid, q.get("q_lang"), "cross" if is_cross else "mono", sorted(golds_langs), len(mapped)))
+                problems.append(f"{qid}: type is {q.get('type')!r} but primary evidence (gold[0]) language implies {'cross' if is_cross else 'mono'}")
+            rows.append((qid, q.get("q_lang"), "cross" if is_cross else "mono", [primary_lang], len(mapped)))
 
     print(f"{len(rows)} queries, {len(problems)} problems")
     for p in problems:

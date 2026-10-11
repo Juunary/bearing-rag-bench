@@ -1,0 +1,1948 @@
+{
+  "config": {
+    "exp_id": "s1_hybrid_rrf",
+    "stage": "s1",
+    "description": "Hybrid: RRF(k=60) over BM25(kiwi) + dense(bge-m3, hnsw m16/efc128/ef64), 50 candidates each",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3"
+    },
+    "retrieval": {
+      "method": "hybrid",
+      "top_k": 10,
+      "bm25_tokenizer": "kiwi",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": null,
+      "prompt_version": null,
+      "max_new_tokens": 512,
+      "temperature": 0.0
+    }
+  },
+  "environment": {
+    "timestamp": "2026-10-11T16:15:04+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "d0543935f8701a73ae60644c247ce22eff630cba-dirty",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "recall@5": 0.4111111111111111,
+      "mrr@10": 0.42777777777777776,
+      "ndcg@10": 0.426108427117797,
+      "n": 45
+    },
+    "by_group": {
+      "ko->en": {
+        "recall@5": 0.0,
+        "mrr@10": 0.023809523809523808,
+        "ndcg@10": 0.056783169313856595,
+        "n": 7
+      },
+      "ko->de": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "n": 5
+      },
+      "ko->ko": {
+        "recall@5": 0.8333333333333334,
+        "mrr@10": 0.7777777777777778,
+        "ndcg@10": 0.7933645889053115,
+        "n": 3
+      },
+      "en->en": {
+        "recall@5": 0.7962962962962963,
+        "mrr@10": 0.8888888888888888,
+        "ndcg@10": 0.8380226540245702,
+        "n": 9
+      },
+      "en->de": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "n": 4
+      },
+      "en->ko": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "n": 2
+      },
+      "de->de": {
+        "recall@5": 0.7962962962962963,
+        "mrr@10": 0.787037037037037,
+        "ndcg@10": 0.7828198680530518,
+        "n": 9
+      },
+      "de->en": {
+        "recall@5": 0.41666666666666663,
+        "mrr@10": 0.4166666666666667,
+        "ndcg@10": 0.45243014242233437,
+        "n": 4
+      },
+      "de->ko": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "n": 2
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "q001",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_tapered_roller_bearing#2": 2,
+        "de_waelzlager#2": 1
+      },
+      "ranked": [
+        "ko_bearing#0",
+        "ko_bearing#1",
+        "ko_ball_bearing#0",
+        "ko_bearing#2",
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#1",
+        "ko_bearing#3",
+        "ko_ball_bearing#2",
+        "ko_ball_bearing#19",
+        "ko_ball_bearing#10"
+      ],
+      "scores": [
+        0.0315,
+        0.0305,
+        0.0304,
+        0.0303,
+        0.0298,
+        0.0287,
+        0.0286,
+        0.0286,
+        0.0282,
+        0.026
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q002",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#5": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#0",
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#13",
+        "ko_lubrication#0",
+        "ko_ball_bearing#7",
+        "ko_ball_bearing#19",
+        "ko_bearing#0",
+        "ko_ball_bearing#9",
+        "ko_bearing#2"
+      ],
+      "scores": [
+        0.0323,
+        0.032,
+        0.0308,
+        0.0304,
+        0.0294,
+        0.0275,
+        0.0272,
+        0.0272,
+        0.0269,
+        0.0266
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q003",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_ball_bearing#4": 2,
+        "en_ball_bearing#4": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#4",
+        "ko_ball_bearing#9",
+        "ko_ball_bearing#0",
+        "ko_ball_bearing#7",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#6",
+        "ko_ball_bearing#1",
+        "ko_bearing#2"
+      ],
+      "scores": [
+        0.0328,
+        0.0315,
+        0.0311,
+        0.0308,
+        0.0306,
+        0.0304,
+        0.0301,
+        0.0282,
+        0.0282,
+        0.0282
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.38009376671593426
+      }
+    },
+    {
+      "qid": "q004",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_fretting#2": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#18",
+        "ko_bearing#0",
+        "ko_bearing#4",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#2",
+        "ko_bearing#3",
+        "ko_ball_bearing#17",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#14"
+      ],
+      "scores": [
+        0.032,
+        0.0308,
+        0.0286,
+        0.0278,
+        0.0274,
+        0.0268,
+        0.0259,
+        0.0259,
+        0.0257,
+        0.0252
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q005",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_rolling_element_bearing#7": 2,
+        "en_rolling_element_bearing#8": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#11",
+        "ko_bearing#4",
+        "ko_ball_bearing#10",
+        "ko_bearing#0",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#12",
+        "ko_bearing#3",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#7",
+        "ko_ball_bearing#9"
+      ],
+      "scores": [
+        0.0325,
+        0.031,
+        0.0299,
+        0.029,
+        0.0282,
+        0.0268,
+        0.0261,
+        0.026,
+        0.0249,
+        0.0248
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q006",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#2": 2,
+        "en_bearing_mechanical#3": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#4",
+        "ko_ball_bearing#0",
+        "ko_bearing#1",
+        "ko_bearing#2",
+        "ko_bearing#0",
+        "ko_ball_bearing#1",
+        "ko_ball_bearing#5",
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#17",
+        "ko_ball_bearing#10"
+      ],
+      "scores": [
+        0.0318,
+        0.0317,
+        0.0299,
+        0.0295,
+        0.0294,
+        0.0293,
+        0.0289,
+        0.0274,
+        0.0273,
+        0.027
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q007",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#6": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#12",
+        "ko_lubrication#0",
+        "ko_ball_bearing#2",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#0",
+        "ko_ball_bearing#19",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#9",
+        "ko_bearing#2"
+      ],
+      "scores": [
+        0.032,
+        0.0315,
+        0.0315,
+        0.0303,
+        0.0299,
+        0.0296,
+        0.0272,
+        0.0269,
+        0.0268,
+        0.0265
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q008",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_nadellager#2": 2,
+        "de_waelzlager#18": 2,
+        "en_rolling_element_bearing#5": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#7",
+        "ko_ball_bearing#0",
+        "ko_bearing#1",
+        "ko_bearing#0",
+        "ko_ball_bearing#9",
+        "ko_ball_bearing#5",
+        "ko_ball_bearing#17",
+        "ko_ball_bearing#3",
+        "ko_ball_bearing#19"
+      ],
+      "scores": [
+        0.0323,
+        0.0308,
+        0.0296,
+        0.0295,
+        0.0282,
+        0.028,
+        0.0274,
+        0.0272,
+        0.027,
+        0.0267
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q009",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_grease#2": 2,
+        "de_schmierfett#15": 1
+      },
+      "ranked": [
+        "ko_wear#1",
+        "ko_ball_bearing#14",
+        "ko_grease#0",
+        "ko_ball_bearing#15",
+        "ko_lubrication#0",
+        "en_grease#2",
+        "de_schmierfett#15",
+        "ko_ball_bearing#13",
+        "ko_wear#0",
+        "ko_bearing#4"
+      ],
+      "scores": [
+        0.0325,
+        0.032,
+        0.0315,
+        0.0313,
+        0.0306,
+        0.029,
+        0.0276,
+        0.0269,
+        0.0257,
+        0.0227
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.16666666666666666,
+        "ndcg@10": 0.3974821851969962
+      }
+    },
+    {
+      "qid": "q010",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_wellendichtring#1": 2
+      },
+      "ranked": [
+        "ko_seal#0",
+        "ko_bearing#4",
+        "ko_ball_bearing#8",
+        "ko_seal#1",
+        "ko_bearing#0",
+        "ko_ball_bearing#18",
+        "en_cv_joint#7",
+        "ko_fatigue_material#0",
+        "en_cv_joint#8",
+        "ko_ball_bearing#15"
+      ],
+      "scores": [
+        0.0307,
+        0.0267,
+        0.0255,
+        0.0249,
+        0.0237,
+        0.0231,
+        0.0164,
+        0.0161,
+        0.0161,
+        0.0159
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q011",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_differential#0": 2
+      },
+      "ranked": [
+        "ko_differential#0",
+        "ko_ball_bearing#10",
+        "ko_bearing#3",
+        "ko_ball_bearing#12",
+        "ko_bearing#0",
+        "ko_drive_shaft#0",
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#13",
+        "ko_bearing#2",
+        "ko_ball_bearing#17"
+      ],
+      "scores": [
+        0.0328,
+        0.0294,
+        0.0286,
+        0.0285,
+        0.0279,
+        0.0266,
+        0.0265,
+        0.0254,
+        0.0253,
+        0.0241
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q012",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "ko_lubrication#0": 2
+      },
+      "ranked": [
+        "ko_lubrication#0",
+        "ko_ball_bearing#13",
+        "ko_lubricant#0",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#0",
+        "ko_bearing#0",
+        "ko_bearing#3",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#9"
+      ],
+      "scores": [
+        0.0328,
+        0.0318,
+        0.0315,
+        0.031,
+        0.0302,
+        0.0297,
+        0.0286,
+        0.0273,
+        0.0272,
+        0.0266
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q013",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_wear#2": 2,
+        "de_fressen_technik#0": 1
+      },
+      "ranked": [
+        "ko_wear#0",
+        "ko_tribology#0",
+        "ko_fatigue_material#0",
+        "ko_bearing#3",
+        "ko_wear#1",
+        "ko_ball_bearing#8",
+        "en_fretting#0",
+        "ko_lubricant#2",
+        "en_wear#7",
+        "en_tribology#11"
+      ],
+      "scores": [
+        0.0328,
+        0.0259,
+        0.024,
+        0.0227,
+        0.0222,
+        0.0161,
+        0.0161,
+        0.0159,
+        0.0159,
+        0.0156
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q014",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_lubrication#0": 2,
+        "en_lubrication#3": 1
+      },
+      "ranked": [
+        "ko_lubrication#0",
+        "ko_lubricant#0",
+        "ko_ball_bearing#13",
+        "ko_wear#1",
+        "ko_ball_bearing#15",
+        "ko_bearing#4",
+        "ko_ball_bearing#14",
+        "ko_wear#0",
+        "ko_bearing#3",
+        "en_fretting#0"
+      ],
+      "scores": [
+        0.032,
+        0.0318,
+        0.0292,
+        0.0287,
+        0.0278,
+        0.0267,
+        0.0258,
+        0.0236,
+        0.0232,
+        0.0159
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q015",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_cv_joint#3": 2,
+        "de_homokinetisches_gelenk#1": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#2",
+        "ko_drive_shaft#0",
+        "ko_ball_bearing#16",
+        "ko_ball_bearing#17",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#14",
+        "ko_shaft#0",
+        "ko_bearing#0",
+        "ko_ball_bearing#13"
+      ],
+      "scores": [
+        0.0302,
+        0.0297,
+        0.0295,
+        0.0287,
+        0.0279,
+        0.0278,
+        0.0277,
+        0.0274,
+        0.0269,
+        0.0267
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q016",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "en_brinelling#1": 2,
+        "en_brinelling#2": 2,
+        "de_waelzlager#30": 1,
+        "de_waelzlager#31": 1
+      },
+      "ranked": [
+        "en_brinelling#2",
+        "en_brinelling#1",
+        "en_bearing_mechanical#9",
+        "en_rolling_element_bearing#7",
+        "en_ball_bearing#0",
+        "en_rolling_element_bearing#8",
+        "en_rolling_element_bearing#0",
+        "en_bearing_mechanical#8",
+        "en_rolling_element_bearing#5",
+        "en_ball_bearing#8"
+      ],
+      "scores": [
+        0.0325,
+        0.0315,
+        0.0292,
+        0.0287,
+        0.0286,
+        0.0279,
+        0.0278,
+        0.0276,
+        0.0273,
+        0.0273
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7780158492147935
+      }
+    },
+    {
+      "qid": "q017",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_tapered_roller_bearing#0": 2
+      },
+      "ranked": [
+        "en_tapered_roller_bearing#0",
+        "en_rolling_element_bearing#5",
+        "en_tapered_roller_bearing#1",
+        "en_tapered_roller_bearing#2",
+        "en_rolling_element_bearing#7",
+        "en_rolling_element_bearing#4",
+        "en_rolling_element_bearing#0",
+        "en_rolling_element_bearing#3",
+        "en_ball_bearing#11",
+        "en_bearing_mechanical#8"
+      ],
+      "scores": [
+        0.0328,
+        0.032,
+        0.0315,
+        0.0306,
+        0.0288,
+        0.0287,
+        0.0284,
+        0.0283,
+        0.0271,
+        0.0264
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q018",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_brinelling#1": 2,
+        "en_plain_bearing#0": 1
+      },
+      "ranked": [
+        "en_brinelling#1",
+        "en_plain_bearing#1",
+        "en_rolling_element_bearing#7",
+        "en_plain_bearing#0",
+        "en_plain_bearing#3",
+        "en_rolling_element_bearing#5",
+        "en_bearing_mechanical#6",
+        "en_bearing_mechanical#1",
+        "en_bearing_mechanical#0",
+        "en_tapered_roller_bearing#2"
+      ],
+      "scores": [
+        0.032,
+        0.0318,
+        0.0303,
+        0.03,
+        0.0299,
+        0.0296,
+        0.0293,
+        0.029,
+        0.029,
+        0.029
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9238850086262381
+      }
+    },
+    {
+      "qid": "q019",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "en_grease#0": 2
+      },
+      "ranked": [
+        "en_grease#0",
+        "en_grease#1",
+        "en_ball_bearing#13",
+        "en_bearing_mechanical#10",
+        "en_grease#2",
+        "en_grease#6",
+        "en_grease#3",
+        "en_tribology#13",
+        "en_plain_bearing#3",
+        "en_wear#5"
+      ],
+      "scores": [
+        0.0328,
+        0.0323,
+        0.0313,
+        0.0306,
+        0.0292,
+        0.0268,
+        0.0266,
+        0.0252,
+        0.0238,
+        0.0231
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q020",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_grease#2": 2
+      },
+      "ranked": [
+        "en_grease#2",
+        "en_grease#3",
+        "en_ball_bearing#13",
+        "en_grease#1",
+        "en_grease#4",
+        "en_ball_bearing#12",
+        "en_grease#5",
+        "en_rolling_element_bearing#14",
+        "en_grease#0",
+        "en_bearing_mechanical#15"
+      ],
+      "scores": [
+        0.0328,
+        0.0317,
+        0.0308,
+        0.0306,
+        0.028,
+        0.0276,
+        0.0274,
+        0.0272,
+        0.0272,
+        0.0257
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q021",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#32": 2,
+        "de_waelzlager#33": 2
+      },
+      "ranked": [
+        "en_ball_bearing#6",
+        "en_ball_bearing#8",
+        "en_rolling_element_bearing#4",
+        "en_ball_bearing#16",
+        "en_ball_bearing#5",
+        "en_ball_bearing#4",
+        "en_rolling_element_bearing#6",
+        "en_plain_bearing#1",
+        "en_ball_bearing#9",
+        "en_ball_bearing#15"
+      ],
+      "scores": [
+        0.0328,
+        0.0315,
+        0.031,
+        0.0306,
+        0.0296,
+        0.0293,
+        0.029,
+        0.0284,
+        0.0283,
+        0.0281
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q022",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_fatigue_material#3": 2
+      },
+      "ranked": [
+        "en_fatigue_material#15",
+        "en_fatigue_material#0",
+        "en_fatigue_material#8",
+        "en_fatigue_material#11",
+        "en_fatigue_material#14",
+        "en_fatigue_material#5",
+        "en_fatigue_material#16",
+        "en_rolling_element_bearing#11",
+        "en_rolling_element_bearing#12",
+        "en_fatigue_material#18"
+      ],
+      "scores": [
+        0.0328,
+        0.0313,
+        0.0306,
+        0.0304,
+        0.03,
+        0.0296,
+        0.0293,
+        0.0282,
+        0.028,
+        0.0271
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q023",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_bearing#3": 2,
+        "ko_bearing#4": 2
+      },
+      "ranked": [
+        "en_ball_bearing#2",
+        "en_plain_bearing#6",
+        "en_plain_bearing#0",
+        "en_plain_bearing#2",
+        "en_bearing_mechanical#6",
+        "en_ball_bearing#17",
+        "en_plain_bearing#12",
+        "en_rolling_element_bearing#7",
+        "en_tapered_roller_bearing#2",
+        "en_needle_roller_bearing#0"
+      ],
+      "scores": [
+        0.0311,
+        0.0296,
+        0.0294,
+        0.0276,
+        0.0269,
+        0.0266,
+        0.0264,
+        0.0263,
+        0.0261,
+        0.0257
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q024",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_fretting#2": 2
+      },
+      "ranked": [
+        "en_fretting#2",
+        "en_brinelling#3",
+        "en_brinelling#2",
+        "en_brinelling#0",
+        "en_fretting#0",
+        "en_brinelling#1",
+        "en_ball_bearing#10",
+        "en_rolling_element_bearing#8",
+        "en_wear#5",
+        "en_fretting#1"
+      ],
+      "scores": [
+        0.0323,
+        0.0323,
+        0.0323,
+        0.0306,
+        0.0303,
+        0.0299,
+        0.0297,
+        0.0282,
+        0.0281,
+        0.0278
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q025",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_cv_joint#3": 2
+      },
+      "ranked": [
+        "en_cv_joint#3",
+        "en_cv_joint#4",
+        "en_cv_joint#7",
+        "en_cv_joint#8",
+        "en_ball_bearing#7",
+        "en_cv_joint#5",
+        "en_ball_bearing#4",
+        "en_cv_joint#0",
+        "en_ball_bearing#0",
+        "en_ball_bearing#3"
+      ],
+      "scores": [
+        0.0325,
+        0.0311,
+        0.0308,
+        0.0308,
+        0.0305,
+        0.0301,
+        0.0297,
+        0.0295,
+        0.028,
+        0.0279
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q026",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_rolling_element_bearing#6": 2,
+        "en_rolling_element_bearing#5": 1,
+        "de_waelzlager#18": 1
+      },
+      "ranked": [
+        "en_rolling_element_bearing#6",
+        "en_rolling_element_bearing#5",
+        "en_tapered_roller_bearing#2",
+        "en_rolling_element_bearing#7",
+        "en_tapered_roller_bearing#1",
+        "en_rolling_element_bearing#0",
+        "en_rolling_element_bearing#3",
+        "en_tapered_roller_bearing#0",
+        "en_ball_bearing#7",
+        "en_bearing_mechanical#2"
+      ],
+      "scores": [
+        0.0328,
+        0.0323,
+        0.0303,
+        0.0302,
+        0.0302,
+        0.0301,
+        0.0301,
+        0.0301,
+        0.0283,
+        0.028
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8403030283801005
+      }
+    },
+    {
+      "qid": "q027",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_gleitlager#1": 2,
+        "en_plain_bearing#7": 1,
+        "en_plain_bearing#8": 1
+      },
+      "ranked": [
+        "en_plain_bearing#12",
+        "en_plain_bearing#5",
+        "en_plain_bearing#10",
+        "en_plain_bearing#9",
+        "en_plain_bearing#6",
+        "en_bearing_mechanical#8",
+        "en_bearing_mechanical#7",
+        "en_plain_bearing#0",
+        "en_ball_bearing#16",
+        "en_ball_bearing#6"
+      ],
+      "scores": [
+        0.0325,
+        0.0313,
+        0.0308,
+        0.0295,
+        0.0294,
+        0.0293,
+        0.0284,
+        0.0279,
+        0.0277,
+        0.0276
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q028",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#33": 2
+      },
+      "ranked": [
+        "en_rolling_element_bearing#3",
+        "en_rolling_element_bearing#7",
+        "en_ball_bearing#2",
+        "en_plain_bearing#0",
+        "en_bearing_mechanical#6",
+        "en_bearing_mechanical#10",
+        "en_rolling_element_bearing#1",
+        "en_rolling_element_bearing#6",
+        "en_bearing_mechanical#5",
+        "en_needle_roller_bearing#0"
+      ],
+      "scores": [
+        0.0299,
+        0.0294,
+        0.0291,
+        0.0284,
+        0.027,
+        0.0261,
+        0.0251,
+        0.0251,
+        0.0249,
+        0.0244
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q029",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#31": 2
+      },
+      "ranked": [
+        "en_ball_bearing#16",
+        "en_ball_bearing#15",
+        "en_bearing_mechanical#12",
+        "en_bearing_mechanical#14",
+        "en_rolling_element_bearing#14",
+        "en_bearing_mechanical#10",
+        "en_ball_bearing#12",
+        "en_bearing_mechanical#0",
+        "en_bearing_mechanical#9",
+        "en_plain_bearing#9"
+      ],
+      "scores": [
+        0.0323,
+        0.032,
+        0.0315,
+        0.028,
+        0.028,
+        0.0276,
+        0.0274,
+        0.0266,
+        0.0262,
+        0.0238
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q030",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_bearing#3": 2
+      },
+      "ranked": [
+        "en_plain_bearing#9",
+        "en_ball_bearing#13",
+        "en_plain_bearing#8",
+        "en_bearing_mechanical#7",
+        "en_bearing_mechanical#15",
+        "en_plain_bearing#11",
+        "en_plain_bearing#12",
+        "en_bearing_mechanical#8",
+        "en_plain_bearing#4",
+        "en_bearing_mechanical#10"
+      ],
+      "scores": [
+        0.0323,
+        0.0308,
+        0.0305,
+        0.0289,
+        0.0282,
+        0.0278,
+        0.0277,
+        0.0265,
+        0.0257,
+        0.0255
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q031",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#32": 2
+      },
+      "ranked": [
+        "de_waelzlager#32",
+        "de_lager_maschinenelement#2",
+        "de_waelzlager#29",
+        "de_lager_maschinenelement#6",
+        "de_waelzlager#23",
+        "de_lager_maschinenelement#5",
+        "de_lager_maschinenelement#3",
+        "de_waelzlager#26",
+        "de_waelzlager#15",
+        "de_lager_maschinenelement#4"
+      ],
+      "scores": [
+        0.0328,
+        0.0312,
+        0.0311,
+        0.0298,
+        0.0294,
+        0.0291,
+        0.0285,
+        0.0274,
+        0.0267,
+        0.0267
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q032",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_gleitlager#0": 2,
+        "de_gleitlager#1": 2,
+        "en_lubrication#1": 1
+      },
+      "ranked": [
+        "de_hydrodynamisches_gleitlager#0",
+        "de_hydrodynamisches_gleitlager#5",
+        "de_gleitlager#1",
+        "de_gleitlager#0",
+        "de_lager_maschinenelement#4",
+        "de_hydrodynamisches_gleitlager#1",
+        "de_hydrodynamisches_gleitlager#4",
+        "de_gleitlager#4",
+        "de_gleitlager#7",
+        "de_gleitlager#9"
+      ],
+      "scores": [
+        0.0328,
+        0.0306,
+        0.0304,
+        0.0304,
+        0.03,
+        0.0292,
+        0.0292,
+        0.0284,
+        0.0282,
+        0.028
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.49479602112000737
+      }
+    },
+    {
+      "qid": "q033",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_wellendichtring#0": 2,
+        "en_radial_shaft_seal#0": 1
+      },
+      "ranked": [
+        "de_wellendichtring#0",
+        "de_wellendichtring#1",
+        "de_wellendichtring#3",
+        "de_hydrodynamisches_gleitlager#1",
+        "de_lager_maschinenelement#5",
+        "de_wellendichtring#2",
+        "de_lager_maschinenelement#1",
+        "de_gleitlager#6",
+        "de_waelzlager#31",
+        "de_gleitlager#8"
+      ],
+      "scores": [
+        0.0328,
+        0.0323,
+        0.0315,
+        0.029,
+        0.028,
+        0.0278,
+        0.0277,
+        0.026,
+        0.0241,
+        0.024
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7601875334318685
+      }
+    },
+    {
+      "qid": "q034",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_fressen_technik#0": 2
+      },
+      "ranked": [
+        "de_gleitlager#7",
+        "de_lager_maschinenelement#4",
+        "de_gleitlager#6",
+        "de_fressen_technik#0",
+        "de_gleitlager#1",
+        "de_gleitlager#5",
+        "de_gleitlager#0",
+        "de_gleitlager#4",
+        "de_hydrodynamisches_gleitlager#0",
+        "de_gleitlager#2"
+      ],
+      "scores": [
+        0.0313,
+        0.0308,
+        0.0308,
+        0.0307,
+        0.0303,
+        0.0301,
+        0.0297,
+        0.0293,
+        0.0277,
+        0.0275
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
+      }
+    },
+    {
+      "qid": "q035",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_schmierfett#0": 2,
+        "en_grease#0": 1
+      },
+      "ranked": [
+        "de_schmierfett#0",
+        "de_schmierfett#9",
+        "de_schmierfett#5",
+        "de_schmierfett#12",
+        "de_schmierfett#1",
+        "de_schmierfett#2",
+        "de_schmierfett#8",
+        "de_schmierfett#6",
+        "de_schmierfett#7",
+        "de_schmierfett#11"
+      ],
+      "scores": [
+        0.0323,
+        0.0313,
+        0.0305,
+        0.0305,
+        0.0283,
+        0.0281,
+        0.028,
+        0.0279,
+        0.0274,
+        0.0272
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7601875334318685
+      }
+    },
+    {
+      "qid": "q036",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_wellendichtring#3": 2
+      },
+      "ranked": [
+        "de_wellendichtring#3",
+        "ko_bearing#4",
+        "de_hydrodynamisches_gleitlager#4",
+        "ko_ball_bearing#12",
+        "de_gleitlager#4",
+        "ko_bearing#3",
+        "de_hydrodynamisches_gleitlager#3",
+        "en_cv_joint#0",
+        "de_waelzlager#29",
+        "en_ball_bearing#11"
+      ],
+      "scores": [
+        0.0297,
+        0.0164,
+        0.0161,
+        0.0161,
+        0.0159,
+        0.0159,
+        0.0156,
+        0.0156,
+        0.0154,
+        0.0154
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q037",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#7": 2
+      },
+      "ranked": [
+        "de_waelzlager#7",
+        "de_lager_maschinenelement#7",
+        "de_waelzlager#0",
+        "de_waelzlager#9",
+        "de_waelzlager#11",
+        "de_materialermuedung#6",
+        "de_waelzlager#5",
+        "de_waelzlagerstahl#0",
+        "de_materialermuedung#5",
+        "de_schmierfett#14"
+      ],
+      "scores": [
+        0.0328,
+        0.0313,
+        0.0297,
+        0.029,
+        0.0282,
+        0.0282,
+        0.0265,
+        0.0261,
+        0.0247,
+        0.0244
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q038",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#8": 2
+      },
+      "ranked": [
+        "de_waelzlager#8",
+        "de_lager_maschinenelement#0",
+        "de_waelzlager#10",
+        "de_waelzlager#29",
+        "de_waelzlager#15",
+        "de_gleitlager#0",
+        "de_waelzlager#1",
+        "de_waelzlager#17",
+        "de_lager_maschinenelement#3",
+        "de_verschleiss#0"
+      ],
+      "scores": [
+        0.0325,
+        0.0286,
+        0.0264,
+        0.026,
+        0.0252,
+        0.0248,
+        0.0234,
+        0.0232,
+        0.0228,
+        0.0226
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q039",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_gleitlager#1": 2,
+        "de_schmierung#0": 1
+      },
+      "ranked": [
+        "de_lager_maschinenelement#4",
+        "de_gleitlager#1",
+        "de_gleitlager#0",
+        "de_hydrodynamisches_gleitlager#0",
+        "de_gleitlager#2",
+        "de_lager_maschinenelement#3",
+        "de_gleitlager#7",
+        "de_schmierung#0",
+        "de_gleitlager#5",
+        "de_gleitlager#6"
+      ],
+      "scores": [
+        0.0323,
+        0.0323,
+        0.0313,
+        0.0304,
+        0.0303,
+        0.0301,
+        0.0291,
+        0.0288,
+        0.0284,
+        0.028
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.5995311664203287
+      }
+    },
+    {
+      "qid": "q040",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_brinelling#0": 2,
+        "en_brinelling#2": 2,
+        "de_fressen_technik#1": 1
+      },
+      "ranked": [
+        "en_brinelling#3",
+        "en_brinelling#2",
+        "en_brinelling#0",
+        "en_fretting#2",
+        "en_brinelling#1",
+        "de_fressen_technik#1",
+        "en_ball_bearing#10",
+        "de_gleitlager#2",
+        "de_schmierung#0",
+        "ko_ball_bearing#12"
+      ],
+      "scores": [
+        0.0325,
+        0.0323,
+        0.0313,
+        0.031,
+        0.031,
+        0.0303,
+        0.029,
+        0.0269,
+        0.0201,
+        0.0154
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6959501515885493
+      }
+    },
+    {
+      "qid": "q041",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_needle_roller_bearing#0": 2
+      },
+      "ranked": [
+        "de_waelzlager#18",
+        "de_nadellager#0",
+        "de_waelzlager#17",
+        "de_nadellager#1",
+        "de_nadellager#2",
+        "de_waelzlager#31",
+        "de_homokinetisches_gelenk#3",
+        "de_waelzlager#19",
+        "de_waelzlager#12",
+        "de_waelzlager#16"
+      ],
+      "scores": [
+        0.0323,
+        0.0323,
+        0.0304,
+        0.0301,
+        0.0299,
+        0.0248,
+        0.0247,
+        0.0244,
+        0.0237,
+        0.0236
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q042",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_rolling_element_bearing#8": 2,
+        "de_waelzlager#8": 1,
+        "de_waelzlager#9": 1
+      },
+      "ranked": [
+        "de_gleitlager#1",
+        "de_gleitlager#10",
+        "de_gleitlager#2",
+        "de_lager_maschinenelement#4",
+        "de_hydrodynamisches_gleitlager#0",
+        "de_waelzlager#8",
+        "de_gleitlager#6",
+        "de_gleitlager#0",
+        "de_waelzlager#32",
+        "de_gleitlager#11"
+      ],
+      "scores": [
+        0.031,
+        0.0309,
+        0.0296,
+        0.0294,
+        0.0286,
+        0.0286,
+        0.0285,
+        0.0277,
+        0.0263,
+        0.0249
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.16666666666666666,
+        "ndcg@10": 0.1137704181007881
+      }
+    },
+    {
+      "qid": "q043",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_radial_shaft_seal#2": 2
+      },
+      "ranked": [
+        "en_radial_shaft_seal#2",
+        "de_wellendichtring#1",
+        "de_wellendichtring#0",
+        "de_waelzlager#26",
+        "de_wellendichtring#2",
+        "en_radial_shaft_seal#1",
+        "de_waelzlagerstahl#1",
+        "de_homokinetisches_gelenk#4",
+        "de_waelzlager#14",
+        "de_homokinetisches_gelenk#0"
+      ],
+      "scores": [
+        0.0328,
+        0.0323,
+        0.031,
+        0.0305,
+        0.0303,
+        0.0299,
+        0.028,
+        0.0265,
+        0.0261,
+        0.0252
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q044",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_lubricant#1": 2
+      },
+      "ranked": [
+        "de_schmierfett#1",
+        "de_schmierfett#17",
+        "de_schmierfett#18",
+        "de_schmierfett#13",
+        "de_hydrodynamisches_gleitlager#5",
+        "de_schmierfett#0",
+        "de_schmierfett#4",
+        "de_schmierfett#15",
+        "de_schmierfett#5",
+        "de_gleitlager#11"
+      ],
+      "scores": [
+        0.0301,
+        0.0295,
+        0.0286,
+        0.0268,
+        0.0266,
+        0.0247,
+        0.0247,
+        0.023,
+        0.0229,
+        0.021
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q045",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_lubricant#2": 2,
+        "ko_lubricant#1": 1
+      },
+      "ranked": [
+        "de_schmierfett#17",
+        "de_schmierfett#6",
+        "de_gleitlager#6",
+        "de_schmierfett#9",
+        "de_schmierfett#8",
+        "de_schmierfett#0",
+        "de_schmierfett#1",
+        "de_schmierung#1",
+        "de_schmierfett#15",
+        "de_schmierfett#5"
+      ],
+      "scores": [
+        0.0323,
+        0.0318,
+        0.0291,
+        0.0288,
+        0.028,
+        0.0279,
+        0.0276,
+        0.0269,
+        0.0252,
+        0.0251
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    }
+  ],
+  "timing": {
+    "index": {
+      "bm25_kiwi": {
+        "build_seconds": 1.730083754984662,
+        "tokenize_seconds": 1.7008076129714027,
+        "n_chunks": 346,
+        "vocab_size": 12371,
+        "avg_tokens_per_chunk": 207.73121387283237
+      },
+      "dense_hnsw_m16_efc128_ef64": {
+        "n_chunks": 346,
+        "dim": 1024,
+        "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+        "cached": true,
+        "path": "data/processed/emb_0235d9fe327f.npz",
+        "encode_seconds": 0.0,
+        "build_seconds": 0.003563822014257312,
+        "index_bytes": 1468360,
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64,
+        "exact": false
+      },
+      "build_seconds": 1.7406730479560792
+    },
+    "query_latency_ms": {
+      "p50": 8.427807013504207,
+      "p95": 10.043535963632166,
+      "mean": 15.19680557669037
+    }
+  },
+  "extra": {
+    "retriever": "rrf(bm25_kiwi+dense_hnsw_m16_efc128_ef64)_k60",
+    "n_chunks": 346
+  }
+}
