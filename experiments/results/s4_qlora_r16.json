@@ -1,0 +1,185 @@
+{
+  "config": {
+    "exp_id": "s4_qlora_r16",
+    "stage": "s4",
+    "description": "qlora fine-tuning of Qwen3-4B-Instruct-2507 for citation completeness: rank 16, alpha 32, all linear layers, lr 2e-4, 3 epochs, effective batch 8",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3"
+    },
+    "retrieval": {
+      "method": "bm25",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "prompt_version": "cite_v1",
+      "max_new_tokens": 256,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "cuda:0",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-10-11T20:30:23+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "b9daa1c7a45de4dce687d49c2b3f440e789fb28c",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "train_loss_first_step": 0.2597650410607457,
+      "train_loss_last_step": 0.030240172520279884,
+      "val_loss_before": 0.220178649665719,
+      "val_loss_final": 0.21581882494335786,
+      "n": 125
+    }
+  },
+  "per_query": [],
+  "timing": {
+    "train_seconds": 591.777976442012,
+    "tokens_per_second": 1332.6264771485228,
+    "optimizer_steps": 48
+  },
+  "extra": {
+    "method": "qlora",
+    "base_model": "Qwen/Qwen3-4B-Instruct-2507",
+    "trainable_params_m": 33.030144,
+    "base_gib": 2.4945363998413086,
+    "peak_gpu_gib": 4.304238796234131,
+    "adapter_dir": "outputs/adapters/s4_qlora_r16",
+    "adapter_mb": 126.07028865814209,
+    "val_loss_curve": {
+      "before": 0.220178649665719,
+      "epoch_1": 0.19704315174408427,
+      "epoch_2": 0.21154327831355998,
+      "epoch_3": 0.21581882494335786
+    },
+    "train_loss_by_step": [
+      0.2598,
+      0.2144,
+      0.2174,
+      0.2422,
+      0.2153,
+      0.1946,
+      0.2038,
+      0.2261,
+      0.2294,
+      0.2938,
+      0.2388,
+      0.1713,
+      0.1719,
+      0.2445,
+      0.1408,
+      0.2488,
+      0.1121,
+      0.1374,
+      0.0714,
+      0.0687,
+      0.071,
+      0.114,
+      0.1765,
+      0.108,
+      0.0591,
+      0.0691,
+      0.1262,
+      0.1274,
+      0.1139,
+      0.0711,
+      0.067,
+      0.0966,
+      0.0721,
+      0.06,
+      0.0366,
+      0.0626,
+      0.0475,
+      0.0419,
+      0.0404,
+      0.0736,
+      0.0727,
+      0.0581,
+      0.1009,
+      0.0223,
+      0.0223,
+      0.0231,
+      0.0746,
+      0.0302
+    ],
+    "train_stats": {
+      "n": 125,
+      "mean_tokens": 2102.984,
+      "max_tokens": 2643,
+      "mean_answer_tokens": 116.944
+    },
+    "val_stats": {
+      "n": 13,
+      "mean_tokens": 2158.769230769231,
+      "max_tokens": 2485,
+      "mean_answer_tokens": 118.6923076923077
+    }
+  }
+}
