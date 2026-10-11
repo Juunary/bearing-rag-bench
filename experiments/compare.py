@@ -20,6 +20,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 from typing import Any
@@ -69,7 +70,13 @@ def main() -> None:
     ap.add_argument("--by-group", action="store_true")
     args = ap.parse_args()
 
-    results = [ExperimentResult.load(p) for p in args.results]
+    results = []
+    for path in args.results:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if "per_query" not in raw:      # e.g. HNSW sweep files have their own schema
+            print(f"skip {path.name}: not a retrieval result file", file=sys.stderr)
+            continue
+        results.append(ExperimentResult.load(path))
     keys = varying_keys([r.config for r in results])
     short = [k.split(".")[-1] if k.count(".") else k for k in keys]
     header = ["exp_id", *short, *args.metrics, "n"]

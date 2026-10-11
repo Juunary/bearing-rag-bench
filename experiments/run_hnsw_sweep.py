@@ -96,10 +96,13 @@ def main() -> None:
     n = len(emb)
     truth = exact_topk(emb, qvec, K)
 
-    t0 = time.perf_counter()
-    for _ in range(3):
-        exact_topk(emb, qvec, K)
-    exact_ms = (time.perf_counter() - t0) / 3 / len(qvec) * 1000
+    # exact search timed one query at a time, the same way as the HNSW knn_query loop below
+    exact_lat = []
+    for qi in range(len(qvec)):
+        t1 = time.perf_counter()
+        exact_topk(emb, qvec[qi:qi + 1], K)
+        exact_lat.append(time.perf_counter() - t1)
+    exact_ms = statistics.median(exact_lat) * 1000
 
     rows = []
     for m, efc in itertools.product(GRID_M, GRID_EFC):
@@ -134,12 +137,12 @@ def main() -> None:
         "setup": {"n_vectors": n, "dim": int(emb.shape[1]), "replicate": args.replicate, "k": K,
                   "query_source": query_source, "n_queries": len(qvec), "embedding": emb_info,
                   "model": embedder.model_name, "model_revision": embedder.revision,
-                  "exact_latency_ms_per_query": exact_ms, "exact_bytes": int(emb.nbytes)},
+                  "exact_latency_ms_p50": exact_ms, "exact_bytes": int(emb.nbytes)},
         "rows": rows,
     }
     out = REPO / "experiments" / "results" / f"{result['exp_id']}.json"
     out.write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"exact search: {exact_ms:.3f} ms/query, {emb.nbytes/1024:.0f}KB | saved -> {out.relative_to(REPO)}")
+    print(f"exact search p50: {exact_ms:.3f} ms/query, {emb.nbytes/1024:.0f}KB | saved -> {out.relative_to(REPO)}")
 
 
 if __name__ == "__main__":
