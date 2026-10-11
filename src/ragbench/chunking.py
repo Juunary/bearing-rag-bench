@@ -164,6 +164,7 @@ def chunk_document(doc: dict[str, Any], cfg: ChunkingConfig, count, hard_cut) ->
             "chunk_id": f"{doc['doc_id']}#{idx}", "doc_id": doc["doc_id"], "lang": doc["lang"],
             "idx": idx, "text": text, "char_start": start, "char_end": end,
             "n_tokens": count(text), "section_path": section_path_at(doc, start),
+            "section_path_end": section_path_at(doc, max(start, end - 1)),   # chunks may span sections
         })
     return out
 

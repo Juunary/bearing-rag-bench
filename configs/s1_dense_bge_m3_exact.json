@@ -1,0 +1,6 @@
+{
+  "exp_id": "s1_dense_bge_m3_exact",
+  "stage": "s1",
+  "description": "Dense retrieval ground truth: BAAI/bge-m3 CLS embeddings, exact numpy dot-product search",
+  "retrieval": {"method": "dense", "embedding_model": "BAAI/bge-m3", "top_k": 10, "exact_search": true}
+}

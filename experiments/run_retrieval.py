@@ -32,7 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from ragbench.chunking import load_chunks  # noqa: E402
+from ragbench.chunking import chunk_set_id, load_chunks  # noqa: E402
 from ragbench.config import ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
 from ragbench.evalset import load_queries, map_gold_to_chunks  # noqa: E402
 from ragbench.ingest import REPO, load_docs  # noqa: E402
@@ -51,14 +51,16 @@ def build_retriever(cfg: ExperimentConfig):
         return BM25Retriever(tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b)
     if r.method == "dense":
         from ragbench.retrieval.dense import DenseRetriever
-        return DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search)
+        return DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search,
+                              chunk_set_id=chunk_set_id(cfg.chunking))
     if r.method in ("hybrid", "hybrid_rerank"):
         from ragbench.retrieval.bm25 import BM25Retriever
         from ragbench.retrieval.dense import DenseRetriever
         from ragbench.retrieval.hybrid import RRFRetriever
         base = RRFRetriever(
             [BM25Retriever(tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b),
-             DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search)],
+             DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search,
+                            chunk_set_id=chunk_set_id(cfg.chunking))],
             rrf_k=r.rrf_k, candidates=r.fusion_candidates)
         if r.method == "hybrid":
             return base

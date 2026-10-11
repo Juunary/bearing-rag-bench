@@ -1,0 +1,7 @@
+{
+  "exp_id": "s1_hybrid_rrf",
+  "stage": "s1",
+  "description": "Hybrid: RRF(k=60) over BM25(kiwi) + dense(bge-m3, hnsw m16/efc128/ef64), 50 candidates each",
+  "retrieval": {"method": "hybrid", "bm25_tokenizer": "kiwi", "embedding_model": "BAAI/bge-m3",
+                "rrf_k": 60, "fusion_candidates": 50, "top_k": 10}
+}

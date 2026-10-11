@@ -6,8 +6,10 @@ authors = [{ name = "Juunary" }]
 requires-python = ">=3.12"
 dependencies = [
     "bm25s>=0.3.13",
+    "hnswlib>=0.8.0",
     "kiwipiepy>=0.24.0",
     "numpy>=2.5.4",
+    "torch>=2.14.1",
     "transformers>=5.19.0",
 ]
 
@@ -22,3 +24,14 @@ build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+# This machine's NVIDIA driver is 550 (CUDA 12.4). Default PyPI torch wheels are CUDA 13 builds,
+# which that driver cannot load, so torch is pinned to the official CUDA 12.6 index
+# (CUDA 12.x minor-version compatibility covers driver >= 525).
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }

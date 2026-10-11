@@ -1,0 +1,7 @@
+{
+  "exp_id": "s1_dense_bge_m3",
+  "stage": "s1",
+  "description": "Dense retrieval: BAAI/bge-m3 CLS embeddings, hnswlib (m=16, ef_construction=128, ef_search=64); fixed 384-token chunks",
+  "retrieval": {"method": "dense", "embedding_model": "BAAI/bge-m3", "top_k": 10,
+                "hnsw": {"m": 16, "ef_construction": 128, "ef_search": 64}}
+}

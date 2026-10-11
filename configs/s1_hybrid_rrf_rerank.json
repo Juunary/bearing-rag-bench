@@ -1,0 +1,8 @@
+{
+  "exp_id": "s1_hybrid_rrf_rerank",
+  "stage": "s1",
+  "description": "Hybrid RRF(k=60) over BM25(kiwi)+dense(bge-m3), then BAAI/bge-reranker-v2-m3 on top 30",
+  "retrieval": {"method": "hybrid_rerank", "bm25_tokenizer": "kiwi", "embedding_model": "BAAI/bge-m3",
+                "rrf_k": 60, "fusion_candidates": 50, "rerank_model": "BAAI/bge-reranker-v2-m3",
+                "rerank_top_n": 30, "top_k": 10}
+}
