@@ -1,0 +1,8 @@
+{
+  "exp_id": "s4_lora_r16",
+  "stage": "s4",
+  "description": "lora fine-tuning of Qwen3-4B-Instruct-2507 for citation completeness: rank 16, alpha 32, all linear layers, lr 2e-4, 3 epochs, effective batch 8",
+  "generation": {"model": "Qwen/Qwen3-4B-Instruct-2507", "prompt_version": "cite_v1"},
+  "train": {"method": "lora", "rank": 16, "alpha": 32, "dropout": 0.05, "lr": 0.0002, "epochs": 3, "grad_accum": 8,
+            "train_file": "data/sft/train.jsonl", "val_file": "data/sft/val.jsonl", "device": "cuda:0"}
+}

@@ -1,0 +1,11 @@
+{
+  "exp_id": "s4_gen_lora_r16",
+  "stage": "s4",
+  "description": "Answer generation with prompt cite_v1 and top-5 RRF+reranker chunks (same as s3_gen_cite_v1); model condition: LoRA adapter (rank 16) on the bf16 base",
+  "retrieval": {"method": "hybrid_rerank", "bm25_tokenizer": "kiwi", "embedding_model": "BAAI/bge-m3",
+                "rrf_k": 60, "fusion_candidates": 50, "rerank_model": "BAAI/bge-reranker-v2-m3",
+                "rerank_top_n": 30, "top_k": 10},
+  "generation": {"model": "Qwen/Qwen3-4B-Instruct-2507", "prompt_version": "cite_v1", "max_new_tokens": 256,
+                 "temperature": 0.0, "context_k": 5, "retrieval_result": "s1_hybrid_rrf_rerank", "device": "cuda:0",
+                 "quantize_4bit": false, "adapter": "outputs/adapters/s4_lora_r16"}
+}

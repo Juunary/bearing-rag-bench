@@ -34,7 +34,7 @@ from ragbench.config import ExperimentConfig  # noqa: E402
 from ragbench.ingest import REPO  # noqa: E402
 from ragbench.regression import TOLERANCE, compare, extract_baseline  # noqa: E402
 
-RUNNERS = {"s1": "run_retrieval.py", "s3": "run_generation.py"}
+RUNNERS = {"s1": "run_retrieval.py", "s3": "run_generation.py", "s4": "run_generation.py"}
 
 
 def main() -> None:

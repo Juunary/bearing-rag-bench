@@ -92,6 +92,23 @@ class RetrievalConfig:
 
 
 @dataclass
+class TrainConfig:
+    method: str = "qlora"              # "qlora" (4-bit NF4 base) | "lora" (bf16 base)
+    rank: int = 16
+    alpha: int = 32
+    dropout: float = 0.05
+    target_modules: list[str] = field(default_factory=lambda: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"])
+    lr: float = 2e-4
+    epochs: int = 3
+    grad_accum: int = 8
+    warmup_ratio: float = 0.05
+    max_grad_norm: float = 1.0
+    train_file: str = "data/sft/train.jsonl"
+    val_file: str = "data/sft/val.jsonl"
+    device: str = "cuda:0"
+
+
+@dataclass
 class GenerationConfig:
     model: str | None = None
     prompt_version: str | None = None
@@ -100,6 +117,8 @@ class GenerationConfig:
     context_k: int = 5                 # retrieved chunks placed in the prompt
     retrieval_result: str | None = None   # experiments/results/<name>.json that supplies the ranked chunks
     device: str = "cuda:0"
+    quantize_4bit: bool = False        # load the base as NF4 (the QLoRA base)
+    adapter: str | None = None         # LoRA/QLoRA adapter directory (stage 4)
 
 
 @dataclass
@@ -114,6 +133,7 @@ class ExperimentConfig:
     chunking: ChunkingConfig = field(default_factory=ChunkingConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     generation: GenerationConfig = field(default_factory=GenerationConfig)
+    train: TrainConfig = field(default_factory=TrainConfig)
 
     # -- (de)serialisation -------------------------------------------------
     @classmethod
@@ -124,6 +144,7 @@ class ExperimentConfig:
         r["hnsw"] = HNSWConfig(**r.get("hnsw", {}))
         d["retrieval"] = RetrievalConfig(**r)
         d["generation"] = GenerationConfig(**d.get("generation", {}))
+        d["train"] = TrainConfig(**d.get("train", {}))
         return cls(**d)
 
     @classmethod

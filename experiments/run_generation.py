@@ -43,6 +43,15 @@ from ragbench.ingest import REPO, load_docs  # noqa: E402
 from ragbench.metrics import aggregate  # noqa: E402
 
 
+def adapter_hash(adapter: str | None) -> str | None:
+    if not adapter:
+        return None
+    import hashlib
+
+    f = REPO / adapter / "adapter_model.safetensors"
+    return hashlib.sha256(f.read_bytes()).hexdigest() if f.exists() else None
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("config", type=Path)
@@ -62,7 +71,7 @@ def main() -> None:
     if args.limit:
         queries = queries[: args.limit]
 
-    gen = Generator(g.model, device=g.device)
+    gen = Generator(g.model, device=g.device, quantize_4bit=g.quantize_4bit, adapter=str(REPO / g.adapter) if g.adapter else None)
     per_query, latencies = [], []
     for q in queries:
         gold = map_gold_to_chunks(q["gold"], docs, chunks, cfg.anchor_min_overlap)
@@ -91,7 +100,8 @@ def main() -> None:
                                         "total": sum(latencies)},
                 "tokens": {"prompt_mean": statistics.fmean(p["prompt_tokens"] for p in per_query),
                            "completion_mean": statistics.fmean(p["completion_tokens"] for p in per_query)}},
-        extra={"model": g.model, "model_revision": gen.revision, "retrieval_result": g.retrieval_result,
+        extra={"model": g.model, "model_revision": gen.revision, "quantize_4bit": g.quantize_4bit, "adapter": g.adapter,
+               "adapter_sha256": adapter_hash(g.adapter), "retrieval_result": g.retrieval_result,
                "retrieval_git_commit": retrieval["environment"]["git_commit"]},
     )
     path = result.save()
