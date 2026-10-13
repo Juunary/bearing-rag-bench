@@ -1,0 +1,6 @@
+{
+  "exp_id": "s5_bm25_en_docfirst",
+  "stage": "s5",
+  "description": "English-pivot BM25, document-first: ko/de documents translated by sentence span (Qwen3-4B), then chunked (384 bge-m3 tokens, overlap 48) in English; whitespace tokenizer",
+  "retrieval": {"method": "bm25", "bm25_tokenizer": "whitespace", "bm25_english_pivot": true, "top_k": 10}
+}

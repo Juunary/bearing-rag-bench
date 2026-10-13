@@ -69,3 +69,25 @@ class EnglishBM25Retriever:
         return {"query_translation_seconds_p50": statistics.median(secs) if secs else None,
                 "query_translations_truncated": sum(q["truncated"] for q in self.query_log),
                 "query_translations": self.query_log}
+
+
+class QueryPivotRetriever:
+    """Translate the query to English, then search an index whose chunks are already English (docfirst variant).
+
+    [KO] 청크가 이미 영어인 인덱스(문서 먼저 번역 방식)에서 질의만 영어로 번역해 검색한다.
+    """
+
+    def __init__(self, translator, inner):
+        self.name = f"{inner.name}_qen"
+        self.translator, self.inner = translator, inner
+        self.query_log: list[dict[str, Any]] = []
+
+    def index(self, chunks: list[dict[str, Any]]) -> dict[str, Any]:
+        return self.inner.index(chunks)
+
+    def search(self, query: str, k: int) -> list[Hit]:
+        r = self.translator.translate(query, "query")
+        self.query_log.append({"query": query, "english": r["text"], "truncated": r["truncated"], "seconds": r["seconds"]})
+        return self.inner.search(r["text"], k)
+
+    run_extra = EnglishBM25Retriever.run_extra

@@ -40,7 +40,7 @@ from ragbench.cache import LLMCache, make_key
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
 SYSTEM = "You are a professional technical translator for mechanical engineering (bearings, seals, lubrication, tribology, automotive parts)."
 # 질의는 짧아서 96, 청크는 최대 384토큰 원문이 영어로 늘어날 수 있어 768로 여유를 둔다
-MAX_NEW_TOKENS = {"query": 96, "passage": 768}
+MAX_NEW_TOKENS = {"query": 96, "passage": 768, "numbered": 900}
 # 모델이 "Translation:" 같은 머리말을 붙이는 경우를 지우기 위한 패턴
 _PREFIX = re.compile(r"^\s*(translation|english|translated text)\s*[:：]\s*", re.IGNORECASE)
 
@@ -60,6 +60,20 @@ def translation_messages(text: str, kind: str) -> list[dict[str, str]]:
     if kind not in _INSTRUCTION:
         raise ValueError(f"kind must be 'query' or 'passage', got {kind!r}")
     return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"{_INSTRUCTION[kind]}\n\n{text}"}]
+
+
+# 문서 먼저 번역(docfirst) 방식: 번호 붙은 문장을 번호 그대로 한 줄씩 번역하게 해서 원문-번역 문장 정렬을 유지한다
+_NUMBERED_INSTRUCTION = ("Translate each numbered sentence into English. Output exactly one line per input line, "
+                         "keeping the same numbers in the form [n]. Do not merge, split, add or drop sentences. "
+                         "Keep numbers, units, formulas, symbols and proper nouns unchanged. "
+                         "Use the standard English engineering term for technical words "
+                         "(for example 구름 베어링 and Wälzlager both become 'rolling bearing'). Output only the translated lines.")
+
+
+def numbered_messages(numbered: str, title: str, section_path: list[str]) -> list[dict[str, str]]:
+    # 제목·절 경로는 용어 일관성을 위한 문맥이고 번역 대상이 아니다
+    context = f"Document title: {title}\nSection: {' > '.join(section_path) or '(lead)'}\n(Context only, do not translate.)"
+    return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"{_NUMBERED_INSTRUCTION}\n\n{context}\n\n{numbered}"}]
 
 
 def clean_translation(text: str, kind: str) -> str:
@@ -99,16 +113,22 @@ class Translator:
 
     def translate(self, text: str, kind: str) -> dict[str, Any]:
         """Return {"text", "truncated", "seconds", "completion_tokens", "from_cache"}."""
-        messages = translation_messages(text, kind)
+        out = self._run(translation_messages(text, kind), MAX_NEW_TOKENS[kind])
+        return {**out, "text": clean_translation(out["text"], kind)}
+
+    def translate_numbered(self, numbered: str, title: str, section_path: list[str]) -> dict[str, Any]:
+        """Numbered sentences for the docfirst build; the raw model text is returned (the caller parses the numbers)."""
+        return self._run(numbered_messages(numbered, title, section_path), MAX_NEW_TOKENS["numbered"])
+
+    def _run(self, messages: list[dict[str, str]], limit: int) -> dict[str, Any]:
         # 1) 캐시 조회: 같은 모델·리비전·프롬프트·길이 제한이면 GPU 없이 즉시 반환
-        limit = MAX_NEW_TOKENS[kind]
         key = make_key(self.model_name, self._revision_for_key(), messages, limit)
         hit = self.cache.get(key)
         if hit is not None:
             return {**hit, "from_cache": True}
         # 2) 캐시 미스: 실제로 생성하고, 한도를 다 쓰면 잘린 번역으로 표시한다 (재시도 없음)
         out = self._generator().generate(messages, max_new_tokens=limit)
-        value = {"text": clean_translation(out["text"], kind), "truncated": out["completion_tokens"] >= limit,
+        value = {"text": out["text"], "truncated": out["completion_tokens"] >= limit,
                  "seconds": out["seconds"], "completion_tokens": out["completion_tokens"]}
         # 3) 원래 생성 시간(seconds)까지 저장해 두어 재실행해도 번역 지연을 보고할 수 있게 한다
         self.cache.put(key, value)

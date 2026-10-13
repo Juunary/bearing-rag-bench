@@ -58,3 +58,61 @@ def test_missing_translation_raises(tmp_path):
     p = _write(tmp_path, [{"chunk_id": "en_b#0", "text": "Seals keep oil in.", "translated": False, "truncated": False}])
     with pytest.raises(ValueError, match="no English translation"):
         EnglishBM25Retriever(FakeTranslator(), p).index(_chunks())
+
+
+# ---- docfirst: 번역 구간 정렬과 번호 문장 파싱 ----
+from types import SimpleNamespace as NS
+
+from ragbench.docfirst import anchor_to_english_span, group_lines, make_windows, numbered_text, parse_numbered, rebuild
+
+
+def _spans(text, pieces):
+    out, pos = [], 0
+    for p in pieces:
+        s = text.index(p, pos); pos = s + len(p)
+        out.append(NS(text=p, start=s, end=pos, n_tokens=10))
+    return out
+
+
+def test_group_lines_and_windows():
+    text = "A. B.\nC.\n\nD."
+    spans = _spans(text, ["A.", "B.", "C.", "D."])
+    lines = group_lines(text, spans)
+    assert lines == [[0, 1], [2], [3]]                       # 같은 줄의 문장은 한 묶음
+    assert make_windows(lines, spans, max_tokens=25) == [[[0, 1]], [[2], [3]]]   # 줄 단위로만 자른다
+
+
+def test_parse_numbered_requires_exact_numbers():
+    assert parse_numbered("[1] One.\n[2] Two.", 2) == ["One.", "Two."]
+    assert parse_numbered("[1] One.\n[3] Three.", 2) is None      # 번호 건너뜀
+    assert parse_numbered("[1] One.", 2) is None                  # 개수 부족
+    assert parse_numbered("[1] One.\nextra comment\n[2] Two.", 2) is None   # 정렬을 못 믿는 줄
+    assert numbered_text(["a  b", "c"]) == "[1] a b\n[2] c"
+
+
+def test_rebuild_keeps_structure_and_alignment():
+    text = "Eins. Zwei.\n\nDrei."
+    spans = _spans(text, ["Eins.", "Zwei.", "Drei."])
+    en, units = rebuild(text, spans, ["One.", "Two things.", "Three."])
+    assert en == "One. Two things.\n\nThree."
+    for u, t in zip(units, ["One.", "Two things.", "Three."]):
+        assert en[u["e_start"]:u["e_end"]] == t
+    # 두 번째 문장만 덮는 근거 문장 -> 영어 두 번째 문장 범위
+    s, e = anchor_to_english_span(text.index("Zwei."), text.index("Zwei.") + 5, units)
+    assert en[s:e] == "Two things."
+    assert anchor_to_english_span(100, 110, units) is None
+
+
+# 정답 연결: 번역된 문서는 정렬 단위로, 영어 문서는 기존 규칙으로 청크에 연결된다
+def test_map_gold_docfirst_translated_and_english_docs():
+    from ragbench.docfirst import map_gold_docfirst
+
+    orig = "Eins. Zwei. Drei."
+    spans = _spans(orig, ["Eins.", "Zwei.", "Drei."])
+    en, units = rebuild(orig, spans, ["One thing.", "Two things.", "Three things."])
+    docs = {"de_a": {"text": orig}, "en_b": {"text": "Seals keep oil in."}}
+    chunks = [{"chunk_id": "de_a#0", "doc_id": "de_a", "char_start": 0, "char_end": en.index("Two")},          # 첫 문장만
+              {"chunk_id": "de_a#1", "doc_id": "de_a", "char_start": en.index("Two"), "char_end": len(en)},   # 둘째·셋째 문장
+              {"chunk_id": "en_b#0", "doc_id": "en_b", "char_start": 0, "char_end": 18}]
+    gold = [{"doc_id": "de_a", "grade": 2, "anchor": "Zwei."}, {"doc_id": "en_b", "grade": 1, "anchor": "Seals keep oil in."}]
+    assert map_gold_docfirst(gold, docs, {"de_a": units}, chunks) == {"de_a#1": 2, "en_b#0": 1}
