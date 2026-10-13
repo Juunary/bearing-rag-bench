@@ -81,6 +81,7 @@ class RetrievalConfig:
     bm25_tokenizer: str = "whitespace"   # "whitespace" | "char_bigram" | "kiwi" | "subword" | "snowball"
     bm25_k1: float = 1.5
     bm25_b: float = 0.75
+    bm25_english_pivot: bool = False   # [KO] 켜면 청크·질의를 영어로 번역해 BM25. True -> BM25 over English translations of chunks and queries (needs chunks_en_*.jsonl)
     embedding_model: str = "BAAI/bge-m3"
     embedding_revision: str | None = None   # HF commit hash, filled in at run time if None
     hnsw: HNSWConfig = field(default_factory=HNSWConfig)

@@ -45,6 +45,19 @@ SAMPLE_QUERIES = [
 ]
 
 
+def _run_extra(retriever) -> dict:
+    """Method-specific facts a retriever wants stored (the English pivot reports translation cost)."""
+    # hybrid(.retrievers)·rerank(.base) 안쪽에 감싸인 검색기까지 내려가며 run_extra()를 모은다
+    found = {}
+    stack = [retriever]
+    while stack:
+        r = stack.pop()
+        if hasattr(r, "run_extra"):
+            found.update(r.run_extra())
+        stack.extend(getattr(r, "retrievers", []) + ([r.base] if hasattr(r, "base") else []))
+    return found
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("config", type=Path)
@@ -96,7 +109,7 @@ def main() -> None:
             "p50": statistics.median(latencies) * 1000,
             "p95": sorted(latencies)[int(0.95 * (len(latencies) - 1))] * 1000,
             "mean": statistics.fmean(latencies) * 1000}},
-        extra={"retriever": retriever.name, "n_chunks": len(chunks)},
+        extra={"retriever": retriever.name, "n_chunks": len(chunks), **_run_extra(retriever)},
     )
     path = result.save()
     print(f"overall: {metrics['overall']}")
