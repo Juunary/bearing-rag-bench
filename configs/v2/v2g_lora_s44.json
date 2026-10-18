@@ -1,0 +1,26 @@
+{
+  "exp_id": "v2g_lora_s44",
+  "stage": "v2g",
+  "description": "Generation with the lora adapter v2_lora_s44 [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "kiwi",
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "top_k": 10
+  },
+  "generation": {
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "prompt_version": "cite_v1",
+    "max_new_tokens": 256,
+    "temperature": 0.0,
+    "context_k": 5,
+    "retrieval_result": "v2_b_rrf_rerank",
+    "device": "cuda:1",
+    "adapter": "outputs/adapters/v2_lora_s44"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "exp_id": "v2_qlora_s44",
+  "stage": "v2t",
+  "seed": 44,
+  "description": "qlora fine-tuning of Qwen/Qwen3-4B-Instruct-2507 for citation completeness on data/sft_v2: rank 16, alpha 32, lr 2e-4, 3 epochs, effective batch 8, seed 44",
+  "generation": {
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "prompt_version": "cite_v1"
+  },
+  "train": {
+    "method": "qlora",
+    "rank": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "lr": 0.0002,
+    "epochs": 3,
+    "grad_accum": 8,
+    "train_file": "data/sft_v2/train.jsonl",
+    "val_file": "data/sft_v2/val.jsonl",
+    "device": "cuda:0"
+  }
+}

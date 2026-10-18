@@ -86,15 +86,21 @@ def main() -> None:
     ap.add_argument("--sim-eval", type=float, default=0.80)
     ap.add_argument("--sim-train", type=float, default=0.92)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--eval-path", default=None, help="evaluation set whose gold chunks are excluded as sources and whose questions the training questions must not resemble (default: the config's eval_path)")
+    ap.add_argument("--out-dir", default="data/sft", help="output directory (train.jsonl, val.jsonl, stats.json, _work/)")
+    ap.add_argument("--cross-only", action="store_true", help="every question is written in a language different from its source chunk's language")
     args = ap.parse_args()
     set_seed(args.seed)
+    global OUT, WORK
+    OUT = REPO / args.out_dir          # 출력 위치를 인자로 바꿀 수 있게 한다 (평가셋별로 오염 없는 학습 세트를 따로 둔다)
+    WORK = OUT / "_work"
     env = environment_snapshot()      # taken before any file is written, so the commit is not marked dirty by our own outputs
 
     cfg = ExperimentConfig.load(REPO / "configs" / "s35_pipeline.json")
     docs = {d["doc_id"]: d for d in load_docs()}
     chunks = load_chunks(cfg.chunking)
     by_id = {c["chunk_id"]: c for c in chunks}
-    eval_q = load_queries(REPO / cfg.eval_path)
+    eval_q = load_queries(REPO / (args.eval_path or cfg.eval_path))
     eval_gold = set()
     for q in eval_q:
         eval_gold |= set(map_gold_to_chunks(q["gold"], docs, chunks, cfg.anchor_min_overlap))
@@ -116,7 +122,10 @@ def main() -> None:
     done = {r["source_id"]: r for r in read_jsonl(qpath)}
     rows = []
     for i, c in enumerate(sources):
-        qlang = langs[i % 3]
+        if args.cross_only:
+            qlang = [l for l in langs if l != c["lang"]][i % 2]      # 출처 청크와 다른 두 언어를 번갈아 쓴다
+        else:
+            qlang = langs[i % 3]
         if c["chunk_id"] in done:
             rows.append(done[c["chunk_id"]]); continue
         text = gen.generate(question_messages(c["text"], qlang), max_new_tokens=80)["text"]
