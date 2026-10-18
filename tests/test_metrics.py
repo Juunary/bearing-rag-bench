@@ -109,3 +109,19 @@ def test_aggregate_overall_and_groups():
     assert grouped["ko->en"]["recall@5"] == pytest.approx(0.5)
     assert grouped["ko->en"]["n"] == 1
     assert grouped["overall"]["n"] == 3
+
+
+# ---- 중복 ID 방어: 반복된 ID는 첫 등장만 점수를 낸다 ----
+def test_duplicate_ids_cannot_push_metrics_above_one():
+    gold = {"A": 2}
+    assert recall_at_k(["A", "A", "B"], gold, 5) == 1.0           # 이전에는 2.0
+    assert ndcg_at_k(["A", "A", "B"], gold, 10) == 1.0            # 이전에는 2.0 / 1.0 초과
+    assert mrr_at_k(["B", "A", "A"], gold, 10) == 0.5
+
+
+def test_duplicate_slot_is_wasted_but_other_ranks_do_not_move():
+    gold = {"A": 2, "C": 1}
+    # [A, A, C]: 두 번째 자리는 낭비, C는 여전히 3등
+    expected = (2 / 1 + 1 / math.log2(4)) / (2 / 1 + 1 / math.log2(3))
+    assert abs(ndcg_at_k(["A", "A", "C"], gold, 10) - expected) < 1e-12
+    assert recall_at_k(["A", "A", "C"], gold, 5) == 1.0

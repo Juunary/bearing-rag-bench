@@ -11,6 +11,10 @@
 - "subword": the embedding model's tokenizer (bge-m3, XLM-R SentencePiece). One vocabulary for
   all languages; splits German compounds (Kegel/rollen/lager) but shreds Korean into syllables
   (베/어/링), which is reported as-is in the results.
+- "en_stem" / "en_stem_stop" (added 2026-10-19, for the English-pivot BM25 only): whitespace tokens
+  reduced with the Snowball English stemmer (PyStemmer: bearings -> bearing, lubrication ->
+  lubric), the second variant also drops bm25s's 33 English stopwords. They must only be used on
+  English text (translated chunks and queries); on ko/de text they would stem nonsense.
 - Not chosen for stage 1: character bigrams, Snowball German stemmer (candidates for stage 2).
 
 [KO]
@@ -22,6 +26,9 @@
   세 언어를 처리한다(en/de 어간 추출은 없음). SL 토큰 끝의 "."은 제거.
 - "subword": 임베딩 모델 토크나이저(bge-m3, XLM-R SentencePiece). 세 언어 공통 어휘. 독일어 복합명사는
   나뉘지만(Kegel/rollen/lager) 한국어는 음절 단위로 부서진다(베/어/링). 결과에 그대로 기록한다.
+- "en_stem" / "en_stem_stop"(2026-10-19 추가, 영어 피벗 BM25 전용): 공백 토큰을 Snowball 영어 stemmer
+  (PyStemmer)로 줄인다(bearings -> bearing, lubrication -> lubric). 두 번째는 bm25s의 영어 불용어 33개도
+  버린다. 영어 텍스트(번역한 청크·질의)에만 써야 하며 한국어·독일어에 쓰면 의미 없는 어간이 나온다.
 - 1단계 미채택: 문자 bigram, Snowball 독일어 stemmer(2단계 후보).
 """
 
@@ -78,10 +85,28 @@ def subword_tokenize(text: str) -> list[str]:
     return out
 
 
+@lru_cache(maxsize=1)
+def _en_stemmer():
+    import Stemmer     # PyStemmer: Snowball 알고리즘의 C 구현 (bm25s도 같은 라이브러리를 쓴다)
+    return Stemmer.Stemmer("english")
+
+
+def en_stem_tokenize(text: str) -> list[str]:
+    return _en_stemmer().stemWords(whitespace_tokenize(text))
+
+
+def en_stem_stop_tokenize(text: str) -> list[str]:
+    from bm25s.stopwords import STOPWORDS_EN
+    stop = set(STOPWORDS_EN)
+    return _en_stemmer().stemWords([t for t in whitespace_tokenize(text) if t not in stop])    # 불용어는 어간 추출 전에 제거
+
+
 TOKENIZERS: dict[str, Tokenizer] = {
     "whitespace": whitespace_tokenize,
     "kiwi": kiwi_tokenize,
     "subword": subword_tokenize,
+    "en_stem": en_stem_tokenize,
+    "en_stem_stop": en_stem_stop_tokenize,
 }
 
 

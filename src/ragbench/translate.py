@@ -55,11 +55,37 @@ _INSTRUCTION = {
 }
 
 
-def translation_messages(text: str, kind: str) -> list[dict[str, str]]:
+def load_glossary(path: str | Path) -> list[dict[str, Any]]:
+    import json
+
+    return json.loads(Path(path).read_text(encoding="utf-8"))["entries"]
+
+
+def glossary_hint(text: str, entries: list[dict[str, Any]]) -> str:
+    """Term hints for the entries whose ko/de form occurs in `text` ("" if none).
+
+    A matched form that is only a part of a longer matched form is dropped (마찰 inside 구름 마찰), so the
+    hint names the most specific term.
+    """
+    low = text.lower()
+    found = [(form, e["en"]) for e in entries for form in e["ko"] + e["de"] if form.lower() in low]
+    found = [(f, en) for f, en in found if not any(f != g and f.lower() in g.lower() for g, _ in found)]
+    found.sort(key=lambda fe: low.find(fe[0].lower()))      # 텍스트에 나온 순서대로
+    seen, lines = set(), []
+    for f, en in found:
+        if (f.lower(), en) not in seen:
+            seen.add((f.lower(), en))
+            lines.append(f"{f} = {en}")
+    return "; ".join(lines)
+
+
+def translation_messages(text: str, kind: str, hint: str = "") -> list[dict[str, str]]:
     # kind 오타가 조용히 다른 프롬프트로 가지 않게 바로 예외
     if kind not in _INSTRUCTION:
         raise ValueError(f"kind must be 'query' or 'passage', got {kind!r}")
-    return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"{_INSTRUCTION[kind]}\n\n{text}"}]
+    # 용어 힌트는 지시문 뒤, 본문 앞에 둔다 (힌트가 없으면 메시지가 예전과 같아 캐시가 그대로 맞는다)
+    hint_line = f"\n\nRequired term translations (use exactly these): {hint}" if hint else ""
+    return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"{_INSTRUCTION[kind]}{hint_line}\n\n{text}"}]
 
 
 # 문서 먼저 번역(docfirst) 방식: 번호 붙은 문장을 번호 그대로 한 줄씩 번역하게 해서 원문-번역 문장 정렬을 유지한다
@@ -87,8 +113,10 @@ def clean_translation(text: str, kind: str) -> str:
 class Translator:
     """Cached translator. The model is loaded on the first cache miss only."""
 
-    def __init__(self, cache_path: str | Path, model_name: str = MODEL, device: str = "cuda:0"):
+    def __init__(self, cache_path: str | Path, model_name: str = MODEL, device: str = "cuda:0",
+                 glossary: list[dict[str, Any]] | None = None):
         self.model_name, self.device = model_name, device
+        self.glossary = glossary          # 있으면 번역할 텍스트에 나온 용어의 힌트를 프롬프트에 붙인다
         # 캐시가 있으면 모델을 올릴 필요가 없으므로 Generator는 첫 캐시 미스 때 로드한다
         self.cache = LLMCache(cache_path)
         self._gen = None
@@ -113,7 +141,8 @@ class Translator:
 
     def translate(self, text: str, kind: str) -> dict[str, Any]:
         """Return {"text", "truncated", "seconds", "completion_tokens", "from_cache"}."""
-        out = self._run(translation_messages(text, kind), MAX_NEW_TOKENS[kind])
+        hint = glossary_hint(text, self.glossary) if self.glossary else ""
+        out = self._run(translation_messages(text, kind, hint), MAX_NEW_TOKENS[kind])
         return {**out, "text": clean_translation(out["text"], kind)}
 
     def translate_numbered(self, numbered: str, title: str, section_path: list[str]) -> dict[str, Any]:

@@ -13,6 +13,7 @@ dependencies = [
     "kiwipiepy>=0.24.0",
     "numpy>=2.5.4",
     "peft>=0.21.2",
+    "pystemmer>=3.1.0",
     "torch>=2.14.1",
     "transformers>=5.19.0",
     "uvicorn[standard]>=0.54.0",

@@ -116,3 +116,39 @@ def test_map_gold_docfirst_translated_and_english_docs():
               {"chunk_id": "en_b#0", "doc_id": "en_b", "char_start": 0, "char_end": 18}]
     gold = [{"doc_id": "de_a", "grade": 2, "anchor": "Zwei."}, {"doc_id": "en_b", "grade": 1, "anchor": "Seals keep oil in."}]
     assert map_gold_docfirst(gold, docs, {"de_a": units}, chunks) == {"de_a#1": 2, "en_b#0": 1}
+
+
+# ---- 영어 질문 번역 건너뛰기 ----
+class CountingTranslator(FakeTranslator):
+    def __init__(self): self.calls = 0
+    def translate(self, text, kind):
+        self.calls += 1
+        return super().translate(text, kind)
+
+
+def test_skip_english_queries_only_translates_non_english(tmp_path):
+    p = _write(tmp_path, [{"chunk_id": "ko_a#0", "text": "Bearing life depends on the load.", "translated": True, "truncated": False},
+                          {"chunk_id": "en_b#0", "text": "Seals keep oil in.", "translated": False, "truncated": False}])
+    tr = CountingTranslator()
+    r = EnglishBM25Retriever(tr, p, skip_english=True)
+    r.index(_chunks())
+    assert r.search("What keeps oil in?", 5)[0][0] == "en_b#0" and tr.calls == 0       # 영어: 모델 호출 없음
+    r.search("베어링 수명", 5)
+    assert tr.calls == 1                                                                 # 한국어: 번역
+    extra = r.run_extra()
+    assert extra["query_translations_skipped"] == 1 and extra["query_translation_seconds_p50"] == 2.0
+
+
+# ---- 용어집 힌트 ----
+def test_glossary_hint_only_for_terms_in_the_text_and_most_specific_form():
+    from ragbench.translate import glossary_hint, translation_messages
+
+    entries = [{"en": "friction", "ko": ["마찰"], "de": ["Reibung"]},
+               {"en": "rolling friction", "ko": ["구름 마찰"], "de": ["Rollreibung"]},
+               {"en": "cage", "ko": ["케이지"], "de": ["Käfig"]},
+               {"en": "grease", "ko": ["그리스"], "de": ["Schmierfett"]}]
+    assert glossary_hint("구름 마찰과 케이지", entries) == "구름 마찰 = rolling friction; 케이지 = cage"   # 마찰은 구름 마찰에 포함되어 빠진다
+    assert glossary_hint("Der Käfig und die Reibung", entries) == "Käfig = cage; Reibung = friction"       # 대소문자 무시
+    assert glossary_hint("What is grease?", entries) == ""
+    assert "Required term translations" in translation_messages("케이지?", "query", "케이지 = cage")[-1]["content"]
+    assert "Required term" not in translation_messages("케이지?", "query")[-1]["content"]                  # 힌트가 없으면 예전 메시지 그대로

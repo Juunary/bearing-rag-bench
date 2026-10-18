@@ -12,6 +12,10 @@
     hand computation easy; exponential gain (2**g - 1) would weight core:support = 3:1.
   - Empty gold -> ValueError (data error must not silently become 0).
   - ranked shorter than k is fine.
+  - Duplicate ids in ranked (added 2026-10-19): only the FIRST occurrence can score; a repeated id
+    occupies its slot but adds nothing (no gain, no hit), and the ranks of the other ids do not
+    move. Without this, recall and nDCG could exceed 1. The current retrievers never repeat an id
+    (RRF fuses by id); the rule keeps the metrics valid if a future retriever does.
 - Why graded nDCG: the eval set marks core vs supporting evidence, so ordering quality matters.
 
 
@@ -26,6 +30,9 @@
     자른 DCG. 선형(trec_eval 방식)은 손계산이 쉽다. 지수 gain(2**g-1)은 핵심:보조 = 3:1이 된다.
   - gold가 비면 ValueError (데이터 오류가 조용히 0이 되면 안 된다).
   - ranked가 k보다 짧아도 된다.
+  - ranked에 같은 ID가 반복되면(2026-10-19 추가): 첫 등장만 점수를 낸다. 반복된 ID는 자리만 차지하고
+    이득도 적중도 없으며 다른 ID의 순위는 밀리지 않는다. 이 규칙이 없으면 recall과 nDCG가 1을 넘을 수
+    있다. 현재 검색기는 ID를 반복하지 않지만(RRF는 ID로 융합) 이후 검색기가 반복해도 지표가 유효하다.
 - 등급형 nDCG를 쓰는 이유: 평가셋이 핵심/보조 근거를 구분하므로 순서 품질을 반영한다.
 """
 
@@ -36,17 +43,27 @@ from collections import defaultdict
 from typing import Any
 
 
+def _first_occurrences(ranked: list[str], k: int) -> list[str | None]:
+    """Top-k slots where a repeated id is replaced by None (the slot stays, so other ranks do not move)."""
+    seen: set[str] = set()
+    out: list[str | None] = []
+    for chunk_id in ranked[:k]:
+        out.append(None if chunk_id in seen else chunk_id)
+        seen.add(chunk_id)
+    return out
+
+
 def recall_at_k(ranked: list[str], gold: dict[str, int], k: int) -> float:
     if not gold:
         raise ValueError("gold must not be empty")
     relevant = set(gold)
-    hit = sum(1 for chunk_id in ranked[:k] if chunk_id in relevant)
+    hit = sum(1 for chunk_id in _first_occurrences(ranked, k) if chunk_id in relevant)
     return hit / len(relevant)
 
 def mrr_at_k(ranked: list[str], gold: dict[str, int], k: int = 10) -> float:
     if not gold:
         raise ValueError("gold must not be empty")
-    for rank, chunk_id in enumerate(ranked[:k], start=1):
+    for rank, chunk_id in enumerate(_first_occurrences(ranked, k), start=1):
         if chunk_id in gold:
             return 1.0 / rank
     return 0.0
@@ -57,8 +74,8 @@ def ndcg_at_k(ranked: list[str], gold: dict[str, int], k: int = 10) -> float:
         raise ValueError("gold must not be empty")
     # DCG
     dcg = 0.0
-    for rank, chunk_id in enumerate(ranked[:k], start=1):
-        grade = gold.get(chunk_id, 0)
+    for rank, chunk_id in enumerate(_first_occurrences(ranked, k), start=1):
+        grade = gold.get(chunk_id, 0) if chunk_id is not None else 0     # 반복된 ID(None)는 이득 0
         dcg += grade / math.log2(rank + 1)
     # IDCG
     ideal_grades = sorted(gold.values(), reverse=True)[:k]

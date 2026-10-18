@@ -25,9 +25,13 @@ def _bm25(cfg: ExperimentConfig):
         from ragbench.config import REPO_ROOT
         from ragbench.retrieval.bm25_en import EnglishBM25Retriever
         from ragbench.translate import Translator
-        return EnglishBM25Retriever(Translator(REPO_ROOT / "logs" / "translate_cache.sqlite"),
-                                    REPO_ROOT / "data" / "processed" / f"chunks_en_{chunk_set_id(cfg.chunking)}.jsonl",
-                                    tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b)
+        from ragbench.translate import MODEL, load_glossary
+        glossary = load_glossary(REPO_ROOT / "data" / "glossary.json") if r.translate_glossary else None
+        suffix = "_gl" if r.translate_glossary else ""      # 용어집으로 번역한 청크는 별도 파일
+        return EnglishBM25Retriever(Translator(REPO_ROOT / "logs" / "translate_cache.sqlite", model_name=r.translate_model or MODEL,
+                                               glossary=glossary),
+                                    REPO_ROOT / "data" / "processed" / f"chunks_en_{chunk_set_id(cfg.chunking)}{suffix}.jsonl",
+                                    tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b, skip_english=r.translate_skip_english)
     from ragbench.retrieval.bm25 import BM25Retriever
     return BM25Retriever(tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b)
 

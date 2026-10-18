@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ragbench.chunking import chunk_set_id, load_chunks  # noqa: E402
 from ragbench.config import ChunkingConfig, set_seed  # noqa: E402
 from ragbench.ingest import REPO  # noqa: E402
-from ragbench.translate import Translator  # noqa: E402
+from ragbench.translate import Translator, load_glossary  # noqa: E402
 
 
 def main() -> None:
@@ -38,6 +38,7 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None, help="translate only the first N non-English chunks (smoke test)")
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--cache", default=str(REPO / "logs" / "translate_cache.sqlite"))
+    ap.add_argument("--glossary", action="store_true", help="add term hints from data/glossary.json; writes chunks_en_<set>_gl.jsonl")
     args = ap.parse_args()
     set_seed(42)
 
@@ -45,8 +46,9 @@ def main() -> None:
 
     cfg = ChunkingConfig()
     chunks = load_chunks(cfg)
-    out_path = REPO / "data" / "processed" / f"chunks_en_{chunk_set_id(cfg)}.jsonl"
-    tr = Translator(args.cache, device=args.device)
+    out_path = REPO / "data" / "processed" / f"chunks_en_{chunk_set_id(cfg)}{'_gl' if args.glossary else ''}.jsonl"
+    glossary = load_glossary(REPO / "data" / "glossary.json") if args.glossary else None
+    tr = Translator(args.cache, device=args.device, glossary=glossary)
 
     # 영어 청크는 모델에 보내지 않고 원문 그대로 쓴다 (번역 오류가 끼어들 여지를 없앰)
     todo = [c for c in chunks if c["lang"] != "en"]

@@ -1,0 +1,726 @@
+{
+ "note": "a term hint is added to a translation prompt only when one of its ko/de forms occurs in the text",
+ "entries": [
+  {
+   "en": "rolling bearing",
+   "ko": [
+    "구름 베어링",
+    "롤링 베어링"
+   ],
+   "de": [
+    "Wälzlager"
+   ]
+  },
+  {
+   "en": "plain bearing",
+   "ko": [
+    "미끄럼 베어링",
+    "슬라이딩 베어링",
+    "평 베어링"
+   ],
+   "de": [
+    "Gleitlager"
+   ]
+  },
+  {
+   "en": "ball bearing",
+   "ko": [
+    "볼 베어링"
+   ],
+   "de": [
+    "Kugellager"
+   ]
+  },
+  {
+   "en": "roller bearing",
+   "ko": [
+    "롤러 베어링"
+   ],
+   "de": [
+    "Rollenlager"
+   ]
+  },
+  {
+   "en": "needle roller bearing",
+   "ko": [
+    "니들 롤러 베어링",
+    "바늘 롤러 베어링"
+   ],
+   "de": [
+    "Nadellager"
+   ]
+  },
+  {
+   "en": "tapered roller bearing",
+   "ko": [
+    "테이퍼 롤러 베어링"
+   ],
+   "de": [
+    "Kegelrollenlager"
+   ]
+  },
+  {
+   "en": "cylindrical roller bearing",
+   "ko": [
+    "원통 롤러 베어링"
+   ],
+   "de": [
+    "Zylinderrollenlager"
+   ]
+  },
+  {
+   "en": "deep groove ball bearing",
+   "ko": [
+    "깊은 홈 볼 베어링"
+   ],
+   "de": [
+    "Rillenkugellager"
+   ]
+  },
+  {
+   "en": "angular contact ball bearing",
+   "ko": [
+    "앵귤러 콘택트"
+   ],
+   "de": [
+    "Schrägkugellager"
+   ]
+  },
+  {
+   "en": "self-aligning ball bearing",
+   "ko": [
+    "자동 조심"
+   ],
+   "de": [
+    "Pendelkugellager"
+   ]
+  },
+  {
+   "en": "thrust bearing",
+   "ko": [
+    "스러스트 베어링"
+   ],
+   "de": [
+    "Axiallager"
+   ]
+  },
+  {
+   "en": "radial bearing",
+   "ko": [
+    "레이디얼 베어링",
+    "래디얼 베어링"
+   ],
+   "de": [
+    "Radiallager"
+   ]
+  },
+  {
+   "en": "linear bearing",
+   "ko": [
+    "리니어 베어링"
+   ],
+   "de": [
+    "Linearlager"
+   ]
+  },
+  {
+   "en": "rolling element",
+   "ko": [
+    "전동체",
+    "롤링 요소"
+   ],
+   "de": [
+    "Wälzkörper"
+   ]
+  },
+  {
+   "en": "cage",
+   "ko": [
+    "케이지",
+    "리테이너"
+   ],
+   "de": [
+    "Käfig"
+   ]
+  },
+  {
+   "en": "inner ring",
+   "ko": [
+    "내륜"
+   ],
+   "de": [
+    "Innenring"
+   ]
+  },
+  {
+   "en": "outer ring",
+   "ko": [
+    "외륜"
+   ],
+   "de": [
+    "Außenring"
+   ]
+  },
+  {
+   "en": "raceway",
+   "ko": [
+    "레이스",
+    "궤도"
+   ],
+   "de": [
+    "Laufbahn",
+    "Laufring"
+   ]
+  },
+  {
+   "en": "service life",
+   "ko": [
+    "수명"
+   ],
+   "de": [
+    "Lebensdauer"
+   ]
+  },
+  {
+   "en": "load capacity",
+   "ko": [
+    "하중 용량",
+    "부하 용량"
+   ],
+   "de": [
+    "Tragfähigkeit",
+    "Tragzahl"
+   ]
+  },
+  {
+   "en": "friction",
+   "ko": [
+    "마찰"
+   ],
+   "de": [
+    "Reibung"
+   ]
+  },
+  {
+   "en": "rolling friction",
+   "ko": [
+    "구름 마찰"
+   ],
+   "de": [
+    "Rollreibung"
+   ]
+  },
+  {
+   "en": "sliding friction",
+   "ko": [
+    "미끄럼 마찰"
+   ],
+   "de": [
+    "Gleitreibung"
+   ]
+  },
+  {
+   "en": "mixed friction",
+   "ko": [
+    "혼합 마찰"
+   ],
+   "de": [
+    "Mischreibung"
+   ]
+  },
+  {
+   "en": "fluid friction",
+   "ko": [
+    "유체 마찰"
+   ],
+   "de": [
+    "Flüssigkeitsreibung"
+   ]
+  },
+  {
+   "en": "solid friction",
+   "ko": [
+    "고체 마찰"
+   ],
+   "de": [
+    "Festkörperreibung"
+   ]
+  },
+  {
+   "en": "wear",
+   "ko": [
+    "마모"
+   ],
+   "de": [
+    "Verschleiß"
+   ]
+  },
+  {
+   "en": "fatigue",
+   "ko": [
+    "피로"
+   ],
+   "de": [
+    "Ermüdung"
+   ]
+  },
+  {
+   "en": "material fatigue",
+   "ko": [
+    "재료 피로"
+   ],
+   "de": [
+    "Materialermüdung"
+   ]
+  },
+  {
+   "en": "endurance limit",
+   "ko": [
+    "피로 한도",
+    "내구 한도"
+   ],
+   "de": [
+    "Dauerfestigkeit"
+   ]
+  },
+  {
+   "en": "fretting",
+   "ko": [
+    "프레팅"
+   ],
+   "de": [
+    "Passungsrost",
+    "Reibkorrosion"
+   ]
+  },
+  {
+   "en": "brinelling",
+   "ko": [
+    "브리넬링",
+    "브리넬"
+   ],
+   "de": []
+  },
+  {
+   "en": "galling",
+   "ko": [
+    "갈링"
+   ],
+   "de": [
+    "Fressen"
+   ]
+  },
+  {
+   "en": "corrosion",
+   "ko": [
+    "부식"
+   ],
+   "de": [
+    "Korrosion"
+   ]
+  },
+  {
+   "en": "lubrication",
+   "ko": [
+    "윤활"
+   ],
+   "de": [
+    "Schmierung"
+   ]
+  },
+  {
+   "en": "lubricant",
+   "ko": [
+    "윤활유",
+    "윤활제"
+   ],
+   "de": [
+    "Schmierstoff",
+    "Schmiermittel"
+   ]
+  },
+  {
+   "en": "grease",
+   "ko": [
+    "그리스"
+   ],
+   "de": [
+    "Schmierfett"
+   ]
+  },
+  {
+   "en": "lubricating film",
+   "ko": [
+    "유막"
+   ],
+   "de": [
+    "Schmierfilm"
+   ]
+  },
+  {
+   "en": "viscosity",
+   "ko": [
+    "점도"
+   ],
+   "de": [
+    "Viskosität"
+   ]
+  },
+  {
+   "en": "thickener",
+   "ko": [
+    "증주제",
+    "증점제"
+   ],
+   "de": [
+    "Verdicker",
+    "Eindicker"
+   ]
+  },
+  {
+   "en": "base oil",
+   "ko": [
+    "기유"
+   ],
+   "de": [
+    "Grundöl"
+   ]
+  },
+  {
+   "en": "additive",
+   "ko": [
+    "첨가제"
+   ],
+   "de": [
+    "Additiv"
+   ]
+  },
+  {
+   "en": "seal",
+   "ko": [
+    "씰",
+    "밀봉"
+   ],
+   "de": [
+    "Dichtung"
+   ]
+  },
+  {
+   "en": "radial shaft seal",
+   "ko": [
+    "오일 씰",
+    "래디얼 샤프트 씰",
+    "레이디얼 샤프트 씰"
+   ],
+   "de": [
+    "Wellendichtring",
+    "Radialwellendichtring"
+   ]
+  },
+  {
+   "en": "sealing lip",
+   "ko": [
+    "실링 립"
+   ],
+   "de": [
+    "Dichtlippe"
+   ]
+  },
+  {
+   "en": "labyrinth seal",
+   "ko": [
+    "래버린스",
+    "라비린스"
+   ],
+   "de": [
+    "Labyrinthdichtung"
+   ]
+  },
+  {
+   "en": "shaft",
+   "ko": [
+    "샤프트"
+   ],
+   "de": [
+    "Welle"
+   ]
+  },
+  {
+   "en": "housing",
+   "ko": [
+    "하우징"
+   ],
+   "de": [
+    "Gehäuse"
+   ]
+  },
+  {
+   "en": "differential",
+   "ko": [
+    "차동",
+    "디퍼렌셜"
+   ],
+   "de": [
+    "Differential",
+    "Ausgleichsgetriebe"
+   ]
+  },
+  {
+   "en": "drive shaft",
+   "ko": [
+    "구동축",
+    "드라이브 샤프트"
+   ],
+   "de": [
+    "Antriebswelle",
+    "Kardanwelle"
+   ]
+  },
+  {
+   "en": "universal joint",
+   "ko": [
+    "유니버설 조인트",
+    "십자축"
+   ],
+   "de": [
+    "Kreuzgelenk"
+   ]
+  },
+  {
+   "en": "constant-velocity joint",
+   "ko": [
+    "등속 조인트"
+   ],
+   "de": [
+    "homokinetisch"
+   ]
+  },
+  {
+   "en": "axle",
+   "ko": [
+    "차축"
+   ],
+   "de": [
+    "Achse"
+   ]
+  },
+  {
+   "en": "preload",
+   "ko": [
+    "예압"
+   ],
+   "de": [
+    "Vorspannung"
+   ]
+  },
+  {
+   "en": "bearing clearance",
+   "ko": [
+    "틈새",
+    "간극"
+   ],
+   "de": [
+    "Lagerluft",
+    "Lagerspiel"
+   ]
+  },
+  {
+   "en": "contact angle",
+   "ko": [
+    "접촉각"
+   ],
+   "de": [
+    "Druckwinkel"
+   ]
+  },
+  {
+   "en": "radial load",
+   "ko": [
+    "반경 하중",
+    "레이디얼 하중"
+   ],
+   "de": [
+    "Radialkraft",
+    "Radiallast"
+   ]
+  },
+  {
+   "en": "axial load",
+   "ko": [
+    "축 하중",
+    "축방향 하중",
+    "스러스트 하중"
+   ],
+   "de": [
+    "Axialkraft",
+    "Axiallast"
+   ]
+  },
+  {
+   "en": "rotational speed",
+   "ko": [
+    "회전 속도",
+    "회전수"
+   ],
+   "de": [
+    "Drehzahl"
+   ]
+  },
+  {
+   "en": "Hertzian contact stress",
+   "ko": [
+    "헤르츠"
+   ],
+   "de": [
+    "Hertzsche Pressung"
+   ]
+  },
+  {
+   "en": "tribology",
+   "ko": [
+    "트라이볼로지",
+    "마찰학"
+   ],
+   "de": [
+    "Tribologie"
+   ]
+  },
+  {
+   "en": "Stribeck curve",
+   "ko": [
+    "스트리벡"
+   ],
+   "de": [
+    "Stribeck"
+   ]
+  },
+  {
+   "en": "ceramic",
+   "ko": [
+    "세라믹"
+   ],
+   "de": [
+    "Keramik"
+   ]
+  },
+  {
+   "en": "silicon nitride",
+   "ko": [
+    "질화규소",
+    "질화 규소"
+   ],
+   "de": [
+    "Siliziumnitrid"
+   ]
+  },
+  {
+   "en": "hardness",
+   "ko": [
+    "경도"
+   ],
+   "de": [
+    "Härte"
+   ]
+  },
+  {
+   "en": "fixed bearing",
+   "ko": [
+    "고정 베어링"
+   ],
+   "de": [
+    "Festlager"
+   ]
+  },
+  {
+   "en": "floating bearing",
+   "ko": [
+    "유동 베어링",
+    "자유 베어링"
+   ],
+   "de": [
+    "Loslager"
+   ]
+  },
+  {
+   "en": "bushing",
+   "ko": [
+    "부시",
+    "부싱"
+   ],
+   "de": [
+    "Buchse",
+    "Lagerbuchse"
+   ]
+  },
+  {
+   "en": "shrink fit",
+   "ko": [
+    "열박음",
+    "수축 끼워맞춤"
+   ],
+   "de": [
+    "Aufschrumpfen"
+   ]
+  },
+  {
+   "en": "abrasion",
+   "ko": [
+    "연마 마모",
+    "마멸"
+   ],
+   "de": [
+    "Abrasion"
+   ]
+  },
+  {
+   "en": "adhesive wear",
+   "ko": [
+    "응착 마모",
+    "접착 마모"
+   ],
+   "de": [
+    "Adhäsion"
+   ]
+  },
+  {
+   "en": "surface fatigue",
+   "ko": [
+    "표면 피로"
+   ],
+   "de": [
+    "Oberflächenermüdung",
+    "Grübchen"
+   ]
+  },
+  {
+   "en": "pitting",
+   "ko": [
+    "피팅"
+   ],
+   "de": [
+    "Pitting"
+   ]
+  },
+  {
+   "en": "oil",
+   "ko": [
+    "오일",
+    "기름"
+   ],
+   "de": [
+    "Öl"
+   ]
+  },
+  {
+   "en": "grease change interval",
+   "ko": [
+    "교체 주기",
+    "교체 간격"
+   ],
+   "de": [
+    "Nachschmierintervall",
+    "Schmierintervall"
+   ]
+  }
+ ]
+}

@@ -21,3 +21,19 @@ def test_kiwi_handles_latin_text_as_words():
 def test_subword_splits_german_compound():
     toks = subword_tokenize("Kegelrollenlager")
     assert len(toks) >= 2 and "".join(toks) == "kegelrollenlager"
+
+
+# ---- 영어 어간 추출 (영어 피벗 BM25 전용) ----
+def test_en_stem_merges_inflections():
+    from ragbench.tokenize import en_stem_tokenize
+
+    toks = en_stem_tokenize("Bearings lubricated by lubrication")
+    assert toks[0] == en_stem_tokenize("bearing")[0]                      # bearings == bearing
+    assert toks[1] == toks[2] or toks[1].startswith("lubric")            # lubricated / lubrication는 같은 어간 계열
+
+
+def test_en_stem_stop_drops_stopwords_before_stemming():
+    from ragbench.tokenize import en_stem_stop_tokenize
+
+    assert en_stem_stop_tokenize("the bearings of the wheel") == en_stem_stop_tokenize("bearings wheel")
+    assert "the" not in en_stem_stop_tokenize("the load")

@@ -81,6 +81,9 @@ class RetrievalConfig:
     bm25_tokenizer: str = "whitespace"   # "whitespace" | "char_bigram" | "kiwi" | "subword" | "snowball"
     bm25_k1: float = 1.5
     bm25_b: float = 0.75
+    translate_model: str | None = None        # [KO] 영어 피벗 번역 모델 (None이면 translate.MODEL)
+    translate_glossary: bool = False          # [KO] data/glossary.json 용어 힌트를 번역 프롬프트에 붙인다 (청크는 *_gl 번역본 사용)
+    translate_skip_english: bool = False      # [KO] 영어로 판정된 질문은 번역하지 않는다 (지연 절약, 독일어 오판 위험)
     bm25_english_pivot: bool = False   # [KO] 켜면 청크·질의를 영어로 번역해 BM25. True -> BM25 over English translations of chunks and queries (needs chunks_en_*.jsonl)
     embedding_model: str = "BAAI/bge-m3"
     embedding_revision: str | None = None   # HF commit hash, filled in at run time if None
