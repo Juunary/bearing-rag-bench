@@ -1,0 +1,228 @@
+[
+ {
+  "qid": "q001",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (en_tapered_roller_bearing 'Without adequate lubrication, journal bearings would fail...') does not state the fact (which invention reduced friction); it only gives journal-bearing background. Not valid as grade 1. gold[2] (de 1898 Timken patent) names the invention but not the friction reduction; acceptable as weak grade 1.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1] (the 'Without adequate lubrication, journal bearings would fail due to the excessive heat caused by friction.' anchor). Keep gold[0] grade 2 and gold[2] grade 1.",
+  "evidence": "Timken was able to significantly reduce the friction on his axle bearings by adding tapered elements ... his tapered roller bearing"
+ },
+ {
+  "qid": "q006",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Both grade 2 anchors verified and each sufficient alone (who: Friedrich Fischer, when: 1883, ball grinding machine / equal size exact roundness). No problem.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "1883 baute Friedrich Fischer in Schweinfurt die erste Kugelschleifmaschine ... runden Stahlkugeln hinreichender Genauigkeit"
+ },
+ {
+  "qid": "q011",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] and gold[1] (grade 2) describe the curve situation but never name the device; the answer (differential gear) appears only in '이와 같은 동력전달장치로서 차동기어가 사용되고 있다.' (currently grade 1) and the doc's first sentence. The grade-2 anchors alone cannot answer 'what device'.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Make the naming sentence the primary evidence: gold[0] = ko_differential '이와 같은 동력전달장치로서 차동기어가 사용되고 있다.' grade 2; demote the two curve sentences ('그러므로 좌우 차륜의 회전수에 차이가 생겨도...' and '자동차가 커브를 돌면 내측(內側)에 있는 차륜과 외측 차륜은...') to grade 1. (All sit in the same line/chunk in the document.)",
+  "evidence": "이와 같은 동력전달장치로서 차동기어가 사용되고 있다"
+ },
+ {
+  "qid": "q016",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] (Care must usually be taken ... through the balls or rollers) states the requirement but not the reason; the 'why' (brinelling damage to the races) is in gold[1] 'If pressing force is applied to the wrong race, brinelling can occur to either or both of the races.' (currently grade 1). de_waelzlager gold[2] states only the rule, no reason (acceptable as grade 1 for the requirement, not the why).",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Swap grades: gold[0] = en_brinelling 'If pressing force is applied to the wrong race, brinelling can occur to either or both of the races.' grade 2; 'Care must usually be taken to ensure that pressure is applied to the proper bearing race to avoid transferring the pressure from one race to the other through the balls or rollers.' becomes grade 1. Alternative: reword question to 'How must the pressing force be applied when mounting a bearing?'.",
+  "evidence": "If pressing force is applied to the wrong race, brinelling can occur"
+ },
+ {
+  "qid": "q021",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Neither grade-2 anchor names the unit: 'Sie bestehen aus ...' has no referent and the second only gives the tilt purpose. The name 'Lagereinheiten' is in the preceding sentence of de_waelzlager. Each anchor covers only half of the two-part question.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Add grade 2 anchor de_waelzlager 'Lagereinheiten bilden eine besonders einfache Möglichkeit für die Lagerung von Wellen.' (names the unit) and keep the two existing anchors; or make 'Sie bestehen aus einem Radial-Rillenkugellager mit balligem (kugelförmigem) Außenring und einem Lagergehäuse.' gold[0] and add the Lagereinheiten sentence as grade 1.",
+  "evidence": "Lagereinheiten ... Radial-Rillenkugellager mit balligem (kugelförmigem) Außenring und einem Lagergehäuse ... um einige Winkelgrade verstellt"
+ },
+ {
+  "qid": "q026",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] begins 'This non-locating bearing' (referent CARB in previous sentence); the question supplies CARB, so acceptable. gold[1] and gold[2] verified (de anchor exists in de_waelzlager Toroidalrollenlager paragraph).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "This non-locating bearing can be an advantage, as it can be used to allow a shaft and a housing to undergo thermal expansion independently"
+ },
+ {
+  "qid": "q031",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Two-part question; each grade-2 anchor answers one half (Festlager: radial+axial; Loslager: no axial forces). Both verified; acceptable.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Das Festlager nimmt also sowohl Radial- als auch Axialkräfte auf / Vom Loslager werden keine Axialkräfte aufgenommen"
+ },
+ {
+  "qid": "q036",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] gives the mechanism (lip lifts off, acts as flinger); gold[1] states the result 'no power loss'. Correct.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "die Dichtlippe hebt ab, und die Dichtung funktioniert dann als Schleuderring"
+ },
+ {
+  "qid": "q041",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (en_needle_roller_bearing 'Needle bearings are heavily used in automobile components such as hydraulic tappets...') does not state the number of needle bearings in a drive shaft; not valid grade 1. No other sentence in corpus gives the number.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1]; keep gold[0] only.",
+  "evidence": "at least eight needle bearings (four in each U joint)"
+ },
+ {
+  "qid": "q046",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Single anchor verified (de_tribologie). Note en_tribology gives different, sector-specific savings (transport 25%, power generation 20% ...; long term 55/40/25/20%), which do not answer the question (totals 18% / 40%); the totals are only in the de doc.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "langfristig (15 Jahre) um 40 % und kurzfristig (8 Jahre) um 18 % reduziert werden"
+ },
+ {
+  "qid": "q051",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] verified. The same fact exists in German (boundary lubrication) and is not in gold.",
+  "missing_gold": [
+   {
+    "doc_id": "de_schmierung",
+    "anchor": "Die Belastung wird durch die Rauheitsspitzen der Reibpartner getragen."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add de_schmierung anchor 'Die Belastung wird durch die Rauheitsspitzen der Reibpartner getragen.' as grade 1 (the regime name 'Grenzschichtschmierung' is in the preceding list item 'Grenzschichtschmierung – ähnlich der Festkörper- bzw. Grenzreibung', same chunk).",
+  "evidence": "Boundary lubrication is defined as the regime in which the load is carried by the surface asperities"
+ },
+ {
+  "qid": "q056",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] and gold[1] verified (horologist, mid-1740s). Warning: de_waelzlager states '1759 erfand der Uhrmacher John Harrison für sein drittes Marine-Chronometer H3 ein Rollenlager mit Käfig.' (conflicting year); do NOT add it as gold. en_rolling_element_bearing says '1740 - John Harrison invented the first caged roller bearing for H3 marine timekeeping.' (year only, no profession) - not needed.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "1740년대 중반에 시계학자 존 해리슨이 발명"
+ },
+ {
+  "qid": "q061",
+  "answerable": "partly",
+  "self_contained": false,
+  "copies_anchor": false,
+  "grade_notes": "Conflicting sources: en_cv_joint says 'A typical tripod joint has up to 50 mm of plunge travel, and 26 degrees of angular articulation.' (different numbers) while de gold says sliding version 22 degrees / 35 mm. gold[0] starts with 'Sie können', whose referent (Tripodegelenk) is in the previous sentence, and the question's 'sliding version' is ambiguous against the en document. An answer from the en doc would be marked wrong.",
+  "missing_gold": [
+   {
+    "doc_id": "en_cv_joint",
+    "anchor": "A typical tripod joint has up to 50 mm of plunge travel, and 26 degrees of angular articulation."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Rewrite question: 'How much plunge travel and how much angular articulation does a typical tripod CV joint have?' with gold[0] = en_cv_joint 'A typical tripod joint has up to 50 mm of plunge travel, and 26 degrees of angular articulation.' grade 2; remove the de anchor (different figures, different statement). Alternatively drop the question.",
+  "evidence": "A typical tripod joint has up to 50 mm of plunge travel, and 26 degrees of angular articulation"
+ },
+ {
+  "qid": "q066",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor starts 'hier' (non-contact seal list in the same section) and does not itself name labyrinth/viscosity seals, but the question supplies them; reason (small free gap remains) is stated. Acceptable.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "nicht vollkommen, sondern lediglich begrenzend, da ein kleiner freier Spaltquerschnitt verbleibt"
+ },
+ {
+  "qid": "q071",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Answer (unchanged, if load constant) requires inference from proportional-to-distance and inversely-proportional-to-hardness; the ko anchor states both. The same relation is stated in two English sentences not in gold (each gives half; together sufficient).",
+  "missing_gold": [
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is inversely proportional to the hardness of the less hard material."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_tribology anchors 'The mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces.' and 'The mass involved in wear is inversely proportional to the hardness of the less hard material.' as grade 1 (jointly equivalent to gold[0]). Optionally add 'assuming the load stays the same' to the question.",
+  "evidence": "마모량는 하중 및 거리에 각각 비례하고 굳기 에 반비례"
+ },
+ {
+  "qid": "q076",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor verified and sufficient.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "von der Kraft ... von ihren Krümmungsradien, ihren Elastizitätsmoduln und von den Querkontraktionszahlen"
+ },
+ {
+  "qid": "q081",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor verified. de_tribologie '1,1–1,4 % des Bruttoinlandsproduktes' concerns friction/wear in the UK, not abrasive wear in industrialized nations; not a valid alternative.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Abrasive wear alone has been estimated to cost 1–4% of the gross national product of industrialized nations"
+ },
+ {
+  "qid": "q086",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Same as q071: relation stated in ko anchor; equivalent English sentences missing from gold. Question lacks 'bei gleicher Last' (minor).",
+  "missing_gold": [
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is inversely proportional to the hardness of the less hard material."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_tribology anchors 'The mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces.' and 'The mass involved in wear is inversely proportional to the hardness of the less hard material.' as grade 1 (jointly equivalent to gold[0]). Optionally append 'bei gleichbleibender Last' to the question.",
+  "evidence": "마모량는 하중 및 거리에 각각 비례하고 굳기 에 반비례"
+ }
+]

@@ -1,0 +1,305 @@
+[
+ {
+  "qid": "q004",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (applications list) is supporting context rather than the same fact (damage name); acceptable as grade 1.",
+  "missing_gold": [
+   {
+    "doc_id": "en_fretting",
+    "anchor": "Another example in which fretting corrosion may occur are the pitch bearings of modern wind turbines, which operate under oscillation motion to control the power and loads of the turbine."
+   },
+   {
+    "doc_id": "de_fressen_technik",
+    "anchor": "Das Schadensbild des False Brinelling entsteht ebenfalls durch das lokale Verschweißen und Losbrechen auf mikroskopischer Ebene, wenn Wälzlager nur minimalen, oszillierenden Bewegungen ausgesetzt sind."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Keep question. Add gold grade 1: en_fretting 'Another example in which fretting corrosion may occur are the pitch bearings of modern wind turbines...' and de_fressen_technik 'Das Schadensbild des False Brinelling entsteht ebenfalls ... oszillierenden Bewegungen ausgesetzt sind.' (false brinelling is a valid alternative answer).",
+  "evidence": "fretting may occur when the bearing is operating in a mainly oscillating motion"
+ },
+ {
+  "qid": "q009",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Two-part question; each grade-2 anchor answers one part (EP meaning / normal grease problem), together complete. de_schmierfett grade 1 covers only the EP part. Acceptable.",
+  "missing_gold": [
+   {
+    "doc_id": "en_grease",
+    "anchor": "EP greases have increased resistance to film breakdown, form sacrificial coatings on the metal surface to protect if the film does break down, or include solid lubricants such as graphite, molybdenum disulfide or hexagonal boron nitride (hBN) to provide protection even without any grease remaining."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Optional: add en_grease 'EP greases have increased resistance to film breakdown...' as grade 1. No question change.",
+  "evidence": "\"EP\", which indicates \"extreme pressure\"; Under high pressure or shock loading"
+ },
+ {
+  "qid": "q014",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "OK. gold[1] states the same fact.",
+  "missing_gold": [
+   {
+    "doc_id": "de_fressen_technik",
+    "anchor": "Fressen bedeutet in der Technik das wiederholte lokale Verschweißen und Losreißen zweier Gleitpartner infolge mangelhafter Schmierung."
+   },
+   {
+    "doc_id": "en_bearing_mechanical",
+    "anchor": "For high-speed and high-power machines, a loss of lubricant can result in rapid bearing heating and damage due to friction."
+   },
+   {
+    "doc_id": "en_rolling_element_bearing",
+    "anchor": "For example, a bearing which is run dry of lubricant fails not because it is \"without lubricant\", but because lack of lubrication leads to fatigue and welding, and the resulting wear debris can cause abrasion."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Keep question. Add the three missing sentences as grade 1.",
+  "evidence": "components can rub destructively against each other, causing heat, local welding"
+ },
+ {
+  "qid": "q019",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] describes the viscosity drop but never names it 'shear thinning' (the naming sentence is gold[1]); needs the next sentence. A self-sufficient sentence exists in the same doc.",
+  "missing_gold": [
+   {
+    "doc_id": "en_grease",
+    "anchor": "Greases are usually shear-thinning or pseudo-plastic fluids, which means that the viscosity of the fluid is reduced under shear stress."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Make gold[0] (grade 2) en_grease 'Greases are usually shear-thinning or pseudo-plastic fluids, which means that the viscosity of the fluid is reduced under shear stress.' and demote the current gold[0] and 'This change in viscosity is called shear thinning.' to grade 1.",
+  "evidence": "shear-thinning or pseudo-plastic fluids, which means that the viscosity of the fluid is reduced under shear stress"
+ },
+ {
+  "qid": "q024",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] ('If the bearing movement is limited to small motions...') only states that both terms exist; it does not state the distinguishing fact. Should not be grade 1 for this question.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1] (or leave it only if context chunk is wanted); keep gold[0] as sole grade-2.",
+  "evidence": "false brinelling occurs under lubricated and fretting under dry contact conditions"
+ },
+ {
+  "qid": "q029",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] ('Die Ringe dehnen sich minimal aus...') gives no temperature; does not state the answer fact. Remove or note as context only.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1].",
+  "evidence": "auf 80–100 °C erwärmt (... max. ca. 125 °C)"
+ },
+ {
+  "qid": "q034",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Question asks WHY they weld locally. gold[0] only gives a temperature threshold, gold[1] (second grade-2) only says friction heats locally and never mentions welding; neither alone answers 'why'. gold[1] should not be grade 2. Missing: en_lubrication gives a direct causal answer.",
+  "missing_gold": [
+   {
+    "doc_id": "en_lubrication",
+    "anchor": "Without lubrication, the pressure between the surfaces in proximity would generate enough heat for rapid surface damage which, in a coarsened condition, could literally weld the surfaces together, causing seizure."
+   },
+   {
+    "doc_id": "en_lubrication",
+    "anchor": "When lubrication breaks down, components can rub destructively against each other, causing heat, local welding, destructive damage and failure."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Replace question with: 'Wovon hängt die Temperatur ab, ab der die Gleitpartner eines Lagers beim Fressen miteinander verschweißen?' Keep gold[0] grade 2 (answer: Lagerwerkstoff); demote gold[1] to grade 1 or remove. (Alternative: keep original question, add the two en_lubrication sentences as grade 1.)",
+  "evidence": "verschweißen ab einer vom Lagerwerkstoff abhängigen Temperatur"
+ },
+ {
+  "qid": "q039",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "OK. gold[1] de_schmierung states the same fact (generic wording, context is the hydrostatic section).",
+  "missing_gold": [
+   {
+    "doc_id": "de_lager_maschinenelement",
+    "anchor": "Ein hydrostatisches Gleitlager nutzt unter Druck zugeführtes Fluid (etwa durch eine Ölpumpe), um einen Schmierfilm zwischen den Lagerflächen zu erzeugen."
+   },
+   {
+    "doc_id": "de_hydrodynamisches_gleitlager",
+    "anchor": "Beim hydrostatischen Gleitlager wird der Schmierstoff stattdessen mit einer externen Pumpe an der kraftübertragenden Stelle unter dem erforderlichen Druck zugeführt."
+   },
+   {
+    "doc_id": "en_lubrication",
+    "anchor": "In hydrostatic lubrication, external pressure is applied to the lubricant in the bearing to maintain the fluid lubricant film where it would otherwise be squeezed out."
+   },
+   {
+    "doc_id": "en_plain_bearing",
+    "anchor": "Hydrostatically lubricated bearings are lubricated by an external pump that maintains a static amount of pressure."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the four sentences as grade 1 (de_lager_maschinenelement is a verbatim duplicate of the gold[0] sentence; could be grade 2).",
+  "evidence": "nutzt unter Druck zugeführtes Fluid (etwa durch eine Ölpumpe)"
+ },
+ {
+  "qid": "q044",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (ko_lubricant '동식물유에서 얻는 편이 유리...') does not mention castor/soybean oil; not the same fact. Remove.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1].",
+  "evidence": "비교적 안정한 피마자유와 대두유가 있으며, 이것은 내연기관에도 사용"
+ },
+ {
+  "qid": "q049",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Single grade-2; fine.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "None. Note: en_fatigue_material 'Once the cracks reach a critical size they propagate quickly during stage II crack growth in a direction perpendicular to the applied force.' only covers the angle (no micrometre size), so it is not a full answer.",
+  "evidence": "schwenken die Risse um und verlaufen unter 90° zur Beanspruchungsrichtung"
+ },
+ {
+  "qid": "q054",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "OK.",
+  "missing_gold": [
+   {
+    "doc_id": "en_ball_bearing",
+    "anchor": "The larger the contact angle (typically in the range 10 to 45 degrees), the higher the axial load supported, but the lower the radial load."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Keep question. Add en_ball_bearing sentence as grade 1 (translation source of the ko anchor).",
+  "evidence": "접촉각이 클수록 ... 축 하중은 높지만 반경 하중은 낮아진다"
+ },
+ {
+  "qid": "q059",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "OK.",
+  "missing_gold": [
+   {
+    "doc_id": "ko_lubrication",
+    "anchor": "그리스는 증주제(Thickner)의 종류에 따라 리튬(Li Grease), 칼슘(Ca Grease), 나트륨(Fibre Grease), 우레아계(Urea Grease) 등, 또 특성으로부터는 내수성(耐水性, Ca Grease) 및 내열성(Fibre Grease) 등으로 분류된다."
+   },
+   {
+    "doc_id": "en_grease",
+    "anchor": "Lithium-based greases are the most commonly used; sodium- and lithium-based greases have higher melting points (dropping points) than calcium-based greases but are not as resistant to the action of water."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add ko_lubrication sentence as grade 1 (same fact; it is already gold in q074). Optionally en_grease as grade 1.",
+  "evidence": "내수성(耐水性, Ca Grease) 및 내열성(Fibre Grease)"
+ },
+ {
+  "qid": "q064",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Single grade-2; fine.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "None. (en_fatigue_material peening sentences concern crack initiation generally, not rolling-contact pitting; not added.)",
+  "evidence": "Druckspannungen durch Nitrieren, Oxidieren oder Kugelstrahlen"
+ },
+ {
+  "qid": "q069",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "The English source sentence exists in an en document and is missing; for an en question it should be the primary evidence (gold[0]).",
+  "missing_gold": [
+   {
+    "doc_id": "en_ball_bearing",
+    "anchor": "Time between grease replacements decreases very strongly with diameter of bearing: for a 40 mm bearing, grease should be replaced every 5000 working hours, while for a 100 mm bearing it should be replaced every 500 working hours."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_ball_bearing sentence as gold grade 2 (preferably gold[0], since q_lang=en); keep ko_ball_bearing as grade 1.",
+  "evidence": "100 mm 베어링의 경우 500 작동 시간마다 교체"
+ },
+ {
+  "qid": "q074",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "OK. ko_lubrication grade 1 states the identical sentence.",
+  "missing_gold": [
+   {
+    "doc_id": "en_grease",
+    "anchor": "Lithium-based greases are the most commonly used; sodium- and lithium-based greases have higher melting points (dropping points) than calcium-based greases but are not as resistant to the action of water."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Optional: add en_grease sentence as grade 1 (supports Ca = water, Na/Li = heat).",
+  "evidence": "내수성(耐水性, Ca Grease) 및 내열성(Fibre Grease)"
+ },
+ {
+  "qid": "q079",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Question presupposes 'coating bores'; docs say babbitt bearings/soft material, acceptable. Missing de-language support for the 'softer than shaft' reason.",
+  "missing_gold": [
+   {
+    "doc_id": "de_gleitlager",
+    "anchor": "Der Werkstoff der Buchse wird „weicher“ als der der Welle gewählt, damit der Verschleiß vorwiegend dort auftritt."
+   },
+   {
+    "doc_id": "en_plain_bearing",
+    "anchor": "Babbitt is made using soft material when compared to the material of composition of the journal or the rotating shaft."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Keep question. Add de_gleitlager sentence as grade 1 (answers the softer-than-shaft part) and en_plain_bearing sentence as grade 1.",
+  "evidence": "designed to not damage the journal during direct contact and to collect any contaminants"
+ },
+ {
+  "qid": "q084",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "OK, but de/en sentences answering the same question are missing.",
+  "missing_gold": [
+   {
+    "doc_id": "de_materialermuedung",
+    "anchor": "Unterhalb der Dauerfestigkeit SaD kann ein Bauteil prinzipiell beliebig viele Schwingspiele ertragen."
+   },
+   {
+    "doc_id": "en_fatigue_material",
+    "anchor": "For some materials, like steel and titanium, there is a theoretical value for stress amplitude below which the material will not fail for any number of cycles, called a fatigue limit or endurance limit."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Keep question. Add de_materialermuedung and en_fatigue_material sentences as grade 1 (de one could be grade 2 as it names Dauerfestigkeit).",
+  "evidence": "응력 범위를 피로한도(fatigue limit)라고 한다"
+ },
+ {
+  "qid": "q089",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Single grade-2; fine.",
+  "missing_gold": [
+   {
+    "doc_id": "ko_shaft",
+    "anchor": "이 축은 주로 비틀림 작용을 받는다."
+   }
+  ],
+  "verdict": "ok",
+  "fix": "None required. ko_shaft sentence (power-transmission shaft, torsion only, no antecedent in the sentence) is weak/partial; optional grade 1.",
+  "evidence": "비틀림과 전단 응력에 종속된다"
+ }
+]

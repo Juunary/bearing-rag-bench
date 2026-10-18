@@ -1,0 +1,220 @@
+[
+ {
+  "qid": "q003",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "케이지가 없으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장 날 수 있다"
+ },
+ {
+  "qid": "q008",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Question is singular ('어떤 약점') but the anchors give different weaknesses (lower max speed in de_nadellager; no tolerance of shaft tilt in de_waelzlager); each alone is a valid answer, so any one should count. en_rolling_element_bearing (grade 1) states a third weakness (fast fatigue of small rollers), not the same fact as gold[0]; acceptable as supporting but not identical.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "höchstzulässige Drehzahl geringer / Verkippungen ... hohe Kantenpressung"
+ },
+ {
+  "qid": "q013",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] starts with 'this is referred to as galling' - 'this' refers to the previous sentence (lumps/protrusions from adhesive wear), so the anchor alone does not say what is called galling. de_fressen_technik (grade 1) gives the German term 'Fressen' for local welding and tearing apart, i.e. a related term, acceptable. The grade-1 en_wear 'Adhesive wear can lead to ... lumps' sentence does not contain the term.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Replace gold[0] anchor with the two contiguous sentences (same paragraph, single space): 'Adhesive wear can lead to an increase in roughness and the creation of protrusions (i.e., lumps) above the original surface. In industrial manufacturing, this is referred to as galling, which eventually breaches the oxidized surface layer and connects to the underlying bulk material, enhancing the possibility for a stronger adhesion and plastic flow around the lump.' and delete the separate grade-1 en_wear anchor.",
+  "evidence": "In industrial manufacturing, this is referred to as galling"
+ },
+ {
+  "qid": "q018",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "en_plain_bearing grade-1 anchor ('They are also compact and lightweight, and they have a high load-carrying capacity.') does not state the fact (crankshafts / pulley sheaves, brinelling). Remove it.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove the gold entry en_plain_bearing grade 1; keep only en_brinelling grade 2.",
+  "evidence": "Babbitt bearings or bronze bushings ... automotive crankshafts or pulley sheaves"
+ },
+ {
+  "qid": "q023",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Question says 'cheap' case fans, but no anchor says cheap; ko_bearing says they are used for case fans that do not need high speed or durability. The grade-2 anchor 1 ('높은 회전속도에서는 ...') does not name the sleeve bearing (it only follows the sentence about it). Anchor 2 gives the advantage (low noise) and low durability. The question's 'Why used' is answered by low noise + no need for speed/durability, split over two sentences.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "New question: 'What is the advantage of a sleeve bearing over a ball bearing in case fans, and what happens to its life at high rotation speed?' Gold: anchor '슬리브베어링 (sleeve bearing) - 볼베어링 방식에 비해 낮은 소음이 장점이나, 비교적 낮은 내구성(내열성 및 수명)이 단점이다.' as gold[0] (grade 2), and '높은 회전속도에서는 고발열로 인해 수명이 급격하게 단축되므로 높은 회전 속도와 내구성을 요구하지 않는 케이스 팬으로 채용된다.' as grade 1 (it needs the previous sentence for the subject).",
+  "evidence": "높은 회전속도에서는 고발열로 인해 수명이 급격하게 단축 / 낮은 소음이 장점"
+ },
+ {
+  "qid": "q028",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Konenlager an Rädern, Kurbelwelle (auch: Mittellager), Pedalen ... justiert und nachgefettet"
+ },
+ {
+  "qid": "q033",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "en_radial_shaft_seal grade-1 anchor says a garter spring helps the lip compensate for wear; it does not say the lip is pressed radially onto the shaft, so it is not the same fact. Weak at best.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove the en_radial_shaft_seal grade-1 gold entry (or keep only if grade 1 is allowed to mean 'mentions the garter spring').",
+  "evidence": "wird meist von einer Schlauchfeder (Wurmfeder) radial auf die Wellenoberfläche gedrückt"
+ },
+ {
+  "qid": "q038",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] begins 'Dazu zählen ...' (referent 'Dazu' = Geräusche bei Lagerschäden im Auto is in the previous sentence), so alone it does not mention car/bearing damage. The grade-1 'In Kurven können Klopf- oder Vibrationsgeräusche auftreten.' is about cornering, a different fact from the straight-driving question; it would be a wrong answer for it. The grade-1 'Zum Beispiel sind Schäden ...' is only context.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Set gold[0] anchor to the two contiguous sentences 'Zum Beispiel sind Schäden an Lagern im Auto oft durch ungewöhnliche Geräusche bemerkbar. Dazu zählen metallische Rollgeräusche, Pfeif- und Schleifgeräusche sowie mahlende Klänge bei gerader Fahrt.' and delete both grade-1 entries.",
+  "evidence": "metallische Rollgeräusche, Pfeif- und Schleifgeräusche sowie mahlende Klänge bei gerader Fahrt"
+ },
+ {
+  "qid": "q043",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "en_radial_shaft_seal grade-1 'This standard covers all aspects including vocabulary, material requirements and test methods.' does not name the standard or answer the question; it only describes it. Remove (it is in the same line as gold[0], so if chunk-level matching is used it is covered anyway). de_wellendichtring only mentions DIN 3760, which is not the vehicle standard (not a valid answer).",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove the grade-1 entry; keep gold[0] only.",
+  "evidence": "DIN 3761 Radial-Wellendichtringe für Kraftfahrzeuge"
+ },
+ {
+  "qid": "q048",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Standards differ between documents (de: ISO 9352, ASTM D 1044, DIN EN 438; en: ISO 9352, ASTM D 4060); both name Taber test and ISO 9352, so answers matching ISO 9352 are right for both. Fine.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Taber-Abraser nach ISO 9352"
+ },
+ {
+  "qid": "q053",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "de_wellendichtring",
+    "anchor": "„Simmerring“ ist abgeleitet vom Namen seines Entwicklers, des damals bei Freudenberg tätigen österreichischen Ingenieurs (später Professor) Walther Simmer."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add gold entry: doc_id de_wellendichtring, doc_lang de, grade 1, anchor '„Simmerring“ ist abgeleitet vom Namen seines Entwicklers, des damals bei Freudenberg tätigen österreichischen Ingenieurs (später Professor) Walther Simmer.' (same fact, otherwise a correct de answer is penalised).",
+  "evidence": "Simmerring is derived from the name of the developer, the Austrian engineer Walther Simmer"
+ },
+ {
+  "qid": "q058",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Question mentions 'packing' but the anchor only mentions gaskets (heading 'Gasket or mechanical packing' exists in the doc); acceptable. Same gold as q088 (duplicate fact in another language; acceptable).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "밀봉제의 경우 접착력에, 개스킷의 경우 압축력에"
+ },
+ {
+  "qid": "q063",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The report highlighted the huge cost of friction, wear and corrosion to the UK economy (1.1–1.4% of GDP)."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add gold entry en_tribology (en), grade 1, anchor 'The report highlighted the huge cost of friction, wear and corrosion to the UK economy (1.1–1.4% of GDP).' (question is in English; same fact).",
+  "evidence": "1966 wurden ... mit 1,1–1,4 % des Bruttoinlandsproduktes beziffert"
+ },
+ {
+  "qid": "q068",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "en_ball_bearing",
+    "anchor": "Ceramic balls are electrically insulating, which can prevent 'arcing' failures if current should be passed through the bearing."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add gold entry en_ball_bearing (en), grade 1 (or grade 2), anchor 'Ceramic balls are electrically insulating, which can prevent 'arcing' failures if current should be passed through the bearing.'",
+  "evidence": "전류가 베어링을 통과할 경우 '아크' 고장을 방지"
+ },
+ {
+  "qid": "q073",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor lists three journals (also 구면저널); question asks for two (perpendicular, axial) - answer is contained.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "하중이 축심에 직각으로 작용하는 가로저널, 축방향으로 작용하는 피벗저널"
+ },
+ {
+  "qid": "q078",
+  "answerable": "partly",
+  "self_contained": false,
+  "copies_anchor": false,
+  "grade_notes": "The corpus contradicts itself: gold anchor says silicon nitride has a density of 40% of steel, while ko/en_ball_bearing say 'Ceramic bearing balls can weigh up to 40% less than steel ones' (i.e. 60% of the weight). The question 'wie schwer ... im Vergleich' is therefore ambiguous (40% vs 60%) and the anchor speaks of density, not the weight of a ball.",
+  "missing_gold": [
+   {
+    "doc_id": "ko_ball_bearing",
+    "anchor": "질화 규소와 같은 세라믹은 낮은 밀도(강철의 40%) 때문에 이러한 응용 분야에서 정기적으로 사용된다."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "New question: 'Wie hoch ist die Dichte von Siliziumnitrid im Vergleich zu Stahl?' (answer 40% of steel); add ko_ball_bearing anchor above as grade 1.",
+  "evidence": "low density (40% of steel)"
+ },
+ {
+  "qid": "q083",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Question asks 'als Erster'; ko gold[0] does not say first. The en grade-1 anchor does ('this is the first recorded use of bearings in an aerospace design'), so it should be the primary evidence or the question should drop 'als Erster'.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Either swap so en_bearing_mechanical anchor 'Leonardo da Vinci incorporated drawings of ball bearings in his design for a helicopter around the year 1500; this is the first recorded use of bearings in an aerospace design.' is grade 2 (keep ko as grade 2 too), or change the question to 'Wer baute um 1500 Kugellager in einen Entwurf für einen Hubschrauber ein?'.",
+  "evidence": "Leonardo da Vinci ... helicopter ... around the year 1500"
+ },
+ {
+  "qid": "q088",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Same gold as q058 (language variant). Question asks only about sealants vs gaskets; anchor answers it.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "밀봉제의 경우 접착력에"
+ }
+]

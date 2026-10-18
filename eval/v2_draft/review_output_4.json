@@ -1,0 +1,262 @@
+[
+ {
+  "qid": "q005",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "three usual limits to the lifetime or load capacity of a bearing: abrasion, fatigue and pressure-induced welding"
+ },
+ {
+  "qid": "q010",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Gabeldichtring bei Motorrädern, um Austreten von Öl und Luft ... zu verhindern (RWDR)"
+ },
+ {
+  "qid": "q015",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (de) alone does not name the joint type (refers to Rzeppa via preceding sentence) and gives 'bis zu 46 Grad' vs 45-48 in gold[0]; acceptable as grade 1 but weak.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "typical Rzeppa joints allow 45°–48° of articulation"
+ },
+ {
+  "qid": "q020",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "de_schmierfett",
+    "anchor": "Einfachseifen haben ein gutes Preis-Leistungs-Verhältnis und werden im Temperaturbereich −20 °C bis 120 °C eingesetzt."
+   }
+  ],
+  "verdict": "ok",
+  "fix": "Optional: add the de_schmierfett sentence as grade 1 (it refers to simple soaps, of which lithium soap is one, so it is only indirect support; the 'Lithium-Komplexfette ... −30 °C bis 150 °C' sentence is a different grease and must not be gold).",
+  "evidence": "the maximum usable temperature for lithium-based grease is 120 °C"
+ },
+ {
+  "qid": "q025",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Both entries are grade 2 but neither alone answers the two-part question: gold[0] gives the joint (no 'where used'); gold[1] ('They have improved efficiency and are widely used ... outboard driveshaft joints') has no referent (They) and does not name the joint. Grade 2 for gold[1] is wrong.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Change question to: 'Which constant-velocity joint improves on the Rzeppa six-ball cage design by confining the balls to elliptical tracks?' and delete gold[1] (or demote it to grade 1 if the usage part is kept in the question). Keep gold[0] as grade 2.",
+  "evidence": "based on the Rzeppa joint but confines the travel of the six balls using elliptical tracks"
+ },
+ {
+  "qid": "q030",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (HDD motor / cooling fan use) does not state the fact asked (no fluid film / quiet / low-temp / oil-leak content); it is a different fact from the same paragraph, so it is not a valid grade-1 support.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1] (grade-1 entry about HDD motor and cooling fan use).",
+  "evidence": "금속간에 유체가 존재하여 ... 소음이 적고 수명이 길지만 저온에서 ... 기름이 유출되면 더 이상 회전이 불가능"
+ },
+ {
+  "qid": "q035",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "de_schmierfett",
+    "anchor": "Unter Schmierfetten versteht man physikalisch Suspensionen aus Schmierölen, Eindickern und verschiedenen Zusätzen oder Wirkstoffen."
+   },
+   {
+    "doc_id": "de_schmierfett",
+    "anchor": "In der Regel bestehen Schmierfette aus 65–95 % Schmieröl (Grundöl), 3–30 % Eindicker und 0–10 % Additiven."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add both de_schmierfett sentences as grade 2 (each alone answers: base oil, thickener, additives) so same-document restatements are not counted as wrong.",
+  "evidence": "aus einem Schmieröl, einem Eindicker und verschiedenen Zusätzen oder Wirkstoffen (Additiven) bestehen"
+ },
+ {
+  "qid": "q040",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Both gold[0] and gold[1] are grade 2 but the question asks for the difference: gold[0] describes only true brinelling (no mention of the false type), so it cannot alone answer; gold[1] ('resembles a brinell mark, but has not permanently deformed either contacting surface') alone gives the contrast. gold[0] should be grade 1 or the anchors swapped. gold[2] (de_fressen_technik) states only the false-brinelling mechanism, fine as grade 1.",
+  "missing_gold": [
+   {
+    "doc_id": "en_brinelling",
+    "anchor": "A similar-looking kind of damage is called false brinelling and is caused by fretting wear."
+   },
+   {
+    "doc_id": "en_brinelling",
+    "anchor": "The polished surfaces are often mistaken for brinelling, although no actual damage to the bearing exists."
+   },
+   {
+    "doc_id": "en_brinelling",
+    "anchor": "However, the marks are usually too wide, due to the motion of the bearing, and do not exactly match the shape of the rolling elements, and therefore this type of wear can be differentiated from true brinelling."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Make 'The result is a finely polished surface that resembles a brinell mark, but has not permanently deformed either contacting surface.' gold[0] grade 2; demote 'Brinelling is permanent plastic deformation of a surface, ...' to grade 1; add the three en_brinelling sentences listed (grade 1; the 'A similar-looking...' one could be grade 1 as cause contrast).",
+  "evidence": "has not permanently deformed either contacting surface / permanent plastic deformation of a surface"
+ },
+ {
+  "qid": "q045",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] ('그 한가지 예로 나프탈렌핵에 알킬기를 첨가한 합성 윤활유가 있다.') only introduces the oil; it does not state the mechanism asked (adhesion of naphthalene core, alkyl groups cover like hair/rollers). Not a valid grade-1 support of the same fact. Note anchor says 'is presumed (추정)'.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1] (or accept as context only, not graded).",
+  "evidence": "나프탈렌핵이 금속의 표면에 밀착하고, 알킬기는 털과 같이 금속의 표면을 덮어 굴림대와 같은 작용"
+ },
+ {
+  "qid": "q050",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor says 'hier' for non-contact seals in general (list includes Labyrinth, Sperrluft, Wellendichtringe), not specifically shaft seals; question's '축을' is a mild narrowing but answer is still correct.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "nicht vollkommen, sondern lediglich begrenzend, da ein kleiner freier Spaltquerschnitt verbleibt"
+ },
+ {
+  "qid": "q055",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] anchor is a sentence fragment, not a full sentence ('such as silicon nitride are ...'), which breaks exact sentence mapping; the document sentence starts 'Ceramics such as ...'. Also note corpus has a differently-phrased weight claim ('can weigh up to 40% less than steel'), which is not the same as density 40% of steel and must not be added as gold.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Replace gold[1] anchor with the full sentence: 'Ceramics such as silicon nitride are now regularly used in such applications due to their low density (40% of steel).'",
+  "evidence": "낮은 밀도(강철의 40%)"
+ },
+ {
+  "qid": "q060",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "관성 증가로 이어질 수 있으므로 하중을 추가로 너무 많이 주는 것은 피해야 한다"
+ },
+ {
+  "qid": "q065",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor attributes worse wear to a higher sliding share (different circumferential paths of the two roller ends) of axial needle bearings; comparison with radial is implicit but acceptable.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Axialnadellager haben aufgrund der unterschiedlichen Umfangswege der beiden Wälzkörperenden einen höheren Gleitanteil"
+ },
+ {
+  "qid": "q070",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Corpus contains an English statement of the same fact (ko is a translation of it); and a 23% vs 20% variant (tribological contacts total 23%, of which friction 20%).",
+  "missing_gold": [
+   {
+    "doc_id": "en_tribology",
+    "anchor": "Approximately 20% of the world's energy (2012) is consumed by friction and wear in the transportation, manufacturing, power generation, and residential sectors."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "In total, ~23% of the world's energy consumption originates from tribological contacts."
+   },
+   {
+    "doc_id": "de_tribologie",
+    "anchor": "23 % des weltweiten Energieverbrauches entstehen durch tribologische Kontakte."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_tribology 20% sentence as grade 2 (same-language as the question, should likely be gold[0] for a mono group, or grade 1 if cross is intended); add the 23% en_tribology and de_tribologie sentences as grade 1 (alternate valid figure). Consider rewording question to 'friction and wear in transport, manufacturing, power generation and residential sectors' to pin 20%.",
+  "evidence": "약 20%는 ... 마찰과 마모의 영향"
+ },
+ {
+  "qid": "q075",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "비틀림과 전단 응력에 종속된다 (torsion and shear stress)"
+ },
+ {
+  "qid": "q080",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Richard Stribeck's extensive research on ball bearing steels identified the metallurgy of the commonly used 100Cr6"
+ },
+ {
+  "qid": "q085",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Same issue as q070: de_tribologie contains the German statement; also 23% variant.",
+  "missing_gold": [
+   {
+    "doc_id": "de_tribologie",
+    "anchor": "20 % entstehen durch Reibung und 3 % durch die Wiederaufbereitung von verschlissenen Bauteilen."
+   },
+   {
+    "doc_id": "de_tribologie",
+    "anchor": "23 % des weltweiten Energieverbrauches entstehen durch tribologische Kontakte."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "Approximately 20% of the world's energy (2012) is consumed by friction and wear in the transportation, manufacturing, power generation, and residential sectors."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "In total, ~23% of the world's energy consumption originates from tribological contacts."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_tribology 20% sentence as grade 2 (or 1) and the de_tribologie 23%/20% sentences plus en 23% sentence as grade 1; the de '20 % entstehen durch Reibung...' sentence has the referent '23 %' in the preceding sentence so it is grade 1 only. If a de-language gold[0] is wanted, de_tribologie is available.",
+  "evidence": "약 20% ... 마찰과 마모"
+ },
+ {
+  "qid": "q090",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "The question closely follows en_grease ('can be lubricated only infrequently'), which is the better primary evidence; ko anchors give a different reason (밀봉성). ko_grease and ko_lubrication anchors are near-identical restatements (grade 1 for ko_lubrication is fine).",
+  "missing_gold": [
+   {
+    "doc_id": "en_grease",
+    "anchor": "Greases are applied to mechanisms that can be lubricated only infrequently and where a lubricating oil would not stay in position."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_grease sentence 'Greases are applied to mechanisms that can be lubricated only infrequently and where a lubricating oil would not stay in position.' as grade 2 (it states both the infrequent lubrication and the oil-would-not-stay reason); keep ko_grease grade 2 (sealing property reason).",
+  "evidence": "자주 기름을 칠 필요가 없는 적용 개소에 사용된다"
+ }
+]

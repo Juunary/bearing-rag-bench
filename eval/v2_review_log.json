@@ -1,0 +1,477 @@
+[
+ {
+  "qid": "q001",
+  "op": "remove_gold",
+  "detail": "en_tapered_roller_bearing grade1: Without adequate lubrication, journal bearings would fail due to the excessive h"
+ },
+ {
+  "qid": "q002",
+  "op": "remove_gold",
+  "detail": "de_waelzlager grade1: Käfigwerkstoff war früher wegen der erhöhten Laufruhe Messing."
+ },
+ {
+  "qid": "q004",
+  "op": "add_missing_gold",
+  "detail": "en_fretting: Another example in which fretting corrosion may occur are the pitch bearings of "
+ },
+ {
+  "qid": "q004",
+  "op": "add_missing_gold",
+  "detail": "de_fressen_technik: Das Schadensbild des False Brinelling entsteht ebenfalls durch das lokale Versch"
+ },
+ {
+  "qid": "q009",
+  "op": "add_missing_gold",
+  "detail": "en_grease: EP greases have increased resistance to film breakdown, form sacrificial coating"
+ },
+ {
+  "qid": "q011",
+  "op": "grade",
+  "detail": "이와 같은 동력전달장치로서 차동기어가 사용되고 있다.: 1 -> 2"
+ },
+ {
+  "qid": "q012",
+  "op": "add_missing_gold",
+  "detail": "de_waelzlager: Gewöhnlich befindet sich ein Schmierfilm zwischen den Kontaktflächen von Wälzkör"
+ },
+ {
+  "qid": "q013",
+  "op": "merge_anchor",
+  "detail": "Adhesive wear can lead to an increase in roughness and the creation of protrusions (i.e., "
+ },
+ {
+  "qid": "q014",
+  "op": "add_missing_gold",
+  "detail": "de_fressen_technik: Fressen bedeutet in der Technik das wiederholte lokale Verschweißen und Losreiße"
+ },
+ {
+  "qid": "q014",
+  "op": "add_missing_gold",
+  "detail": "en_bearing_mechanical: For high-speed and high-power machines, a loss of lubricant can result in rapid "
+ },
+ {
+  "qid": "q014",
+  "op": "add_missing_gold",
+  "detail": "en_rolling_element_bearing: For example, a bearing which is run dry of lubricant fails not because it is \"wi"
+ },
+ {
+  "qid": "q016",
+  "op": "grade",
+  "detail": "If pressing force is applied to the wrong race, brinelling c: 1 -> 2"
+ },
+ {
+  "qid": "q016",
+  "op": "grade",
+  "detail": "Care must usually be taken to ensure that pressure is applie: 2 -> 1"
+ },
+ {
+  "qid": "q016",
+  "op": "first",
+  "detail": "If pressing force is applied to the wrong race, brinelling c"
+ },
+ {
+  "qid": "q018",
+  "op": "remove_gold",
+  "detail": "en_plain_bearing grade1: They are also compact and lightweight, and they have a high load-carrying capaci"
+ },
+ {
+  "qid": "q019",
+  "op": "add_gold",
+  "detail": "en_grease grade2: Greases are usually shear-thinning or pseudo-plastic fluids, which means that th"
+ },
+ {
+  "qid": "q019",
+  "op": "first",
+  "detail": "Greases are usually shear-thinning or pseudo-plastic fluids,"
+ },
+ {
+  "qid": "q019",
+  "op": "grade",
+  "detail": "A common feature of greases is that they possess high initia: 2 -> 1"
+ },
+ {
+  "qid": "q020",
+  "op": "add_missing_gold",
+  "detail": "de_schmierfett: Einfachseifen haben ein gutes Preis-Leistungs-Verhältnis und werden im Temperatu"
+ },
+ {
+  "qid": "q021",
+  "op": "add_gold",
+  "detail": "de_waelzlager grade2: Lagereinheiten bilden eine besonders einfache Möglichkeit für die Lagerung von W"
+ },
+ {
+  "qid": "q023",
+  "op": "question",
+  "detail": "Why are sleeve bearings used in cheap case fans, and what is their weakness at high speed? -> What is the advantage of a sleeve bearing over a ball bearing in case fans, and what happens to its life at high rotation speed?"
+ },
+ {
+  "qid": "q023",
+  "op": "grade",
+  "detail": "높은 회전속도에서는 고발열로 인해 수명이 급격하게 단축되므로 높은 회전 속도와 내구성을 요구하지 않는 케이스: 2 -> 1"
+ },
+ {
+  "qid": "q023",
+  "op": "first",
+  "detail": "슬리브베어링 (sleeve bearing) - 볼베어링 방식에 비해 낮은 소음이 장점이나, 비교적 낮은 내구"
+ },
+ {
+  "qid": "q024",
+  "op": "remove_gold",
+  "detail": "en_fretting grade1: If the bearing movement is limited to small motions, then the damage caused may "
+ },
+ {
+  "qid": "q025",
+  "op": "question",
+  "detail": "Which CV joint improves on the six-ball cage design by guiding the balls on non-circular tracks, and where is it typically used? -> Which constant-velocity joint improves on the Rzeppa six-ball cage design by confining the balls to elliptical tracks?"
+ },
+ {
+  "qid": "q025",
+  "op": "remove_gold",
+  "detail": "en_cv_joint grade2: They have improved efficiency and are widely used in modern cars for the outboar"
+ },
+ {
+  "qid": "q027",
+  "op": "grade",
+  "detail": "Heute werden auch hydrodynamische Gleitlager mit spiralförmi: 2 -> 1"
+ },
+ {
+  "qid": "q029",
+  "op": "remove_gold",
+  "detail": "de_waelzlager grade1: Die Ringe dehnen sich minimal aus und lassen sich so leichter auf die Welle oder"
+ },
+ {
+  "qid": "q030",
+  "op": "remove_gold",
+  "detail": "ko_bearing grade1: 회전체의 한 점이 회전중심으로부터 안정적으로 돌 수 있어, 정밀도와 장수명을 요구하는 하드디스크 모터나 저소음을 요구하는 쿨링팬에 쓰인다."
+ },
+ {
+  "qid": "q032",
+  "op": "question",
+  "detail": "Warum verschleißt ein hydrodynamisches Gleitlager beim Anfahren besonders stark? -> Welcher Reibungszustand tritt beim Anlauf der Welle eines hydrodynamischen Gleitlagers zunächst auf?"
+ },
+ {
+  "qid": "q032",
+  "op": "remove_gold",
+  "detail": "en_lubrication grade1: This design of bearing may wear when started, stopped or reversed, as the lubric"
+ },
+ {
+  "qid": "q032",
+  "op": "add_missing_gold",
+  "detail": "de_gleitlager: Dieser Zustand findet sich häufig beim Anfahren oder Anhalten einer Maschine und"
+ },
+ {
+  "qid": "q033",
+  "op": "remove_gold",
+  "detail": "en_radial_shaft_seal grade1: As the advent of modern elastomers replaced rawhide, manufacturers also added a "
+ },
+ {
+  "qid": "q034",
+  "op": "question",
+  "detail": "Warum verschweißen die Gleitpartner eines Lagers bei fehlendem Schmierfilm lokal miteinander? -> Wovon hängt die Temperatur ab, ab der die Gleitpartner eines Lagers beim Fressen miteinander verschweißen?"
+ },
+ {
+  "qid": "q034",
+  "op": "grade",
+  "detail": "Die progressiv fortschreitende Grenz- und Mischreibung erwär: 2 -> 1"
+ },
+ {
+  "qid": "q034",
+  "op": "remove_gold",
+  "detail": "de_fressen_technik grade1: Fresser treten an tribologisch hochbeanspruchten Teilen auf, wenn deren Notlaufe"
+ },
+ {
+  "qid": "q034",
+  "op": "remove_gold",
+  "detail": "de_fressen_technik grade1: Fressen bedeutet in der Technik das wiederholte lokale Verschweißen und Losreiße"
+ },
+ {
+  "qid": "q035",
+  "op": "add_gold",
+  "detail": "de_schmierfett grade2: Unter Schmierfetten versteht man physikalisch Suspensionen aus Schmierölen, Eind"
+ },
+ {
+  "qid": "q035",
+  "op": "add_gold",
+  "detail": "de_schmierfett grade2: In der Regel bestehen Schmierfette aus 65–95 % Schmieröl (Grundöl), 3–30 % Eindi"
+ },
+ {
+  "qid": "q038",
+  "op": "merge_anchor",
+  "detail": "Zum Beispiel sind Schäden an Lagern im Auto oft durch ungewöhnliche Geräusche bemerkbar. D"
+ },
+ {
+  "qid": "q038",
+  "op": "remove_gold",
+  "detail": "de_waelzlager grade1: In Kurven können Klopf- oder Vibrationsgeräusche auftreten."
+ },
+ {
+  "qid": "q039",
+  "op": "add_missing_gold",
+  "detail": "de_lager_maschinenelement: Ein hydrostatisches Gleitlager nutzt unter Druck zugeführtes Fluid (etwa durch e"
+ },
+ {
+  "qid": "q039",
+  "op": "add_missing_gold",
+  "detail": "de_hydrodynamisches_gleitlager: Beim hydrostatischen Gleitlager wird der Schmierstoff stattdessen mit einer exte"
+ },
+ {
+  "qid": "q039",
+  "op": "add_missing_gold",
+  "detail": "en_lubrication: In hydrostatic lubrication, external pressure is applied to the lubricant in the"
+ },
+ {
+  "qid": "q039",
+  "op": "add_missing_gold",
+  "detail": "en_plain_bearing: Hydrostatically lubricated bearings are lubricated by an external pump that main"
+ },
+ {
+  "qid": "q040",
+  "op": "grade",
+  "detail": "The result is a finely polished surface that resembles a bri: 2 -> 2"
+ },
+ {
+  "qid": "q040",
+  "op": "first",
+  "detail": "The result is a finely polished surface that resembles a bri"
+ },
+ {
+  "qid": "q040",
+  "op": "grade",
+  "detail": "Brinelling is permanent plastic deformation of a surface, an: 2 -> 1"
+ },
+ {
+  "qid": "q040",
+  "op": "add_missing_gold",
+  "detail": "en_brinelling: A similar-looking kind of damage is called false brinelling and is caused by fre"
+ },
+ {
+  "qid": "q040",
+  "op": "add_missing_gold",
+  "detail": "en_brinelling: The polished surfaces are often mistaken for brinelling, although no actual dama"
+ },
+ {
+  "qid": "q040",
+  "op": "add_missing_gold",
+  "detail": "en_brinelling: However, the marks are usually too wide, due to the motion of the bearing, and d"
+ },
+ {
+  "qid": "q041",
+  "op": "remove_gold",
+  "detail": "en_needle_roller_bearing grade1: Needle bearings are heavily used in automobile components such as hydraulic tapp"
+ },
+ {
+  "qid": "q042",
+  "op": "add_missing_gold",
+  "detail": "en_lubrication: Without lubrication, the pressure between the surfaces in proximity would genera"
+ },
+ {
+  "qid": "q042",
+  "op": "add_missing_gold",
+  "detail": "de_gleitlager: Verschleiß: Ohne Schmiermittel kann der Verschleiß zu einem schnellen Ausfall de"
+ },
+ {
+  "qid": "q042",
+  "op": "add_missing_gold",
+  "detail": "de_gleitlager: Wärmeabfuhr: Die Abfuhr der durch Reibung erzeugten Wärme ist schwieriger, was z"
+ },
+ {
+  "qid": "q043",
+  "op": "remove_gold",
+  "detail": "en_radial_shaft_seal grade1: This standard covers all aspects including vocabulary, material requirements and"
+ },
+ {
+  "qid": "q044",
+  "op": "remove_gold",
+  "detail": "ko_lubricant grade1: 이러한 의미에서 본다면 원유에서 얻는 것보다는 동식물유에서 얻는 편이 유리하나, 반면 동식물유는 화학적으로 불안정하여 변질·부패하는 결점이 있다"
+ },
+ {
+  "qid": "q045",
+  "op": "remove_gold",
+  "detail": "ko_lubricant grade1: 그 한가지 예로 나프탈렌핵에 알킬기를 첨가한 합성 윤활유가 있다."
+ },
+ {
+  "qid": "q051",
+  "op": "add_missing_gold",
+  "detail": "de_schmierung: Die Belastung wird durch die Rauheitsspitzen der Reibpartner getragen."
+ },
+ {
+  "qid": "q053",
+  "op": "add_missing_gold",
+  "detail": "de_wellendichtring: „Simmerring“ ist abgeleitet vom Namen seines Entwicklers, des damals bei Freuden"
+ },
+ {
+  "qid": "q054",
+  "op": "add_missing_gold",
+  "detail": "en_ball_bearing: The larger the contact angle (typically in the range 10 to 45 degrees), the high"
+ },
+ {
+  "qid": "q055",
+  "op": "replace_anchor",
+  "detail": "such as silicon nitride are now regularly used in such appli -> Ceramics such as silicon nitride are now regularly used in s"
+ },
+ {
+  "qid": "q057",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is proportional to the distance traveled in the rubbin"
+ },
+ {
+  "qid": "q057",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is proportional to the applied load."
+ },
+ {
+  "qid": "q057",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is inversely proportional to the hardness of the less "
+ },
+ {
+  "qid": "q059",
+  "op": "add_missing_gold",
+  "detail": "ko_lubrication: 그리스는 증주제(Thickner)의 종류에 따라 리튬(Li Grease), 칼슘(Ca Grease), 나트륨(Fibre Grease), 우레아계"
+ },
+ {
+  "qid": "q059",
+  "op": "add_missing_gold",
+  "detail": "en_grease: Lithium-based greases are the most commonly used; sodium- and lithium-based grea"
+ },
+ {
+  "qid": "q061",
+  "op": "replace_question",
+  "detail": "At what internal clearance do ball bearings reach their longest service life?"
+ },
+ {
+  "qid": "q062",
+  "op": "add_missing_gold",
+  "detail": "en_fatigue_material: Each coupon or component test generates a point on the plot though in some cases"
+ },
+ {
+  "qid": "q063",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The report highlighted the huge cost of friction, wear and corrosion to the UK e"
+ },
+ {
+  "qid": "q067",
+  "op": "add_missing_gold",
+  "detail": "en_plain_bearing: Integral bearings are not as common because bushings are easier to accommodate a"
+ },
+ {
+  "qid": "q068",
+  "op": "add_missing_gold",
+  "detail": "en_ball_bearing: Ceramic balls are electrically insulating, which can prevent 'arcing' failures i"
+ },
+ {
+  "qid": "q069",
+  "op": "add_gold",
+  "detail": "en_ball_bearing grade2: Time between grease replacements decreases very strongly with diameter of bearin"
+ },
+ {
+  "qid": "q070",
+  "op": "question",
+  "detail": "What fraction of the world's total energy expenditure goes to friction and wear? -> What fraction of the world's total energy expenditure is caused by friction and wear in the transport, manufacturing, power generation and residential sectors?"
+ },
+ {
+  "qid": "q070",
+  "op": "add_gold",
+  "detail": "en_tribology grade2: Approximately 20% of the world's energy (2012) is consumed by friction and wear "
+ },
+ {
+  "qid": "q071",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is proportional to the distance traveled in the rubbin"
+ },
+ {
+  "qid": "q071",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is inversely proportional to the hardness of the less "
+ },
+ {
+  "qid": "q072",
+  "op": "add_gold",
+  "detail": "en_fatigue_material grade2: called a fatigue limit or endurance limit."
+ },
+ {
+  "qid": "q072",
+  "op": "add_missing_gold",
+  "detail": "en_fatigue_material: For some materials, like steel and titanium, there is a theoretical value for st"
+ },
+ {
+  "qid": "q074",
+  "op": "add_missing_gold",
+  "detail": "en_grease: Lithium-based greases are the most commonly used; sodium- and lithium-based grea"
+ },
+ {
+  "qid": "q077",
+  "op": "add_missing_gold",
+  "detail": "en_rolling_element_bearing: 1794 - The first patent for the ball race was given to Philip Vaughan of Carmart"
+ },
+ {
+  "qid": "q077",
+  "op": "add_missing_gold",
+  "detail": "de_waelzlager: 1794 erhielt der Engländer Philip Vaughan das erste Patent für Achsen, hier kann"
+ },
+ {
+  "qid": "q078",
+  "op": "question",
+  "detail": "Wie schwer ist eine Keramikkugel aus Siliziumnitrid im Vergleich zu einer Stahlkugel gleicher Größe? -> Wie hoch ist die Dichte von Siliziumnitrid im Vergleich zu Stahl?"
+ },
+ {
+  "qid": "q078",
+  "op": "add_missing_gold",
+  "detail": "ko_ball_bearing: 질화 규소와 같은 세라믹은 낮은 밀도(강철의 40%) 때문에 이러한 응용 분야에서 정기적으로 사용된다."
+ },
+ {
+  "qid": "q079",
+  "op": "add_missing_gold",
+  "detail": "de_gleitlager: Der Werkstoff der Buchse wird „weicher“ als der der Welle gewählt, damit der Ver"
+ },
+ {
+  "qid": "q079",
+  "op": "add_missing_gold",
+  "detail": "en_plain_bearing: Babbitt is made using soft material when compared to the material of composition"
+ },
+ {
+  "qid": "q083",
+  "op": "grade",
+  "detail": "Leonardo da Vinci incorporated drawings of ball bearings in : 1 -> 2"
+ },
+ {
+  "qid": "q084",
+  "op": "add_missing_gold",
+  "detail": "de_materialermuedung: Unterhalb der Dauerfestigkeit SaD kann ein Bauteil prinzipiell beliebig viele Sc"
+ },
+ {
+  "qid": "q084",
+  "op": "add_missing_gold",
+  "detail": "en_fatigue_material: For some materials, like steel and titanium, there is a theoretical value for st"
+ },
+ {
+  "qid": "q085",
+  "op": "question",
+  "detail": "Wie viel Prozent der weltweit eingesetzten Energie gehen durch Reibung und Verschleiß verloren? -> Wie viel Prozent der weltweit eingesetzten Energie gehen in Transport, Fertigung, Stromerzeugung und Wohnsektor durch Reibung und Verschleiß verloren?"
+ },
+ {
+  "qid": "q085",
+  "op": "add_gold",
+  "detail": "en_tribology grade2: Approximately 20% of the world's energy (2012) is consumed by friction and wear "
+ },
+ {
+  "qid": "q086",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is proportional to the distance traveled in the rubbin"
+ },
+ {
+  "qid": "q086",
+  "op": "add_missing_gold",
+  "detail": "en_tribology: The mass involved in wear is inversely proportional to the hardness of the less "
+ },
+ {
+  "qid": "q089",
+  "op": "add_missing_gold",
+  "detail": "ko_shaft: 이 축은 주로 비틀림 작용을 받는다."
+ },
+ {
+  "qid": "q090",
+  "op": "add_gold",
+  "detail": "en_grease grade2: Greases are applied to mechanisms that can be lubricated only infrequently and w"
+ }
+]

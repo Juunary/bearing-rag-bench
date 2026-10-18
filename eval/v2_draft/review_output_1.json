@@ -1,0 +1,268 @@
+[
+ {
+  "qid": "q002",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (Käfigwerkstoff war früher ... Messing) states the former material (brass), not the current material or reason; it does not state the same fact as the grade-2 anchor. Note: de_waelzlager also says many types use a low-alloy unhardened steel cage ('Bei vielen Wälzlagertypen wird ein Käfig aus niedriglegiertem, ungehärtetem Stahl verwendet.'), so 'normally' in the question rests on 'oft ... Kunststoff (Polyamid)'.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Remove gold[1] (brass, historical) or keep it only if the evaluator tolerates non-supporting grade-1. Optionally reword question: '요즘 구름 베어링 케이지에 많이 쓰이는 소재와 그 이유는?' to avoid 'normally'.",
+  "evidence": "oft aus (meist glasfaserverstärktem) Kunststoff (Polyamid); Kosten- und Gewichtsgründen"
+ },
+ {
+  "qid": "q007",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "ca. 1 % Kohlenstoff und 1,5 % Chrom; Stahlsorte 100Cr6"
+ },
+ {
+  "qid": "q012",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] (ko_lubrication) states that differential slip and sliding friction occur in a rolling bearing, but does not itself say lubrication is needed; the conclusion is in gold[1]. It is an implicit answer only. gold[1] is correct and states 'lubrication is important'.",
+  "missing_gold": [
+   {
+    "doc_id": "de_waelzlager",
+    "anchor": "Gewöhnlich befindet sich ein Schmierfilm zwischen den Kontaktflächen von Wälzkörpern und Laufringen, der Reibung, Verschleiß und das Auftreten von Wälzlagerschäden vermindert."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add de_waelzlager sentence as grade 1. Keep gold[0] grade 2 (it gives the cause the question asks 'why' about) but be aware it only answers implicitly; alternative: keep question and accept.",
+  "evidence": "차동(差動)미끄럼이 생기게 되며, 리테이너와 전동체(轉動體) 사이에서는 미끄럼 마찰이 생긴다"
+ },
+ {
+  "qid": "q017",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "stabilized and restrained by a flange on the inner ring ... stops the rollers from popping out"
+ },
+ {
+  "qid": "q022",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Most of the fatigue life is generally consumed in the crack growth phase."
+ },
+ {
+  "qid": "q027",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] (de_gleitlager 'Heute werden auch ... spiralförmiger Nutung ...') has no mention of computer fans, so it cannot answer the question alone: should be grade 1, not 2. gold[2] (en_plain_bearing) only says some plain bearings are grooved e.g. spiral groove bearing; no fan/quiet fact, no hydrodynamic: weak grade 1 at best.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Set gold[1] to grade 1. Keep or drop en_plain_bearing grade 1 (it supports only 'spiral groove bearing' naming).",
+  "evidence": "spiralförmige Nutung ... besonders leise laufenden Computerlüftern"
+ },
+ {
+  "qid": "q032",
+  "answerable": "partly",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[0] 'Beim Anlauf der Welle entsteht zunächst Mischreibung.' states only that mixed friction occurs at start-up; it says nothing about wear or why. The question (why wear especially strong at start-up) is answered fully only by en_lubrication ('may wear when started, stopped or reversed, as the lubricant film breaks down'), currently grade 1. de_gleitlager 'Die Hauptprobleme bei Mischreibung sind erhöhter Verschleiß und Energieverlust durch Reibung.' gives the wear link. gold[1] ('Mit zunehmender Drehzahl wird der Schmierstoff ... gezogen') is about film building up with speed, only background; weak grade 1.",
+  "missing_gold": [
+   {
+    "doc_id": "de_gleitlager",
+    "anchor": "Die Hauptprobleme bei Mischreibung sind erhöhter Verschleiß und Energieverlust durch Reibung."
+   },
+   {
+    "doc_id": "de_gleitlager",
+    "anchor": "Dieser Zustand findet sich häufig beim Anfahren oder Anhalten einer Maschine und bei niedrigen Drehzahlen, wenn der hydrodynamische Schmierfilm noch nicht vollständig ausgebildet ist oder gerade zusammenbricht."
+   },
+   {
+    "doc_id": "de_hydrodynamisches_gleitlager",
+    "anchor": "Beim Anfahren wird die Haftreibung überwunden, und die Welle dreht sich zunächst mit Gleitreibung."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Make en_lubrication 'This design of bearing may wear when started, stopped or reversed, as the lubricant film breaks down.' the grade-2 primary (note: gold[0] language changes, group becomes de->en cross). Demote 'Beim Anlauf der Welle entsteht zunächst Mischreibung.' to grade 1 and add the two de_gleitlager sentences (Hauptprobleme..., Dieser Zustand...) as grade 1. Alternative keeping a de primary: reword the question to 'Welcher Reibungszustand tritt beim Anlauf eines hydrodynamischen Gleitlagers zunächst auf?' (answer: Mischreibung).",
+  "evidence": "Beim Anlauf der Welle entsteht zunächst Mischreibung. (no wear stated)"
+ },
+ {
+  "qid": "q037",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "wenigen hundert Stunden ... bis zu ca. 100.000 Stunden"
+ },
+ {
+  "qid": "q042",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "gold[1] 'Ungeschmierte Lager fallen sogleich aus.' says only that unlubricated bearings fail, no reason; does not state the 'why' fact. Weak grade 1 (acceptable only as partial). gold[0] is correct.",
+  "missing_gold": [
+   {
+    "doc_id": "en_lubrication",
+    "anchor": "Without lubrication, the pressure between the surfaces in proximity would generate enough heat for rapid surface damage which, in a coarsened condition, could literally weld the surfaces together, causing seizure."
+   },
+   {
+    "doc_id": "de_gleitlager",
+    "anchor": "Verschleiß: Ohne Schmiermittel kann der Verschleiß zu einem schnellen Ausfall des Lagers führen."
+   },
+   {
+    "doc_id": "de_gleitlager",
+    "anchor": "Wärmeabfuhr: Die Abfuhr der durch Reibung erzeugten Wärme ist schwieriger, was zu einer Überhitzung führen kann."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_lubrication (weld/seizure) as grade 1 (it also answers 'why' alone, could be grade 2), add de_gleitlager 'Verschleiß: Ohne Schmiermittel ...' as grade 1. Keep de_waelzlager at grade 1 or drop it.",
+  "evidence": "lack of lubrication leads to fatigue and welding, and the resulting wear debris can cause abrasion"
+ },
+ {
+  "qid": "q047",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "oberhalb des Umkehrpunktes in der Stribeck-Kurve gewählt"
+ },
+ {
+  "qid": "q052",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "typically 70 to 85 Shore A"
+ },
+ {
+  "qid": "q057",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Anchor answers the proportionality fully (load, distance proportional; hardness inverse). The second part (load x2, distance x0.5 -> unchanged) is a derived computation, not stated; acceptable. Question is a two-part question.",
+  "missing_gold": [
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is proportional to the applied load."
+   },
+   {
+    "doc_id": "en_tribology",
+    "anchor": "The mass involved in wear is inversely proportional to the hardness of the less hard material."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the three en_tribology sentences as grade 1 (each states one third of the relation; none alone is enough). No change to question needed.",
+  "evidence": "마모량는 하중 및 거리에 각각 비례하고 굳기 에 반비례"
+ },
+ {
+  "qid": "q062",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "en_fatigue_material",
+    "anchor": "Each coupon or component test generates a point on the plot though in some cases there is a runout where the time to failure exceeds that available for the test (see censoring)."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Optional: add en_fatigue_material runout sentence as grade 1 (states the 'runout' concept for tests not failing; weaker than the de definition). Otherwise ok.",
+  "evidence": "Versuchskörper, die die Grenzschwingspielzahl ohne erkennbares Versagen erreichen, werden als Durchläufer bezeichnet"
+ },
+ {
+  "qid": "q067",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "en_plain_bearing",
+    "anchor": "Integral bearings are not as common because bushings are easier to accommodate and can be replaced if necessary."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_plain_bearing sentence 'Integral bearings are not as common because bushings are easier to accommodate and can be replaced if necessary.' as grade 1 (alternative reason in the same article; without it a correct answer using it is penalised). Question ok.",
+  "evidence": "became progressively less common as interchangeable manufacture became popular"
+ },
+ {
+  "qid": "q072",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "en_fatigue_material",
+    "anchor": "For some materials, like steel and titanium, there is a theoretical value for stress amplitude below which the material will not fail for any number of cycles, called a fatigue limit or endurance limit."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_fatigue_material sentence as grade 2 (it answers alone; same-language doc as the question) and optionally 'Some materials (e.g., some steel and titanium alloys) exhibit a theoretical fatigue limit below which continued loading does not lead to fatigue failure.' as grade 1. Keep ko gold[0] as is (or reorder to put the en sentence first if mono is wanted).",
+  "evidence": "피로한도(fatigue limit)라고 한다"
+ },
+ {
+  "qid": "q077",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [
+   {
+    "doc_id": "en_rolling_element_bearing",
+    "anchor": "1794 - The first patent for the ball race was given to Philip Vaughan of Carmarthen, Wales."
+   },
+   {
+    "doc_id": "de_waelzlager",
+    "anchor": "1794 erhielt der Engländer Philip Vaughan das erste Patent für Achsen, hier kann man die ersten Rillenkugellager finden."
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add en_rolling_element_bearing sentence as grade 1 (who, where, when) and de_waelzlager sentence as grade 1 (who, when; no place; says patent for axles, not ball bearing explicitly).",
+  "evidence": "awarded to Philip Vaughan ... Carmarthen in 1794"
+ },
+ {
+  "qid": "q082",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "also seals the combustion chamber"
+ },
+ {
+  "qid": "q087",
+  "answerable": "yes",
+  "self_contained": true,
+  "copies_anchor": false,
+  "grade_notes": "Only Korean doc defines journal; en_plain_bearing uses the word but does not define it. Question language de vs answer in ko is a valid cross case.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "지지되는 축부를 저널이라고 한다"
+ }
+]
