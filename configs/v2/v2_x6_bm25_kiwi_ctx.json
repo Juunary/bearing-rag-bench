@@ -1,0 +1,12 @@
+{
+  "exp_id": "v2_x6_bm25_kiwi_ctx",
+  "stage": "v2",
+  "description": "BM25 kiwi, title and section path prefix [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "kiwi",
+    "contextual_prefix": true
+  }
+}

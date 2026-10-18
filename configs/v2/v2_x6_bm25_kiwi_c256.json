@@ -1,0 +1,14 @@
+{
+  "exp_id": "v2_x6_bm25_kiwi_c256",
+  "stage": "v2",
+  "description": "BM25 kiwi, chunks 256/48 [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "kiwi"
+  },
+  "chunking": {
+    "size": 256
+  }
+}

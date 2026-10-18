@@ -72,7 +72,11 @@ def main() -> None:
     chunk_text = {c["chunk_id"]: c for c in chunks}
 
     retriever = build_retriever(cfg)
-    index_stats = retriever.index(chunks)
+    # 맥락 접두사: 색인에만 "문서 제목 > 절 경로"를 붙인다. 정답 매핑과 지표는 원래 청크(글자 위치)를 그대로 쓴다
+    index_chunks = chunks
+    if cfg.retrieval.contextual_prefix:
+        index_chunks = [{**c, "text": " > ".join([docs_by_id[c["doc_id"]]["title"], *c["section_path"]]) + "\n" + c["text"]} for c in chunks]
+    index_stats = retriever.index(index_chunks)
     print(f"[{retriever.name}] indexed {len(chunks)} chunks: {index_stats}")
 
     if args.dry_run:
@@ -99,6 +103,8 @@ def main() -> None:
             "qid": q["qid"], "group": primary_group(q), "q_lang": q["q_lang"], "type": q.get("type"),
             "difficulty": q.get("difficulty"), "gold": gold, "ranked": ranked,
             "scores": [round(s, 4) for _, s in hits], "metrics": evaluate_query(ranked, gold),
+            # 리랭커가 있으면 리랭커에 들어간 후보 ID도 남긴다 (정답이 후보 안에 있었는지 사후 진단)
+            **({"rerank_pool": list(retriever.last_pool)} if hasattr(retriever, "last_pool") else {}),
         })
 
     metrics = {"overall": aggregate(per_query)["overall"], "by_group": aggregate(per_query, "group")}

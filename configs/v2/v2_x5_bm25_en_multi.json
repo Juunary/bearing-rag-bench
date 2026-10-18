@@ -1,0 +1,13 @@
+{
+  "exp_id": "v2_x5_bm25_en_multi",
+  "stage": "v2",
+  "description": "English-pivot BM25, translation + 2 alternative wordings fused by RRF [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "query_expansion": "multi"
+  }
+}

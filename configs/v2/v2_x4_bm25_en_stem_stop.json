@@ -1,0 +1,12 @@
+{
+  "exp_id": "v2_x4_bm25_en_stem_stop",
+  "stage": "v2",
+  "description": "English-pivot BM25, stemmer + stopwords [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "en_stem_stop",
+    "bm25_english_pivot": true
+  }
+}

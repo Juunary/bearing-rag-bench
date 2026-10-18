@@ -1,0 +1,11 @@
+{
+  "exp_id": "v2_b_bm25_whitespace",
+  "stage": "v2",
+  "description": "BM25 whitespace tokenizer, original text [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "whitespace"
+  }
+}

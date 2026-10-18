@@ -1,0 +1,13 @@
+{
+  "exp_id": "v2_x3_bm25_en_gl",
+  "stage": "v2",
+  "description": "English-pivot BM25, translations with glossary hints [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "translate_glossary": true
+  }
+}

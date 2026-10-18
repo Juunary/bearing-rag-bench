@@ -86,6 +86,67 @@ class EnglishBM25Retriever:
                 "query_translations": self.query_log}
 
 
+class ExpandedQueryRetriever:
+    """English-pivot BM25 with query expansion on the query side (the index is the English one).
+
+    [EN]
+    - mode "multi": the faithful English translation plus two alternative wordings (one LLM call); every
+      wording is searched and the rankings are fused with RRF (k=60). If the model's answer does not
+      contain exactly the two numbered lines, only the translation is used and the failure is counted.
+    - mode "hyde": a short hypothetical encyclopedia passage that would answer the question is generated;
+      BM25 searches "translation + passage" as one bag of words (HyDE with a lexical retriever).
+    - Cost: one more LLM generation per query (reported as query_expansion_seconds_p50).
+
+    [KO]
+    - "multi": 충실한 영어 번역 + 다른 표현 2개(LLM 호출 1번). 표현마다 검색해 RRF(k=60)로 합친다. 모델 답에
+      번호 줄 2개가 정확히 없으면 번역만 쓰고 실패 횟수를 센다.
+    - "hyde": 질문에 답할 법한 짧은 가상 백과 문단을 생성해 "번역 + 문단"을 하나의 단어 묶음으로 BM25 검색한다.
+    - 비용: 질문당 LLM 생성 1번 추가(query_expansion_seconds_p50로 보고).
+    """
+
+    def __init__(self, translator, english_retriever, mode: str, rrf_k: int = 60, candidates: int = 50):
+        if mode not in ("multi", "hyde"):
+            raise ValueError(f"unknown query expansion mode {mode!r}")
+        self.translator, self.en, self.mode = translator, english_retriever, mode
+        self.rrf_k, self.candidates = rrf_k, candidates
+        self.name = f"{english_retriever.name}_{mode}"
+        self.expand_log: list[dict[str, Any]] = []
+
+    def index(self, chunks: list[dict[str, Any]]) -> dict[str, Any]:
+        return self.en.index(chunks)
+
+    def search(self, query: str, k: int) -> list[Hit]:
+        from ragbench.docfirst import parse_numbered
+
+        base = _translate_query(self.en, query)            # 충실한 번역 (영어 BM25가 쓰는 것과 같은 번역·같은 로그)
+        r = self.translator.expand(query, self.mode)
+        entry: dict[str, Any] = {"query": query, "translation": base["text"], "raw": r["text"], "truncated": r["truncated"],
+                                 "seconds": r["seconds"], "ok": True}
+        self.expand_log.append(entry)
+        inner = self.en.inner
+        if self.mode == "hyde":
+            passage = " ".join(r["text"].split())
+            if r["truncated"] or not passage:
+                entry["ok"] = False                         # 잘렸거나 비었으면 번역만으로 검색한다
+                return inner.search(base["text"], k)
+            return inner.search(f"{base['text']} {passage}", k)
+        variants = None if r["truncated"] else parse_numbered(r["text"], 2)
+        if variants is None:
+            entry["ok"] = False
+            return inner.search(base["text"], k)
+        entry["variants"] = variants
+        fused: dict[str, float] = {}
+        for text in dict.fromkeys([base["text"], *variants]):       # 같은 문장은 한 번만 (순서 유지)
+            for rank, (cid, _score) in enumerate(inner.search(text, self.candidates), start=1):
+                fused[cid] = fused.get(cid, 0.0) + 1.0 / (self.rrf_k + rank)
+        return sorted(fused.items(), key=lambda x: -x[1])[:k]
+
+    def run_extra(self) -> dict[str, Any]:
+        secs = [e["seconds"] for e in self.expand_log]
+        return {**self.en.run_extra(), "query_expansion_seconds_p50": statistics.median(secs) if secs else None,
+                "query_expansion_failed": sum(not e["ok"] for e in self.expand_log), "query_expansions": self.expand_log}
+
+
 class QueryPivotRetriever:
     """Translate the query to English, then search an index whose chunks are already English (docfirst variant).
 

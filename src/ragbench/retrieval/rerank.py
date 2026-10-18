@@ -60,16 +60,24 @@ class CrossEncoder:
 
 class RerankRetriever:
     def __init__(self, base, model_name: str = "BAAI/bge-reranker-v2-m3", top_n: int = 30,
-                 cross_encoder: CrossEncoder | None = None):
+                 cross_encoder: CrossEncoder | None = None, english_chunks_path=None, query_translator=None):
         self.base = base
         self.top_n = top_n
         self.ce = cross_encoder or CrossEncoder(model_name)
-        self.name = f"rerank({base.name})_{model_name.split('/')[-1]}_n{top_n}"
+        # english_chunks_path / query_translator: 리랭커가 번역 청크와 번역 질의를 읽게 한다 (후보 ID는 base가 정한 그대로)
+        self.english_chunks_path, self.query_translator = english_chunks_path, query_translator
+        self.name = f"rerank({base.name})_{model_name.split('/')[-1]}_n{top_n}" + ("_en" if english_chunks_path else "")
+        self.last_pool: list[str] = []         # 마지막 질의에서 리랭커에 들어간 후보 ID (정답이 후보 안에 있었는지 진단용)
         self.chunk_text: dict[str, str] = {}
         self.last_base_ranks: dict[str, int] = {}
 
     def index(self, chunks: list[dict[str, Any]]) -> dict[str, Any]:
         self.chunk_text = {c["chunk_id"]: c["text"] for c in chunks}
+        if self.english_chunks_path:
+            import json
+            with open(self.english_chunks_path, encoding="utf-8") as f:
+                en = {r["chunk_id"]: r["text"] for r in map(json.loads, filter(str.strip, f))}
+            self.chunk_text = {cid: en[cid] for cid in self.chunk_text}      # 영어 번역본(영어 청크는 원문)으로 교체
         stats = self.base.index(chunks)
         stats["reranker"] = {"model": self.ce.model_name, "revision": self.ce.revision, "top_n": self.top_n}
         return stats
@@ -77,10 +85,12 @@ class RerankRetriever:
     def search(self, query: str, k: int) -> list[Hit]:
         cands = self.base.search(query, self.top_n)
         self.last_base_ranks = {cid: r for r, (cid, _) in enumerate(cands, start=1)}
+        self.last_pool = [cid for cid, _ in cands]
         if not cands:
             return []
         t0 = time.perf_counter()
-        scores = self.ce.score(query, [self.chunk_text[cid] for cid, _ in cands])
+        ce_query = self.query_translator.translate(query, "query")["text"] if self.query_translator else query
+        scores = self.ce.score(ce_query, [self.chunk_text[cid] for cid, _ in cands])
         self.last_rerank_seconds = time.perf_counter() - t0
         order = sorted(zip((cid for cid, _ in cands), scores), key=lambda x: -x[1])
         return order[:k]

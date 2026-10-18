@@ -1,0 +1,12 @@
+{
+  "exp_id": "v2_x4_bm25_en_stem",
+  "stage": "v2",
+  "description": "English-pivot BM25, Snowball stemmer [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "en_stem",
+    "bm25_english_pivot": true
+  }
+}

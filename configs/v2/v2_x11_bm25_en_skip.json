@@ -1,0 +1,13 @@
+{
+  "exp_id": "v2_x11_bm25_en_skip",
+  "stage": "v2",
+  "description": "English-pivot BM25, English-looking queries are not translated [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "translate_skip_english": true
+  }
+}

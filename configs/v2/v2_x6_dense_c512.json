@@ -1,0 +1,14 @@
+{
+  "exp_id": "v2_x6_dense_c512",
+  "stage": "v2",
+  "description": "dense, chunks 512/48 [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense",
+    "embedding_model": "BAAI/bge-m3"
+  },
+  "chunking": {
+    "size": 512
+  }
+}

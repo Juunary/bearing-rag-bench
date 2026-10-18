@@ -40,7 +40,7 @@ from ragbench.cache import LLMCache, make_key
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
 SYSTEM = "You are a professional technical translator for mechanical engineering (bearings, seals, lubrication, tribology, automotive parts)."
 # 질의는 짧아서 96, 청크는 최대 384토큰 원문이 영어로 늘어날 수 있어 768로 여유를 둔다
-MAX_NEW_TOKENS = {"query": 96, "passage": 768, "numbered": 900}
+MAX_NEW_TOKENS = {"query": 96, "passage": 768, "numbered": 900, "expand_multi": 200, "expand_hyde": 200}
 # 모델이 "Translation:" 같은 머리말을 붙이는 경우를 지우기 위한 패턴
 _PREFIX = re.compile(r"^\s*(translation|english|translated text)\s*[:：]\s*", re.IGNORECASE)
 
@@ -102,6 +102,23 @@ def numbered_messages(numbered: str, title: str, section_path: list[str]) -> lis
     return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"{_NUMBERED_INSTRUCTION}\n\n{context}\n\n{numbered}"}]
 
 
+# 질의 확장: 번역과 별개로, 같은 뜻의 영어 변형 2개(multi) 또는 질문에 답하는 짧은 가상 문단(hyde)을 만든다
+_EXPAND_INSTRUCTION = {
+    "multi": ("Give exactly two different English versions of the following search question (it may be in any language). "
+              "Keep the meaning, but use different technical wording (synonyms, alternative standard terms). "
+              "Output exactly two lines numbered [1] and [2], nothing else."),
+    "hyde": ("Write a short passage (two or three sentences, in English) in the style of a technical encyclopedia that would answer "
+             "the following question (it may be in any language). Use standard engineering terms. Output only the passage."),
+}
+
+
+def expansion_messages(query: str, mode: str, hint: str = "") -> list[dict[str, str]]:
+    if mode not in _EXPAND_INSTRUCTION:
+        raise ValueError(f"mode must be 'multi' or 'hyde', got {mode!r}")
+    hint_line = f"\n\nRequired term translations (use exactly these): {hint}" if hint else ""
+    return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"{_EXPAND_INSTRUCTION[mode]}{hint_line}\n\n{query}"}]
+
+
 def clean_translation(text: str, kind: str) -> str:
     # 머리말 제거 후, 질의는 줄바꿈·따옴표까지 정리한다 (본문은 줄바꿈을 보존)
     out = _PREFIX.sub("", (text or "").strip())
@@ -144,6 +161,11 @@ class Translator:
         hint = glossary_hint(text, self.glossary) if self.glossary else ""
         out = self._run(translation_messages(text, kind, hint), MAX_NEW_TOKENS[kind])
         return {**out, "text": clean_translation(out["text"], kind)}
+
+    def expand(self, query: str, mode: str) -> dict[str, Any]:
+        """Raw expansion text ('multi': two numbered lines, 'hyde': a passage) with the same cache and truncation handling."""
+        hint = glossary_hint(query, self.glossary) if self.glossary else ""
+        return self._run(expansion_messages(query, mode, hint), MAX_NEW_TOKENS[f"expand_{mode}"])
 
     def translate_numbered(self, numbered: str, title: str, section_path: list[str]) -> dict[str, Any]:
         """Numbered sentences for the docfirst build; the raw model text is returned (the caller parses the numbers)."""

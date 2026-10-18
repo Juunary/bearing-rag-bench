@@ -81,6 +81,11 @@ class RetrievalConfig:
     bm25_tokenizer: str = "whitespace"   # "whitespace" | "char_bigram" | "kiwi" | "subword" | "snowball"
     bm25_k1: float = 1.5
     bm25_b: float = 0.75
+    bm25_include_original: bool = False       # [KO] hybrid: 영어 BM25 외에 원문 BM25를 RRF에 하나 더 넣는다 (3중 RRF)
+    bm25_original_tokenizer: str = "kiwi"     # [KO] 원문 BM25의 토크나이저
+    rerank_text: str = "original"             # [KO] "original" | "english": 리랭커 입력 텍스트·질의 언어
+    query_expansion: str | None = None        # [KO] 영어 피벗 BM25의 질의 확장: "multi"(번역+변형 2개) | "hyde"(가상 답변)
+    contextual_prefix: bool = False           # [KO] 색인용 텍스트 앞에 "문서 제목 > 절 경로"를 붙인다 (정답 매핑은 원문 오프셋 그대로)
     translate_model: str | None = None        # [KO] 영어 피벗 번역 모델 (None이면 translate.MODEL)
     translate_glossary: bool = False          # [KO] data/glossary.json 용어 힌트를 번역 프롬프트에 붙인다 (청크는 *_gl 번역본 사용)
     translate_skip_english: bool = False      # [KO] 영어로 판정된 질문은 번역하지 않는다 (지연 절약, 독일어 오판 위험)

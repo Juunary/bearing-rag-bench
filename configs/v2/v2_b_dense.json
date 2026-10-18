@@ -1,0 +1,11 @@
+{
+  "exp_id": "v2_b_dense",
+  "stage": "v2",
+  "description": "dense bge-m3 + HNSW [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense",
+    "embedding_model": "BAAI/bge-m3"
+  }
+}
