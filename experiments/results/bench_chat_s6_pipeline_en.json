@@ -1,0 +1,181 @@
+{
+ "config": {
+  "exp_id": "s6_pipeline_en",
+  "stage": "s6",
+  "description": "Serving pipeline with the English-pivot retrieval: English BM25 + dense, RRF, reranker reading English chunks and the English query; Qwen3-4B-Instruct-2507 greedy generation (cite_refuse_v1), SQLite LLM cache, output validation, request log",
+  "seed": 42,
+  "languages": [
+   "ko",
+   "en",
+   "de"
+  ],
+  "eval_path": "eval/queries.jsonl",
+  "anchor_min_overlap": 0.5,
+  "chunking": {
+   "strategy": "fixed",
+   "unit": "token",
+   "size": 384,
+   "overlap": 48,
+   "tokenizer": "BAAI/bge-m3"
+  },
+  "retrieval": {
+   "method": "hybrid_rerank",
+   "top_k": 10,
+   "bm25_tokenizer": "whitespace",
+   "bm25_k1": 1.5,
+   "bm25_b": 0.75,
+   "bm25_include_original": false,
+   "bm25_original_tokenizer": "kiwi",
+   "rerank_text": "english",
+   "query_expansion": null,
+   "contextual_prefix": false,
+   "translate_model": null,
+   "translate_glossary": false,
+   "translate_skip_english": false,
+   "bm25_english_pivot": true,
+   "embedding_model": "BAAI/bge-m3",
+   "embedding_revision": null,
+   "hnsw": {
+    "m": 16,
+    "ef_construction": 128,
+    "ef_search": 64
+   },
+   "exact_search": false,
+   "rrf_k": 60,
+   "fusion_candidates": 50,
+   "rerank_model": "BAAI/bge-reranker-v2-m3",
+   "rerank_top_n": 30
+  },
+  "generation": {
+   "model": "Qwen/Qwen3-4B-Instruct-2507",
+   "prompt_version": "cite_refuse_v1",
+   "max_new_tokens": 256,
+   "temperature": 0.0,
+   "context_k": 5,
+   "retrieval_result": null,
+   "device": "cuda:1",
+   "quantize_4bit": false,
+   "adapter": null
+  },
+  "train": {
+   "method": "qlora",
+   "rank": 16,
+   "alpha": 32,
+   "dropout": 0.05,
+   "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+   ],
+   "lr": 0.0002,
+   "epochs": 3,
+   "grad_accum": 8,
+   "warmup_ratio": 0.05,
+   "max_grad_norm": 1.0,
+   "train_file": "data/sft/train.jsonl",
+   "val_file": "data/sft/val.jsonl",
+   "device": "cuda:0"
+  }
+ },
+ "environment": {
+  "timestamp": "2026-10-19T13:57:52+00:00",
+  "python": "3.12.8",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "git_commit": "17cedae886d08e2d3833cdd61779528286bb4744-dirty",
+  "gpu": "NVIDIA GeForce RTX 3080 Ti",
+  "packages": {
+   "numpy": "2.5.4",
+   "torch": "2.14.1+cu126",
+   "transformers": "5.19.0",
+   "bm25s": "0.3.13",
+   "kiwipiepy": "0.24.0",
+   "hnswlib": "0.8.0",
+   "accelerate": "1.15.0",
+   "peft": "0.21.2",
+   "bitsandbytes": "0.50.2"
+  }
+ },
+ "startup_s": 24.04350254498422,
+ "levels": [
+  {
+   "level": "sequential x4",
+   "requests": 4,
+   "wall_s": 22.826128802029416,
+   "requests_per_minute": 10.514266439198494,
+   "client_latency_s": {
+    "p50": 4.6266964136157185,
+    "max": 10.748526107054204
+   },
+   "server_time_s": {
+    "p50": 4.62445
+   },
+   "queue_wait_s": {
+    "p50": 0.0022464136157180903,
+    "max": 0.002826107054202609
+   },
+   "cache_hits": 0,
+   "blocked": 0
+  },
+  {
+   "level": "concurrent x2",
+   "requests": 2,
+   "wall_s": 12.196270946180448,
+   "requests_per_minute": 9.839072986286915,
+   "client_latency_s": {
+    "p50": 8.769250526558608,
+    "max": 12.195833693025634
+   },
+   "server_time_s": {
+    "p50": 6.09605
+   },
+   "queue_wait_s": {
+    "p50": 2.6732005265586083,
+    "max": 5.343433693025634
+   },
+   "cache_hits": 0,
+   "blocked": 0
+  },
+  {
+   "level": "concurrent x4",
+   "requests": 4,
+   "wall_s": 10.43496451410465,
+   "requests_per_minute": 22.99959905715048,
+   "client_latency_s": {
+    "p50": 6.18465854995884,
+    "max": 10.433781925821677
+   },
+   "server_time_s": {
+    "p50": 2.56205
+   },
+   "queue_wait_s": {
+    "p50": 3.88575854995884,
+    "max": 7.241581925821677
+   },
+   "cache_hits": 0,
+   "blocked": 0
+  },
+  {
+   "level": "concurrent x8",
+   "requests": 8,
+   "wall_s": 28.4325221600011,
+   "requests_per_minute": 16.882076000815168,
+   "client_latency_s": {
+    "p50": 16.358779387548566,
+    "max": 28.43067968916148
+   },
+   "server_time_s": {
+    "p50": 3.50995
+   },
+   "queue_wait_s": {
+    "p50": 11.201129387548566,
+    "max": 25.93337968916148
+   },
+   "cache_hits": 1,
+   "blocked": 0
+  }
+ ]
+}

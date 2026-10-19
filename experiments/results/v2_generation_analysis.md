@@ -17,6 +17,7 @@ Selection metric (training answers were chosen by it): sentence_coverage. Indepe
 | xqlora_s42 | 0.905 (n=90) | 0.711 (n=90) | 0.967 (n=90) | 0.000 (n=90) | 0.767 (n=90) | 0.926 (n=81) | 0.802 (n=81) | 0.901 (n=81) | 1.000 (n=90) |
 | xlora_s42 | 0.884 (n=90) | 0.722 (n=90) | 0.978 (n=90) | 0.000 (n=90) | 0.767 (n=90) | 0.924 (n=79) | 0.797 (n=79) | 0.962 (n=79) | 0.989 (n=90) |
 | ret_b_rrf_en_rerank | 0.854 (n=90) | 0.744 (n=90) | 0.989 (n=90) | 0.000 (n=90) | 0.833 (n=90) | 0.881 (n=84) | 0.857 (n=84) | 0.929 (n=84) | 0.989 (n=90) |
+| ret_x2_rerank_en_text | 0.886 (n=90) | 0.933 (n=90) | 1.000 (n=90) | 0.000 (n=90) | 0.989 (n=90) | 0.955 (n=88) | 0.886 (n=88) | 0.977 (n=88) | 0.989 (n=90) |
 
 ## 2. Seed spread (mean ± sd over the seeds present)
 
@@ -61,10 +62,23 @@ Selection metric (training answers were chosen by it): sentence_coverage. Indepe
 |---|---|---|---|---|---|
 | RRF + reranker (original) | 0.767 (n=90) | 0.722 (n=90) | 0.896 (n=77) | 0.805 (n=77) | 0.948 (n=77) |
 | English-pivot RRF + reranker | 0.833 (n=90) | 0.744 (n=90) | 0.881 (n=84) | 0.857 (n=84) | 0.929 (n=84) |
+| English-pivot RRF + reranker with English reranker input | 0.989 (n=90) | 0.933 (n=90) | 0.955 (n=88) | 0.886 (n=88) | 0.977 (n=88) |
 
-- gold_in_context, English pivot minus original: +0.067, CI question +0.022..+0.122, CI cluster +0.022..+0.123, better/worse/tie 6/0/84
+- gold_in_context, ret_b_rrf_en_rerank minus original: +0.067, CI question +0.022..+0.122, CI cluster +0.022..+0.123, better/worse/tie 6/0/84
 
-- correctness, English pivot minus original: +0.052, CI question +0.000..+0.117, CI cluster +0.000..+0.114, better/worse/tie 5/1/71
+- cites_gold, ret_b_rrf_en_rerank minus original: +0.022, CI question -0.033..+0.078, CI cluster -0.032..+0.078, better/worse/tie 4/2/84
+
+- correctness, ret_b_rrf_en_rerank minus original: +0.052, CI question +0.000..+0.117, CI cluster +0.000..+0.114, better/worse/tie 5/1/71
+
+- faithfulness, ret_b_rrf_en_rerank minus original: -0.013, CI question -0.065..+0.026, CI cluster -0.061..+0.027, better/worse/tie 1/2/74
+
+- gold_in_context, ret_x2_rerank_en_text minus original: +0.222, CI question +0.133..+0.311, CI cluster +0.120..+0.320, better/worse/tie 21/1/68
+
+- cites_gold, ret_x2_rerank_en_text minus original: +0.211, CI question +0.122..+0.300, CI cluster +0.125..+0.292, better/worse/tie 20/1/69
+
+- correctness, ret_x2_rerank_en_text minus original: +0.105, CI question +0.013..+0.197, CI cluster +0.013..+0.208, better/worse/tie 11/3/62
+
+- faithfulness, ret_x2_rerank_en_text minus original: +0.066, CI question -0.013..+0.145, CI cluster -0.022..+0.151, better/worse/tie 7/2/67
 
 ## 6. Answer language (ko: Hangul present; en/de: no Hangul; German vs English is not distinguished)
 
@@ -81,3 +95,4 @@ Selection metric (training answers were chosen by it): sentence_coverage. Indepe
 | xqlora_s42 | 1.00 | 1.00 | 1.00 |
 | xlora_s42 | 1.00 | 0.97 | 1.00 |
 | ret_b_rrf_en_rerank | 1.00 | 0.97 | 1.00 |
+| ret_x2_rerank_en_text | 1.00 | 1.00 | 0.97 |

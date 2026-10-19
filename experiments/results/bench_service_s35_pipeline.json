@@ -1,0 +1,203 @@
+{
+ "config": {
+  "exp_id": "s35_pipeline",
+  "stage": "s35",
+  "description": "End-to-end serving pipeline: RRF + bge-reranker retrieval, Qwen3-4B-Instruct-2507 greedy generation (cite_refuse_v1), SQLite LLM cache, output validation, request log",
+  "seed": 42,
+  "languages": [
+   "ko",
+   "en",
+   "de"
+  ],
+  "eval_path": "eval/queries.jsonl",
+  "anchor_min_overlap": 0.5,
+  "chunking": {
+   "strategy": "fixed",
+   "unit": "token",
+   "size": 384,
+   "overlap": 48,
+   "tokenizer": "BAAI/bge-m3"
+  },
+  "retrieval": {
+   "method": "hybrid_rerank",
+   "top_k": 10,
+   "bm25_tokenizer": "kiwi",
+   "bm25_k1": 1.5,
+   "bm25_b": 0.75,
+   "bm25_include_original": false,
+   "bm25_original_tokenizer": "kiwi",
+   "rerank_text": "original",
+   "query_expansion": null,
+   "contextual_prefix": false,
+   "translate_model": null,
+   "translate_glossary": false,
+   "translate_skip_english": false,
+   "bm25_english_pivot": false,
+   "embedding_model": "BAAI/bge-m3",
+   "embedding_revision": null,
+   "hnsw": {
+    "m": 16,
+    "ef_construction": 128,
+    "ef_search": 64
+   },
+   "exact_search": false,
+   "rrf_k": 60,
+   "fusion_candidates": 50,
+   "rerank_model": "BAAI/bge-reranker-v2-m3",
+   "rerank_top_n": 30
+  },
+  "generation": {
+   "model": "Qwen/Qwen3-4B-Instruct-2507",
+   "prompt_version": "cite_refuse_v1",
+   "max_new_tokens": 256,
+   "temperature": 0.0,
+   "context_k": 5,
+   "retrieval_result": "s1_hybrid_rrf_rerank",
+   "device": "cuda:1",
+   "quantize_4bit": false,
+   "adapter": null
+  },
+  "train": {
+   "method": "qlora",
+   "rank": 16,
+   "alpha": 32,
+   "dropout": 0.05,
+   "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+   ],
+   "lr": 0.0002,
+   "epochs": 3,
+   "grad_accum": 8,
+   "warmup_ratio": 0.05,
+   "max_grad_norm": 1.0,
+   "train_file": "data/sft/train.jsonl",
+   "val_file": "data/sft/val.jsonl",
+   "device": "cuda:0"
+  }
+ },
+ "environment": {
+  "timestamp": "2026-10-19T14:00:40+00:00",
+  "python": "3.12.8",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "git_commit": "17cedae886d08e2d3833cdd61779528286bb4744-dirty",
+  "gpu": "NVIDIA GeForce RTX 3080 Ti",
+  "packages": {
+   "numpy": "2.5.4",
+   "torch": "2.14.1+cu126",
+   "transformers": "5.19.0",
+   "bm25s": "0.3.13",
+   "kiwipiepy": "0.24.0",
+   "hnswlib": "0.8.0",
+   "accelerate": "1.15.0",
+   "peft": "0.21.2",
+   "bitsandbytes": "0.50.2"
+  }
+ },
+ "n_questions": 30,
+ "translators": 0,
+ "startup_s": {
+  "retrieval_build_and_index": 18.254803015151992,
+  "generator_load": 3.0330825590062886
+ },
+ "memory": {
+  "torch_peak_gib": {
+   "cuda:0": 2.27,
+   "cuda:1": 8.07
+  },
+  "nvidia_smi_used_mib": {
+   "cuda:0": 2881,
+   "cuda:1": 8798
+  },
+  "nvidia_smi_before_load_mib": {
+   "cuda:0": 25,
+   "cuda:1": 11
+  }
+ },
+ "cold": {
+  "pass": "cold",
+  "wall_s": 93.04670610791072,
+  "queries_per_minute": 19.345123275105017,
+  "retrieve_ms": {
+   "p50": 183.91556292772293,
+   "p95": 192.05466215498745,
+   "mean": 191.52203619790575,
+   "max": 475.8336611557752
+  },
+  "translate_ms": {
+   "p50": 0.0,
+   "p95": 0.0,
+   "mean": 0.0,
+   "max": 0.0
+  },
+  "rerank_ms": {
+   "p50": 173.04679902736098,
+   "p95": 181.6403588745743,
+   "mean": 172.36008751982203,
+   "max": 211.53401513583958
+  },
+  "generate_ms": {
+   "p50": 2521.280205110088,
+   "p95": 6362.149793887511,
+   "mean": 2909.5576773940898,
+   "max": 7138.9058728236705
+  },
+  "total_ms": {
+   "p50": 2702.49271846842,
+   "p95": 6552.386484108865,
+   "mean": 3101.375548564829,
+   "max": 7311.074022902176
+  },
+  "blocked": 4,
+  "cache_hits": 0,
+  "generated_tokens_per_second": {
+   "p50": 29.61345603181718,
+   "p95": 33.636429026805104,
+   "mean": 27.57355360568113,
+   "max": 34.54094242809798
+  }
+ },
+ "warm": {
+  "pass": "warm",
+  "wall_s": 5.119257445912808,
+  "queries_per_minute": 351.6134945385706,
+  "retrieve_ms": {
+   "p50": 170.15696805901825,
+   "p95": 173.878702102229,
+   "mean": 170.26385822488615,
+   "max": 175.66981608979404
+  },
+  "translate_ms": {
+   "p50": 0.0,
+   "p95": 0.0,
+   "mean": 0.0,
+   "max": 0.0
+  },
+  "rerank_ms": {
+   "p50": 160.63274594489485,
+   "p95": 164.19126791879535,
+   "mean": 160.2407198632136,
+   "max": 165.4024689923972
+  },
+  "generate_ms": {
+   "p50": 0.0,
+   "p95": 0.0,
+   "mean": 0.0,
+   "max": 0.0
+  },
+  "total_ms": {
+   "p50": 170.36824545357376,
+   "p95": 174.1149181034416,
+   "mean": 170.47917031062147,
+   "max": 175.90081016533077
+  },
+  "blocked": 4,
+  "cache_hits": 30,
+  "generated_tokens_per_second": {}
+ }
+}
