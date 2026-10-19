@@ -1,0 +1,682 @@
+[
+ {
+  "id": "p0000",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0008",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0016",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0024",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0032",
+  "label": 1,
+  "evidence": "hydrodynamisches Gleitlager: Kraftübertragung über Schmiermittel-Film"
+ },
+ {
+  "id": "p0040",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0048",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0056",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0064",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0072",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0080",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0088",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0096",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0104",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0112",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0120",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0128",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0136",
+  "label": 1,
+  "evidence": "thrust bearings designed for axial load; most bearings radial"
+ },
+ {
+  "id": "p0144",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0152",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0160",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0168",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0176",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0184",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0192",
+  "label": 2,
+  "evidence": "short term transport 25%, power generation 20%; long term 55%, 40%"
+ },
+ {
+  "id": "p0200",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0208",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0216",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0224",
+  "label": 2,
+  "evidence": "비교적 안정한 피마자유와 대두유 내연기관에도 사용"
+ },
+ {
+  "id": "p0232",
+  "label": 1,
+  "evidence": "If the cage collapses, rolling elements group together, inner ring pops out"
+ },
+ {
+  "id": "p0240",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0248",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0256",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0264",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0272",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0280",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0288",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0296",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0304",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0312",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0320",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0328",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0336",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0344",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0352",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0360",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0368",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0376",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0384",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0392",
+  "label": 2,
+  "evidence": "Holm equation V=k W/H l"
+ },
+ {
+  "id": "p0400",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0408",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0416",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0424",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0432",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0440",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0448",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0456",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0464",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0472",
+  "label": 1,
+  "evidence": "케이지가 붕괴되거나 파손되면 구름 요소가 함께 모여"
+ },
+ {
+  "id": "p0480",
+  "label": 2,
+  "evidence": "metallische Rollgeräusche, Pfeif- und Schleifgeräusche, mahlende Klänge bei gerader Fahrt"
+ },
+ {
+  "id": "p0488",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0496",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0504",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0512",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0520",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0528",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0536",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0544",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0552",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0560",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0568",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0576",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0584",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0592",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0600",
+  "label": 2,
+  "evidence": "V = K W L / Hv: load, sliding distance, hardness"
+ },
+ {
+  "id": "p0608",
+  "label": 1,
+  "evidence": "fretting wear from small vibrations; false brinelling"
+ },
+ {
+  "id": "p0616",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0624",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0632",
+  "label": 2,
+  "evidence": "응력 범위를 피로한도(fatigue limit)라고 한다"
+ },
+ {
+  "id": "p0640",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0648",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0656",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0664",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0672",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0680",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0688",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0696",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0704",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0712",
+  "label": 2,
+  "evidence": "Calcium: Korrosionsschutz, wasserbeständig; Natrium: Emulgierverhalten, Getriebefließfett"
+ },
+ {
+  "id": "p0720",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0728",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0736",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0744",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0752",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0760",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0768",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0776",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0784",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0792",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0800",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0808",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0816",
+  "label": 1,
+  "evidence": "theoretisch unbegrenzt viele Zyklen ertragen: dauerfest"
+ },
+ {
+  "id": "p0824",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0832",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0840",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0848",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0856",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0864",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0872",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0880",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0888",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0896",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0904",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0912",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0920",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0928",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0936",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0944",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0952",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0960",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0968",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0976",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0984",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0992",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1000",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1008",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1016",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1024",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1032",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1040",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1048",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1056",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1064",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1072",
+  "label": 1,
+  "evidence": "Peter Jost 1966 report highlighted cost of friction, wear to UK economy"
+ },
+ {
+  "id": "p1080",
+  "label": 0,
+  "evidence": ""
+ }
+]

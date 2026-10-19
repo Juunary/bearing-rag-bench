@@ -1,0 +1,682 @@
+[
+ {
+  "id": "p0005",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0013",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0021",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0029",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0037",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0045",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0053",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0061",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0069",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0077",
+  "label": 2,
+  "evidence": "가짜 브리넬링 발생: 짧은 호 회전, 윤활유 밀어냄"
+ },
+ {
+  "id": "p0085",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0093",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0101",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0109",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0117",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0125",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0133",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0141",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0149",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0157",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0165",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0173",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0181",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0189",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0197",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0205",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0213",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0221",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0229",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0237",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0245",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0253",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0261",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0269",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0277",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0285",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0293",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0301",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0309",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0317",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0325",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0333",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0341",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0349",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0357",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0365",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0373",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0381",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0389",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0397",
+  "label": 2,
+  "evidence": "DIN 3760 genormt"
+ },
+ {
+  "id": "p0405",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0413",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0421",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0429",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0437",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0445",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0453",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0461",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0469",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0477",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0485",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0493",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0501",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0509",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0517",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0525",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0533",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0541",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0549",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0557",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0565",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0573",
+  "label": 1,
+  "evidence": "EP(극한 압력) 첨가제 오일 수명 비례"
+ },
+ {
+  "id": "p0581",
+  "label": 1,
+  "evidence": "Belastungen oberhalb der Dauerfestigkeit"
+ },
+ {
+  "id": "p0589",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0597",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0605",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0613",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0621",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0629",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0637",
+  "label": 2,
+  "evidence": "collar keeps the roller in the bearing"
+ },
+ {
+  "id": "p0645",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0653",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0661",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0669",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0677",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0685",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0693",
+  "label": 1,
+  "evidence": "John Harrison 1740 first caged roller bearing, marine timekeeping"
+ },
+ {
+  "id": "p0701",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0709",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0717",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0725",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0733",
+  "label": 2,
+  "evidence": "p_max formula with F, r, E, nu"
+ },
+ {
+  "id": "p0741",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0749",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0757",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0765",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0773",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0781",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0789",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0797",
+  "label": 2,
+  "evidence": "Eignung für selten oder langsam bewegte Schmierstellen"
+ },
+ {
+  "id": "p0805",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0813",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0821",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0829",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0837",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0845",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0853",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0861",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0869",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0877",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0885",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0893",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0901",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0909",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0917",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0925",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0933",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0941",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0949",
+  "label": 1,
+  "evidence": "Festgelenk mit bis zu 45 Grad"
+ },
+ {
+  "id": "p0957",
+  "label": 2,
+  "evidence": "Verschleiß, Wärmeentwicklung, Überhitzung ohne Schmiermittel"
+ },
+ {
+  "id": "p0965",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0973",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0981",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0989",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0997",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1005",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1013",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1021",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1029",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1037",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1045",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1053",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1061",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1069",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1077",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1085",
+  "label": 0,
+  "evidence": ""
+ }
+]

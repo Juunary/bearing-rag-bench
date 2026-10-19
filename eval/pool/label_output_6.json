@@ -1,0 +1,677 @@
+[
+ {
+  "id": "p0006",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0014",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0022",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0030",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0038",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0046",
+  "label": 2,
+  "evidence": "Dichtlippe wird durch den Druckunterschied an die Welle gedrückt"
+ },
+ {
+  "id": "p0054",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0062",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0070",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0078",
+  "label": 1,
+  "evidence": "Fluid bearing, a noncontact bearing supported by gas or liquid"
+ },
+ {
+  "id": "p0086",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0094",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0102",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0110",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0118",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0126",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0134",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0142",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0150",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0158",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0166",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0174",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0182",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0190",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0198",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0206",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0214",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0222",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0230",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0238",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0246",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0254",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0262",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0270",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0278",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0286",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0294",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0302",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0310",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0318",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0326",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0334",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0342",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0350",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0358",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0366",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0374",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0382",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0390",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0398",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0406",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0414",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0422",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0430",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0438",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0446",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0454",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0462",
+  "label": 1,
+  "evidence": "at least one of the bearings must be able to slide"
+ },
+ {
+  "id": "p0470",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0478",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0486",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0494",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0502",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0510",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0518",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0526",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0534",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0542",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0550",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0558",
+  "label": 1,
+  "evidence": "EP = Extreme Pressure, also extreme Druckbelastung"
+ },
+ {
+  "id": "p0566",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0574",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0582",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0590",
+  "label": 1,
+  "evidence": "For light loads, such as bicycles, ball bearings are often used"
+ },
+ {
+  "id": "p0598",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0606",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0614",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0622",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0630",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0638",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0646",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0654",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0662",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0670",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0678",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0686",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0694",
+  "label": 1,
+  "evidence": "볼베어링 - 슬리브 방식에 비해 높은 내구성이 장점이나 시끄러운 소음"
+ },
+ {
+  "id": "p0702",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0710",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0718",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0726",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0734",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0742",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0750",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0758",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0766",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0774",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0782",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0790",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0798",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0806",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0814",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0822",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0830",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0838",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0846",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0854",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0862",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0870",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0878",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0886",
+  "label": 1,
+  "evidence": "Loslager axial verschiebbar, keine Axialkräfte aufnehmen"
+ },
+ {
+  "id": "p0894",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0902",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0910",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0918",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0926",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0934",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0942",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0950",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0958",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0966",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0974",
+  "label": 2,
+  "evidence": "pressure applied to wrong race transfers through balls, brinelling occurs"
+ },
+ {
+  "id": "p0982",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0990",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0998",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1006",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1014",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1022",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1030",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1038",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1046",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1054",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1062",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1070",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1078",
+  "label": 2,
+  "evidence": "23 % des weltweiten Energieverbrauches ... 20 % durch Reibung"
+ }
+]

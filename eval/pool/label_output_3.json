@@ -1,0 +1,682 @@
+[
+ {
+  "id": "p0003",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0011",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0019",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0027",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0035",
+  "label": 2,
+  "evidence": "세라믹 베어링 볼은 ... 강철 볼보다 최대 40% 가볍다"
+ },
+ {
+  "id": "p0043",
+  "label": 2,
+  "evidence": "Ceramic bearing balls can weigh up to 40% less than steel"
+ },
+ {
+  "id": "p0051",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0059",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0067",
+  "label": 2,
+  "evidence": "Holm equation V=k W/H l (wear volume vs path and hardness)"
+ },
+ {
+  "id": "p0075",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0083",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0091",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0099",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0107",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0115",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0123",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0131",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0139",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0147",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0155",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0163",
+  "label": 2,
+  "evidence": "In industrial manufacturing, this is referred to as galling"
+ },
+ {
+  "id": "p0171",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0179",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0187",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0195",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0203",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0211",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0219",
+  "label": 2,
+  "evidence": "p_max formula with F, curvature k, E, nu, Hertz coefficients"
+ },
+ {
+  "id": "p0227",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0235",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0243",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0251",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0259",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0267",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0275",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0283",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0291",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0299",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0307",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0315",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0323",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0331",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0339",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0347",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0355",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0363",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0371",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0379",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0387",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0395",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0403",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0411",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0419",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0427",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0435",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0443",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0451",
+  "label": 2,
+  "evidence": "theoretical fatigue limit below which continued loading does not lead to failure"
+ },
+ {
+  "id": "p0459",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0467",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0475",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0483",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0491",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0499",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0507",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0515",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0523",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0531",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0539",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0547",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0555",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0563",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0571",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0579",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0587",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0595",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0603",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0611",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0619",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0627",
+  "label": 2,
+  "evidence": "Adhäsiver Verschleiß tritt bei mangelnder Schmierung auf; Randschichtteilchen abgeschert"
+ },
+ {
+  "id": "p0635",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0643",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0651",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0659",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0667",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0675",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0683",
+  "label": 1,
+  "evidence": "Gleitlager Vorteile: geräuscharm, höchste Drehzahlen; no case fan detail"
+ },
+ {
+  "id": "p0691",
+  "label": 2,
+  "evidence": "film between piston and cylinder wall also seals the combustion chamber"
+ },
+ {
+  "id": "p0699",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0707",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0715",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0723",
+  "label": 1,
+  "evidence": "Festlager axial fixiert, Loslager axial verschieblich; forces not explicit"
+ },
+ {
+  "id": "p0731",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0739",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0747",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0755",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0763",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0771",
+  "label": 1,
+  "evidence": "Calciumseife wasserbeständig; Lithium Temperaturbereich; no heat-resistant type named"
+ },
+ {
+  "id": "p0779",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0787",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0795",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0803",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0811",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0819",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0827",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0835",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0843",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0851",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0859",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0867",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0875",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0883",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0891",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0899",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0907",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0915",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0923",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0931",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0939",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0947",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0955",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0963",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0971",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0979",
+  "label": 2,
+  "evidence": "V=K W L / Hv wear volume proportional to load and distance"
+ },
+ {
+  "id": "p0987",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0995",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1003",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1011",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1019",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1027",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1035",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1043",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1051",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1059",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1067",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1075",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1083",
+  "label": 0,
+  "evidence": ""
+ }
+]

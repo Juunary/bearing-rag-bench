@@ -1,0 +1,682 @@
+[
+ {
+  "id": "p0004",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0012",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0020",
+  "label": 2,
+  "evidence": "In total, ~23% of the world energy consumption originates from tribological contacts"
+ },
+ {
+  "id": "p0028",
+  "label": 1,
+  "evidence": "Most of the component operational life is spent in this stage (secondary)"
+ },
+ {
+  "id": "p0036",
+  "label": 2,
+  "evidence": "In 1898, Henry Timken was awarded a patent for the tapered roller bearing"
+ },
+ {
+  "id": "p0044",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0052",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0060",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0068",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0076",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0084",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0092",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0100",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0108",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0116",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0124",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0132",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0140",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0148",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0156",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0164",
+  "label": 1,
+  "evidence": "lubrication does not occur until rotation; low speeds no complete separation"
+ },
+ {
+  "id": "p0172",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0180",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0188",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0196",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0204",
+  "label": 2,
+  "evidence": "ohne Käfig: mehr Wälzkörper, höhere Belastbarkeit, nur bedingt für höhere Drehzahlen"
+ },
+ {
+  "id": "p0212",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0220",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0228",
+  "label": 1,
+  "evidence": "ohne Innenring erfordern polierte und gehärtete Lauffläche auf der Welle"
+ },
+ {
+  "id": "p0236",
+  "label": 1,
+  "evidence": "hydrostatisches Lager unabhängig von Bewegung und Belastung"
+ },
+ {
+  "id": "p0244",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0252",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0260",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0268",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0276",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0284",
+  "label": 1,
+  "evidence": "Once cracks reach critical size propagate perpendicular to applied force"
+ },
+ {
+  "id": "p0292",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0300",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0308",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0316",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0324",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0332",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0340",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0348",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0356",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0364",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0372",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0380",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0388",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0396",
+  "label": 2,
+  "evidence": "V = K W L / Hv, load, sliding distance, hardness"
+ },
+ {
+  "id": "p0404",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0412",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0420",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0428",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0436",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0444",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0452",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0460",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0468",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0476",
+  "label": 1,
+  "evidence": "crack growth from 10 um to failure may cover most of the fatigue life"
+ },
+ {
+  "id": "p0484",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0492",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0500",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0508",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0516",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0524",
+  "label": 2,
+  "evidence": "Beim Anlaufen der Kraftfahrzeugmotoren liegt anfangs nur Mischreibung vor"
+ },
+ {
+  "id": "p0532",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0540",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0548",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0556",
+  "label": 1,
+  "evidence": "grease normally held within the bearing, releasing oil as compressed"
+ },
+ {
+  "id": "p0564",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0572",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0580",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0588",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0596",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0604",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0612",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0620",
+  "label": 1,
+  "evidence": "Verdicker Metallseifen und Additive genannt, Grundöl fehlt"
+ },
+ {
+  "id": "p0628",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0636",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0644",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0652",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0660",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0668",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0676",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0684",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0692",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0700",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0708",
+  "label": 1,
+  "evidence": "lubricant may cool the contact areas and remove wear products"
+ },
+ {
+  "id": "p0716",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0724",
+  "label": 1,
+  "evidence": "eliminating surface-to-surface contact through fluid dynamic effects"
+ },
+ {
+  "id": "p0732",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0740",
+  "label": 1,
+  "evidence": "Journal (friction, radial or rotary) bearing listed among motion types"
+ },
+ {
+  "id": "p0748",
+  "label": 2,
+  "evidence": "first patent radial ball bearing Jules Suriray, Parisian mechanic, 3 August 1869"
+ },
+ {
+  "id": "p0756",
+  "label": 1,
+  "evidence": "이동거리가 0.5mm 정도인 미소이동 때 생기는 미동마모"
+ },
+ {
+  "id": "p0764",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0772",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0780",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0788",
+  "label": 1,
+  "evidence": "nature of soaps influences temperature resistance, water resistance"
+ },
+ {
+  "id": "p0796",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0804",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0812",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0820",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0828",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0836",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0844",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0852",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0860",
+  "label": 2,
+  "evidence": "metal fatigue limits life; plastic deformation static load; vibration brinelling"
+ },
+ {
+  "id": "p0868",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0876",
+  "label": 2,
+  "evidence": "verschweißen ab einer vom Lagerwerkstoff abhängigen Temperatur"
+ },
+ {
+  "id": "p0884",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0892",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0900",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0908",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0916",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0924",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0932",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0940",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0948",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0956",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0964",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0972",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0980",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0988",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0996",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1004",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1012",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1020",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1028",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1036",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1044",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1052",
+  "label": 1,
+  "evidence": "at least one bearing must be able to slide; axial load fixes both sides"
+ },
+ {
+  "id": "p1060",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1068",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1076",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1084",
+  "label": 0,
+  "evidence": ""
+ }
+]

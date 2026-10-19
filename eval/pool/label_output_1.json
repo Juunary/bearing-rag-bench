@@ -1,0 +1,682 @@
+[
+ {
+  "id": "p0001",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0009",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0017",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0025",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0033",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0041",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0049",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0057",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0065",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0073",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0081",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0089",
+  "label": 1,
+  "evidence": "false brinelling pushes lubricant out, fretting wear marks"
+ },
+ {
+  "id": "p0097",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0105",
+  "label": 1,
+  "evidence": "soap type influences temperature and water resistance"
+ },
+ {
+  "id": "p0113",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0121",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0129",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0137",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0145",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0153",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0161",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0169",
+  "label": 1,
+  "evidence": "1740 John Harrison invented first caged roller bearing"
+ },
+ {
+  "id": "p0177",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0185",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0193",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0201",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0209",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0217",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0225",
+  "label": 1,
+  "evidence": "Außengelenke radseitig als Festgelenke ausgeführt"
+ },
+ {
+  "id": "p0233",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0241",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0249",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0257",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0265",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0273",
+  "label": 2,
+  "evidence": "auf 80–100 °C erwärmt, max. ca. 125 °C"
+ },
+ {
+  "id": "p0281",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0289",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0297",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0305",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0313",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0321",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0329",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0337",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0345",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0353",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0361",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0369",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0377",
+  "label": 2,
+  "evidence": "Verdicker wesentlichster Bestandteil, Matrix für Grundöl"
+ },
+ {
+  "id": "p0385",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0393",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0401",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0409",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0417",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0425",
+  "label": 2,
+  "evidence": "shot peening, laser peening impart compressive residual stresses"
+ },
+ {
+  "id": "p0433",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0441",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0449",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0457",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0465",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0473",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0481",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0489",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0497",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0505",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0513",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0521",
+  "label": 2,
+  "evidence": "Philip Vaughan ... Carmarthen in 1794"
+ },
+ {
+  "id": "p0529",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0537",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0545",
+  "label": 2,
+  "evidence": "~23% of world's energy consumption from tribological contacts"
+ },
+ {
+  "id": "p0553",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0561",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0569",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0577",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0585",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0593",
+  "label": 1,
+  "evidence": "false brinelling caused by fretting wear; polished, not deformed"
+ },
+ {
+  "id": "p0601",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0609",
+  "label": 1,
+  "evidence": "Adhäsiver Verschleiß auch Haftverschleiß genannt"
+ },
+ {
+  "id": "p0617",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0625",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0633",
+  "label": 1,
+  "evidence": "introduces the concept of endurance limit; cyclic stress range"
+ },
+ {
+  "id": "p0641",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0649",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0657",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0665",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0673",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0681",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0689",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0697",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0705",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0713",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0721",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0729",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0737",
+  "label": 1,
+  "evidence": "Fette schützen besser gegen Korrosion, beständiger gegen Auswaschung"
+ },
+ {
+  "id": "p0745",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0753",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0761",
+  "label": 2,
+  "evidence": "false brinelling caused by fretting wear, vibration without rotation"
+ },
+ {
+  "id": "p0769",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0777",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0785",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0793",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0801",
+  "label": 1,
+  "evidence": "Without lubricant the bearing fails; false brinelling"
+ },
+ {
+  "id": "p0809",
+  "label": 2,
+  "evidence": "marks too wide, do not match rolling element shape"
+ },
+ {
+  "id": "p0817",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0825",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0833",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0841",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0849",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0857",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0865",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0873",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0881",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0889",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0897",
+  "label": 1,
+  "evidence": "Radiallager auch Querlager, quer zur Wellenachse"
+ },
+ {
+  "id": "p0905",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0913",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0921",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0929",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0937",
+  "label": 1,
+  "evidence": "Zylinderrollenlager als Loslager, Axialverschiebungen möglich"
+ },
+ {
+  "id": "p0945",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0953",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0961",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0969",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0977",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0985",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0993",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1001",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1009",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1017",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1025",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1033",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1041",
+  "label": 2,
+  "evidence": "23 % des weltweiten Energieverbrauches durch tribologische Kontakte"
+ },
+ {
+  "id": "p1049",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1057",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1065",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1073",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1081",
+  "label": 0,
+  "evidence": ""
+ }
+]

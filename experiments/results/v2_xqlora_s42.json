@@ -1,0 +1,173 @@
+{
+  "config": {
+    "exp_id": "v2_xqlora_s42",
+    "stage": "v2t",
+    "description": "qlora fine-tuning of Qwen/Qwen3-4B-Instruct-2507 for citation completeness on data/sft_v2x: rank 16, alpha 32, lr 2e-4, 3 epochs, effective batch 8, seed 42",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3"
+    },
+    "retrieval": {
+      "method": "bm25",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "bm25_include_original": false,
+      "bm25_original_tokenizer": "kiwi",
+      "rerank_text": "original",
+      "query_expansion": null,
+      "contextual_prefix": false,
+      "translate_model": null,
+      "translate_glossary": false,
+      "translate_skip_english": false,
+      "bm25_english_pivot": false,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "prompt_version": "cite_v1",
+      "max_new_tokens": 256,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "cuda:0",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft_v2x/train.jsonl",
+      "val_file": "data/sft_v2x/val.jsonl",
+      "device": "cuda:1"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-10-19T01:17:42+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "fa7b35fee1d059a5070e4583243e32795c93f738-dirty",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "train_loss_first_step": 0.2989934226498008,
+      "train_loss_last_step": 0.15830863825976849,
+      "val_loss_before": 0.3474966693885973,
+      "val_loss_final": 0.30791231559550636,
+      "n": 66
+    }
+  },
+  "per_query": [],
+  "timing": {
+    "train_seconds": 456.42787416814826,
+    "tokens_per_second": 907.2145314408502,
+    "optimizer_steps": 27
+  },
+  "extra": {
+    "method": "qlora",
+    "base_model": "Qwen/Qwen3-4B-Instruct-2507",
+    "trainable_params_m": 33.030144,
+    "base_gib": 2.4945363998413086,
+    "peak_gpu_gib": 4.296513557434082,
+    "adapter_dir": "outputs/adapters/v2_xqlora_s42",
+    "adapter_mb": 126.07028865814209,
+    "val_loss_curve": {
+      "before": 0.3474966693885973,
+      "epoch_1": 0.3137739451840579,
+      "epoch_2": 0.30719323546215427,
+      "epoch_3": 0.30791231559550636
+    },
+    "train_loss_by_step": [
+      0.299,
+      0.2448,
+      0.3768,
+      0.2468,
+      0.2355,
+      0.2963,
+      0.2408,
+      0.3066,
+      0.3335,
+      0.1279,
+      0.1139,
+      0.1488,
+      0.1744,
+      0.1022,
+      0.1152,
+      0.1421,
+      0.1592,
+      0.1713,
+      0.1,
+      0.1177,
+      0.1028,
+      0.0981,
+      0.071,
+      0.0773,
+      0.0803,
+      0.0592,
+      0.1583
+    ],
+    "train_stats": {
+      "n": 66,
+      "mean_tokens": 2091.3030303030305,
+      "max_tokens": 2631,
+      "mean_answer_tokens": 132.6969696969697
+    },
+    "val_stats": {
+      "n": 12,
+      "mean_tokens": 2009.0833333333333,
+      "max_tokens": 2296,
+      "mean_answer_tokens": 147.75
+    }
+  }
+}

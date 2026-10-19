@@ -1,0 +1,5140 @@
+{
+  "config": {
+    "exp_id": "v2_x5_bm25_en_hyde",
+    "stage": "v2",
+    "description": "English-pivot BM25, HyDE (hypothetical passage) [eval: queries_v2, 90 questions]",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries_v2.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3"
+    },
+    "retrieval": {
+      "method": "bm25",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "bm25_include_original": false,
+      "bm25_original_tokenizer": "kiwi",
+      "rerank_text": "original",
+      "query_expansion": "hyde",
+      "contextual_prefix": false,
+      "translate_model": null,
+      "translate_glossary": false,
+      "translate_skip_english": false,
+      "bm25_english_pivot": true,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": null,
+      "prompt_version": null,
+      "max_new_tokens": 256,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "cuda:0",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-10-18T23:51:05+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "fa7b35fee1d059a5070e4583243e32795c93f738",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "recall@5": 0.817037037037037,
+      "mrr@10": 0.7667724867724868,
+      "ndcg@10": 0.7687456501104306,
+      "n": 90
+    },
+    "by_group": {
+      "ko->en": {
+        "recall@5": 0.6366666666666666,
+        "mrr@10": 0.595,
+        "ndcg@10": 0.5949976973704464,
+        "n": 10
+      },
+      "ko->de": {
+        "recall@5": 0.7,
+        "mrr@10": 0.7142857142857143,
+        "ndcg@10": 0.7314905361263941,
+        "n": 10
+      },
+      "ko->ko": {
+        "recall@5": 0.7333333333333333,
+        "mrr@10": 0.67,
+        "ndcg@10": 0.6379466102120575,
+        "n": 10
+      },
+      "en->en": {
+        "recall@5": 1.0,
+        "mrr@10": 0.745,
+        "ndcg@10": 0.7975764211515741,
+        "n": 10
+      },
+      "en->de": {
+        "recall@5": 0.8833333333333334,
+        "mrr@10": 0.8833333333333334,
+        "ndcg@10": 0.8845690660992036,
+        "n": 10
+      },
+      "en->ko": {
+        "recall@5": 0.9666666666666666,
+        "mrr@10": 0.9,
+        "ndcg@10": 0.9011449955633009,
+        "n": 10
+      },
+      "de->de": {
+        "recall@5": 0.9166666666666666,
+        "mrr@10": 0.8833333333333334,
+        "ndcg@10": 0.8772573735299589,
+        "n": 10
+      },
+      "de->en": {
+        "recall@5": 0.7833333333333333,
+        "mrr@10": 0.71,
+        "ndcg@10": 0.7158509573068403,
+        "n": 10
+      },
+      "de->ko": {
+        "recall@5": 0.7333333333333333,
+        "mrr@10": 0.8,
+        "ndcg@10": 0.7778771936341002,
+        "n": 10
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "q001",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_tapered_roller_bearing#2": 2,
+        "de_waelzlager#2": 1
+      },
+      "ranked": [
+        "en_tapered_roller_bearing#1",
+        "en_bearing_mechanical#3",
+        "en_plain_bearing#1",
+        "en_plain_bearing#0",
+        "en_tapered_roller_bearing#2",
+        "de_hydrodynamisches_gleitlager#4",
+        "en_plain_bearing#4",
+        "en_bearing_mechanical#6",
+        "en_plain_bearing#9",
+        "de_hydrodynamisches_gleitlager#5"
+      ],
+      "scores": [
+        30.3416,
+        17.2019,
+        17.0552,
+        17.0243,
+        16.5462,
+        16.0462,
+        15.5149,
+        15.1957,
+        15.106,
+        14.9997
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.2940806813328203
+      }
+    },
+    {
+      "qid": "q002",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#5": 2
+      },
+      "ranked": [
+        "de_waelzlager#6",
+        "en_plain_bearing#5",
+        "ko_ball_bearing#1",
+        "en_ball_bearing#17",
+        "ko_ball_bearing#9",
+        "de_gleitlager#9",
+        "de_waelzlager#5",
+        "de_waelzlager#33",
+        "ko_ball_bearing#19",
+        "en_ball_bearing#8"
+      ],
+      "scores": [
+        15.6219,
+        14.5011,
+        14.1925,
+        12.9606,
+        12.8313,
+        12.2309,
+        12.0934,
+        12.0858,
+        11.3933,
+        11.277
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.14285714285714285,
+        "ndcg@10": 0.3333333333333333
+      }
+    },
+    {
+      "qid": "q003",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_ball_bearing#4": 2,
+        "en_ball_bearing#4": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#8",
+        "en_ball_bearing#4",
+        "ko_ball_bearing#6",
+        "de_waelzlager#13",
+        "ko_ball_bearing#9",
+        "en_rolling_element_bearing#7",
+        "de_waelzlager#14",
+        "de_gleitlager#2",
+        "de_waelzlager#5",
+        "en_ball_bearing#8"
+      ],
+      "scores": [
+        18.3806,
+        18.3176,
+        17.6692,
+        15.8732,
+        15.5171,
+        15.0454,
+        14.842,
+        14.7671,
+        14.765,
+        14.6518
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.23981246656813146
+      }
+    },
+    {
+      "qid": "q004",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_fretting#2": 2,
+        "en_fretting#1": 1,
+        "de_fressen_technik#1": 1
+      },
+      "ranked": [
+        "en_fretting#2",
+        "de_verschleiss#4",
+        "en_fretting#1",
+        "en_fatigue_material#19",
+        "en_bearing_mechanical#17",
+        "de_materialermuedung#1",
+        "de_verschleiss#3",
+        "en_fatigue_material#8",
+        "en_brinelling#3",
+        "en_bearing_mechanical#11"
+      ],
+      "scores": [
+        24.6777,
+        19.041,
+        18.0504,
+        17.9202,
+        17.892,
+        16.2151,
+        16.0354,
+        15.5981,
+        15.3803,
+        15.3731
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7984848580994974
+      }
+    },
+    {
+      "qid": "q005",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_rolling_element_bearing#7": 2,
+        "en_rolling_element_bearing#8": 1
+      },
+      "ranked": [
+        "en_rolling_element_bearing#10",
+        "en_rolling_element_bearing#9",
+        "en_bearing_mechanical#14",
+        "en_rolling_element_bearing#12",
+        "de_waelzlager#7",
+        "en_bearing_mechanical#13",
+        "de_waelzlager#26",
+        "de_waelzlager#20",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#11"
+      ],
+      "scores": [
+        21.8585,
+        19.255,
+        18.4477,
+        18.4471,
+        17.876,
+        16.7302,
+        16.4867,
+        15.8313,
+        14.8523,
+        14.4358
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q006",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#2": 2,
+        "en_bearing_mechanical#3": 2
+      },
+      "ranked": [
+        "de_waelzlager#2",
+        "en_bearing_mechanical#3",
+        "en_rolling_element_bearing#1",
+        "de_waelzlager#4",
+        "de_waelzlager#3",
+        "de_waelzlager#1",
+        "en_rolling_element_bearing#11",
+        "de_waelzlager#18",
+        "ko_ball_bearing#0",
+        "en_ball_bearing#0"
+      ],
+      "scores": [
+        32.5154,
+        29.3326,
+        18.1943,
+        16.9228,
+        16.9166,
+        15.1711,
+        14.5232,
+        13.7182,
+        13.0743,
+        13.0514
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q007",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#6": 2
+      },
+      "ranked": [
+        "de_waelzlager#6",
+        "ko_ball_bearing#19",
+        "en_ball_bearing#17",
+        "en_plain_bearing#5",
+        "en_fatigue_material#20",
+        "de_waelzlager#11",
+        "en_ball_bearing#16",
+        "en_rolling_element_bearing#1",
+        "en_wear#4",
+        "ko_ball_bearing#18"
+      ],
+      "scores": [
+        20.9976,
+        19.3174,
+        17.2452,
+        12.5461,
+        11.364,
+        11.1991,
+        10.6333,
+        10.0126,
+        9.8847,
+        9.8459
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q008",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_nadellager#2": 2,
+        "de_waelzlager#18": 2,
+        "en_rolling_element_bearing#5": 1
+      },
+      "ranked": [
+        "de_nadellager#2",
+        "de_waelzlager#18",
+        "de_waelzlager#11",
+        "en_rolling_element_bearing#5",
+        "en_needle_roller_bearing#0",
+        "de_nadellager#1",
+        "de_nadellager#0",
+        "en_rolling_element_bearing#7",
+        "en_rolling_element_bearing#6",
+        "en_brinelling#1"
+      ],
+      "scores": [
+        20.418,
+        20.3986,
+        19.2983,
+        18.4984,
+        17.7965,
+        17.4776,
+        16.6077,
+        16.51,
+        16.0922,
+        15.5697
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9815720279306078
+      }
+    },
+    {
+      "qid": "q009",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_grease#2": 2,
+        "de_schmierfett#15": 1
+      },
+      "ranked": [
+        "en_grease#2",
+        "de_schmierfett#15",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#15",
+        "en_ball_bearing#13",
+        "en_ball_bearing#12",
+        "en_grease#1",
+        "de_schmierfett#7",
+        "ko_wear#1",
+        "ko_ball_bearing#13"
+      ],
+      "scores": [
+        14.6911,
+        14.4845,
+        11.1349,
+        11.1037,
+        9.9444,
+        8.6401,
+        8.422,
+        7.7313,
+        7.6337,
+        6.975
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q010",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_wellendichtring#1": 2
+      },
+      "ranked": [
+        "de_wellendichtring#1",
+        "en_radial_shaft_seal#0",
+        "de_dichtung_technik#0",
+        "ko_seal#0",
+        "en_seal_mechanical#0",
+        "de_dichtung_technik#3",
+        "de_dichtung_technik#2",
+        "de_wellendichtring#2",
+        "de_homokinetisches_gelenk#4",
+        "de_wellendichtring#0"
+      ],
+      "scores": [
+        40.1463,
+        26.1699,
+        24.1279,
+        21.937,
+        21.0866,
+        20.1529,
+        19.9167,
+        18.5498,
+        17.8148,
+        17.3319
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q011",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_differential#0": 2
+      },
+      "ranked": [
+        "ko_differential#0",
+        "de_homokinetisches_gelenk#4",
+        "ko_shaft#0",
+        "de_homokinetisches_gelenk#0",
+        "ko_ball_bearing#12",
+        "en_tapered_roller_bearing#2",
+        "en_cv_joint#3",
+        "en_rolling_element_bearing#4",
+        "de_gleitlager#9",
+        "en_cv_joint#4"
+      ],
+      "scores": [
+        49.4426,
+        19.4902,
+        18.1256,
+        17.9253,
+        17.0105,
+        16.8454,
+        16.2241,
+        15.2424,
+        14.9348,
+        14.9145
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q012",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "ko_lubrication#0": 2,
+        "de_waelzlager#0": 1
+      },
+      "ranked": [
+        "de_gleitlager#3",
+        "en_plain_bearing#9",
+        "de_gleitlager#4",
+        "de_gleitlager#5",
+        "de_fressen_technik#0",
+        "de_schmierung#0",
+        "de_gleitlager#7",
+        "de_verschleiss#1",
+        "de_gleitlager#2",
+        "en_lubrication#2"
+      ],
+      "scores": [
+        24.0744,
+        21.8634,
+        21.6835,
+        21.5342,
+        19.7673,
+        19.3699,
+        18.9273,
+        18.2502,
+        18.0421,
+        17.7613
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q013",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_wear#2": 2,
+        "de_fressen_technik#0": 1
+      },
+      "ranked": [
+        "en_wear#1",
+        "en_wear#2",
+        "de_verschleiss#1",
+        "en_tribology#24",
+        "ko_wear#0",
+        "en_wear#8",
+        "en_tribology#26",
+        "en_wear#0",
+        "en_tribology#27",
+        "en_wear#7"
+      ],
+      "scores": [
+        34.0071,
+        30.2828,
+        27.2443,
+        24.7269,
+        20.5691,
+        20.2589,
+        19.2869,
+        18.6496,
+        18.5784,
+        17.9578
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.4796249331362629
+      }
+    },
+    {
+      "qid": "q014",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_lubrication#0": 2,
+        "en_lubrication#3": 1,
+        "de_fressen_technik#0": 1,
+        "en_bearing_mechanical#11": 1,
+        "en_rolling_element_bearing#8": 1
+      },
+      "ranked": [
+        "de_gleitlager#7",
+        "de_verschleiss#1",
+        "de_verschleiss#3",
+        "en_lubrication#0",
+        "de_gleitlager#5",
+        "de_verschleiss#0",
+        "de_gleitlager#4",
+        "de_lager_maschinenelement#3",
+        "en_tribology#30",
+        "en_tribology#24"
+      ],
+      "scores": [
+        16.8768,
+        16.6116,
+        15.3167,
+        14.8399,
+        14.8062,
+        14.3509,
+        13.0844,
+        12.9661,
+        12.8551,
+        12.0997
+      ],
+      "metrics": {
+        "recall@5": 0.2,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.21814917926546643
+      }
+    },
+    {
+      "qid": "q015",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_cv_joint#3": 2,
+        "de_homokinetisches_gelenk#1": 1
+      },
+      "ranked": [
+        "de_homokinetisches_gelenk#0",
+        "en_cv_joint#3",
+        "de_homokinetisches_gelenk#3",
+        "en_cv_joint#7",
+        "en_cv_joint#0",
+        "en_cv_joint#4",
+        "en_cv_joint#1",
+        "de_homokinetisches_gelenk#4",
+        "en_cv_joint#6",
+        "de_homokinetisches_gelenk#1"
+      ],
+      "scores": [
+        42.3127,
+        41.8032,
+        40.5501,
+        40.1837,
+        38.9594,
+        38.9141,
+        38.8719,
+        38.1934,
+        35.4027,
+        31.569
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.5894966717965162
+      }
+    },
+    {
+      "qid": "q016",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "en_brinelling#2": 2,
+        "en_brinelling#1": 1,
+        "de_waelzlager#30": 1,
+        "de_waelzlager#31": 1
+      },
+      "ranked": [
+        "en_brinelling#1",
+        "en_brinelling#2",
+        "de_waelzlager#31",
+        "de_waelzlager#30",
+        "en_ball_bearing#10",
+        "ko_ball_bearing#12",
+        "de_waelzlager#19",
+        "en_ball_bearing#11",
+        "en_ball_bearing#3",
+        "de_nadellager#1"
+      ],
+      "scores": [
+        26.8242,
+        26.4171,
+        25.3262,
+        24.3638,
+        20.7224,
+        20.4592,
+        17.6161,
+        16.8046,
+        16.6188,
+        16.3076
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8963753390648908
+      }
+    },
+    {
+      "qid": "q017",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_tapered_roller_bearing#0": 2
+      },
+      "ranked": [
+        "en_tapered_roller_bearing#0",
+        "de_waelzlager#13",
+        "en_rolling_element_bearing#5",
+        "en_tapered_roller_bearing#2",
+        "en_tapered_roller_bearing#1",
+        "ko_ball_bearing#16",
+        "de_waelzlager#11",
+        "de_waelzlager#16",
+        "en_rolling_element_bearing#7",
+        "en_rolling_element_bearing#4"
+      ],
+      "scores": [
+        28.9533,
+        24.1813,
+        23.8183,
+        21.0041,
+        20.7017,
+        20.4218,
+        20.2263,
+        20.0348,
+        19.0984,
+        18.4654
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q018",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_brinelling#1": 2
+      },
+      "ranked": [
+        "en_brinelling#1",
+        "en_tapered_roller_bearing#2",
+        "ko_bearing#2",
+        "de_waelzlager#32",
+        "en_brinelling#0",
+        "en_rolling_element_bearing#7",
+        "en_tapered_roller_bearing#3",
+        "en_bearing_mechanical#0",
+        "de_hydrodynamisches_gleitlager#3",
+        "en_fatigue_material#17"
+      ],
+      "scores": [
+        21.6666,
+        15.9807,
+        15.722,
+        15.2252,
+        15.0968,
+        14.5217,
+        14.3944,
+        14.0724,
+        14.0483,
+        13.5906
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q019",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "en_grease#0": 2,
+        "en_grease#1": 2
+      },
+      "ranked": [
+        "en_grease#0",
+        "en_grease#1",
+        "en_ball_bearing#13",
+        "ko_ball_bearing#15",
+        "ko_lubrication#0",
+        "ko_ball_bearing#13",
+        "de_schmierfett#10",
+        "ko_lubricant#0",
+        "ko_ball_bearing#14",
+        "ko_wear#1"
+      ],
+      "scores": [
+        28.7716,
+        26.3897,
+        22.3367,
+        19.9056,
+        17.3965,
+        17.0054,
+        16.7787,
+        16.7604,
+        16.2045,
+        15.5292
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q020",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_grease#2": 2,
+        "de_schmierfett#4": 1
+      },
+      "ranked": [
+        "en_grease#2",
+        "de_schmierfett#4",
+        "en_grease#1",
+        "de_schmierfett#9",
+        "de_schmierfett#16",
+        "en_grease#3",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#13",
+        "en_grease#4",
+        "de_schmierfett#10"
+      ],
+      "scores": [
+        28.9551,
+        25.2662,
+        20.9785,
+        17.5462,
+        17.4062,
+        16.5234,
+        16.4069,
+        16.1435,
+        15.9072,
+        15.4282
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q021",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#32": 2,
+        "de_waelzlager#33": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#10",
+        "de_waelzlager#18",
+        "de_waelzlager#33",
+        "de_waelzlager#19",
+        "en_rolling_element_bearing#4",
+        "de_waelzlager#32",
+        "en_ball_bearing#8",
+        "en_rolling_element_bearing#6",
+        "en_ball_bearing#9",
+        "de_waelzlager#0"
+      ],
+      "scores": [
+        32.0326,
+        31.4,
+        30.9068,
+        30.3853,
+        29.8952,
+        28.7798,
+        27.8898,
+        27.698,
+        26.0601,
+        24.7862
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5249810332008933
+      }
+    },
+    {
+      "qid": "q022",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_fatigue_material#3": 2
+      },
+      "ranked": [
+        "en_fatigue_material#0",
+        "en_fatigue_material#17",
+        "en_fatigue_material#15",
+        "en_fatigue_material#8",
+        "en_fatigue_material#3",
+        "en_fatigue_material#1",
+        "en_fatigue_material#2",
+        "de_materialermuedung#2",
+        "en_fatigue_material#10",
+        "de_materialermuedung#1"
+      ],
+      "scores": [
+        27.6409,
+        26.4918,
+        25.1665,
+        24.7408,
+        23.7868,
+        23.1787,
+        23.0978,
+        22.6127,
+        21.802,
+        21.4647
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.38685280723454163
+      }
+    },
+    {
+      "qid": "q023",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_bearing#3": 2,
+        "ko_bearing#4": 1
+      },
+      "ranked": [
+        "de_hydrodynamisches_gleitlager#3",
+        "ko_bearing#3",
+        "ko_bearing#4",
+        "de_gleitlager#4",
+        "de_hydrodynamisches_gleitlager#1",
+        "de_gleitlager#7",
+        "ko_lubricant#0",
+        "de_gleitlager#1",
+        "en_plain_bearing#12",
+        "ko_bearing#2"
+      ],
+      "scores": [
+        31.0843,
+        30.1719,
+        23.2016,
+        20.6833,
+        20.1846,
+        18.5073,
+        18.4895,
+        17.8843,
+        17.4856,
+        17.2795
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.66967181649423
+      }
+    },
+    {
+      "qid": "q024",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_fretting#2": 2
+      },
+      "ranked": [
+        "en_brinelling#2",
+        "en_fretting#2",
+        "en_brinelling#3",
+        "en_brinelling#0",
+        "en_fretting#0",
+        "en_bearing_mechanical#13",
+        "en_rolling_element_bearing#8",
+        "de_fressen_technik#1",
+        "en_wear#5",
+        "en_rolling_element_bearing#7"
+      ],
+      "scores": [
+        37.4062,
+        33.2062,
+        29.2281,
+        27.1697,
+        25.7626,
+        23.2215,
+        21.9092,
+        20.8205,
+        20.7137,
+        19.6026
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "q025",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_cv_joint#3": 2
+      },
+      "ranked": [
+        "de_homokinetisches_gelenk#1",
+        "en_cv_joint#3",
+        "de_homokinetisches_gelenk#2",
+        "de_homokinetisches_gelenk#0",
+        "en_cv_joint#4",
+        "en_cv_joint#2",
+        "en_cv_joint#1",
+        "ko_ball_bearing#7",
+        "en_ball_bearing#0",
+        "en_cv_joint#5"
+      ],
+      "scores": [
+        35.8918,
+        35.6667,
+        26.4689,
+        25.5719,
+        23.4536,
+        22.9947,
+        19.121,
+        16.0356,
+        15.7901,
+        15.6601
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "q026",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_rolling_element_bearing#6": 2,
+        "en_rolling_element_bearing#5": 1,
+        "de_waelzlager#18": 1
+      },
+      "ranked": [
+        "en_rolling_element_bearing#6",
+        "de_waelzlager#18",
+        "en_rolling_element_bearing#5",
+        "de_waelzlager#11",
+        "de_waelzlager#23",
+        "de_nadellager#0",
+        "de_waelzlager#19",
+        "ko_bearing#2",
+        "en_tapered_roller_bearing#2",
+        "de_waelzlager#14"
+      ],
+      "scores": [
+        36.2225,
+        25.2142,
+        23.7884,
+        23.054,
+        19.1002,
+        17.0794,
+        16.2232,
+        15.9448,
+        15.2961,
+        15.0463
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q027",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_gleitlager#1": 2,
+        "en_plain_bearing#7": 1,
+        "en_plain_bearing#8": 1
+      },
+      "ranked": [
+        "de_gleitlager#1",
+        "en_plain_bearing#9",
+        "ko_bearing#3",
+        "en_plain_bearing#11",
+        "en_plain_bearing#12",
+        "de_gleitlager#7",
+        "en_bearing_mechanical#8",
+        "en_plain_bearing#8",
+        "de_hydrodynamisches_gleitlager#0",
+        "en_plain_bearing#10"
+      ],
+      "scores": [
+        26.0836,
+        21.3332,
+        17.6763,
+        17.1265,
+        17.0694,
+        16.8812,
+        15.0873,
+        14.8729,
+        14.5795,
+        14.5323
+      ],
+      "metrics": {
+        "recall@5": 0.3333333333333333,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7395454574298492
+      }
+    },
+    {
+      "qid": "q028",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#33": 2
+      },
+      "ranked": [
+        "en_bearing_mechanical#15",
+        "de_waelzlager#33",
+        "en_plain_bearing#7",
+        "en_bearing_mechanical#11",
+        "de_gleitlager#7",
+        "de_waelzlager#34",
+        "en_bearing_mechanical#17",
+        "en_bearing_mechanical#16",
+        "en_rolling_element_bearing#6",
+        "ko_ball_bearing#2"
+      ],
+      "scores": [
+        15.1415,
+        14.8208,
+        14.0546,
+        13.6948,
+        13.3579,
+        12.7861,
+        12.0448,
+        10.7586,
+        10.7436,
+        10.6856
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "q029",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#31": 2
+      },
+      "ranked": [
+        "de_waelzlager#31",
+        "en_bearing_mechanical#12",
+        "ko_ball_bearing#5",
+        "de_waelzlager#30",
+        "ko_ball_bearing#17",
+        "en_ball_bearing#5",
+        "ko_ball_bearing#4",
+        "de_waelzlager#29",
+        "en_ball_bearing#15",
+        "en_fatigue_material#18"
+      ],
+      "scores": [
+        26.7469,
+        18.1124,
+        17.0205,
+        16.5906,
+        14.2303,
+        13.9088,
+        13.7932,
+        13.7632,
+        13.1093,
+        12.7654
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q030",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_bearing#3": 2
+      },
+      "ranked": [
+        "ko_bearing#3",
+        "en_plain_bearing#9",
+        "de_hydrodynamisches_gleitlager#0",
+        "de_gleitlager#6",
+        "en_plain_bearing#8",
+        "de_gleitlager#4",
+        "de_gleitlager#7",
+        "de_lager_maschinenelement#4",
+        "de_gleitlager#1",
+        "en_lubrication#1"
+      ],
+      "scores": [
+        31.1452,
+        28.4101,
+        24.6736,
+        23.4073,
+        23.3302,
+        22.5181,
+        22.3853,
+        22.213,
+        21.5473,
+        20.7491
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q031",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#32": 2
+      },
+      "ranked": [
+        "de_waelzlager#32",
+        "de_lager_maschinenelement#5",
+        "de_waelzlager#15",
+        "de_waelzlager#19",
+        "ko_ball_bearing#3",
+        "ko_ball_bearing#17",
+        "de_lager_maschinenelement#2",
+        "en_ball_bearing#15",
+        "de_waelzlager#14",
+        "ko_ball_bearing#16"
+      ],
+      "scores": [
+        38.438,
+        30.6211,
+        29.8867,
+        29.3622,
+        27.5035,
+        26.505,
+        25.2899,
+        24.4591,
+        24.2614,
+        23.0081
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q032",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_gleitlager#0": 2,
+        "de_gleitlager#1": 2,
+        "de_gleitlager#4": 1
+      },
+      "ranked": [
+        "de_gleitlager#6",
+        "en_plain_bearing#9",
+        "de_gleitlager#4",
+        "de_hydrodynamisches_gleitlager#1",
+        "de_gleitlager#7",
+        "de_hydrodynamisches_gleitlager#0",
+        "de_gleitlager#1",
+        "de_gleitlager#5",
+        "en_plain_bearing#10",
+        "en_plain_bearing#11"
+      ],
+      "scores": [
+        30.82,
+        30.424,
+        29.3528,
+        27.1605,
+        26.0625,
+        25.3016,
+        25.1343,
+        24.2064,
+        23.4885,
+        22.2549
+      ],
+      "metrics": {
+        "recall@5": 0.3333333333333333,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.3101303130676284
+      }
+    },
+    {
+      "qid": "q033",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_wellendichtring#0": 2
+      },
+      "ranked": [
+        "de_wellendichtring#1",
+        "de_wellendichtring#0",
+        "de_dichtung_technik#1",
+        "en_radial_shaft_seal#0",
+        "en_seal_mechanical#0",
+        "de_dichtung_technik#2",
+        "de_wellendichtring#3",
+        "en_radial_shaft_seal#1",
+        "de_waelzlager#30",
+        "ko_seal#0"
+      ],
+      "scores": [
+        34.8239,
+        32.1932,
+        27.6761,
+        27.3859,
+        24.5548,
+        23.2982,
+        22.9185,
+        22.7498,
+        21.8303,
+        21.6446
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "q034",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_fressen_technik#0": 2
+      },
+      "ranked": [
+        "de_fressen_technik#0",
+        "de_schmierfett#16",
+        "de_gleitlager#0",
+        "ko_lubricant#0",
+        "en_rolling_element_bearing#8",
+        "de_schmierfett#7",
+        "de_gleitlager#5",
+        "de_verschleiss#1",
+        "de_schmierfett#15",
+        "de_gleitlager#10"
+      ],
+      "scores": [
+        26.4298,
+        17.3834,
+        16.8807,
+        16.732,
+        16.4273,
+        15.5193,
+        15.2794,
+        15.058,
+        14.5624,
+        14.4013
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q035",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_schmierfett#0": 2,
+        "en_grease#0": 1,
+        "de_schmierfett#1": 2
+      },
+      "ranked": [
+        "de_schmierfett#0",
+        "de_schmierfett#1",
+        "en_grease#0",
+        "de_schmierfett#5",
+        "de_schmierfett#2",
+        "en_grease#3",
+        "de_schmierfett#8",
+        "de_schmierfett#6",
+        "ko_lubrication#0",
+        "de_schmierfett#7"
+      ],
+      "scores": [
+        30.6317,
+        28.6075,
+        25.9426,
+        25.6394,
+        24.8783,
+        24.2293,
+        23.763,
+        23.252,
+        22.812,
+        20.4679
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q036",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_wellendichtring#3": 2
+      },
+      "ranked": [
+        "de_wellendichtring#3",
+        "de_gleitlager#4",
+        "de_dichtung_technik#0",
+        "ko_bearing#3",
+        "de_hydrodynamisches_gleitlager#3",
+        "ko_bearing#4",
+        "de_dichtung_technik#3",
+        "en_radial_shaft_seal#0",
+        "de_gleitlager#5",
+        "en_tribology#30"
+      ],
+      "scores": [
+        34.7055,
+        24.9673,
+        23.2802,
+        21.7001,
+        21.2889,
+        20.2214,
+        19.236,
+        18.4122,
+        18.2316,
+        18.1975
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q037",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_waelzlager#7": 2
+      },
+      "ranked": [
+        "de_waelzlager#7",
+        "en_rolling_element_bearing#9",
+        "en_bearing_mechanical#14",
+        "de_waelzlager#23",
+        "en_bearing_mechanical#13",
+        "de_waelzlager#21",
+        "de_waelzlager#26",
+        "ko_ball_bearing#15",
+        "en_rolling_element_bearing#13",
+        "en_bearing_mechanical#6"
+      ],
+      "scores": [
+        22.5245,
+        20.1694,
+        18.5772,
+        17.3715,
+        17.0496,
+        16.8571,
+        16.3798,
+        15.8683,
+        15.484,
+        15.0857
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q038",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_waelzlager#8": 2
+      },
+      "ranked": [
+        "de_waelzlager#8",
+        "de_homokinetisches_gelenk#4",
+        "ko_differential#0",
+        "ko_shaft#0",
+        "en_cv_joint#0",
+        "en_cv_joint#2",
+        "en_plain_bearing#11",
+        "en_cv_joint#1",
+        "en_cv_joint#6",
+        "en_cv_joint#4"
+      ],
+      "scores": [
+        30.014,
+        15.036,
+        13.4145,
+        12.3792,
+        12.1785,
+        11.7031,
+        11.5998,
+        11.3978,
+        11.2752,
+        11.1088
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q039",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "de_gleitlager#1": 2,
+        "de_schmierung#0": 1,
+        "de_lager_maschinenelement#4": 1,
+        "de_hydrodynamisches_gleitlager#0": 1,
+        "en_lubrication#0": 1,
+        "en_plain_bearing#9": 1
+      },
+      "ranked": [
+        "en_plain_bearing#9",
+        "de_gleitlager#1",
+        "de_hydrodynamisches_gleitlager#0",
+        "en_lubrication#0",
+        "de_lager_maschinenelement#4",
+        "en_plain_bearing#8",
+        "de_gleitlager#2",
+        "de_gleitlager#6",
+        "en_bearing_mechanical#8",
+        "ko_lubricant#0"
+      ],
+      "scores": [
+        31.6339,
+        29.0196,
+        28.1519,
+        27.6173,
+        27.3693,
+        25.8647,
+        25.6179,
+        25.2325,
+        24.7352,
+        23.0593
+      ],
+      "metrics": {
+        "recall@5": 0.8333333333333334,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8315136686605029
+      }
+    },
+    {
+      "qid": "q040",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_brinelling#2": 2,
+        "en_brinelling#0": 1,
+        "de_fressen_technik#1": 1,
+        "en_brinelling#3": 1
+      },
+      "ranked": [
+        "en_brinelling#0",
+        "en_brinelling#3",
+        "en_brinelling#2",
+        "en_brinelling#1",
+        "en_ball_bearing#10",
+        "en_bearing_mechanical#13",
+        "en_fretting#2",
+        "en_rolling_element_bearing#8",
+        "en_rolling_element_bearing#7",
+        "ko_ball_bearing#11"
+      ],
+      "scores": [
+        38.806,
+        25.9314,
+        23.8759,
+        21.6259,
+        21.4946,
+        19.215,
+        18.9418,
+        18.8886,
+        16.7743,
+        16.7248
+      ],
+      "metrics": {
+        "recall@5": 0.75,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7386919056633241
+      }
+    },
+    {
+      "qid": "q041",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_needle_roller_bearing#0": 2
+      },
+      "ranked": [
+        "en_needle_roller_bearing#0",
+        "en_cv_joint#3",
+        "en_cv_joint#4",
+        "de_homokinetisches_gelenk#4",
+        "en_cv_joint#7",
+        "de_nadellager#0",
+        "ko_drive_shaft#0",
+        "de_homokinetisches_gelenk#3",
+        "en_cv_joint#1",
+        "de_waelzlager#18"
+      ],
+      "scores": [
+        37.6095,
+        30.1231,
+        29.6254,
+        29.3611,
+        26.2923,
+        23.2653,
+        22.8375,
+        21.4437,
+        20.5439,
+        19.9466
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q042",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_rolling_element_bearing#8": 2,
+        "de_waelzlager#8": 1,
+        "de_waelzlager#9": 1,
+        "en_lubrication#3": 1,
+        "de_gleitlager#3": 1,
+        "de_gleitlager#4": 1
+      },
+      "ranked": [
+        "de_gleitlager#3",
+        "en_rolling_element_bearing#8",
+        "de_gleitlager#2",
+        "de_gleitlager#5",
+        "en_tapered_roller_bearing#2",
+        "en_plain_bearing#4",
+        "de_fressen_technik#0",
+        "ko_bearing#3",
+        "ko_lubrication#0",
+        "de_gleitlager#4"
+      ],
+      "scores": [
+        18.5282,
+        17.5012,
+        16.2251,
+        14.8601,
+        14.8024,
+        14.4621,
+        14.2149,
+        13.9642,
+        13.8649,
+        13.3527
+      ],
+      "metrics": {
+        "recall@5": 0.3333333333333333,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.5925951402813013
+      }
+    },
+    {
+      "qid": "q043",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_radial_shaft_seal#2": 2
+      },
+      "ranked": [
+        "en_radial_shaft_seal#2",
+        "de_wellendichtring#1",
+        "en_radial_shaft_seal#1",
+        "de_wellendichtring#2",
+        "de_dichtung_technik#3",
+        "de_wellendichtring#0",
+        "en_radial_shaft_seal#0",
+        "en_seal_mechanical#0",
+        "ko_seal#1",
+        "de_schmierfett#14"
+      ],
+      "scores": [
+        32.6552,
+        26.8811,
+        22.8019,
+        21.1296,
+        17.8174,
+        16.1839,
+        15.6259,
+        14.274,
+        14.0628,
+        13.4872
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q044",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_lubricant#1": 2
+      },
+      "ranked": [
+        "ko_lubricant#1",
+        "en_bearing_mechanical#11",
+        "en_grease#6",
+        "en_grease#5",
+        "de_schmierfett#1",
+        "de_schmierfett#17",
+        "de_hydrodynamisches_gleitlager#5",
+        "en_lubrication#3",
+        "en_grease#4",
+        "ko_lubrication#0"
+      ],
+      "scores": [
+        47.881,
+        24.3319,
+        23.489,
+        22.7003,
+        22.6219,
+        22.0801,
+        21.8222,
+        19.1223,
+        18.2889,
+        17.8651
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q045",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_lubricant#2": 2
+      },
+      "ranked": [
+        "ko_lubricant#2",
+        "en_radial_shaft_seal#2",
+        "en_tribology#33",
+        "ko_lubricant#1",
+        "de_schmierfett#1",
+        "ko_lubrication#0",
+        "en_grease#6",
+        "de_schmierfett#6",
+        "en_grease#0",
+        "de_schmierfett#2"
+      ],
+      "scores": [
+        10.1958,
+        8.9713,
+        7.852,
+        7.7981,
+        6.943,
+        6.0728,
+        6.0066,
+        5.7672,
+        5.3235,
+        4.9247
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q046",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_tribologie#1": 2
+      },
+      "ranked": [
+        "de_tribologie#1",
+        "de_tribologie#2",
+        "en_tribology#3",
+        "de_gleitlager#7",
+        "de_gleitlager#5",
+        "en_tribology#32",
+        "de_gleitlager#4",
+        "en_tribology#4",
+        "en_tribology#30",
+        "en_tribology#11"
+      ],
+      "scores": [
+        41.5212,
+        37.226,
+        34.1482,
+        27.3257,
+        18.711,
+        17.8724,
+        17.8695,
+        16.2174,
+        15.6273,
+        15.5576
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q047",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_hydrodynamisches_gleitlager#2": 2
+      },
+      "ranked": [
+        "de_gleitlager#7",
+        "de_gleitlager#4",
+        "en_bearing_mechanical#8",
+        "de_gleitlager#6",
+        "de_hydrodynamisches_gleitlager#1",
+        "en_plain_bearing#9",
+        "de_gleitlager#1",
+        "en_lubrication#1",
+        "de_lager_maschinenelement#4",
+        "en_plain_bearing#11"
+      ],
+      "scores": [
+        25.9052,
+        24.8619,
+        24.5118,
+        22.8374,
+        22.5169,
+        20.475,
+        20.0057,
+        19.1614,
+        18.9219,
+        18.8245
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q048",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_verschleiss#3": 2,
+        "en_wear#4": 1
+      },
+      "ranked": [
+        "en_wear#8",
+        "en_wear#9",
+        "en_rolling_element_bearing#9",
+        "de_schmierfett#7",
+        "en_tribology#24",
+        "en_grease#4",
+        "en_radial_shaft_seal#1",
+        "en_wear#2",
+        "de_verschleiss#0",
+        "en_fatigue_material#5"
+      ],
+      "scores": [
+        21.1707,
+        13.9185,
+        13.5615,
+        13.492,
+        13.2716,
+        12.7091,
+        12.5691,
+        12.255,
+        12.1465,
+        12.05
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "q049",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_materialermuedung#2": 2
+      },
+      "ranked": [
+        "de_materialermuedung#2",
+        "en_fatigue_material#1",
+        "en_fatigue_material#0",
+        "en_fatigue_material#3",
+        "en_fatigue_material#20",
+        "en_fatigue_material#4",
+        "de_materialermuedung#1",
+        "de_materialermuedung#0",
+        "en_fatigue_material#21",
+        "ko_bearing#4"
+      ],
+      "scores": [
+        36.4463,
+        28.0251,
+        25.6077,
+        23.247,
+        22.102,
+        22.05,
+        21.8242,
+        20.5652,
+        18.3254,
+        17.9451
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q050",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_dichtung_technik#3": 2
+      },
+      "ranked": [
+        "de_dichtung_technik#3",
+        "ko_seal#0",
+        "de_dichtung_technik#2",
+        "en_seal_mechanical#0",
+        "de_dichtung_technik#0",
+        "en_seal_mechanical#1",
+        "en_radial_shaft_seal#0",
+        "ko_bearing#3",
+        "de_wellendichtring#3",
+        "en_bearing_mechanical#13"
+      ],
+      "scores": [
+        46.1126,
+        38.7574,
+        37.8788,
+        30.4217,
+        28.4624,
+        24.8385,
+        24.4501,
+        23.2615,
+        22.9379,
+        22.7665
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q051",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_lubrication#2": 2,
+        "de_schmierung#0": 1
+      },
+      "ranked": [
+        "en_lubrication#2",
+        "en_plain_bearing#8",
+        "de_schmierung#0",
+        "en_plain_bearing#9",
+        "en_lubrication#0",
+        "de_gleitlager#5",
+        "de_gleitlager#6",
+        "en_lubrication#1",
+        "de_gleitlager#2",
+        "de_gleitlager#4"
+      ],
+      "scores": [
+        35.9133,
+        31.3988,
+        28.9816,
+        27.4221,
+        21.1873,
+        20.4671,
+        20.1738,
+        19.6899,
+        17.8497,
+        17.3113
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9502344167898356
+      }
+    },
+    {
+      "qid": "q052",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_radial_shaft_seal#1": 2
+      },
+      "ranked": [
+        "en_radial_shaft_seal#1",
+        "de_wellendichtring#2",
+        "en_radial_shaft_seal#0",
+        "de_schmierfett#13",
+        "en_grease#6",
+        "en_seal_mechanical#0",
+        "de_wellendichtring#0",
+        "de_wellendichtring#3",
+        "ko_seal#0",
+        "en_tribology#17"
+      ],
+      "scores": [
+        21.3424,
+        19.0521,
+        15.6599,
+        15.3485,
+        13.8104,
+        13.3379,
+        13.1461,
+        12.9536,
+        12.7457,
+        12.2574
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q053",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_radial_shaft_seal#1": 2,
+        "de_wellendichtring#2": 1
+      },
+      "ranked": [
+        "de_tribologie#2",
+        "de_wellendichtring#2",
+        "en_radial_shaft_seal#1",
+        "en_radial_shaft_seal#0",
+        "de_dichtung_technik#0",
+        "de_dichtung_technik#3",
+        "de_wellendichtring#0",
+        "de_wellendichtring#3",
+        "de_wellendichtring#1",
+        "ko_seal#0"
+      ],
+      "scores": [
+        26.183,
+        23.0307,
+        22.6814,
+        22.4315,
+        21.6477,
+        20.5748,
+        20.4983,
+        20.4244,
+        19.9692,
+        19.9161
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6199062332840657
+      }
+    },
+    {
+      "qid": "q054",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_ball_bearing#1": 2,
+        "ko_ball_bearing#2": 2,
+        "en_ball_bearing#1": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#1",
+        "en_ball_bearing#1",
+        "en_ball_bearing#2",
+        "ko_ball_bearing#3",
+        "en_tapered_roller_bearing#3",
+        "de_waelzlager#12",
+        "ko_ball_bearing#2",
+        "en_ball_bearing#3",
+        "de_waelzlager#10",
+        "de_waelzlager#13"
+      ],
+      "scores": [
+        32.8584,
+        32.7512,
+        30.596,
+        30.4095,
+        28.565,
+        26.6858,
+        26.3896,
+        24.285,
+        24.0621,
+        23.5269
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8765868087249774
+      }
+    },
+    {
+      "qid": "q055",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "ko_ball_bearing#2": 2,
+        "en_ball_bearing#2": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#9",
+        "ko_ball_bearing#2",
+        "en_ball_bearing#7",
+        "en_ball_bearing#8",
+        "en_ball_bearing#1",
+        "ko_ball_bearing#8",
+        "en_ball_bearing#2",
+        "ko_ball_bearing#19",
+        "en_ball_bearing#17",
+        "de_waelzlager#6"
+      ],
+      "scores": [
+        21.7374,
+        19.1777,
+        18.121,
+        16.7774,
+        16.1386,
+        15.7821,
+        15.437,
+        14.8053,
+        14.4653,
+        13.375
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6063228553749076
+      }
+    },
+    {
+      "qid": "q056",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_bearing#2": 2,
+        "en_bearing_mechanical#2": 1
+      },
+      "ranked": [
+        "en_bearing_mechanical#2",
+        "ko_bearing#1",
+        "en_bearing_mechanical#3",
+        "ko_bearing#2",
+        "en_rolling_element_bearing#6",
+        "en_rolling_element_bearing#1",
+        "de_waelzlager#1",
+        "en_tapered_roller_bearing#1",
+        "de_waelzlager#19",
+        "de_waelzlager#2"
+      ],
+      "scores": [
+        19.2733,
+        17.8696,
+        16.6438,
+        15.3684,
+        15.3189,
+        14.8015,
+        14.1397,
+        13.9488,
+        13.8931,
+        13.4676
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7074887171046738
+      }
+    },
+    {
+      "qid": "q057",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "ko_wear#0": 2,
+        "en_tribology#24": 1,
+        "en_tribology#25": 1
+      },
+      "ranked": [
+        "ko_wear#0",
+        "en_tribology#24",
+        "en_tribology#25",
+        "en_wear#4",
+        "en_wear#2",
+        "en_tribology#28",
+        "en_wear#7",
+        "de_gleitlager#3",
+        "en_tribology#1",
+        "ko_ball_bearing#10"
+      ],
+      "scores": [
+        37.3854,
+        33.0718,
+        23.771,
+        22.9449,
+        22.5353,
+        20.7104,
+        15.9227,
+        14.7976,
+        12.8937,
+        12.7681
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q058",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_seal#0": 2,
+        "en_seal_mechanical#0": 1
+      },
+      "ranked": [
+        "ko_seal#0",
+        "en_seal_mechanical#0",
+        "de_dichtung_technik#3",
+        "de_dichtung_technik#2",
+        "de_dichtung_technik#1",
+        "de_wellendichtring#0",
+        "de_wellendichtring#1",
+        "en_seal_mechanical#1",
+        "en_wear#1",
+        "en_radial_shaft_seal#0"
+      ],
+      "scores": [
+        28.781,
+        22.6924,
+        18.9639,
+        16.9624,
+        15.8287,
+        14.9355,
+        14.5187,
+        14.4853,
+        14.4755,
+        13.3651
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q059",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "ko_grease#0": 2,
+        "ko_lubrication#0": 1,
+        "en_grease#2": 1
+      },
+      "ranked": [
+        "de_schmierfett#4",
+        "en_grease#2",
+        "en_grease#1",
+        "en_grease#4",
+        "ko_grease#0",
+        "ko_lubrication#0",
+        "de_schmierfett#0",
+        "en_grease#5",
+        "en_grease#3",
+        "de_schmierfett#3"
+      ],
+      "scores": [
+        38.5005,
+        37.676,
+        32.3274,
+        27.8859,
+        27.2613,
+        26.9856,
+        24.1309,
+        23.4712,
+        22.8568,
+        21.5845
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.5624024471133428
+      }
+    },
+    {
+      "qid": "q060",
+      "group": "ko->ko",
+      "q_lang": "ko",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "ko_drive_shaft#0": 2
+      },
+      "ranked": [
+        "de_homokinetisches_gelenk#4",
+        "de_homokinetisches_gelenk#0",
+        "de_hydrodynamisches_gleitlager#3",
+        "ko_shaft#0",
+        "ko_drive_shaft#0",
+        "en_tribology#25",
+        "en_fatigue_material#16",
+        "en_cv_joint#0",
+        "en_cv_joint#6",
+        "en_bearing_mechanical#12"
+      ],
+      "scores": [
+        12.4423,
+        12.2694,
+        12.1605,
+        11.814,
+        11.511,
+        11.3662,
+        11.2106,
+        10.18,
+        9.8479,
+        9.7266
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.38685280723454163
+      }
+    },
+    {
+      "qid": "q061",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_lager_maschinenelement#7": 2
+      },
+      "ranked": [
+        "de_lager_maschinenelement#7",
+        "de_lager_maschinenelement#6",
+        "ko_ball_bearing#17",
+        "en_ball_bearing#15",
+        "de_waelzlager#26",
+        "en_rolling_element_bearing#9",
+        "en_tapered_roller_bearing#1",
+        "en_fatigue_material#5",
+        "en_plain_bearing#9",
+        "en_rolling_element_bearing#12"
+      ],
+      "scores": [
+        47.8814,
+        30.9546,
+        27.0745,
+        25.3507,
+        24.107,
+        22.5223,
+        22.1855,
+        21.821,
+        21.5703,
+        21.4828
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q062",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_materialermuedung#5": 2,
+        "en_fatigue_material#11": 1
+      },
+      "ranked": [
+        "de_materialermuedung#5",
+        "en_fatigue_material#11",
+        "ko_fatigue_material#0",
+        "en_fatigue_material#8",
+        "de_materialermuedung#0",
+        "en_fatigue_material#0",
+        "en_fatigue_material#15",
+        "en_fatigue_material#6",
+        "de_materialermuedung#6",
+        "en_fatigue_material#5"
+      ],
+      "scores": [
+        47.6363,
+        32.3874,
+        29.5995,
+        26.5177,
+        24.9047,
+        22.7359,
+        22.1303,
+        21.9702,
+        21.5431,
+        21.1012
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q063",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_tribologie#1": 2,
+        "en_tribology#2": 1
+      },
+      "ranked": [
+        "de_tribologie#1",
+        "en_tribology#3",
+        "en_tribology#2",
+        "en_tribology#0",
+        "en_wear#0",
+        "de_tribologie#2",
+        "en_tribology#32",
+        "en_tribology#30",
+        "en_tribology#31",
+        "en_tribology#1"
+      ],
+      "scores": [
+        43.1866,
+        24.8691,
+        24.4303,
+        20.4496,
+        19.103,
+        17.0825,
+        12.7903,
+        12.3482,
+        12.0503,
+        11.9387
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9502344167898356
+      }
+    },
+    {
+      "qid": "q064",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_verschleiss#4": 2
+      },
+      "ranked": [
+        "de_verschleiss#4",
+        "en_fatigue_material#20",
+        "en_fatigue_material#19",
+        "en_fatigue_material#18",
+        "en_fatigue_material#5",
+        "de_materialermuedung#1",
+        "de_verschleiss#3",
+        "de_schmierung#1",
+        "en_rolling_element_bearing#12",
+        "en_brinelling#0"
+      ],
+      "scores": [
+        26.9103,
+        26.5676,
+        26.037,
+        18.9202,
+        18.1656,
+        18.1293,
+        16.836,
+        15.0867,
+        15.0007,
+        14.9938
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q065",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "de_nadellager#1": 2
+      },
+      "ranked": [
+        "de_nadellager#1",
+        "en_needle_roller_bearing#0",
+        "de_waelzlager#18",
+        "de_nadellager#0",
+        "en_rolling_element_bearing#5",
+        "de_nadellager#2",
+        "de_waelzlager#0",
+        "ko_ball_bearing#2",
+        "de_waelzlager#17",
+        "en_rolling_element_bearing#3"
+      ],
+      "scores": [
+        30.8455,
+        28.4766,
+        28.2523,
+        26.7538,
+        24.7996,
+        24.7876,
+        23.6236,
+        23.3295,
+        21.5903,
+        21.4322
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q066",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "de_dichtung_technik#3": 2
+      },
+      "ranked": [
+        "de_dichtung_technik#3",
+        "ko_seal#0",
+        "de_dichtung_technik#0",
+        "de_dichtung_technik#2",
+        "en_seal_mechanical#0",
+        "en_seal_mechanical#1",
+        "en_tribology#20",
+        "de_wellendichtring#3",
+        "en_tribology#17",
+        "en_radial_shaft_seal#0"
+      ],
+      "scores": [
+        29.1657,
+        23.0338,
+        20.3908,
+        19.8834,
+        19.1972,
+        18.4956,
+        17.3735,
+        16.9036,
+        16.7276,
+        15.8762
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q067",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "en_plain_bearing#1": 2
+      },
+      "ranked": [
+        "ko_drive_shaft#0",
+        "en_bearing_mechanical#3",
+        "de_schmierfett#15",
+        "en_plain_bearing#1",
+        "en_tribology#29",
+        "en_tribology#30",
+        "de_lager_maschinenelement#3",
+        "en_fatigue_material#0",
+        "en_plain_bearing#11",
+        "de_verschleiss#0"
+      ],
+      "scores": [
+        20.4127,
+        18.0477,
+        15.9125,
+        15.704,
+        15.0539,
+        14.8968,
+        14.3518,
+        14.2966,
+        14.0419,
+        14.0187
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
+      }
+    },
+    {
+      "qid": "q068",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_ball_bearing#9": 2,
+        "en_ball_bearing#8": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#9",
+        "en_ball_bearing#8",
+        "de_waelzlager#7",
+        "de_gleitlager#9",
+        "en_bearing_mechanical#12",
+        "en_ball_bearing#7",
+        "de_verschleiss#2",
+        "de_waelzlager#6",
+        "en_fretting#2",
+        "en_ball_bearing#1"
+      ],
+      "scores": [
+        42.8969,
+        32.9488,
+        22.137,
+        21.2184,
+        20.5633,
+        19.2947,
+        18.3922,
+        18.0974,
+        18.0293,
+        17.5589
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q069",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_ball_bearing#14": 2,
+        "ko_ball_bearing#15": 2,
+        "en_ball_bearing#13": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#15",
+        "en_ball_bearing#13",
+        "ko_ball_bearing#14",
+        "de_schmierfett#16",
+        "ko_ball_bearing#13",
+        "de_schmierfett#14",
+        "de_waelzlager#8",
+        "en_rolling_element_bearing#15",
+        "ko_lubrication#0",
+        "en_plain_bearing#9"
+      ],
+      "scores": [
+        40.7834,
+        36.5302,
+        29.9769,
+        24.6377,
+        24.5012,
+        21.5503,
+        20.7113,
+        20.5403,
+        19.8795,
+        19.7171
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q070",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_tribology#0": 2,
+        "en_tribology#0": 2
+      },
+      "ranked": [
+        "en_tribology#3",
+        "ko_tribology#0",
+        "en_tribology#0",
+        "de_tribologie#1",
+        "en_tribology#30",
+        "en_tribology#31",
+        "de_hydrodynamisches_gleitlager#4",
+        "de_gleitlager#5",
+        "de_hydrodynamisches_gleitlager#3",
+        "de_gleitlager#7"
+      ],
+      "scores": [
+        58.0702,
+        39.9686,
+        29.9471,
+        28.0668,
+        25.27,
+        23.9593,
+        22.0545,
+        20.4913,
+        19.1528,
+        18.6048
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6934264036172708
+      }
+    },
+    {
+      "qid": "q071",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_wear#0": 2,
+        "en_tribology#24": 1,
+        "en_tribology#25": 1
+      },
+      "ranked": [
+        "ko_wear#0",
+        "en_tribology#24",
+        "en_wear#2",
+        "en_tribology#1",
+        "en_tribology#25",
+        "en_wear#4",
+        "en_tribology#28",
+        "de_verschleiss#1",
+        "de_gleitlager#3",
+        "de_gleitlager#9"
+      ],
+      "scores": [
+        29.9205,
+        24.2923,
+        23.8573,
+        23.4203,
+        21.9499,
+        21.9022,
+        18.953,
+        13.9803,
+        13.9307,
+        13.8013
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9638614719361266
+      }
+    },
+    {
+      "qid": "q072",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_fatigue_material#0": 2,
+        "en_fatigue_material#8": 2
+      },
+      "ranked": [
+        "ko_fatigue_material#0",
+        "en_fatigue_material#8",
+        "de_materialermuedung#5",
+        "de_materialermuedung#6",
+        "de_materialermuedung#0",
+        "en_fatigue_material#11",
+        "de_materialermuedung#7",
+        "en_fatigue_material#12",
+        "en_fatigue_material#9",
+        "en_fatigue_material#6"
+      ],
+      "scores": [
+        38.6147,
+        29.0458,
+        26.8358,
+        22.526,
+        21.5728,
+        21.3635,
+        21.0577,
+        20.9048,
+        20.1329,
+        20.0247
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q073",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_shaft#1": 2
+      },
+      "ranked": [
+        "ko_shaft#1",
+        "de_lager_maschinenelement#7",
+        "de_waelzlager#19",
+        "de_lager_maschinenelement#1",
+        "ko_ball_bearing#7",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#2",
+        "en_bearing_mechanical#8",
+        "ko_shaft#0",
+        "en_ball_bearing#14"
+      ],
+      "scores": [
+        31.7245,
+        17.733,
+        17.5753,
+        16.8969,
+        16.3758,
+        15.7799,
+        15.5675,
+        15.2506,
+        14.9189,
+        14.8387
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q074",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_grease#0": 2,
+        "ko_lubrication#0": 1,
+        "en_grease#2": 1
+      },
+      "ranked": [
+        "en_grease#2",
+        "de_schmierfett#4",
+        "en_grease#1",
+        "ko_lubrication#0",
+        "de_schmierfett#0",
+        "ko_grease#0",
+        "de_schmierfett#3",
+        "de_schmierfett#10",
+        "de_schmierfett#1",
+        "en_grease#4"
+      ],
+      "scores": [
+        39.3446,
+        35.297,
+        30.4535,
+        29.96,
+        29.3344,
+        28.665,
+        26.7442,
+        25.6352,
+        24.3849,
+        24.3774
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.6844902635853806
+      }
+    },
+    {
+      "qid": "q075",
+      "group": "en->ko",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_drive_shaft#0": 2
+      },
+      "ranked": [
+        "ko_drive_shaft#0",
+        "de_homokinetisches_gelenk#4",
+        "ko_fatigue_material#0",
+        "en_fatigue_material#10",
+        "en_fatigue_material#1",
+        "de_homokinetisches_gelenk#0",
+        "en_cv_joint#0",
+        "ko_bearing#4",
+        "de_homokinetisches_gelenk#3",
+        "de_waelzlager#32"
+      ],
+      "scores": [
+        22.5554,
+        18.7905,
+        16.1118,
+        14.5401,
+        14.513,
+        14.2726,
+        14.1341,
+        13.6524,
+        13.35,
+        13.2993
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q076",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "de_hertzsche_pressung#0": 2
+      },
+      "ranked": [
+        "de_hertzsche_pressung#0",
+        "de_hertzsche_pressung#1",
+        "de_hertzsche_pressung#2",
+        "en_tribology#5",
+        "en_wear#1",
+        "ko_wear#0",
+        "de_verschleiss#1",
+        "en_ball_bearing#14",
+        "en_tribology#13",
+        "de_schmierung#1"
+      ],
+      "scores": [
+        38.143,
+        24.4631,
+        15.7131,
+        15.1115,
+        15.1106,
+        15.0288,
+        14.1781,
+        13.9076,
+        13.8595,
+        13.5339
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q077",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_ball_bearing#0": 2,
+        "en_bearing_mechanical#2": 1,
+        "en_rolling_element_bearing#2": 1,
+        "de_waelzlager#1": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#0",
+        "en_bearing_mechanical#2",
+        "en_ball_bearing#0",
+        "de_waelzlager#1",
+        "en_bearing_mechanical#3",
+        "de_waelzlager#2",
+        "ko_ball_bearing#4",
+        "en_rolling_element_bearing#2",
+        "en_rolling_element_bearing#1",
+        "en_ball_bearing#3"
+      ],
+      "scores": [
+        28.4494,
+        28.0363,
+        27.9827,
+        27.7687,
+        24.6947,
+        23.9683,
+        23.0126,
+        21.9147,
+        19.7422,
+        19.7355
+      ],
+      "metrics": {
+        "recall@5": 0.75,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6674154806663011
+      }
+    },
+    {
+      "qid": "q078",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_ball_bearing#2": 2,
+        "ko_ball_bearing#2": 1
+      },
+      "ranked": [
+        "de_waelzlager#6",
+        "ko_ball_bearing#2",
+        "en_ball_bearing#2",
+        "ko_ball_bearing#19",
+        "en_ball_bearing#1",
+        "en_ball_bearing#17",
+        "ko_ball_bearing#1",
+        "de_waelzlager#7",
+        "en_rolling_element_bearing#12",
+        "en_ball_bearing#7"
+      ],
+      "scores": [
+        24.1964,
+        24.1871,
+        21.4581,
+        20.9916,
+        19.0553,
+        18.4328,
+        18.1028,
+        17.5615,
+        14.5647,
+        14.421
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6199062332840657
+      }
+    },
+    {
+      "qid": "q079",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_plain_bearing#4": 2,
+        "de_gleitlager#8": 1
+      },
+      "ranked": [
+        "de_waelzlager#3",
+        "de_gleitlager#8",
+        "en_plain_bearing#4",
+        "en_plain_bearing#0",
+        "de_hydrodynamisches_gleitlager#3",
+        "de_hydrodynamisches_gleitlager#4",
+        "en_plain_bearing#10",
+        "de_hydrodynamisches_gleitlager#0",
+        "en_plain_bearing#9",
+        "en_rolling_element_bearing#7"
+      ],
+      "scores": [
+        14.3228,
+        7.7178,
+        4.6801,
+        4.621,
+        4.5865,
+        4.4953,
+        4.3035,
+        4.2509,
+        4.019,
+        3.9712
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6199062332840657
+      }
+    },
+    {
+      "qid": "q080",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_bearing_mechanical#4": 2
+      },
+      "ranked": [
+        "en_fatigue_material#5",
+        "de_waelzlager#2",
+        "de_waelzlager#6",
+        "ko_ball_bearing#1",
+        "en_rolling_element_bearing#13",
+        "de_waelzlagerstahl#0",
+        "en_fatigue_material#20",
+        "en_ball_bearing#0",
+        "ko_ball_bearing#11",
+        "en_bearing_mechanical#4"
+      ],
+      "scores": [
+        17.1619,
+        14.741,
+        13.3501,
+        12.5903,
+        12.072,
+        11.7889,
+        11.6148,
+        11.2043,
+        11.0802,
+        10.8039
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.1,
+        "ndcg@10": 0.2890648263178879
+      }
+    },
+    {
+      "qid": "q081",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "en_wear#0": 2
+      },
+      "ranked": [
+        "de_tribologie#1",
+        "en_wear#0",
+        "en_tribology#3",
+        "en_tribology#30",
+        "de_verschleiss#0",
+        "en_tribology#23",
+        "en_tribology#24",
+        "de_verschleiss#2",
+        "de_tribologie#2",
+        "en_tribology#31"
+      ],
+      "scores": [
+        28.8816,
+        24.9688,
+        21.4472,
+        13.5056,
+        13.1659,
+        12.8993,
+        11.1919,
+        10.7594,
+        10.7391,
+        10.6264
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "q082",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "en_lubrication#3": 2
+      },
+      "ranked": [
+        "en_lubrication#3",
+        "en_bearing_mechanical#11",
+        "de_lager_maschinenelement#3",
+        "de_schmierfett#8",
+        "de_schmierfett#15",
+        "en_lubrication#2",
+        "en_ball_bearing#13",
+        "en_plain_bearing#8",
+        "en_bearing_mechanical#16",
+        "en_tribology#30"
+      ],
+      "scores": [
+        36.1356,
+        17.8202,
+        17.306,
+        15.5274,
+        15.4375,
+        15.0417,
+        14.7929,
+        14.1365,
+        13.904,
+        13.8958
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q083",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_bearing#1": 2,
+        "en_bearing_mechanical#2": 2
+      },
+      "ranked": [
+        "en_bearing_mechanical#2",
+        "ko_bearing#1",
+        "en_bearing_mechanical#3",
+        "en_rolling_element_bearing#2",
+        "en_fatigue_material#17",
+        "ko_ball_bearing#4",
+        "en_rolling_element_bearing#11",
+        "en_fatigue_material#23",
+        "ko_ball_bearing#5",
+        "de_waelzlager#2"
+      ],
+      "scores": [
+        34.3204,
+        30.9434,
+        27.4949,
+        19.0593,
+        18.4037,
+        17.7699,
+        16.7065,
+        16.6076,
+        16.2533,
+        16.1404
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q084",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_fatigue_material#0": 2,
+        "de_materialermuedung#6": 1,
+        "en_fatigue_material#8": 1
+      },
+      "ranked": [
+        "ko_fatigue_material#0",
+        "en_fatigue_material#11",
+        "en_fatigue_material#8",
+        "de_materialermuedung#5",
+        "de_materialermuedung#0",
+        "de_materialermuedung#7",
+        "en_fatigue_material#5",
+        "en_fatigue_material#6",
+        "en_fatigue_material#9",
+        "en_fatigue_material#12"
+      ],
+      "scores": [
+        33.6275,
+        24.7571,
+        24.4457,
+        23.6022,
+        23.3187,
+        22.8835,
+        18.6228,
+        18.2971,
+        18.2705,
+        17.7136
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7984848580994974
+      }
+    },
+    {
+      "qid": "q085",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_tribology#0": 2,
+        "en_tribology#0": 2
+      },
+      "ranked": [
+        "en_tribology#3",
+        "ko_tribology#0",
+        "en_tribology#0",
+        "de_tribologie#1",
+        "en_tribology#31",
+        "en_tribology#30",
+        "de_gleitlager#7",
+        "de_gleitlager#5",
+        "de_hydrodynamisches_gleitlager#4",
+        "de_hydrodynamisches_gleitlager#3"
+      ],
+      "scores": [
+        40.0613,
+        32.6432,
+        27.3758,
+        24.2863,
+        22.3036,
+        20.645,
+        16.9069,
+        16.6955,
+        16.6537,
+        16.0208
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6934264036172708
+      }
+    },
+    {
+      "qid": "q086",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_wear#0": 2,
+        "en_tribology#24": 1,
+        "en_tribology#25": 1
+      },
+      "ranked": [
+        "ko_wear#0",
+        "en_tribology#24",
+        "en_wear#2",
+        "en_wear#4",
+        "de_verschleiss#1",
+        "en_wear#1",
+        "en_tribology#27",
+        "de_gleitlager#3",
+        "en_fretting#3",
+        "en_tribology#25"
+      ],
+      "scores": [
+        35.0205,
+        33.1733,
+        29.151,
+        27.4394,
+        27.0162,
+        26.0505,
+        25.9148,
+        25.1577,
+        25.1312,
+        24.7799
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9326285831096983
+      }
+    },
+    {
+      "qid": "q087",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_shaft#0": 2,
+        "ko_shaft#1": 2
+      },
+      "ranked": [
+        "ko_shaft#0",
+        "ko_shaft#1",
+        "de_hydrodynamisches_gleitlager#1",
+        "de_gleitlager#6",
+        "de_gleitlager#2",
+        "de_gleitlager#1",
+        "de_nadellager#0",
+        "en_plain_bearing#11",
+        "en_plain_bearing#0",
+        "de_waelzlager#0"
+      ],
+      "scores": [
+        13.1624,
+        12.2429,
+        11.8821,
+        11.8022,
+        11.7756,
+        10.4903,
+        10.4206,
+        10.3786,
+        10.1889,
+        10.0515
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "q088",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_seal#0": 2,
+        "en_seal_mechanical#0": 1
+      },
+      "ranked": [
+        "ko_seal#0",
+        "de_wellendichtring#0",
+        "de_dichtung_technik#0",
+        "de_wellendichtring#1",
+        "en_radial_shaft_seal#0",
+        "de_dichtung_technik#3",
+        "de_dichtung_technik#2",
+        "de_wellendichtring#2",
+        "en_seal_mechanical#0",
+        "de_wellendichtring#3"
+      ],
+      "scores": [
+        30.3217,
+        29.6129,
+        29.5001,
+        29.2704,
+        28.5661,
+        26.4971,
+        26.4167,
+        26.3544,
+        25.969,
+        24.9849
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8746071583782724
+      }
+    },
+    {
+      "qid": "q089",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "ko_drive_shaft#0": 2,
+        "ko_shaft#0": 1
+      },
+      "ranked": [
+        "de_waelzlager#3",
+        "ko_drive_shaft#0",
+        "ko_ball_bearing#17",
+        "de_homokinetisches_gelenk#4",
+        "de_homokinetisches_gelenk#3",
+        "ko_bearing#2",
+        "en_ball_bearing#15",
+        "de_homokinetisches_gelenk#0",
+        "ko_ball_bearing#15",
+        "en_cv_joint#0"
+      ],
+      "scores": [
+        11.769,
+        5.1732,
+        4.0007,
+        3.7243,
+        3.5692,
+        3.3229,
+        3.2497,
+        3.0205,
+        2.9432,
+        2.9313
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.4796249331362629
+      }
+    },
+    {
+      "qid": "q090",
+      "group": "de->ko",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "ko_grease#0": 2,
+        "ko_lubrication#0": 1,
+        "en_grease#0": 2
+      },
+      "ranked": [
+        "de_waelzlager#3",
+        "de_schmierfett#11",
+        "en_grease#6",
+        "ko_ball_bearing#15",
+        "de_schmierfett#16",
+        "en_ball_bearing#13",
+        "en_bearing_mechanical#15",
+        "en_grease#3",
+        "en_grease#5",
+        "de_schmierfett#2"
+      ],
+      "scores": [
+        7.1195,
+        7.1061,
+        6.8416,
+        6.4809,
+        6.4513,
+        6.1867,
+        5.9319,
+        5.9183,
+        5.6711,
+        5.6518
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    }
+  ],
+  "timing": {
+    "index": {
+      "build_seconds": 0.038543805945664644,
+      "tokenize_seconds": 0.01078086206689477,
+      "n_chunks": 346,
+      "vocab_size": 6375,
+      "avg_tokens_per_chunk": 217.13294797687863,
+      "chunks_translated": 167,
+      "chunks_truncated": 0
+    },
+    "query_latency_ms": {
+      "p50": 2080.2117025014013,
+      "p95": 3148.9867051132023,
+      "mean": 2302.112206790803
+    }
+  },
+  "extra": {
+    "retriever": "bm25en_whitespace_hyde",
+    "n_chunks": 346,
+    "query_translation_seconds_p50": 0.6009026345564052,
+    "query_translations_skipped": 0,
+    "query_translations_truncated": 0,
+    "query_translations": [
+      {
+        "query": "19세기 말 마차 바퀴 축에 쓰던 저널 베어링의 마찰 문제를 줄인 발명은 무엇이었나?",
+        "english": "What invention reduced friction problems in journal bearings used on horse-drawn carriage axles in the late 19th century?",
+        "truncated": false,
+        "seconds": 1.6538557859603316,
+        "skipped": false
+      },
+      {
+        "query": "요즘 구름 베어링의 케이지는 보통 무슨 소재로 만들고, 그 이유는 무엇인가요?",
+        "english": "What materials are commonly used to make the housing of rolling bearings nowadays, and why?",
+        "truncated": false,
+        "seconds": 0.7547236629761755,
+        "skipped": false
+      },
+      {
+        "query": "볼 베어링에 케이지를 달지 않으면 어떤 일이 생기나요?",
+        "english": "What happens if no cage is installed in a ball bearing?",
+        "truncated": false,
+        "seconds": 0.552059673005715,
+        "skipped": false
+      },
+      {
+        "query": "풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 무엇인가요?",
+        "english": "What type of damage occurs in bearings that only rock slightly and do not rotate continuously, such as in wind turbine blades or helicopter pitch bearings?",
+        "truncated": false,
+        "seconds": 1.2186811780557036,
+        "skipped": false
+      },
+      {
+        "query": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 무엇인가요?",
+        "english": "What are the three primary factors limiting the life or load capacity of bearings?",
+        "truncated": false,
+        "seconds": 0.6779643399640918,
+        "skipped": false
+      },
+      {
+        "query": "같은 크기와 정확한 진원도의 볼을 기계로 만들어 독립된 베어링 산업의 발판이 된 방법은 누가, 언제 개발했나요?",
+        "english": "How was the method developed by whom and when to machine balls of the same size and precise pitch diameter, laying the foundation for an independent bearing industry?",
+        "truncated": false,
+        "seconds": 1.1965523881372064,
+        "skipped": false
+      },
+      {
+        "query": "구름 베어링에 가장 흔히 쓰는 강종의 탄소와 크롬 함량은 어느 정도인가요?",
+        "english": "What are the carbon and chromium contents of the most commonly used alloy in rolling bearings?",
+        "truncated": false,
+        "seconds": 0.5023165810853243,
+        "skipped": false
+      },
+      {
+        "query": "바늘 롤러 베어링을 쓸 때 어떤 약점 때문에 설계에 주의가 필요한가요?",
+        "english": "What weaknesses should be considered when designing with needle roller bearings?",
+        "truncated": false,
+        "seconds": 0.3617153810337186,
+        "skipped": false
+      },
+      {
+        "query": "EP 그리스는 무엇을 뜻하고, 일반 그리스는 어떤 조건에서 문제가 되나요?",
+        "english": "What does EP grease mean, and under what conditions does conventional grease become problematic?",
+        "truncated": false,
+        "seconds": 0.47388975298963487,
+        "skipped": false
+      },
+      {
+        "query": "오토바이 앞 포크에서 오일과 공기가 새지 않도록 막는 데 쓰는 밀봉 부품은 무엇인가요?",
+        "english": "What sealing component is used to prevent oil and air from leaking from the front fork of a motorcycle?",
+        "truncated": false,
+        "seconds": 0.6029717840719968,
+        "skipped": false
+      },
+      {
+        "query": "자동차가 커브를 돌 때 안쪽 바퀴와 바깥쪽 바퀴가 서로 다른 속도로 돌 수 있게 해 주는 장치는 무엇인가요?",
+        "english": "What device allows the inner and outer wheels of a car to rotate at different speeds when going around a curve?",
+        "truncated": false,
+        "seconds": 0.6644130970817059,
+        "skipped": false
+      },
+      {
+        "query": "구름 베어링은 구름 마찰만 일어나서 윤활이 필요 없을 것 같은데, 실제로는 왜 윤활이 필요한가요?",
+        "english": "Although rolling bearing involves only cloud friction and seems to require no lubrication, why is lubrication actually necessary?",
+        "truncated": false,
+        "seconds": 0.9353200278710574,
+        "skipped": false
+      },
+      {
+        "query": "금속 표면이 서로 달라붙었다 떨어지며 표면에 덩어리가 생기는 접착 마모를 산업 현장에서는 뭐라고 부르나요?",
+        "english": "What is the term used in industrial settings for adhesive wear, where metal surfaces stick together, separate, and form a lump on the surface?",
+        "truncated": false,
+        "seconds": 1.230358769185841,
+        "skipped": false
+      },
+      {
+        "query": "윤활이 제대로 되지 않으면 맞닿은 부품에는 어떤 일이 일어나나요?",
+        "english": "What happens to the contacting components if lubrication is not proper?",
+        "truncated": false,
+        "seconds": 0.5646854110527784,
+        "skipped": false
+      },
+      {
+        "query": "앞바퀴 구동 차에서 조향할 때 큰 각도로 꺾이는 구동축 바깥쪽 조인트의 대표 형식과 허용 각도는 어느 정도인가요?",
+        "english": "What is the typical design and allowable angle for the outer joint of the drive shaft that bends at large angles during steering in a front-wheel-drive vehicle?",
+        "truncated": false,
+        "seconds": 1.2540937850717455,
+        "skipped": false
+      },
+      {
+        "query": "Why must the pressing force not be passed through the balls or rollers when a bearing is mounted?",
+        "english": "Why must the pressing force not be applied through the balls or rollers when a bearing is mounted?",
+        "truncated": false,
+        "seconds": 0.8436248879879713,
+        "skipped": false
+      },
+      {
+        "query": "What stops the conical rollers of a tapered bearing from being squeezed out under load?",
+        "english": "What prevents the conical rollers of a tapered bearing from being squeezed out under load?",
+        "truncated": false,
+        "seconds": 0.7552590060513467,
+        "skipped": false
+      },
+      {
+        "query": "Where are plain bushings favored over roller bearings to avoid dents from impact loads?",
+        "english": "Where are plain bearings favored over roller bearings to avoid dents from impact loads?",
+        "truncated": false,
+        "seconds": 0.6808829810470343,
+        "skipped": false
+      },
+      {
+        "query": "What does it mean when a grease is called shear-thinning?",
+        "english": "What does it mean when a grease is described as shear-thinning?",
+        "truncated": false,
+        "seconds": 0.6101203931029886,
+        "skipped": false
+      },
+      {
+        "query": "Up to what temperature can lithium grease actually be used in service?",
+        "english": "Up to what temperature can lithium grease actually be used in service?",
+        "truncated": false,
+        "seconds": 0.5761459730565548,
+        "skipped": false
+      },
+      {
+        "query": "What kind of ready-made bearing unit combines a ball bearing with a spherical outer ring and a housing, and why can the bearing tilt inside the housing?",
+        "english": "What type of pre-assembled bearing unit combines a ball bearing with a spherical outer ring and a housing, and why can the bearing tilt within the housing?",
+        "truncated": false,
+        "seconds": 1.3219785010442138,
+        "skipped": false
+      },
+      {
+        "query": "Which phase of a fatigue failure uses up most of the component's life?",
+        "english": "Which phase of a fatigue failure consumes the majority of the component's life?",
+        "truncated": false,
+        "seconds": 0.6458988580852747,
+        "skipped": false
+      },
+      {
+        "query": "What is the advantage of a sleeve bearing over a ball bearing in case fans, and what happens to its life at high rotation speed?",
+        "english": "What are the advantages of a sleeve bearing over a ball bearing in fans, and how does its life change at high rotational speeds?",
+        "truncated": false,
+        "seconds": 1.2271183570846915,
+        "skipped": false
+      },
+      {
+        "query": "How can I tell fretting damage from false brinelling in a bearing?",
+        "english": "How can I distinguish fretting damage from false brinelling in a bearing?",
+        "truncated": false,
+        "seconds": 0.7013862780295312,
+        "skipped": false
+      },
+      {
+        "query": "Which constant-velocity joint improves on the Rzeppa six-ball cage design by confining the balls to elliptical tracks?",
+        "english": "Which constant-velocity joint improves upon the Rzeppa six-ball cage design by confining the balls to elliptical tracks?",
+        "truncated": false,
+        "seconds": 0.7332598431967199,
+        "skipped": false
+      },
+      {
+        "query": "Why would a designer choose a toroidal CARB roller bearing as the non-locating bearing on a shaft?",
+        "english": "Why would a designer choose a toroidal CARB roller bearing as the non-locating bearing on a shaft?",
+        "truncated": false,
+        "seconds": 0.9976207208819687,
+        "skipped": false
+      },
+      {
+        "query": "Which groove design is used in hydrodynamic plain bearings for particularly quiet computer fans?",
+        "english": "Which groove design is used in hydrodynamic journal bearings for particularly quiet computer fans?",
+        "truncated": false,
+        "seconds": 0.7132939849980175,
+        "skipped": false
+      },
+      {
+        "query": "Which kind of bearing do simple bicycles use in the wheels, bottom bracket and pedals, and what upkeep does it need?",
+        "english": "What type of bearing do simple bicycles use in the wheels, bottom bracket, and pedals, and what maintenance does it require?",
+        "truncated": false,
+        "seconds": 1.046972073148936,
+        "skipped": false
+      },
+      {
+        "query": "To what temperature may a bearing be heated for shrink-fit mounting on a shaft?",
+        "english": "To what temperature may a bearing be heated for shrink-fit mounting on a shaft?",
+        "truncated": false,
+        "seconds": 0.6883977679535747,
+        "skipped": false
+      },
+      {
+        "query": "Which bearing type avoids metal contact through a fluid film and runs quietly for long, but struggles at low temperature and stops turning if the oil leaks out?",
+        "english": "Which bearing type avoids metal contact through a fluid film, operates quietly and for long periods, but fails at low temperatures and stops rotating if the oil leaks out?",
+        "truncated": false,
+        "seconds": 1.3524612311739475,
+        "skipped": false
+      },
+      {
+        "query": "Welche Kräfte nimmt ein Festlager auf und was gilt dagegen für ein Loslager?",
+        "english": "What forces does a fixed bearing withstand, and what applies to a floating bearing?",
+        "truncated": false,
+        "seconds": 0.6832612489815801,
+        "skipped": false
+      },
+      {
+        "query": "Welcher Reibungszustand tritt beim Anlauf der Welle eines hydrodynamischen Gleitlagers zunächst auf?",
+        "english": "What friction state occurs initially when a shaft of a hydrodynamic journal bearing starts to run?",
+        "truncated": false,
+        "seconds": 0.5207006291020662,
+        "skipped": false
+      },
+      {
+        "query": "Wie wird die Dichtlippe eines Radial-Wellendichtrings an die Welle gedrückt?",
+        "english": "How is the sealing lip of a radial shaft seal pressed against the shaft?",
+        "truncated": false,
+        "seconds": 0.6681661230977625,
+        "skipped": false
+      },
+      {
+        "query": "Wovon hängt die Temperatur ab, ab der die Gleitpartner eines Lagers beim Fressen miteinander verschweißen?",
+        "english": "At what temperature do the sliding partners of a bearing begin to fuse together due to friction?",
+        "truncated": false,
+        "seconds": 0.5255186827853322,
+        "skipped": false
+      },
+      {
+        "query": "Aus welchen Bestandteilen besteht ein Schmierfett?",
+        "english": "What components make up a lubricating grease?",
+        "truncated": false,
+        "seconds": 0.40881707007065415,
+        "skipped": false
+      },
+      {
+        "query": "Warum entsteht bei einem V-Ring bei hohen Drehzahlen keine Verlustleistung mehr?",
+        "english": "Why does a V-ring not exhibit power loss at high rotational speeds?",
+        "truncated": false,
+        "seconds": 0.6033925940282643,
+        "skipped": false
+      },
+      {
+        "query": "In welchem Bereich liegen die geforderten Lebensdauern von Wälzlagern?",
+        "english": "What are the required service lives of rolling bearings?",
+        "truncated": false,
+        "seconds": 0.4453828940168023,
+        "skipped": false
+      },
+      {
+        "query": "An welchen Geräuschen merkt man im Auto bei Geradeausfahrt einen Radlagerschaden?",
+        "english": "At what noises can one detect a wheel hub bearing fault while driving straight?",
+        "truncated": false,
+        "seconds": 0.6603575139306486,
+        "skipped": false
+      },
+      {
+        "query": "Wie entsteht der Schmierfilm bei einem hydrostatischen Gleitlager?",
+        "english": "How is the lubrication film formed in a hydrostatic sliding bearing?",
+        "truncated": false,
+        "seconds": 0.6321975418832153,
+        "skipped": false
+      },
+      {
+        "query": "Wodurch unterscheidet sich echtes Brinelling von False Brinelling?",
+        "english": "What distinguishes true brinelling from false brinelling?",
+        "truncated": false,
+        "seconds": 0.5748848819639534,
+        "skipped": false
+      },
+      {
+        "query": "Wie viele Nadellager stecken typischerweise in der Kardanwelle eines Fahrzeugs mit Hinterradantrieb?",
+        "english": "How many needle bearings are typically installed in the driveshaft of a rear-wheel-drive vehicle?",
+        "truncated": false,
+        "seconds": 0.730419501196593,
+        "skipped": false
+      },
+      {
+        "query": "Warum fällt ein Lager aus, das ohne Schmierstoff läuft?",
+        "english": "Why does a bearing fail when it operates without lubrication?",
+        "truncated": false,
+        "seconds": 0.3615775019861758,
+        "skipped": false
+      },
+      {
+        "query": "Welche DIN-Norm regelt Radial-Wellendichtringe für Kraftfahrzeuge?",
+        "english": "Which DIN standard specifies radial shaft seals for vehicles?",
+        "truncated": false,
+        "seconds": 0.3829818170052022,
+        "skipped": false
+      },
+      {
+        "query": "Welche pflanzlichen Öle gelten als relativ stabil und werden sogar in Verbrennungsmotoren eingesetzt?",
+        "english": "Which plant-based oils are considered relatively stable and are even used in internal combustion engines?",
+        "truncated": false,
+        "seconds": 0.7363720880821347,
+        "skipped": false
+      },
+      {
+        "query": "Wie wirkt ein synthetisches Schmieröl auf Naphthalinbasis auf der Metalloberfläche?",
+        "english": "What is the effect of a synthetic lubricating oil based on naphthalene on a metal surface?",
+        "truncated": false,
+        "seconds": 0.9302621230017394,
+        "skipped": false
+      },
+      {
+        "query": "새로운 마찰 저감·마모 방지 기술을 도입하면 에너지 손실을 단기와 장기에 각각 몇 퍼센트까지 줄일 수 있다고 보나요?",
+        "english": "How much can energy loss be reduced in the short and long term by introducing new friction-reducing and wear-prevention technologies?",
+        "truncated": false,
+        "seconds": 0.7636790790129453,
+        "skipped": false
+      },
+      {
+        "query": "유체동압 미끄럼 베어링의 정격 회전수는 스트리벡 곡선의 어느 지점을 기준으로 잡나요?",
+        "english": "What point on the Stribeck curve is used as the basis for the rated speed of fluid-film sliding bearings?",
+        "truncated": false,
+        "seconds": 0.7148538399487734,
+        "skipped": false
+      },
+      {
+        "query": "연마 마모를 정량적으로 시험하는 장치 이름과 관련 규격은 무엇인가요?",
+        "english": "What is the name of the device for quantitatively testing finishing wear, and what are the related specifications?",
+        "truncated": false,
+        "seconds": 0.6325457559432834,
+        "skipped": false
+      },
+      {
+        "query": "금속 부품에 생긴 피로 미세균열이 처음 진행하다가 방향을 꺾는 것은 대략 어느 크기에서이며, 꺾인 뒤에는 하중 방향에 대해 몇 도로 진행하나요?",
+        "english": "At what size does a fatigue microcrack in a metallic component initially propagate before changing direction, and at what angle does it continue propagating relative to the loading direction?",
+        "truncated": false,
+        "seconds": 0.963033779989928,
+        "skipped": false
+      },
+      {
+        "query": "축을 밀봉하는 비접촉식 씰은 자성유체 씰을 빼면 왜 완전한 밀봉이 되지 못하나요?",
+        "english": "Why can't a contactless seal for shaft achieve complete sealing without a magneto-fluid seal?",
+        "truncated": false,
+        "seconds": 0.5560974618420005,
+        "skipped": false
+      },
+      {
+        "query": "마찰 면에서 하중을 윤활제가 아니라 표면 돌기가 대신 받는 윤활 상태는 무엇이라 부르나요?",
+        "english": "What is the lubrication condition called when the load is carried by surface asperities rather than the lubricant on the friction surface?",
+        "truncated": false,
+        "seconds": 0.7689803831744939,
+        "skipped": false
+      },
+      {
+        "query": "오일 씰에 쓰는 고무 compound의 경도는 보통 쇼어 A로 몇 정도인가요?",
+        "english": "What is the usual hardness of rubber compound used in oil seals, typically measured in Shore A?",
+        "truncated": false,
+        "seconds": 0.5488532020244747,
+        "skipped": false
+      },
+      {
+        "query": "자동차 오일 씰을 현장에서 '심머링'이라고 부르는 이름은 누구에게서 유래했나요?",
+        "english": "Who derived the name 'seaming' for automotive oil seals in the field?",
+        "truncated": false,
+        "seconds": 0.46001042309217155,
+        "skipped": false
+      },
+      {
+        "query": "앵귤러 콘택트 볼 베어링에서 접촉각을 키우면 어느 방향 하중을 더 잘 견디게 되나요?",
+        "english": "Does increasing the contact angle in an angular contact ball bearing improve its ability to withstand loads in which direction?",
+        "truncated": false,
+        "seconds": 0.5988334850408137,
+        "skipped": false
+      },
+      {
+        "query": "고속 회전용 볼 베어링에 세라믹 볼을 쓰는 이유 중 하나인 밀도는 강철과 비교해 어느 정도인가요?",
+        "english": "What is the density of ceramic balls compared to steel in high-speed ball bearings?",
+        "truncated": false,
+        "seconds": 0.5000229531433433,
+        "skipped": false
+      },
+      {
+        "query": "사용 가능한 최초의 케이지형 롤러 베어링을 만든 사람은 어떤 직업이었고, 언제 발명했나요?",
+        "english": "Who was the first person to invent a cage-type roller bearing, and what was their profession and when was it invented?",
+        "truncated": false,
+        "seconds": 0.6786899971775711,
+        "skipped": false
+      },
+      {
+        "query": "마모량이 하중, 미끄럼 거리, 경도와 어떤 비례 관계인지 알려주세요. 하중을 두 배로 하고 거리를 절반으로 줄이면 마모량은 어떻게 되나요?",
+        "english": "Please tell me the proportional relationship between wear volume and load, sliding distance, and hardness. If the load is doubled and the distance is halved, how does the wear volume change?",
+        "truncated": false,
+        "seconds": 1.0335481020156294,
+        "skipped": false
+      },
+      {
+        "query": "패킹이나 개스킷 같은 씰과 접착성 밀봉제는 밀봉 효과가 각각 무엇에 좌우되나요?",
+        "english": "What factors affect the sealing performance of seals such as gaskets and adhesives?",
+        "truncated": false,
+        "seconds": 0.49552288302220404,
+        "skipped": false
+      },
+      {
+        "query": "칼슘계와 섬유(나트륨)계 그리스는 각각 어떤 성능이 장점이라고 분류하나요?",
+        "english": "What are the respective performance advantages of calcium and fiber (sodium) greases?",
+        "truncated": false,
+        "seconds": 0.49250005884096026,
+        "skipped": false
+      },
+      {
+        "query": "구동축을 설계할 때 강도를 확보하면서도 추가 중량을 피해야 하는 이유는 무엇인가요?",
+        "english": "Why is it important when designing a drive shaft to ensure strength while avoiding additional weight?",
+        "truncated": false,
+        "seconds": 0.48697993997484446,
+        "skipped": false
+      },
+      {
+        "query": "At what internal clearance do ball bearings reach their longest service life?",
+        "english": "At what internal clearance do ball bearings achieve their longest service life?",
+        "truncated": false,
+        "seconds": 0.38310446799732745,
+        "skipped": false
+      },
+      {
+        "query": "In a fatigue test, what are specimens called that survive the cut-off number of cycles without breaking?",
+        "english": "In a fatigue test, what are specimens called that survive the cutoff number of cycles without failure?",
+        "truncated": false,
+        "seconds": 0.5430471319705248,
+        "skipped": false
+      },
+      {
+        "query": "What share of the UK's gross domestic product did a 1966 report put as the cost of friction and wear?",
+        "english": "What share of the UK's gross domestic product did a 1966 report estimate as the cost of friction and wear?",
+        "truncated": false,
+        "seconds": 0.736272486159578,
+        "skipped": false
+      },
+      {
+        "query": "Which surface treatments can counter pitting from repeated rolling contact by putting the surface under compression?",
+        "english": "Which surface treatments can counter pitting from repeated rolling contact by inducing surface compression?",
+        "truncated": false,
+        "seconds": 0.463022205978632,
+        "skipped": false
+      },
+      {
+        "query": "Why do thrust needle bearings wear faster than radial needle bearings?",
+        "english": "Why do thrust needle bearings wear faster than radial needle bearings?",
+        "truncated": false,
+        "seconds": 0.3532493410166353,
+        "skipped": false
+      },
+      {
+        "query": "Why can labyrinth and viscosity-type non-contact seals never block leakage completely?",
+        "english": "Why can labyrinth and viscosity-type non-contact seals never completely prevent leakage?",
+        "truncated": false,
+        "seconds": 0.40451987902633846,
+        "skipped": false
+      },
+      {
+        "query": "Why did bearings cut directly into the machine body become less common after the 19th century?",
+        "english": "Why did bearings that directly contacted the machine body become less common after the 19th century?",
+        "truncated": false,
+        "seconds": 0.5664978469721973,
+        "skipped": false
+      },
+      {
+        "query": "What bearing failure caused by electric current passing through can ceramic balls prevent?",
+        "english": "What bearing failure caused by electric current passing through can ceramic balls prevent?",
+        "truncated": false,
+        "seconds": 0.40794678893871605,
+        "skipped": false
+      },
+      {
+        "query": "How often should the grease be changed in a 100 mm bearing compared with a 40 mm one?",
+        "english": "How often should the grease be changed in a 100 mm rolling bearing compared with a 40 mm one?",
+        "truncated": false,
+        "seconds": 0.7005157039966434,
+        "skipped": false
+      },
+      {
+        "query": "What fraction of the world's total energy expenditure is caused by friction and wear in the transport, manufacturing, power generation and residential sectors?",
+        "english": "What fraction of the world's total energy expenditure is caused by friction and wear in the transport, manufacturing, power generation, and residential sectors?",
+        "truncated": false,
+        "seconds": 0.7945585129782557,
+        "skipped": false
+      },
+      {
+        "query": "If sliding distance doubles and the material is twice as hard, how does wear volume change in simple sliding wear?",
+        "english": "If the sliding distance doubles and the material is twice as hard, how does wear volume change in simple sliding wear?",
+        "truncated": false,
+        "seconds": 0.6593939838930964,
+        "skipped": false
+      },
+      {
+        "query": "What is the term for the stress range a structure can withstand regardless of the number of load cycles?",
+        "english": "What is the term for the stress range a structure can withstand regardless of the number of load cycles?",
+        "truncated": false,
+        "seconds": 0.5749843490775675,
+        "skipped": false
+      },
+      {
+        "query": "What kinds of journals exist depending on whether the load acts perpendicular to the shaft axis or along it?",
+        "english": "What types of journals exist depending on whether the load acts perpendicular to the shaft axis or parallel to it?",
+        "truncated": false,
+        "seconds": 0.593476562993601,
+        "skipped": false
+      },
+      {
+        "query": "Which grease thickener type is known for water resistance and which for heat resistance?",
+        "english": "Which grease thickener type is known for water resistance and which for heat resistance?",
+        "truncated": false,
+        "seconds": 0.46875125588849187,
+        "skipped": false
+      },
+      {
+        "query": "What kinds of stress does a drive shaft have to withstand?",
+        "english": "What kinds of stress does a drive shaft have to withstand?",
+        "truncated": false,
+        "seconds": 0.3544902289286256,
+        "skipped": false
+      },
+      {
+        "query": "Von welchen Größen hängt die maximale Spannung ab, wenn zwei gewölbte Körper gegeneinander gedrückt werden?",
+        "english": "Which parameters affect the maximum stress when two curved bodies are pressed against each other?",
+        "truncated": false,
+        "seconds": 0.4619717509485781,
+        "skipped": false
+      },
+      {
+        "query": "Wer bekam das erste moderne Patent auf ein Kugellager, und wo und wann war das?",
+        "english": "Who received the first modern patent for a ball bearing, and where and when did this occur?",
+        "truncated": false,
+        "seconds": 0.5389178909827024,
+        "skipped": false
+      },
+      {
+        "query": "Wie hoch ist die Dichte von Siliziumnitrid im Vergleich zu Stahl?",
+        "english": "What is the density of silicon nitride compared to steel?",
+        "truncated": false,
+        "seconds": 0.35021849791519344,
+        "skipped": false
+      },
+      {
+        "query": "Warum beschichtet man Lagerbohrungen mit Weißmetall, obwohl es weicher ist als die Welle?",
+        "english": "Why are journal bores of bearings plated with white metal even though it is softer than the shaft?",
+        "truncated": false,
+        "seconds": 0.5711534451693296,
+        "skipped": false
+      },
+      {
+        "query": "Welcher Forscher hat den gängigen Wälzlagerstahl 100Cr6 metallurgisch untersucht?",
+        "english": "Which researcher conducted a metallurgical study on the common rolling bearing steel 100Cr6?",
+        "truncated": false,
+        "seconds": 0.5664067061152309,
+        "skipped": false
+      },
+      {
+        "query": "Wie hoch schätzt man die volkswirtschaftlichen Kosten durch abrasiven Verschleiß in Industrieländern?",
+        "english": "What is the estimated economic cost due to abrasive wear in industrialized countries?",
+        "truncated": false,
+        "seconds": 0.43322388594970107,
+        "skipped": false
+      },
+      {
+        "query": "Welche Zusatzaufgabe hat der Ölfilm zwischen Kolben und Zylinderwand im Verbrennungsmotor außer dem Schmieren?",
+        "english": "What additional functions does the oil film between the piston and cylinder wall in an internal combustion engine serve besides lubrication?",
+        "truncated": false,
+        "seconds": 0.67351641994901,
+        "skipped": false
+      },
+      {
+        "query": "Wer baute um 1500 als Erster Kugellager in einen Entwurf für ein Fluggerät ein?",
+        "english": "Who first incorporated a ball bearing into a design for an aircraft around 1500?",
+        "truncated": false,
+        "seconds": 0.5420691140461713,
+        "skipped": false
+      },
+      {
+        "query": "Wie nennt man den Spannungsbereich, den ein Bauteil ohne Rücksicht auf die Zahl der Lastwechsel dauerhaft aushält?",
+        "english": "What is the stress range a component can endure indefinitely, regardless of the number of load cycles?",
+        "truncated": false,
+        "seconds": 0.5391124240122736,
+        "skipped": false
+      },
+      {
+        "query": "Wie viel Prozent der weltweit eingesetzten Energie gehen in Transport, Fertigung, Stromerzeugung und Wohnsektor durch Reibung und Verschleiß verloren?",
+        "english": "What percentage of the world's consumed energy is lost through friction and wear in transport, manufacturing, power generation, and the residential sector?",
+        "truncated": false,
+        "seconds": 0.7647059361916035,
+        "skipped": false
+      },
+      {
+        "query": "Wie verändert sich der Verschleiß bei gleitender Reibung, wenn man die Gleitstrecke und die Härte des Werkstoffs jeweils verdoppelt?",
+        "english": "How does wear change in sliding friction when both the sliding distance and the material hardness are doubled?",
+        "truncated": false,
+        "seconds": 0.552121760090813,
+        "skipped": false
+      },
+      {
+        "query": "Wie heißt der Abschnitt einer Welle, der im Lager gestützt wird?",
+        "english": "What is the section of a shaft that is supported in the bearing?",
+        "truncated": false,
+        "seconds": 0.40290161897428334,
+        "skipped": false
+      },
+      {
+        "query": "Wovon hängt die Dichtwirkung bei Dichtmassen im Unterschied zu Flachdichtungen ab?",
+        "english": "What determines the sealing effectiveness of sealing elements compared to flat seals?",
+        "truncated": false,
+        "seconds": 0.3804667848162353,
+        "skipped": false
+      },
+      {
+        "query": "Welchen Belastungen muss eine Antriebswelle standhalten?",
+        "english": "What loads must a drive shaft withstand?",
+        "truncated": false,
+        "seconds": 0.24569897982291877,
+        "skipped": false
+      },
+      {
+        "query": "Warum nimmt man Fett statt Öl für Stellen, an denen man selten nachschmieren kann?",
+        "english": "Why is grease used instead of oil for locations where lubrication cannot be easily replenished?",
+        "truncated": false,
+        "seconds": 0.5297170651610941,
+        "skipped": false
+      }
+    ],
+    "query_expansion_seconds_p50": 2.0649154843995348,
+    "query_expansion_failed": 0,
+    "query_expansions": [
+      {
+        "query": "19세기 말 마차 바퀴 축에 쓰던 저널 베어링의 마찰 문제를 줄인 발명은 무엇이었나?",
+        "translation": "What invention reduced friction problems in journal bearings used on horse-drawn carriage axles in the late 19th century?",
+        "raw": "The invention that reduced friction in journal bearings used on horse-drawn carriage axles in the late 19th century was the use of a split bronze bushing with a tapered internal surface, enabling improved load distribution and reduced wear. This design, often referred to as a \"tapered bronze journal bearing,\" enhanced lubrication efficiency and allowed for better sealing and thermal stability under dynamic loading conditions.",
+        "truncated": false,
+        "seconds": 2.631492150016129,
+        "ok": true
+      },
+      {
+        "query": "요즘 구름 베어링의 케이지는 보통 무슨 소재로 만들고, 그 이유는 무엇인가요?",
+        "translation": "What materials are commonly used to make the housing of rolling bearings nowadays, and why?",
+        "raw": "Modern cloud bearings' housings are typically manufactured from cast steel or stainless steel, chosen for their high strength, wear resistance, and ability to maintain dimensional stability under heavy loads and varying temperatures. These materials also provide excellent corrosion resistance, which is essential for long-term performance in demanding environmental conditions.",
+        "truncated": false,
+        "seconds": 1.6346247459296137,
+        "ok": true
+      },
+      {
+        "query": "볼 베어링에 케이지를 달지 않으면 어떤 일이 생기나요?",
+        "translation": "What happens if no cage is installed in a ball bearing?",
+        "raw": "Not installing a cage in a ball bearing leads to increased ball-to-ball contact, resulting in higher friction, uneven load distribution, and premature wear due to direct contact between balls. This can cause erratic rotation, reduced load-carrying capacity, and accelerated failure of the bearing under dynamic or heavy operational conditions.",
+        "truncated": false,
+        "seconds": 1.709562542848289,
+        "ok": true
+      },
+      {
+        "query": "풍력터빈 블레이드나 헬리콥터 피치 베어링처럼 계속 구르지 못하고 작게 흔들리기만 하는 베어링에서 생기는 손상은 무엇인가요?",
+        "translation": "What type of damage occurs in bearings that only rock slightly and do not rotate continuously, such as in wind turbine blades or helicopter pitch bearings?",
+        "raw": "In bearings subjected to continuous rotation with minimal oscillation, such as pitch bearings in wind turbine blades or helicopter rotors, the primary damage mechanism is fatigue wear due to cyclic loading and insufficient lubrication under high stress concentrations. This leads to surface pitting, spalling, and eventual loss of load-carrying capacity, particularly in rolling element bearings where contact stresses exceed material endurance limits.",
+        "truncated": false,
+        "seconds": 2.1597646549344063,
+        "ok": true
+      },
+      {
+        "query": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 무엇인가요?",
+        "translation": "What are the three primary factors limiting the life or load capacity of bearings?",
+        "raw": "The three primary factors limiting bearing life and load capacity are fatigue failure due to cyclic stress, wear from inadequate lubrication or contamination, and thermal deformation caused by excessive operating temperatures. These mechanisms are governed by the basic rating life (L₁₀) and the load rating (C) as defined in ISO 281 and ISO 15178 standards.",
+        "truncated": false,
+        "seconds": 2.042507932987064,
+        "ok": true
+      },
+      {
+        "query": "같은 크기와 정확한 진원도의 볼을 기계로 만들어 독립된 베어링 산업의 발판이 된 방법은 누가, 언제 개발했나요?",
+        "translation": "How was the method developed by whom and when to machine balls of the same size and precise pitch diameter, laying the foundation for an independent bearing industry?",
+        "raw": "The development of precision ball bearings with identical size and accurate spherical geometry was pioneered by Friedrich F. Timm in the late 19th century, with significant advancements realized by the company FAG (now part of Schaeffler Group) in the 1920s through the implementation of automated grinding and inspection technologies. This enabled consistent manufacturing of ball bearings with high dimensional accuracy and surface finish, forming the foundation of the modern bearing industry.",
+        "truncated": false,
+        "seconds": 2.463327326113358,
+        "ok": true
+      },
+      {
+        "query": "구름 베어링에 가장 흔히 쓰는 강종의 탄소와 크롬 함량은 어느 정도인가요?",
+        "translation": "What are the carbon and chromium contents of the most commonly used alloy in rolling bearings?",
+        "raw": "The most commonly used grade of cloud bearings is 52100, which contains approximately 1.0% carbon and 1.3% chromium by weight. This composition provides a favorable balance of hardness, wear resistance, and fatigue strength for general mechanical applications.",
+        "truncated": false,
+        "seconds": 1.5290255311410874,
+        "ok": true
+      },
+      {
+        "query": "바늘 롤러 베어링을 쓸 때 어떤 약점 때문에 설계에 주의가 필요한가요?",
+        "translation": "What weaknesses should be considered when designing with needle roller bearings?",
+        "raw": "Needle roller bearings are prone to high stress concentration at the roller ends and support points, which can lead to premature fatigue failure under dynamic or heavy loading conditions. Due to their limited load distribution capability and reduced load-carrying capacity compared to other roller bearing types, careful consideration of operating conditions, alignment, and lubrication is essential in the design phase.",
+        "truncated": false,
+        "seconds": 1.939604255137965,
+        "ok": true
+      },
+      {
+        "query": "EP 그리스는 무엇을 뜻하고, 일반 그리스는 어떤 조건에서 문제가 되나요?",
+        "translation": "What does EP grease mean, and under what conditions does conventional grease become problematic?",
+        "raw": "EP 그리스 (Extreme Pressure Grease)는 고부하 및 고온 조건에서 마찰과 마모를 최소화하기 위해 특수 성분을 포함한 그리스로, 주로 고속 또는 고압 작동 조건에서 사용됩니다. 일반 그리스는 고온, 고압, 또는 높은 마찰 조건에서 유동성 저하나 점도 증가로 인해 성능이 저하되며, 이 경우 마모나 고장 위험이 증가합니다.",
+        "truncated": false,
+        "seconds": 3.0338455801829696,
+        "ok": true
+      },
+      {
+        "query": "오토바이 앞 포크에서 오일과 공기가 새지 않도록 막는 데 쓰는 밀봉 부품은 무엇인가요?",
+        "translation": "What sealing component is used to prevent oil and air from leaking from the front fork of a motorcycle?",
+        "raw": "The sealing component used to prevent oil and air leakage in a motorcycle front fork is typically a fork seal, specifically a telescopic fork oil seal or a rubber oil seal. These seals are designed to maintain proper lubrication within the fork cylinder while preventing the ingress of air and contaminants, ensuring optimal damping performance and longevity of the suspension system.",
+        "truncated": false,
+        "seconds": 1.9153465759009123,
+        "ok": true
+      },
+      {
+        "query": "자동차가 커브를 돌 때 안쪽 바퀴와 바깥쪽 바퀴가 서로 다른 속도로 돌 수 있게 해 주는 장치는 무엇인가요?",
+        "translation": "What device allows the inner and outer wheels of a car to rotate at different speeds when going around a curve?",
+        "raw": "The device that allows the inner and outer wheels of a vehicle to rotate at different speeds when turning is called a differential. It consists of a set of gears—typically a ring gear, a pinion gear, and two side gears—that distribute torque to the wheels while permitting differential rotation, thereby minimizing tire wear and maintaining vehicle stability during turns.",
+        "truncated": false,
+        "seconds": 1.9269057670608163,
+        "ok": true
+      },
+      {
+        "query": "구름 베어링은 구름 마찰만 일어나서 윤활이 필요 없을 것 같은데, 실제로는 왜 윤활이 필요한가요?",
+        "translation": "Although rolling bearing involves only cloud friction and seems to require no lubrication, why is lubrication actually necessary?",
+        "raw": "Cloud bearings, despite operating under minimal friction, require lubrication due to the presence of micro-scale surface asperities and residual contamination that generate localized wear and heat. Lubrication reduces adhesive and abrasive interactions, minimizes surface degradation, and ensures stable operating conditions under dynamic loads and relative motion. Without lubrication, even in low-friction environments, boundary layer effects and oxidation can lead to premature failure.",
+        "truncated": false,
+        "seconds": 2.2299200971610844,
+        "ok": true
+      },
+      {
+        "query": "금속 표면이 서로 달라붙었다 떨어지며 표면에 덩어리가 생기는 접착 마모를 산업 현장에서는 뭐라고 부르나요?",
+        "translation": "What is the term used in industrial settings for adhesive wear, where metal surfaces stick together, separate, and form a lump on the surface?",
+        "raw": "In industrial settings, the adhesive wear phenomenon where metal surfaces adhere, separate, and form surface deposits is commonly referred to as \"adhesive wear\" or more specifically, \"surface adhesion and transfer wear.\" This type of wear occurs due to localized plastic deformation and material transfer between contacting surfaces under high normal loads and sliding conditions.",
+        "truncated": false,
+        "seconds": 1.7988819610327482,
+        "ok": true
+      },
+      {
+        "query": "윤활이 제대로 되지 않으면 맞닿은 부품에는 어떤 일이 일어나나요?",
+        "translation": "What happens to the contacting components if lubrication is not proper?",
+        "raw": "If lubrication fails, the contacting components experience increased friction, leading to excessive heat generation, accelerated wear, and potential surface degradation due to adhesive and abrasive mechanisms. This can result in reduced service life, mechanical failure, and loss of operational efficiency in rotating or sliding systems.",
+        "truncated": false,
+        "seconds": 1.4813943859189749,
+        "ok": true
+      },
+      {
+        "query": "앞바퀴 구동 차에서 조향할 때 큰 각도로 꺾이는 구동축 바깥쪽 조인트의 대표 형식과 허용 각도는 어느 정도인가요?",
+        "translation": "What is the typical design and allowable angle for the outer joint of the drive shaft that bends at large angles during steering in a front-wheel-drive vehicle?",
+        "raw": "In front-wheel-drive vehicles, the outer joint of the steering drive shaft that accommodates large steering angles is typically a telescopic universal joint (U-joint) with a typical allowable angular deviation of up to 30°. This joint design allows for the necessary articulation between the steering and drive components while maintaining load transfer efficiency and minimizing play under dynamic operating conditions.",
+        "truncated": false,
+        "seconds": 2.0234101300593466,
+        "ok": true
+      },
+      {
+        "query": "Why must the pressing force not be passed through the balls or rollers when a bearing is mounted?",
+        "translation": "Why must the pressing force not be applied through the balls or rollers when a bearing is mounted?",
+        "raw": "The pressing force must not be passed through the balls or rollers during bearing mounting to avoid inducing excessive localized stress, which can lead to plastic deformation, surface fatigue, or premature failure of the rolling elements. Proper installation requires applying the force directly to the inner or outer ring, ensuring uniform load distribution and preserving the integrity of the rolling elements and cage assembly.",
+        "truncated": false,
+        "seconds": 1.9061237189453095,
+        "ok": true
+      },
+      {
+        "query": "What stops the conical rollers of a tapered bearing from being squeezed out under load?",
+        "translation": "What prevents the conical rollers of a tapered bearing from being squeezed out under load?",
+        "raw": "The conical rollers in a tapered roller bearing are prevented from being squeezed out under load by the conical raceway geometry and the axial and radial load distribution, which are designed to maintain proper contact angles and prevent excessive deformation. The bearing's cage also limits roller movement and ensures uniform spacing, while the preload and fit between the inner and outer rings provide structural stability under combined loading conditions.",
+        "truncated": false,
+        "seconds": 2.103568085934967,
+        "ok": true
+      },
+      {
+        "query": "Where are plain bushings favored over roller bearings to avoid dents from impact loads?",
+        "translation": "Where are plain bearings favored over roller bearings to avoid dents from impact loads?",
+        "raw": "Plain bushings are favored over roller bearings in applications involving frequent or sudden impact loads, such as in agricultural machinery, reciprocating engines, and heavy-duty conveyors, where the ability to absorb shock and prevent denting of the bearing surface is critical. Their flexible, conformable design allows for better load distribution under dynamic conditions, reducing the risk of localized stress concentrations that could lead to dents or structural failure.",
+        "truncated": false,
+        "seconds": 2.2655109260231256,
+        "ok": true
+      },
+      {
+        "query": "What does it mean when a grease is called shear-thinning?",
+        "translation": "What does it mean when a grease is described as shear-thinning?",
+        "raw": "A grease is described as shear-thinning when its viscosity decreases with increasing shear rate, meaning it becomes less resistant to flow under high mechanical stress. This property allows the grease to maintain a stable lubricating film under low-load conditions while providing better flow and distribution under high-load or high-speed conditions, enhancing performance in dynamic bearing applications.",
+        "truncated": false,
+        "seconds": 1.8028526350390166,
+        "ok": true
+      },
+      {
+        "query": "Up to what temperature can lithium grease actually be used in service?",
+        "translation": "Up to what temperature can lithium grease actually be used in service?",
+        "raw": "Lithium grease is typically recommended for service temperatures up to 120°C (248°F), although performance may degrade at higher temperatures due to accelerated oxidation and reduced viscosity stability. In some specialized formulations, such as lithium complex greases, operating temperatures can extend to 150°C (302°F), but these are not standard and require specific application conditions.",
+        "truncated": false,
+        "seconds": 2.1314315020572394,
+        "ok": true
+      },
+      {
+        "query": "What kind of ready-made bearing unit combines a ball bearing with a spherical outer ring and a housing, and why can the bearing tilt inside the housing?",
+        "translation": "What type of pre-assembled bearing unit combines a ball bearing with a spherical outer ring and a housing, and why can the bearing tilt within the housing?",
+        "raw": "A ready-made bearing unit that combines a ball bearing with a spherical outer ring and a housing is known as a spherical roller bearing or a spherical ball bearing unit. The bearing can tilt inside the housing due to the spherical shape of the outer ring, which allows for angular misalignment and accommodates dynamic loads without binding, enhancing operational stability in applications with varying shaft angles.",
+        "truncated": false,
+        "seconds": 2.077029315987602,
+        "ok": true
+      },
+      {
+        "query": "Which phase of a fatigue failure uses up most of the component's life?",
+        "translation": "Which phase of a fatigue failure consumes the majority of the component's life?",
+        "raw": "The crack initiation phase typically consumes the majority of a component's fatigue life, as microstructural defects and surface imperfections serve as nucleation sites for crack formation under cyclic loading. While crack propagation accounts for a significant portion of the remaining life, the initial stage—where no visible damage is evident—dominates the overall fatigue life due to the slow, cumulative nature of defect growth.",
+        "truncated": false,
+        "seconds": 2.0934927840717137,
+        "ok": true
+      },
+      {
+        "query": "What is the advantage of a sleeve bearing over a ball bearing in case fans, and what happens to its life at high rotation speed?",
+        "translation": "What are the advantages of a sleeve bearing over a ball bearing in fans, and how does its life change at high rotational speeds?",
+        "raw": "Sleeve bearings offer superior load-carrying capacity and smoother operation at high rotational speeds in fans due to their ability to maintain a stable oil film under high-speed conditions. However, their life decreases significantly at high rotational speeds because of increased frictional heating and the risk of oil film breakdown, leading to higher wear and potential failure.",
+        "truncated": false,
+        "seconds": 1.8289198309648782,
+        "ok": true
+      },
+      {
+        "query": "How can I tell fretting damage from false brinelling in a bearing?",
+        "translation": "How can I distinguish fretting damage from false brinelling in a bearing?",
+        "raw": "Fretting damage appears as fine, localized surface pitting or wear tracks caused by micro-motions under load, typically with a smooth, rounded appearance and often found at contact zones; false brinelling manifests as small, dome-shaped surface deformations with a distinct, raised center, usually resulting from excessive load or improper lubrication, and may be accompanied by surface cracking or flaking. Distinguishing the two requires microscopic examination and analysis of surface topography, with fretting damage showing more irregular, distributed features compared to the symmetric, isolated nature of false brinelling.",
+        "truncated": false,
+        "seconds": 3.1329183778725564,
+        "ok": true
+      },
+      {
+        "query": "Which constant-velocity joint improves on the Rzeppa six-ball cage design by confining the balls to elliptical tracks?",
+        "translation": "Which constant-velocity joint improves upon the Rzeppa six-ball cage design by confining the balls to elliptical tracks?",
+        "raw": "The Quaife six-bolt constant-velocity joint improves upon the Rzeppa six-ball cage design by incorporating a modified cage and ball arrangement that confines the balls to elliptical tracks, enhancing load distribution and reducing play under angular misalignment. This design achieves superior angular stability and durability in high-performance drivetrain applications.",
+        "truncated": false,
+        "seconds": 1.7759497018996626,
+        "ok": true
+      },
+      {
+        "query": "Why would a designer choose a toroidal CARB roller bearing as the non-locating bearing on a shaft?",
+        "translation": "Why would a designer choose a toroidal CARB roller bearing as the non-locating bearing on a shaft?",
+        "raw": "A designer may select a toroidal CARB (Cylindrical Angular Contact Roller) roller bearing as a non-locating bearing on a shaft to provide high load-carrying capacity and excellent resistance to radial and axial loads in compact, space-constrained applications. Its toroidal geometry allows for improved load distribution and reduced stress concentration, enhancing durability and performance under dynamic operating conditions.",
+        "truncated": false,
+        "seconds": 2.0800471289549023,
+        "ok": true
+      },
+      {
+        "query": "Which groove design is used in hydrodynamic plain bearings for particularly quiet computer fans?",
+        "translation": "Which groove design is used in hydrodynamic journal bearings for particularly quiet computer fans?",
+        "raw": "Hydrodynamic plain bearings in computer fans typically employ a full-annular groove design with a parabolic cross-section to ensure even oil film formation and minimize vibration. This configuration promotes stable lubrication, reduces noise through dampened pressure fluctuations, and enhances load-carrying capacity under low-speed operating conditions.",
+        "truncated": false,
+        "seconds": 1.6568049639463425,
+        "ok": true
+      },
+      {
+        "query": "Which kind of bearing do simple bicycles use in the wheels, bottom bracket and pedals, and what upkeep does it need?",
+        "translation": "What type of bearing do simple bicycles use in the wheels, bottom bracket, and pedals, and what maintenance does it require?",
+        "raw": "Simple bicycles typically use ball bearings in the wheels, bottom bracket, and pedal hubs. These bearings require minimal upkeep—regular cleaning, lubrication with a light grease, and periodic inspection for wear or contamination are sufficient to maintain performance and longevity.",
+        "truncated": false,
+        "seconds": 1.3214423088356853,
+        "ok": true
+      },
+      {
+        "query": "To what temperature may a bearing be heated for shrink-fit mounting on a shaft?",
+        "translation": "To what temperature may a bearing be heated for shrink-fit mounting on a shaft?",
+        "raw": "Bearings may typically be heated to a maximum of 120°C (248°F) for shrink-fit mounting on a shaft, as higher temperatures risk thermal degradation of lubricants, material creep, or damage to bearing components. Exceeding this limit can induce excessive thermal stress, leading to microcracking or dimensional instability in bearing races and inner rings.",
+        "truncated": false,
+        "seconds": 2.09215847379528,
+        "ok": true
+      },
+      {
+        "query": "Which bearing type avoids metal contact through a fluid film and runs quietly for long, but struggles at low temperature and stops turning if the oil leaks out?",
+        "translation": "Which bearing type avoids metal contact through a fluid film, operates quietly and for long periods, but fails at low temperatures and stops rotating if the oil leaks out?",
+        "raw": "The hydrodynamic journal bearing operates by maintaining a thin fluid film between the rotating shaft and the bearing surface, preventing metal-to-metal contact and enabling quiet, smooth operation under normal conditions. However, it is sensitive to low temperatures due to reduced oil viscosity, which compromises film formation, and will cease operation if lubricant leaks occur, leading to immediate contact and potential failure.",
+        "truncated": false,
+        "seconds": 2.0618593338876963,
+        "ok": true
+      },
+      {
+        "query": "Welche Kräfte nimmt ein Festlager auf und was gilt dagegen für ein Loslager?",
+        "translation": "What forces does a fixed bearing withstand, and what applies to a floating bearing?",
+        "raw": "A fixed bearing (Festlager) supports both radial and thrust loads, constraining the shaft's axial and radial movement, while a floating bearing (Loslager) only supports radial loads and allows axial movement of the shaft, thus accommodating thrust loads through the shaft's free axial displacement. In contrast, a fixed bearing provides greater stability and load-carrying capacity in both directions, whereas a floating bearing is suitable for applications with significant axial runout or thermal expansion.",
+        "truncated": false,
+        "seconds": 2.5919687929563224,
+        "ok": true
+      },
+      {
+        "query": "Welcher Reibungszustand tritt beim Anlauf der Welle eines hydrodynamischen Gleitlagers zunächst auf?",
+        "translation": "What friction state occurs initially when a shaft of a hydrodynamic journal bearing starts to run?",
+        "raw": "During the startup of a shaft in a hydrodynamic journal bearing, a mixed lubrication state initially occurs, characterized by both boundary film interactions and partial hydrodynamic pressure support. As the shaft speed increases and the oil film thickness develops, the condition transitions to a fully hydrodynamic state with minimal direct metal-to-metal contact.",
+        "truncated": false,
+        "seconds": 1.7404048379976302,
+        "ok": true
+      },
+      {
+        "query": "Wie wird die Dichtlippe eines Radial-Wellendichtrings an die Welle gedrückt?",
+        "translation": "How is the sealing lip of a radial shaft seal pressed against the shaft?",
+        "raw": "The sealing lip of a radial shaft seal is typically pressed against the shaft by a compression spring or a retaining ring, which applies radial force to ensure a tight seal and prevent leakage of lubricants or fluids. In some designs, a separate pressing mechanism or a flange-mounted retainer ensures proper seating and maintains consistent contact pressure under operating conditions.",
+        "truncated": false,
+        "seconds": 1.8746909219771624,
+        "ok": true
+      },
+      {
+        "query": "Wovon hängt die Temperatur ab, ab der die Gleitpartner eines Lagers beim Fressen miteinander verschweißen?",
+        "translation": "At what temperature do the sliding partners of a bearing begin to fuse together due to friction?",
+        "raw": "The temperature at which sliding partners in a bearing begin to weld together depends on the material properties, particularly the melting point and thermal conductivity of the lubricant and bearing surfaces. Exceeding the softening or melting point of the lubricant or surface material leads to loss of separation, increased friction, and eventual welding due to adhesion under high shear stress.",
+        "truncated": false,
+        "seconds": 2.0003949548117816,
+        "ok": true
+      },
+      {
+        "query": "Aus welchen Bestandteilen besteht ein Schmierfett?",
+        "translation": "What components make up a lubricating grease?",
+        "raw": "Lubricating grease consists of a base oil, a thickener (typically a soap or non-soap type), and additives such as anti-wear agents, antioxidants, and corrosion inhibitors. The base oil provides lubrication, the thickener gives the grease its semi-solid consistency, and the additives enhance performance under specific operating conditions.",
+        "truncated": false,
+        "seconds": 1.830119103891775,
+        "ok": true
+      },
+      {
+        "query": "Warum entsteht bei einem V-Ring bei hohen Drehzahlen keine Verlustleistung mehr?",
+        "translation": "Why does a V-ring not exhibit power loss at high rotational speeds?",
+        "raw": "At high rotational speeds, a V-ring seal does not exhibit significant power loss because the dynamic pressure generated by the rotating motion is balanced by the seal's inherent design, minimizing frictional resistance. The contact area between the seal and the shaft is small and distributed, reducing viscous shear losses, and the seal operates primarily under boundary lubrication conditions where hysteresis and energy dissipation are negligible compared to the mechanical work of rotation. Thus, power loss remains minimal due to low friction and efficient load distribution.",
+        "truncated": false,
+        "seconds": 2.779124136082828,
+        "ok": true
+      },
+      {
+        "query": "In welchem Bereich liegen die geforderten Lebensdauern von Wälzlagern?",
+        "translation": "What are the required service lives of rolling bearings?",
+        "raw": "The required service life of rolling element bearings typically ranges from 5,000 to 100,000 hours, depending on operating conditions such as load, speed, temperature, and lubrication quality. In industrial applications, life expectancy is often specified in L10 or L20 terms, representing the life at which 10% or 20% of a bearing population fails, respectively.",
+        "truncated": false,
+        "seconds": 2.3303913010749966,
+        "ok": true
+      },
+      {
+        "query": "An welchen Geräuschen merkt man im Auto bei Geradeausfahrt einen Radlagerschaden?",
+        "translation": "At what noises can one detect a wheel hub bearing fault while driving straight?",
+        "raw": "During straight-line driving, a defective wheel bearing in a vehicle typically produces a high-pitched whining or grinding noise that increases with speed. This sound is often described as a constant hum or vibration, especially when turning or accelerating, and may be accompanied by a sensation of the vehicle pulling to one side.",
+        "truncated": false,
+        "seconds": 1.665628792019561,
+        "ok": true
+      },
+      {
+        "query": "Wie entsteht der Schmierfilm bei einem hydrostatischen Gleitlager?",
+        "translation": "How is the lubrication film formed in a hydrostatic sliding bearing?",
+        "raw": "In a hydrostatic journal bearing, the lubricating film is established by externally applied pressurized lubricant, which is forced between the rotating shaft and the bearing surface, creating a pressure differential that supports the load and prevents direct metal-to-metal contact. This film forms due to the compression of the lubricant in the clearance gap, resulting in a stable hydrostatic pressure field that maintains a continuous oil film under both static and dynamic operating conditions.",
+        "truncated": false,
+        "seconds": 2.4035219410434365,
+        "ok": true
+      },
+      {
+        "query": "Wodurch unterscheidet sich echtes Brinelling von False Brinelling?",
+        "translation": "What distinguishes true brinelling from false brinelling?",
+        "raw": "True brinelling is characterized by a permanent, localized plastic deformation of the surface caused by a high impact load exceeding the material's yield strength, typically resulting in a central depression with a well-defined, round pit. False brinelling, in contrast, appears as a surface indentation due to improper lubrication or excessive wear, but lacks the deep, permanent plastic deformation and is often associated with surface fatigue or contamination rather than direct yield failure.",
+        "truncated": false,
+        "seconds": 2.405559145845473,
+        "ok": true
+      },
+      {
+        "query": "Wie viele Nadellager stecken typischerweise in der Kardanwelle eines Fahrzeugs mit Hinterradantrieb?",
+        "translation": "How many needle bearings are typically installed in the driveshaft of a rear-wheel-drive vehicle?",
+        "raw": "A typical rear-wheel-drive vehicle's driveshaft does not contain needle bearings; instead, it is commonly equipped with roller or ball bearings in the universal joints (U-joints) and sometimes in the yokes or housing. Needle bearings, if present, are typically used in compact, high-load applications such as in the differential or axle housing, not within the driveshaft itself. Therefore, no needle bearings are typically found in the driveshaft.",
+        "truncated": false,
+        "seconds": 2.403951406944543,
+        "ok": true
+      },
+      {
+        "query": "Warum fällt ein Lager aus, das ohne Schmierstoff läuft?",
+        "translation": "Why does a bearing fail when it operates without lubrication?",
+        "raw": "A bearing fails when operating without lubrication due to excessive friction, elevated surface temperatures, and accelerated wear caused by direct metal-to-metal contact. This leads to rapid degradation of the rolling elements and raceways, resulting in pitting, scoring, and eventual seizure. Without a lubricant to reduce shear stress and dissipate heat, the tribological performance of the bearing collapses under operational loads.",
+        "truncated": false,
+        "seconds": 2.1167472570668906,
+        "ok": true
+      },
+      {
+        "query": "Welche DIN-Norm regelt Radial-Wellendichtringe für Kraftfahrzeuge?",
+        "translation": "Which DIN standard specifies radial shaft seals for vehicles?",
+        "raw": "The DIN norm that regulates radial shaft seals for vehicles is DIN 75900. This standard specifies the dimensions, material requirements, and performance characteristics for radial shaft seals used in automotive applications, ensuring compatibility, sealing efficiency, and durability under dynamic operating conditions.",
+        "truncated": false,
+        "seconds": 1.5002840750385076,
+        "ok": true
+      },
+      {
+        "query": "Welche pflanzlichen Öle gelten als relativ stabil und werden sogar in Verbrennungsmotoren eingesetzt?",
+        "translation": "Which plant-based oils are considered relatively stable and are even used in internal combustion engines?",
+        "raw": "Plant-based oils such as soybean and rapeseed oil exhibit moderate thermal stability and are occasionally used in specialized biodiesel applications, though they are not typically recommended for conventional internal combustion engines due to poor oxidative stability and high viscosity at low temperatures. For use in combustion engines, synthetic or ester-based lubricants derived from plant sources are preferred over raw vegetable oils, which lack the performance characteristics required for high-temperature, high-stress environments.",
+        "truncated": false,
+        "seconds": 2.424523483030498,
+        "ok": true
+      },
+      {
+        "query": "Wie wirkt ein synthetisches Schmieröl auf Naphthalinbasis auf der Metalloberfläche?",
+        "translation": "What is the effect of a synthetic lubricating oil based on naphthalene on a metal surface?",
+        "raw": "Synthetische Schmieröle auf Naphthalinbasis sind nicht standardmäßige oder kommerziell verwendete Produkte; Naphthalin dient als chemischer Baustein für Schmierstoffe, aber nicht als Grundlage für synthetische Schmieröle im herkömmlichen Sinne. In der Praxis werden solche Öle nicht für die Schmierung von Metalloberflächen eingesetzt, da Naphthalin eine hohe Schmelztemperatur und schlechte tribologische Eigenschaften aufweist, und es kann bei Kontakt mit Metallen korrosive oder reaktive Effekte hervorrufen. Standardmäßige synthetische Schmieröle basieren auf Polynonen, Silikonen oder esterhaltigen Komponenten, nicht auf aromatischen Kohlenwasserstoffen wie Naphthalin.",
+        "truncated": false,
+        "seconds": 5.264886722899973,
+        "ok": true
+      },
+      {
+        "query": "새로운 마찰 저감·마모 방지 기술을 도입하면 에너지 손실을 단기와 장기에 각각 몇 퍼센트까지 줄일 수 있다고 보나요?",
+        "translation": "How much can energy loss be reduced in the short and long term by introducing new friction-reducing and wear-prevention technologies?",
+        "raw": "The adoption of advanced friction-reduction and wear-prevention technologies can reduce energy losses by up to 15% in the short term and up to 25% over the long term, depending on operating conditions and system design. These improvements are achieved through optimized lubricant formulations, surface texturing, and low-friction material combinations, which enhance tribological performance and extend component lifespan.",
+        "truncated": false,
+        "seconds": 2.144737847847864,
+        "ok": true
+      },
+      {
+        "query": "유체동압 미끄럼 베어링의 정격 회전수는 스트리벡 곡선의 어느 지점을 기준으로 잡나요?",
+        "translation": "What point on the Stribeck curve is used as the basis for the rated speed of fluid-film sliding bearings?",
+        "raw": "The rated rotational speed of a fluid-film sliding bearing is typically based on the point of maximum allowable operating pressure on the Strouhal curve, which corresponds to the onset of unstable lubrication conditions. This point is generally determined by the intersection of the bearing's load-carrying capacity and the minimum film thickness required to maintain a stable fluid film, ensuring reliable operation under dynamic loading.",
+        "truncated": false,
+        "seconds": 2.10724441614002,
+        "ok": true
+      },
+      {
+        "query": "연마 마모를 정량적으로 시험하는 장치 이름과 관련 규격은 무엇인가요?",
+        "translation": "What is the name of the device for quantitatively testing finishing wear, and what are the related specifications?",
+        "raw": "The apparatus used for quantitative testing of honing wear is known as a honing wear tester, and it is commonly governed by the ISO 10993-10 standard, which specifies methods for evaluating tribological performance under controlled conditions. This standard defines test procedures involving controlled sliding and rolling contact to measure wear volume and surface degradation.",
+        "truncated": false,
+        "seconds": 1.9029408458154649,
+        "ok": true
+      },
+      {
+        "query": "금속 부품에 생긴 피로 미세균열이 처음 진행하다가 방향을 꺾는 것은 대략 어느 크기에서이며, 꺾인 뒤에는 하중 방향에 대해 몇 도로 진행하나요?",
+        "translation": "At what size does a fatigue microcrack in a metallic component initially propagate before changing direction, and at what angle does it continue propagating relative to the loading direction?",
+        "raw": "In metallic components, fatigue microcracks typically change direction when they reach a critical length of approximately 10–20 μm, corresponding to the threshold of crack propagation under cyclic loading. After direction change, the crack advances at an angle of about 30° to 60° relative to the applied load direction, depending on stress concentration and material properties.",
+        "truncated": false,
+        "seconds": 2.0679716349113733,
+        "ok": true
+      },
+      {
+        "query": "축을 밀봉하는 비접촉식 씰은 자성유체 씰을 빼면 왜 완전한 밀봉이 되지 못하나요?",
+        "translation": "Why can't a contactless seal for shaft achieve complete sealing without a magneto-fluid seal?",
+        "raw": "Contactless seals, such as magnetic fluid seals, rely on the controlled suspension of magnetic nanoparticles in a fluid to create a dynamic barrier. However, when the magnetic fluid is removed, the seal loses its ability to generate a continuous, self-adjusting sealing film due to the absence of magnetic field-induced fluid confinement, resulting in incomplete sealing and increased leakage. This limits their performance in high-pressure or high-temperature applications where mechanical contact or alternative sealing mechanisms are required.",
+        "truncated": false,
+        "seconds": 2.5206404491327703,
+        "ok": true
+      },
+      {
+        "query": "마찰 면에서 하중을 윤활제가 아니라 표면 돌기가 대신 받는 윤활 상태는 무엇이라 부르나요?",
+        "translation": "What is the lubrication condition called when the load is carried by surface asperities rather than the lubricant on the friction surface?",
+        "raw": "This lubrication condition is known as boundary lubrication. In boundary lubrication, the load is carried primarily by surface asperities rather than a continuous lubricant film, and it occurs when the lubricant film thickness is insufficient to prevent direct metal-to-metal contact.",
+        "truncated": false,
+        "seconds": 1.4659878369420767,
+        "ok": true
+      },
+      {
+        "query": "오일 씰에 쓰는 고무 compound의 경도는 보통 쇼어 A로 몇 정도인가요?",
+        "translation": "What is the usual hardness of rubber compound used in oil seals, typically measured in Shore A?",
+        "raw": "The rubber compound used in oil seals typically has a hardness in the range of 60 to 70 Shore A, which provides an optimal balance between flexibility for sealing performance and resistance to deformation under load and exposure to lubricating oils. This hardness range ensures good sealing integrity while maintaining durability and compatibility with common engine and transmission oils.",
+        "truncated": false,
+        "seconds": 1.8582760319113731,
+        "ok": true
+      },
+      {
+        "query": "자동차 오일 씰을 현장에서 '심머링'이라고 부르는 이름은 누구에게서 유래했나요?",
+        "translation": "Who derived the name 'seaming' for automotive oil seals in the field?",
+        "raw": "The term \"seaming\" used in field practice for automotive oil seals is not a standard or recognized technical term in engineering literature and appears to be a misnomer or localized slang. There is no documented origin or authoritative source attributing the term \"seaming\" to any specific engineer, manufacturer, or technical body in the context of oil seals. The correct technical term for the sealing function is \"oil seal,\" and related processes such as \"sealing,\" \"lubrication,\" or \"dynamic sealing\" are properly described in tribology and mechanical engineering standards.",
+        "truncated": false,
+        "seconds": 3.123410284984857,
+        "ok": true
+      },
+      {
+        "query": "앵귤러 콘택트 볼 베어링에서 접촉각을 키우면 어느 방향 하중을 더 잘 견디게 되나요?",
+        "translation": "Does increasing the contact angle in an angular contact ball bearing improve its ability to withstand loads in which direction?",
+        "raw": "Increasing the contact angle in angular contact ball bearings improves their ability to withstand axial loads, particularly in the direction opposite to the contact angle. A larger contact angle enhances radial and axial load-carrying capacity, with the bearing exhibiting superior performance under combined loads when the axial load is aligned with the direction of the contact angle.",
+        "truncated": false,
+        "seconds": 1.7481315068434924,
+        "ok": true
+      },
+      {
+        "query": "고속 회전용 볼 베어링에 세라믹 볼을 쓰는 이유 중 하나인 밀도는 강철과 비교해 어느 정도인가요?",
+        "translation": "What is the density of ceramic balls compared to steel in high-speed ball bearings?",
+        "raw": "Ceramic balls have a density of approximately 3.2 g/cm³, which is about 25% lower than that of steel (around 7.8 g/cm³). This reduced density contributes to lower rotational inertia, enabling higher speeds and improved dynamic performance in high-speed ball bearings.",
+        "truncated": false,
+        "seconds": 1.6661761098075658,
+        "ok": true
+      },
+      {
+        "query": "사용 가능한 최초의 케이지형 롤러 베어링을 만든 사람은 어떤 직업이었고, 언제 발명했나요?",
+        "translation": "Who was the first person to invent a cage-type roller bearing, and what was their profession and when was it invented?",
+        "raw": "The first cage-type roller bearing was developed by the German engineer Friedrich von Hahn in 1904. As a mechanical engineer specializing in tribology and precision machinery, he introduced a metal cage to separate rollers, significantly reducing friction and improving bearing lifespan.",
+        "truncated": false,
+        "seconds": 1.4509045809973031,
+        "ok": true
+      },
+      {
+        "query": "마모량이 하중, 미끄럼 거리, 경도와 어떤 비례 관계인지 알려주세요. 하중을 두 배로 하고 거리를 절반으로 줄이면 마모량은 어떻게 되나요?",
+        "translation": "Please tell me the proportional relationship between wear volume and load, sliding distance, and hardness. If the load is doubled and the distance is halved, how does the wear volume change?",
+        "raw": "The wear volume is proportional to the product of load and sliding distance, and inversely proportional to the surface hardness. If the load is doubled and the sliding distance is halved, the wear volume remains unchanged, assuming constant hardness and other tribological conditions.",
+        "truncated": false,
+        "seconds": 1.4039628389291465,
+        "ok": true
+      },
+      {
+        "query": "패킹이나 개스킷 같은 씰과 접착성 밀봉제는 밀봉 효과가 각각 무엇에 좌우되나요?",
+        "translation": "What factors affect the sealing performance of seals such as gaskets and adhesives?",
+        "raw": "The sealing effectiveness of packings or gaskets is primarily governed by material compatibility, surface finish, compression fit, and operating temperature, while adhesive sealants depend on adhesive strength, cure time, environmental exposure, and the surface energy of the bonded materials. Both types of seals are sensitive to pressure, vibration, and the presence of contaminants, which can degrade performance over time.",
+        "truncated": false,
+        "seconds": 2.0758456599432975,
+        "ok": true
+      },
+      {
+        "query": "칼슘계와 섬유(나트륨)계 그리스는 각각 어떤 성능이 장점이라고 분류하나요?",
+        "translation": "What are the respective performance advantages of calcium and fiber (sodium) greases?",
+        "raw": "Calcium-based greases offer superior resistance to water and moisture, making them ideal for wet or outdoor environments, while sodium-based greases provide better high-temperature performance and are more suitable for applications with elevated operating temperatures. Both are commonly used in rolling element bearings, but calcium greases are preferred in humid conditions due to their excellent water resistance, whereas sodium greases are favored in high-temperature systems where thermal stability is critical.",
+        "truncated": false,
+        "seconds": 2.357172449817881,
+        "ok": true
+      },
+      {
+        "query": "구동축을 설계할 때 강도를 확보하면서도 추가 중량을 피해야 하는 이유는 무엇인가요?",
+        "translation": "Why is it important when designing a drive shaft to ensure strength while avoiding additional weight?",
+        "raw": "When designing a drive shaft, minimizing additional mass is essential to reduce inertial forces, dynamic vibrations, and torsional stresses, all of which can compromise structural integrity and lead to premature fatigue or resonance. Excessive mass increases energy losses due to rotational resistance and can degrade overall system efficiency and responsiveness.",
+        "truncated": false,
+        "seconds": 1.6123318790923804,
+        "ok": true
+      },
+      {
+        "query": "At what internal clearance do ball bearings reach their longest service life?",
+        "translation": "At what internal clearance do ball bearings achieve their longest service life?",
+        "raw": "Ball bearings achieve their longest service life at an internal clearance that matches the operating conditions, typically in the medium clearance range (C2 to C3), where the clearance is sufficient to accommodate thermal expansion and load-induced deformation without promoting excessive micromotion or fatigue. Excessive clearance (e.g., C4 or higher) increases the risk of particle entrainment and wear, while insufficient clearance (e.g., C0 or lower) leads to premature contact stress and fatigue failure. Therefore, optimal service life is attained when internal clearance is selected based on load, speed, and temperature, as specified in ISO 281 or ISO 15193 standards.",
+        "truncated": false,
+        "seconds": 3.6739200830925256,
+        "ok": true
+      },
+      {
+        "query": "In a fatigue test, what are specimens called that survive the cut-off number of cycles without breaking?",
+        "translation": "In a fatigue test, what are specimens called that survive the cutoff number of cycles without failure?",
+        "raw": "In a fatigue test, specimens that survive the cut-off number of cycles without failure are referred to as \"fatigue survivors\" or \"non-failed specimens.\" These specimens are typically used to determine the fatigue limit or endurance limit of a material, as they indicate the material's ability to withstand cyclic loading without crack initiation or propagation.",
+        "truncated": false,
+        "seconds": 1.8044739940669388,
+        "ok": true
+      },
+      {
+        "query": "What share of the UK's gross domestic product did a 1966 report put as the cost of friction and wear?",
+        "translation": "What share of the UK's gross domestic product did a 1966 report estimate as the cost of friction and wear?",
+        "raw": "A 1966 report by the UK's Department of Scientific and Industrial Research estimated that friction and wear accounted for approximately 3% of the United Kingdom's gross domestic product. This figure was derived from a comprehensive analysis of energy losses and maintenance costs across industrial machinery, highlighting the significant economic impact of tribological inefficiencies in mechanical systems.",
+        "truncated": false,
+        "seconds": 1.8978654311504215,
+        "ok": true
+      },
+      {
+        "query": "Which surface treatments can counter pitting from repeated rolling contact by putting the surface under compression?",
+        "translation": "Which surface treatments can counter pitting from repeated rolling contact by inducing surface compression?",
+        "raw": "Surface treatments such as shot peening and roller burnishing induce compressive residual stresses in the surface layer, which counteract pitting initiation by reducing stress concentrations and improving fatigue resistance under repeated rolling contact. These compressive stresses help to close surface cracks and delay the onset of microstructural fatigue damage, thereby enhancing the pitting resistance of rolling-element bearings and gear teeth.",
+        "truncated": false,
+        "seconds": 2.017065671039745,
+        "ok": true
+      },
+      {
+        "query": "Why do thrust needle bearings wear faster than radial needle bearings?",
+        "translation": "Why do thrust needle bearings wear faster than radial needle bearings?",
+        "raw": "Thrust needle bearings wear faster than radial needle bearings due to higher contact stresses and greater sliding motion under axial loads, which increase friction and promote surface degradation. Additionally, thrust needle bearings operate in conditions of higher relative sliding velocity and less load distribution, leading to accelerated fatigue and material wear compared to radial needle bearings, which experience more uniform load distribution and lower sliding components.",
+        "truncated": false,
+        "seconds": 1.9967145950067788,
+        "ok": true
+      },
+      {
+        "query": "Why can labyrinth and viscosity-type non-contact seals never block leakage completely?",
+        "translation": "Why can labyrinth and viscosity-type non-contact seals never completely prevent leakage?",
+        "raw": "Labyrinth and viscosity-type non-contact seals cannot block leakage completely because they rely on mechanical clearance and fluid viscosity to restrict fluid passage, respectively. Leakage occurs due to molecular diffusion through the labyrinth's micro-gaps and the inherent permeability of the sealing medium, which allows some fluid to bypass the seal under pressure or temperature variations. Complete fluid exclusion is thermodynamically and physically impossible in such designs.",
+        "truncated": false,
+        "seconds": 2.150852231075987,
+        "ok": true
+      },
+      {
+        "query": "Why did bearings cut directly into the machine body become less common after the 19th century?",
+        "translation": "Why did bearings that directly contacted the machine body become less common after the 19th century?",
+        "raw": "Bearing designs evolved after the 19th century to incorporate sealed, self-lubricating configurations and improved material science, reducing the need for direct bearing-to-machine-body contact. The shift was driven by the need for reduced wear, better thermal management, and enhanced load distribution, as direct contact led to excessive friction, vibration, and structural stress. As a result, integrated bearing housings with proper alignment and lubrication systems became standard in mechanical engineering practice.",
+        "truncated": false,
+        "seconds": 2.542285718023777,
+        "ok": true
+      },
+      {
+        "query": "What bearing failure caused by electric current passing through can ceramic balls prevent?",
+        "translation": "What bearing failure caused by electric current passing through can ceramic balls prevent?",
+        "raw": "Ceramic balls in bearings can prevent electrical current-induced pitting and surface degradation caused by electrochemical corrosion, which is a common failure mode when electric current passes through the bearing. Unlike metallic bearings, ceramic balls have high electrical insulation resistance, reducing the risk of current flow through the rolling elements and minimizing localized heating and material breakdown. This makes ceramic bearings particularly suitable for applications involving electrical noise or high-voltage environments.",
+        "truncated": false,
+        "seconds": 2.262388937873766,
+        "ok": true
+      },
+      {
+        "query": "How often should the grease be changed in a 100 mm bearing compared with a 40 mm one?",
+        "translation": "How often should the grease be changed in a 100 mm rolling bearing compared with a 40 mm one?",
+        "raw": "Grease change intervals for bearings are primarily determined by operating conditions, load, speed, and environmental factors, not directly by bearing diameter. Therefore, a 100 mm bearing does not require a longer or shorter grease change interval than a 40 mm bearing under equivalent service conditions; however, larger bearings may have higher grease consumption and require more frequent monitoring due to increased contact area and load distribution. In practice, both sizes should be serviced according to the manufacturer’s recommendations and lubrication schedule.",
+        "truncated": false,
+        "seconds": 2.7118009028490633,
+        "ok": true
+      },
+      {
+        "query": "What fraction of the world's total energy expenditure is caused by friction and wear in the transport, manufacturing, power generation and residential sectors?",
+        "translation": "What fraction of the world's total energy expenditure is caused by friction and wear in the transport, manufacturing, power generation, and residential sectors?",
+        "raw": "Friction and wear account for approximately 10–20% of the world's total energy expenditure across the transport, manufacturing, power generation, and residential sectors, with the transport sector alone contributing significantly due to rolling and sliding friction in engines, transmissions, and bearings. This energy loss is primarily attributed to inefficient lubrication, inadequate surface finishes, and poor design of mechanical systems, and represents a major opportunity for energy conservation through advanced tribological solutions.",
+        "truncated": false,
+        "seconds": 2.503326270962134,
+        "ok": true
+      },
+      {
+        "query": "If sliding distance doubles and the material is twice as hard, how does wear volume change in simple sliding wear?",
+        "translation": "If the sliding distance doubles and the material is twice as hard, how does wear volume change in simple sliding wear?",
+        "raw": "In simple sliding wear, the wear volume is proportional to the sliding distance and inversely proportional to the hardness of the material. Therefore, if the sliding distance doubles and the material hardness doubles, the wear volume remains unchanged.",
+        "truncated": false,
+        "seconds": 1.2112767552025616,
+        "ok": true
+      },
+      {
+        "query": "What is the term for the stress range a structure can withstand regardless of the number of load cycles?",
+        "translation": "What is the term for the stress range a structure can withstand regardless of the number of load cycles?",
+        "raw": "The term for the stress range a structure can withstand regardless of the number of load cycles is fatigue limit or endurance limit. This is the maximum stress level below which a material can endure an infinite number of cyclic loads without failure, and it is a critical parameter in the design of components subjected to variable loading conditions.",
+        "truncated": false,
+        "seconds": 1.6904896588530391,
+        "ok": true
+      },
+      {
+        "query": "What kinds of journals exist depending on whether the load acts perpendicular to the shaft axis or along it?",
+        "translation": "What types of journals exist depending on whether the load acts perpendicular to the shaft axis or parallel to it?",
+        "raw": "Journals are classified as radial or thrust bearings based on the direction of the applied load. Radial journals support loads perpendicular to the shaft axis, while thrust journals carry loads parallel to the shaft axis.",
+        "truncated": false,
+        "seconds": 1.1024665869772434,
+        "ok": true
+      },
+      {
+        "query": "Which grease thickener type is known for water resistance and which for heat resistance?",
+        "translation": "Which grease thickener type is known for water resistance and which for heat resistance?",
+        "raw": "Ferrofluid thickener types are not typically used in standard greases; instead, lithium-based greases offer good water resistance, while polyurea or composite thickened greases provide superior heat resistance. However, the most widely recognized water-resistant thickener is the lithium complex, and for high-temperature applications, the calcium or aluminum complex thickened greases are preferred due to their thermal stability.",
+        "truncated": false,
+        "seconds": 2.1798200830817223,
+        "ok": true
+      },
+      {
+        "query": "What kinds of stress does a drive shaft have to withstand?",
+        "translation": "What kinds of stress does a drive shaft have to withstand?",
+        "raw": "A drive shaft primarily withstands torsional stress due to the transmission of rotational power from the engine to the driven wheels. Additionally, it experiences bending stress, particularly in off-center or misaligned driveline configurations, and may also encounter shear stress from dynamic loads and vibration. These combined stresses must be accounted for in material selection and structural design to ensure durability and fatigue resistance.",
+        "truncated": false,
+        "seconds": 2.0225410400889814,
+        "ok": true
+      },
+      {
+        "query": "Von welchen Größen hängt die maximale Spannung ab, wenn zwei gewölbte Körper gegeneinander gedrückt werden?",
+        "translation": "Which parameters affect the maximum stress when two curved bodies are pressed against each other?",
+        "raw": "The maximum contact pressure between two curved bodies under external load depends on the radii of curvature, the applied normal force, the material properties (such as Young's modulus and Poisson's ratio), and the surface roughness. According to Hertzian contact theory, the contact pressure is inversely proportional to the square root of the product of the radii of curvature and the modulus of elasticity.",
+        "truncated": false,
+        "seconds": 2.193448588019237,
+        "ok": true
+      },
+      {
+        "query": "Wer bekam das erste moderne Patent auf ein Kugellager, und wo und wann war das?",
+        "translation": "Who received the first modern patent for a ball bearing, and where and when did this occur?",
+        "raw": "The first modern patent for a ball bearing was granted to Philip Voight of the United States in 1883, under U.S. Patent No. 342,833. This patent described a rolling-element bearing with balls arranged in a cage to reduce friction and improve load-carrying capacity, laying the foundation for modern ball bearing design.",
+        "truncated": false,
+        "seconds": 2.049222832079977,
+        "ok": true
+      },
+      {
+        "query": "Wie hoch ist die Dichte von Siliziumnitrid im Vergleich zu Stahl?",
+        "translation": "What is the density of silicon nitride compared to steel?",
+        "raw": "Silicon nitride (Si₃N₄) has a density of approximately 3.20–3.25 g/cm³, which is significantly lower than that of steel, which typically ranges from 7.75 to 8.05 g/cm³ depending on the alloy composition. This lower density contributes to silicon nitride's favorable weight-to-strength ratio, making it suitable for high-performance applications in bearings and turbochargers where thermal stability and wear resistance are critical.",
+        "truncated": false,
+        "seconds": 2.7764849229715765,
+        "ok": true
+      },
+      {
+        "query": "Warum beschichtet man Lagerbohrungen mit Weißmetall, obwohl es weicher ist als die Welle?",
+        "translation": "Why are journal bores of bearings plated with white metal even though it is softer than the shaft?",
+        "raw": "Lagerbohrungen werden mit Weißmetall (Zink- und Kupferlegierung) beschichtet, um eine ausreichende Schmierstoffverteilung und eine geringe Reibung zu gewährleisten, da Weißmetall eine bessere Schmierbarkeit und eine höhere Schmierstoffaufnahme aufweist. Obwohl Weißmetall weicher ist als die Welle, trägt es zur Schutzfunktion der Lager und zur Vermeidung von Schäden durch Reibung und Verschleiß bei, insbesondere bei niedrigen Drehzahlen und hohen Lasten.",
+        "truncated": false,
+        "seconds": 3.904872376937419,
+        "ok": true
+      },
+      {
+        "query": "Welcher Forscher hat den gängigen Wälzlagerstahl 100Cr6 metallurgisch untersucht?",
+        "translation": "Which researcher conducted a metallurgical study on the common rolling bearing steel 100Cr6?",
+        "raw": "The metallurgical characteristics of the common rolling-element steel 100Cr6 have been extensively studied by German metallurgist Dr. Hans-Joachim Schmid, who published key findings on its microstructure, heat treatment response, and fatigue behavior in the 1960s. His work established the foundation for modern bearing steel standards, particularly regarding carbon distribution and residual stress management.",
+        "truncated": false,
+        "seconds": 2.1858536389190704,
+        "ok": true
+      },
+      {
+        "query": "Wie hoch schätzt man die volkswirtschaftlichen Kosten durch abrasiven Verschleiß in Industrieländern?",
+        "translation": "What is the estimated economic cost due to abrasive wear in industrialized countries?",
+        "raw": "In industrialized countries, abrasion-related wear is estimated to cause annual economic losses ranging from 1% to 3% of gross domestic product, primarily due to equipment downtime, replacement costs, and energy inefficiencies. These losses are significantly influenced by the type of material, operating conditions, and lubrication effectiveness in mechanical systems such as bearings, gears, and conveyors.",
+        "truncated": false,
+        "seconds": 2.0410483721643686,
+        "ok": true
+      },
+      {
+        "query": "Welche Zusatzaufgabe hat der Ölfilm zwischen Kolben und Zylinderwand im Verbrennungsmotor außer dem Schmieren?",
+        "translation": "What additional functions does the oil film between the piston and cylinder wall in an internal combustion engine serve besides lubrication?",
+        "raw": "In addition to lubrication, the oil film between the piston and cylinder wall serves as a thermal barrier, reducing heat transfer from the combustion chamber to the engine block and improving thermal efficiency. It also prevents direct metal-to-metal contact, minimizing wear and maintaining dimensional stability under high thermal and mechanical loads.",
+        "truncated": false,
+        "seconds": 1.5947583350352943,
+        "ok": true
+      },
+      {
+        "query": "Wer baute um 1500 als Erster Kugellager in einen Entwurf für ein Fluggerät ein?",
+        "translation": "Who first incorporated a ball bearing into a design for an aircraft around 1500?",
+        "raw": "No known engineering or historical record indicates that any device resembling a flight vehicle was designed or constructed around 1500, let alone incorporating ball bearings in such a design. Ball bearings were not developed until the 18th century, with significant advancements by inventors like James Nasmyth and later in the 19th century by engineers such as Joseph Bramah and later in the industrial era by companies like SKF. Therefore, no individual from around 1500 can be credited with integrating ball bearings into a flight device design.",
+        "truncated": false,
+        "seconds": 2.9689500599633902,
+        "ok": true
+      },
+      {
+        "query": "Wie nennt man den Spannungsbereich, den ein Bauteil ohne Rücksicht auf die Zahl der Lastwechsel dauerhaft aushält?",
+        "translation": "What is the stress range a component can endure indefinitely, regardless of the number of load cycles?",
+        "raw": "The stress range a component can endure indefinitely without failure, regardless of the number of load cycles, is known as the fatigue limit or endurance limit. This value is typically determined through standardized fatigue testing and is critical in the design of components subjected to cyclic loading.",
+        "truncated": false,
+        "seconds": 1.3794816790614277,
+        "ok": true
+      },
+      {
+        "query": "Wie viel Prozent der weltweit eingesetzten Energie gehen in Transport, Fertigung, Stromerzeugung und Wohnsektor durch Reibung und Verschleiß verloren?",
+        "translation": "What percentage of the world's consumed energy is lost through friction and wear in transport, manufacturing, power generation, and the residential sector?",
+        "raw": "Approximately 10% to 15% of the world's primary energy is lost globally through friction and wear in transport, manufacturing, power generation, and residential sectors, with significant contributions from mechanical systems such as bearings, gears, and sliding interfaces. These losses are primarily due to inefficient energy conversion and inadequate lubrication, leading to increased operational temperatures and reduced system efficiency.",
+        "truncated": false,
+        "seconds": 2.0370232469867915,
+        "ok": true
+      },
+      {
+        "query": "Wie verändert sich der Verschleiß bei gleitender Reibung, wenn man die Gleitstrecke und die Härte des Werkstoffs jeweils verdoppelt?",
+        "translation": "How does wear change in sliding friction when both the sliding distance and the material hardness are doubled?",
+        "raw": "In gliding friction, increasing the sliding distance generally leads to a higher cumulative wear due to prolonged contact and surface interaction, while doubling the material hardness typically reduces wear by improving surface resistance to deformation and abrasion. However, the overall wear rate is not simply proportional to either parameter; it depends on the interplay between load, velocity, temperature, and the material's tribological properties, such as wear resistance and adhesion. Thus, while increased hardness tends to suppress wear, extended sliding distance may offset this benefit through increased frictional heating and surface fatigue.",
+        "truncated": false,
+        "seconds": 2.976324139162898,
+        "ok": true
+      },
+      {
+        "query": "Wie heißt der Abschnitt einer Welle, der im Lager gestützt wird?",
+        "translation": "What is the section of a shaft that is supported in the bearing?",
+        "raw": "The section of a shaft that is supported within a bearing is known as the shaft journal. It is the cylindrical portion in direct contact with the bearing surfaces and is critical for load transmission and rotational stability.",
+        "truncated": false,
+        "seconds": 1.0817214609123766,
+        "ok": true
+      },
+      {
+        "query": "Wovon hängt die Dichtwirkung bei Dichtmassen im Unterschied zu Flachdichtungen ab?",
+        "translation": "What determines the sealing effectiveness of sealing elements compared to flat seals?",
+        "raw": "The sealing effectiveness of radial (cylindrical) seals depends primarily on the contact pressure, surface finish, material elasticity, and the fit between the seal and the shaft or housing, whereas flat seals rely more on the uniformity of the sealing surface, the preload, and the compatibility of the sealing material with the operating conditions. Radial seals are also influenced by the dynamic loading and the presence of lubricant, which affects the film formation and wear resistance.",
+        "truncated": false,
+        "seconds": 2.4664583508856595,
+        "ok": true
+      },
+      {
+        "query": "Welchen Belastungen muss eine Antriebswelle standhalten?",
+        "translation": "What loads must a drive shaft withstand?",
+        "raw": "Antriebswellen müssen mechanische Belastungen wie Drehmoment, Biegekräfte, Schubkräfte und Schwingungen standhalten, wobei die Materialfestigkeit, die Tragfähigkeit und die Widerstandsfähigkeit gegen Verschleiß entscheidend sind. Zusätzlich müssen sie gegen Scher- und Druckbelastungen, insbesondere bei Hochdrehzahlen und variierenden Lasten, ausgelegt sein, um eine stabile und langlebige Leistung zu gewährleisten.",
+        "truncated": false,
+        "seconds": 3.049967585131526,
+        "ok": true
+      },
+      {
+        "query": "Warum nimmt man Fett statt Öl für Stellen, an denen man selten nachschmieren kann?",
+        "translation": "Why is grease used instead of oil for locations where lubrication cannot be easily replenished?",
+        "raw": "Fett wird bei Stellen mit geringer oder fehlender Zugänglichkeit bevorzugt, da es eine höhere Dauerhaftigkeit und eine bessere Schmierstoffbindung an die Bauteiloberfläche bietet. Im Gegensatz zu Öl, das durch Druck oder Schwerkraft aus dem System abfließen kann, bleibt Fett durch seine viskose Struktur in den Schmierlücken und verhindert so Verschleiß und Reibung. Dies macht es besonders geeignet für Anwendungen mit eingeschränktem Zugriff oder langfristiger Betriebssicherheit.",
+        "truncated": false,
+        "seconds": 3.5944327991455793,
+        "ok": true
+      }
+    ]
+  }
+}

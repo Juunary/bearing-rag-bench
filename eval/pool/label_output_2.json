@@ -1,0 +1,682 @@
+[
+ {
+  "id": "p0002",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0010",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0018",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0026",
+  "label": 2,
+  "evidence": "V=K W L/Hv: load, sliding distance, hardness stated"
+ },
+ {
+  "id": "p0034",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0042",
+  "label": 2,
+  "evidence": "지지되는 축부를 저널이라고 한다"
+ },
+ {
+  "id": "p0050",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0058",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0066",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0074",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0082",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0090",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0098",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0106",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0114",
+  "label": 1,
+  "evidence": "dauerfest: theoretisch unbegrenzt viele Zyklen ertragen"
+ },
+ {
+  "id": "p0122",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0130",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0138",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0146",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0154",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0162",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0170",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0178",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0186",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0194",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0202",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0210",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0218",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0226",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0234",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0242",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0250",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0258",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0266",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0274",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0282",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0290",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0298",
+  "label": 1,
+  "evidence": "Höpflinger entwickelte Kugelschleifmaschine weiter; year not in chunk"
+ },
+ {
+  "id": "p0306",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0314",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0322",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0330",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0338",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0346",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0354",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0362",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0370",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0378",
+  "label": 2,
+  "evidence": "Peening creates compressive residual stress; shot, laser peening"
+ },
+ {
+  "id": "p0386",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0394",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0402",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0410",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0418",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0426",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0434",
+  "label": 1,
+  "evidence": "Dry and boundary conditions at startup and shutdown"
+ },
+ {
+  "id": "p0442",
+  "label": 2,
+  "evidence": "유체베어링 소음 적고 수명 길지만 저온, 기름 유출 시 회전 불가"
+ },
+ {
+  "id": "p0450",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0458",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0466",
+  "label": 1,
+  "evidence": "Bei Loslagern gewährt man dem Außenring ein Längsspiel"
+ },
+ {
+  "id": "p0474",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0482",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0490",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0498",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0506",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0514",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0522",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0530",
+  "label": 2,
+  "evidence": "Beim Anfahren ... Gleitreibung ist zuerst Mischreibung"
+ },
+ {
+  "id": "p0538",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0546",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0554",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0562",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0570",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0578",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0586",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0594",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0602",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0610",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0618",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0626",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0634",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0642",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0650",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0658",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0666",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0674",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0682",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0690",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0698",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0706",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0714",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0722",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0730",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0738",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0746",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0754",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0762",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0770",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0778",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0786",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0794",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0802",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0810",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0818",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0826",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0834",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0842",
+  "label": 2,
+  "evidence": "garter spring; sprung main sealing lip"
+ },
+ {
+  "id": "p0850",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0858",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0866",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0874",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0882",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0890",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0898",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0906",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0914",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0922",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0930",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0938",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0946",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0954",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0962",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0970",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0978",
+  "label": 1,
+  "evidence": "mix or boundary: load carried partly by surface contact"
+ },
+ {
+  "id": "p0986",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0994",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1002",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1010",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1018",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1026",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1034",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1042",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1050",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1058",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1066",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1074",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1082",
+  "label": 0,
+  "evidence": ""
+ }
+]

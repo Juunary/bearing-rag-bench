@@ -1,0 +1,5462 @@
+{
+ "configs": [
+  "v2_b_bm25_en",
+  "v2_b_bm25_kiwi",
+  "v2_b_bm25_subword",
+  "v2_b_bm25_whitespace",
+  "v2_b_dense",
+  "v2_b_rrf",
+  "v2_b_rrf_en",
+  "v2_b_rrf_en_rerank",
+  "v2_b_rrf_rerank",
+  "v2_x11_bm25_en_skip",
+  "v2_x1_rrf3",
+  "v2_x1_rrf3_rerank",
+  "v2_x2_orig_rerank_n100",
+  "v2_x2_rerank_en_text",
+  "v2_x2_rerank_n100",
+  "v2_x2_rerank_n50",
+  "v2_x3_bm25_en_gl",
+  "v2_x3_rrf_en_rerank_gl",
+  "v2_x4_bm25_en_stem",
+  "v2_x4_bm25_en_stem_stop",
+  "v2_x5_bm25_en_hyde",
+  "v2_x5_bm25_en_multi",
+  "v2_x6_bm25_kiwi_ctx",
+  "v2_x6_dense_ctx",
+  "v2_x6_rrf_rerank_ctx"
+ ],
+ "depth": 3,
+ "items": {
+  "p0000": {
+   "qid": "q066",
+   "chunk_id": "en_ball_bearing#12",
+   "control": null
+  },
+  "p0001": {
+   "qid": "q067",
+   "chunk_id": "en_bearing_mechanical#3",
+   "control": null
+  },
+  "p0002": {
+   "qid": "q087",
+   "chunk_id": "ko_ball_bearing#6",
+   "control": null
+  },
+  "p0003": {
+   "qid": "q051",
+   "chunk_id": "en_lubrication#0",
+   "control": null
+  },
+  "p0004": {
+   "qid": "q047",
+   "chunk_id": "de_tribologie#4",
+   "control": null
+  },
+  "p0005": {
+   "qid": "q037",
+   "chunk_id": "en_bearing_mechanical#13",
+   "control": null
+  },
+  "p0006": {
+   "qid": "q023",
+   "chunk_id": "en_bearing_mechanical#5",
+   "control": null
+  },
+  "p0007": {
+   "qid": "q001",
+   "chunk_id": "en_bearing_mechanical#2",
+   "control": null
+  },
+  "p0008": {
+   "qid": "q079",
+   "chunk_id": "en_plain_bearing#5",
+   "control": null
+  },
+  "p0009": {
+   "qid": "q008",
+   "chunk_id": "ko_linear_motion_bearing#0",
+   "control": null
+  },
+  "p0010": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#28",
+   "control": null
+  },
+  "p0011": {
+   "qid": "q052",
+   "chunk_id": "de_wellendichtring#2",
+   "control": null
+  },
+  "p0012": {
+   "qid": "q073",
+   "chunk_id": "en_plain_bearing#11",
+   "control": null
+  },
+  "p0013": {
+   "qid": "q082",
+   "chunk_id": "de_hydrodynamisches_gleitlager#5",
+   "control": null
+  },
+  "p0014": {
+   "qid": "q082",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0015": {
+   "qid": "q079",
+   "chunk_id": "de_waelzlager#3",
+   "control": null
+  },
+  "p0016": {
+   "qid": "q078",
+   "chunk_id": "de_schmierfett#15",
+   "control": null
+  },
+  "p0017": {
+   "qid": "q087",
+   "chunk_id": "de_lager_maschinenelement#5",
+   "control": null
+  },
+  "p0018": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0019": {
+   "qid": "q038",
+   "chunk_id": "de_schmierfett#6",
+   "control": null
+  },
+  "p0020": {
+   "qid": "q070",
+   "chunk_id": "en_tribology#3",
+   "control": null
+  },
+  "p0021": {
+   "qid": "q050",
+   "chunk_id": "de_dichtung_technik#0",
+   "control": null
+  },
+  "p0022": {
+   "qid": "q065",
+   "chunk_id": "en_ball_bearing#6",
+   "control": null
+  },
+  "p0023": {
+   "qid": "q049",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0024": {
+   "qid": "q073",
+   "chunk_id": "en_plain_bearing#10",
+   "control": null
+  },
+  "p0025": {
+   "qid": "q008",
+   "chunk_id": "en_plain_bearing#6",
+   "control": null
+  },
+  "p0026": {
+   "qid": "q057",
+   "chunk_id": "en_wear#2",
+   "control": null
+  },
+  "p0027": {
+   "qid": "q029",
+   "chunk_id": "en_ball_bearing#5",
+   "control": null
+  },
+  "p0028": {
+   "qid": "q022",
+   "chunk_id": "en_wear#8",
+   "control": null
+  },
+  "p0029": {
+   "qid": "q089",
+   "chunk_id": "de_lager_maschinenelement#2",
+   "control": null
+  },
+  "p0030": {
+   "qid": "q052",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0031": {
+   "qid": "q071",
+   "chunk_id": "en_wear#2",
+   "control": null
+  },
+  "p0032": {
+   "qid": "q030",
+   "chunk_id": "de_hydrodynamisches_gleitlager#0",
+   "control": null
+  },
+  "p0033": {
+   "qid": "q014",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0034": {
+   "qid": "q062",
+   "chunk_id": "en_fatigue_material#5",
+   "control": null
+  },
+  "p0035": {
+   "qid": "q055",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0036": {
+   "qid": "q001",
+   "chunk_id": "en_tapered_roller_bearing#1",
+   "control": null
+  },
+  "p0037": {
+   "qid": "q004",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0038": {
+   "qid": "q046",
+   "chunk_id": "en_fatigue_material#20",
+   "control": null
+  },
+  "p0039": {
+   "qid": "q005",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0040": {
+   "qid": "q048",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0041": {
+   "qid": "q079",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0042": {
+   "qid": "q087",
+   "chunk_id": "ko_shaft#0",
+   "control": "gold"
+  },
+  "p0043": {
+   "qid": "q055",
+   "chunk_id": "en_ball_bearing#7",
+   "control": null
+  },
+  "p0044": {
+   "qid": "q067",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p0045": {
+   "qid": "q017",
+   "chunk_id": "de_waelzlager#16",
+   "control": null
+  },
+  "p0046": {
+   "qid": "q033",
+   "chunk_id": "de_wellendichtring#1",
+   "control": null
+  },
+  "p0047": {
+   "qid": "q016",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0048": {
+   "qid": "q058",
+   "chunk_id": "de_dichtung_technik#3",
+   "control": null
+  },
+  "p0049": {
+   "qid": "q003",
+   "chunk_id": "en_cv_joint#4",
+   "control": null
+  },
+  "p0050": {
+   "qid": "q087",
+   "chunk_id": "de_lager_maschinenelement#1",
+   "control": null
+  },
+  "p0051": {
+   "qid": "q020",
+   "chunk_id": "en_ball_bearing#5",
+   "control": "random"
+  },
+  "p0052": {
+   "qid": "q007",
+   "chunk_id": "en_ball_bearing#14",
+   "control": null
+  },
+  "p0053": {
+   "qid": "q006",
+   "chunk_id": "ko_bearing#1",
+   "control": null
+  },
+  "p0054": {
+   "qid": "q030",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0055": {
+   "qid": "q056",
+   "chunk_id": "ko_ball_bearing#1",
+   "control": null
+  },
+  "p0056": {
+   "qid": "q066",
+   "chunk_id": "en_radial_shaft_seal#0",
+   "control": null
+  },
+  "p0057": {
+   "qid": "q088",
+   "chunk_id": "de_wellendichtring#1",
+   "control": null
+  },
+  "p0058": {
+   "qid": "q027",
+   "chunk_id": "en_plain_bearing#9",
+   "control": null
+  },
+  "p0059": {
+   "qid": "q011",
+   "chunk_id": "en_rolling_element_bearing#4",
+   "control": null
+  },
+  "p0060": {
+   "qid": "q052",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0061": {
+   "qid": "q023",
+   "chunk_id": "en_rolling_element_bearing#3",
+   "control": null
+  },
+  "p0062": {
+   "qid": "q038",
+   "chunk_id": "en_tribology#9",
+   "control": null
+  },
+  "p0063": {
+   "qid": "q010",
+   "chunk_id": "en_bearing_mechanical#15",
+   "control": null
+  },
+  "p0064": {
+   "qid": "q041",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0065": {
+   "qid": "q029",
+   "chunk_id": "en_ball_bearing#16",
+   "control": null
+  },
+  "p0066": {
+   "qid": "q047",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0067": {
+   "qid": "q086",
+   "chunk_id": "en_tribology#28",
+   "control": null
+  },
+  "p0068": {
+   "qid": "q076",
+   "chunk_id": "en_tribology#25",
+   "control": null
+  },
+  "p0069": {
+   "qid": "q060",
+   "chunk_id": "de_lager_maschinenelement#2",
+   "control": null
+  },
+  "p0070": {
+   "qid": "q030",
+   "chunk_id": "en_plain_bearing#11",
+   "control": null
+  },
+  "p0071": {
+   "qid": "q015",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p0072": {
+   "qid": "q007",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0073": {
+   "qid": "q001",
+   "chunk_id": "de_waelzlager#2",
+   "control": "gold"
+  },
+  "p0074": {
+   "qid": "q040",
+   "chunk_id": "en_brinelling#1",
+   "control": null
+  },
+  "p0075": {
+   "qid": "q088",
+   "chunk_id": "de_dichtung_technik#1",
+   "control": null
+  },
+  "p0076": {
+   "qid": "q003",
+   "chunk_id": "en_tribology#9",
+   "control": null
+  },
+  "p0077": {
+   "qid": "q004",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0078": {
+   "qid": "q030",
+   "chunk_id": "en_bearing_mechanical#7",
+   "control": null
+  },
+  "p0079": {
+   "qid": "q048",
+   "chunk_id": "en_radial_shaft_seal#1",
+   "control": null
+  },
+  "p0080": {
+   "qid": "q002",
+   "chunk_id": "en_plain_bearing#5",
+   "control": null
+  },
+  "p0081": {
+   "qid": "q072",
+   "chunk_id": "en_fatigue_material#11",
+   "control": null
+  },
+  "p0082": {
+   "qid": "q073",
+   "chunk_id": "en_plain_bearing#4",
+   "control": null
+  },
+  "p0083": {
+   "qid": "q025",
+   "chunk_id": "de_homokinetisches_gelenk#1",
+   "control": null
+  },
+  "p0084": {
+   "qid": "q036",
+   "chunk_id": "de_hydrodynamisches_gleitlager#4",
+   "control": null
+  },
+  "p0085": {
+   "qid": "q073",
+   "chunk_id": "en_bearing_mechanical#6",
+   "control": null
+  },
+  "p0086": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#20",
+   "control": null
+  },
+  "p0087": {
+   "qid": "q061",
+   "chunk_id": "en_rolling_element_bearing#11",
+   "control": null
+  },
+  "p0088": {
+   "qid": "q049",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0089": {
+   "qid": "q014",
+   "chunk_id": "en_brinelling#2",
+   "control": null
+  },
+  "p0090": {
+   "qid": "q045",
+   "chunk_id": "de_schmierfett#15",
+   "control": null
+  },
+  "p0091": {
+   "qid": "q065",
+   "chunk_id": "en_needle_roller_bearing#0",
+   "control": null
+  },
+  "p0092": {
+   "qid": "q047",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0093": {
+   "qid": "q014",
+   "chunk_id": "ko_lubricant#2",
+   "control": null
+  },
+  "p0094": {
+   "qid": "q090",
+   "chunk_id": "de_schmierfett#0",
+   "control": null
+  },
+  "p0095": {
+   "qid": "q064",
+   "chunk_id": "de_schmierung#1",
+   "control": null
+  },
+  "p0096": {
+   "qid": "q078",
+   "chunk_id": "de_dichtung_technik#2",
+   "control": null
+  },
+  "p0097": {
+   "qid": "q002",
+   "chunk_id": "en_rolling_element_bearing#6",
+   "control": null
+  },
+  "p0098": {
+   "qid": "q083",
+   "chunk_id": "en_ball_bearing#0",
+   "control": null
+  },
+  "p0099": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#16",
+   "control": null
+  },
+  "p0100": {
+   "qid": "q068",
+   "chunk_id": "de_waelzlager#7",
+   "control": null
+  },
+  "p0101": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#7",
+   "control": null
+  },
+  "p0102": {
+   "qid": "q026",
+   "chunk_id": "en_tapered_roller_bearing#0",
+   "control": null
+  },
+  "p0103": {
+   "qid": "q047",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0104": {
+   "qid": "q027",
+   "chunk_id": "de_waelzlager#7",
+   "control": null
+  },
+  "p0105": {
+   "qid": "q074",
+   "chunk_id": "en_grease#1",
+   "control": null
+  },
+  "p0106": {
+   "qid": "q048",
+   "chunk_id": "en_rolling_element_bearing#9",
+   "control": null
+  },
+  "p0107": {
+   "qid": "q087",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0108": {
+   "qid": "q060",
+   "chunk_id": "en_plain_bearing#3",
+   "control": null
+  },
+  "p0109": {
+   "qid": "q049",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0110": {
+   "qid": "q005",
+   "chunk_id": "de_waelzlager#20",
+   "control": null
+  },
+  "p0111": {
+   "qid": "q041",
+   "chunk_id": "de_waelzlager#18",
+   "control": null
+  },
+  "p0112": {
+   "qid": "q041",
+   "chunk_id": "en_cv_joint#3",
+   "control": null
+  },
+  "p0113": {
+   "qid": "q049",
+   "chunk_id": "en_fatigue_material#0",
+   "control": null
+  },
+  "p0114": {
+   "qid": "q072",
+   "chunk_id": "de_materialermuedung#0",
+   "control": null
+  },
+  "p0115": {
+   "qid": "q051",
+   "chunk_id": "ko_lubricant#0",
+   "control": null
+  },
+  "p0116": {
+   "qid": "q075",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0117": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#9",
+   "control": null
+  },
+  "p0118": {
+   "qid": "q090",
+   "chunk_id": "en_grease#5",
+   "control": null
+  },
+  "p0119": {
+   "qid": "q016",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": null
+  },
+  "p0120": {
+   "qid": "q037",
+   "chunk_id": "en_rolling_element_bearing#9",
+   "control": null
+  },
+  "p0121": {
+   "qid": "q006",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0122": {
+   "qid": "q052",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p0123": {
+   "qid": "q086",
+   "chunk_id": "de_verschleiss#0",
+   "control": null
+  },
+  "p0124": {
+   "qid": "q007",
+   "chunk_id": "ko_ball_bearing#19",
+   "control": null
+  },
+  "p0125": {
+   "qid": "q067",
+   "chunk_id": "en_tribology#25",
+   "control": null
+  },
+  "p0126": {
+   "qid": "q042",
+   "chunk_id": "de_gleitlager#5",
+   "control": null
+  },
+  "p0127": {
+   "qid": "q081",
+   "chunk_id": "en_tribology#24",
+   "control": null
+  },
+  "p0128": {
+   "qid": "q011",
+   "chunk_id": "en_tribology#10",
+   "control": null
+  },
+  "p0129": {
+   "qid": "q068",
+   "chunk_id": "en_ball_bearing#0",
+   "control": null
+  },
+  "p0130": {
+   "qid": "q016",
+   "chunk_id": "en_ball_bearing#11",
+   "control": null
+  },
+  "p0131": {
+   "qid": "q053",
+   "chunk_id": "de_wellendichtring#1",
+   "control": null
+  },
+  "p0132": {
+   "qid": "q026",
+   "chunk_id": "de_waelzlager#11",
+   "control": null
+  },
+  "p0133": {
+   "qid": "q079",
+   "chunk_id": "de_waelzlager#23",
+   "control": null
+  },
+  "p0134": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#14",
+   "control": null
+  },
+  "p0135": {
+   "qid": "q038",
+   "chunk_id": "de_lager_maschinenelement#7",
+   "control": null
+  },
+  "p0136": {
+   "qid": "q073",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0137": {
+   "qid": "q075",
+   "chunk_id": "en_cv_joint#0",
+   "control": null
+  },
+  "p0138": {
+   "qid": "q048",
+   "chunk_id": "en_tribology#0",
+   "control": null
+  },
+  "p0139": {
+   "qid": "q008",
+   "chunk_id": "de_waelzlager#11",
+   "control": null
+  },
+  "p0140": {
+   "qid": "q005",
+   "chunk_id": "de_waelzlager#7",
+   "control": null
+  },
+  "p0141": {
+   "qid": "q009",
+   "chunk_id": "ko_grease#0",
+   "control": null
+  },
+  "p0142": {
+   "qid": "q051",
+   "chunk_id": "ko_lubricant#2",
+   "control": null
+  },
+  "p0143": {
+   "qid": "q075",
+   "chunk_id": "en_fatigue_material#20",
+   "control": null
+  },
+  "p0144": {
+   "qid": "q001",
+   "chunk_id": "ko_ball_bearing#1",
+   "control": null
+  },
+  "p0145": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#15",
+   "control": null
+  },
+  "p0146": {
+   "qid": "q054",
+   "chunk_id": "de_waelzlager#12",
+   "control": null
+  },
+  "p0147": {
+   "qid": "q018",
+   "chunk_id": "en_plain_bearing#3",
+   "control": null
+  },
+  "p0148": {
+   "qid": "q018",
+   "chunk_id": "en_brinelling#0",
+   "control": null
+  },
+  "p0149": {
+   "qid": "q013",
+   "chunk_id": "en_wear#7",
+   "control": null
+  },
+  "p0150": {
+   "qid": "q052",
+   "chunk_id": "en_ball_bearing#12",
+   "control": null
+  },
+  "p0151": {
+   "qid": "q001",
+   "chunk_id": "en_bearing_mechanical#3",
+   "control": null
+  },
+  "p0152": {
+   "qid": "q005",
+   "chunk_id": "ko_ball_bearing#1",
+   "control": null
+  },
+  "p0153": {
+   "qid": "q011",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0154": {
+   "qid": "q060",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0155": {
+   "qid": "q044",
+   "chunk_id": "de_schmierfett#8",
+   "control": null
+  },
+  "p0156": {
+   "qid": "q029",
+   "chunk_id": "ko_ball_bearing#5",
+   "control": null
+  },
+  "p0157": {
+   "qid": "q050",
+   "chunk_id": "ko_ball_bearing#6",
+   "control": null
+  },
+  "p0158": {
+   "qid": "q044",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0159": {
+   "qid": "q083",
+   "chunk_id": "en_rolling_element_bearing#2",
+   "control": null
+  },
+  "p0160": {
+   "qid": "q036",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0161": {
+   "qid": "q042",
+   "chunk_id": "de_gleitlager#1",
+   "control": null
+  },
+  "p0162": {
+   "qid": "q001",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p0163": {
+   "qid": "q013",
+   "chunk_id": "en_wear#2",
+   "control": "gold"
+  },
+  "p0164": {
+   "qid": "q032",
+   "chunk_id": "en_plain_bearing#10",
+   "control": null
+  },
+  "p0165": {
+   "qid": "q085",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0166": {
+   "qid": "q058",
+   "chunk_id": "ko_seal#1",
+   "control": null
+  },
+  "p0167": {
+   "qid": "q038",
+   "chunk_id": "de_gleitlager#1",
+   "control": null
+  },
+  "p0168": {
+   "qid": "q002",
+   "chunk_id": "en_tribology#17",
+   "control": null
+  },
+  "p0169": {
+   "qid": "q056",
+   "chunk_id": "en_rolling_element_bearing#2",
+   "control": null
+  },
+  "p0170": {
+   "qid": "q006",
+   "chunk_id": "ko_ball_bearing#4",
+   "control": null
+  },
+  "p0171": {
+   "qid": "q011",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0172": {
+   "qid": "q074",
+   "chunk_id": "de_schmierfett#5",
+   "control": null
+  },
+  "p0173": {
+   "qid": "q037",
+   "chunk_id": "de_lager_maschinenelement#7",
+   "control": null
+  },
+  "p0174": {
+   "qid": "q005",
+   "chunk_id": "de_waelzlager#26",
+   "control": null
+  },
+  "p0175": {
+   "qid": "q020",
+   "chunk_id": "en_grease#3",
+   "control": null
+  },
+  "p0176": {
+   "qid": "q042",
+   "chunk_id": "en_fatigue_material#16",
+   "control": null
+  },
+  "p0177": {
+   "qid": "q017",
+   "chunk_id": "de_waelzlager#13",
+   "control": null
+  },
+  "p0178": {
+   "qid": "q062",
+   "chunk_id": "en_fatigue_material#15",
+   "control": null
+  },
+  "p0179": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0180": {
+   "qid": "q006",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0181": {
+   "qid": "q089",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0182": {
+   "qid": "q048",
+   "chunk_id": "de_materialermuedung#0",
+   "control": null
+  },
+  "p0183": {
+   "qid": "q037",
+   "chunk_id": "de_gleitlager#7",
+   "control": null
+  },
+  "p0184": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#9",
+   "control": null
+  },
+  "p0185": {
+   "qid": "q060",
+   "chunk_id": "ko_ball_bearing#5",
+   "control": null
+  },
+  "p0186": {
+   "qid": "q087",
+   "chunk_id": "de_hydrodynamisches_gleitlager#1",
+   "control": null
+  },
+  "p0187": {
+   "qid": "q045",
+   "chunk_id": "en_grease#6",
+   "control": null
+  },
+  "p0188": {
+   "qid": "q004",
+   "chunk_id": "en_bearing_mechanical#1",
+   "control": "random"
+  },
+  "p0189": {
+   "qid": "q084",
+   "chunk_id": "de_materialermuedung#2",
+   "control": null
+  },
+  "p0190": {
+   "qid": "q052",
+   "chunk_id": "en_radial_shaft_seal#0",
+   "control": null
+  },
+  "p0191": {
+   "qid": "q053",
+   "chunk_id": "ko_ball_bearing#5",
+   "control": null
+  },
+  "p0192": {
+   "qid": "q046",
+   "chunk_id": "en_tribology#3",
+   "control": null
+  },
+  "p0193": {
+   "qid": "q087",
+   "chunk_id": "de_lager_maschinenelement#0",
+   "control": null
+  },
+  "p0194": {
+   "qid": "q052",
+   "chunk_id": "en_tribology#22",
+   "control": null
+  },
+  "p0195": {
+   "qid": "q089",
+   "chunk_id": "de_waelzlager#14",
+   "control": null
+  },
+  "p0196": {
+   "qid": "q044",
+   "chunk_id": "de_schmierfett#18",
+   "control": null
+  },
+  "p0197": {
+   "qid": "q016",
+   "chunk_id": "en_bearing_mechanical#9",
+   "control": null
+  },
+  "p0198": {
+   "qid": "q030",
+   "chunk_id": "de_schmierfett#2",
+   "control": "random"
+  },
+  "p0199": {
+   "qid": "q046",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p0200": {
+   "qid": "q052",
+   "chunk_id": "en_grease#0",
+   "control": null
+  },
+  "p0201": {
+   "qid": "q009",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0202": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#26",
+   "control": null
+  },
+  "p0203": {
+   "qid": "q046",
+   "chunk_id": "en_tribology#11",
+   "control": null
+  },
+  "p0204": {
+   "qid": "q003",
+   "chunk_id": "de_waelzlager#5",
+   "control": null
+  },
+  "p0205": {
+   "qid": "q004",
+   "chunk_id": "ko_bearing#1",
+   "control": null
+  },
+  "p0206": {
+   "qid": "q053",
+   "chunk_id": "ko_seal#1",
+   "control": null
+  },
+  "p0207": {
+   "qid": "q009",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0208": {
+   "qid": "q011",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p0209": {
+   "qid": "q002",
+   "chunk_id": "en_plain_bearing#4",
+   "control": null
+  },
+  "p0210": {
+   "qid": "q081",
+   "chunk_id": "en_tribology#23",
+   "control": null
+  },
+  "p0211": {
+   "qid": "q045",
+   "chunk_id": "de_schmierfett#1",
+   "control": null
+  },
+  "p0212": {
+   "qid": "q021",
+   "chunk_id": "de_waelzlager#31",
+   "control": null
+  },
+  "p0213": {
+   "qid": "q011",
+   "chunk_id": "en_cv_joint#1",
+   "control": null
+  },
+  "p0214": {
+   "qid": "q030",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p0215": {
+   "qid": "q011",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0216": {
+   "qid": "q073",
+   "chunk_id": "en_tapered_roller_bearing#3",
+   "control": null
+  },
+  "p0217": {
+   "qid": "q022",
+   "chunk_id": "de_materialermuedung#0",
+   "control": null
+  },
+  "p0218": {
+   "qid": "q014",
+   "chunk_id": "en_fretting#0",
+   "control": null
+  },
+  "p0219": {
+   "qid": "q076",
+   "chunk_id": "de_hertzsche_pressung#1",
+   "control": null
+  },
+  "p0220": {
+   "qid": "q050",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0221": {
+   "qid": "q011",
+   "chunk_id": "de_homokinetisches_gelenk#2",
+   "control": null
+  },
+  "p0222": {
+   "qid": "q013",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0223": {
+   "qid": "q089",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0224": {
+   "qid": "q044",
+   "chunk_id": "ko_lubricant#1",
+   "control": "gold"
+  },
+  "p0225": {
+   "qid": "q015",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0226": {
+   "qid": "q078",
+   "chunk_id": "de_schmierfett#13",
+   "control": null
+  },
+  "p0227": {
+   "qid": "q013",
+   "chunk_id": "ko_tribology#0",
+   "control": null
+  },
+  "p0228": {
+   "qid": "q008",
+   "chunk_id": "de_nadellager#0",
+   "control": null
+  },
+  "p0229": {
+   "qid": "q076",
+   "chunk_id": "de_dichtung_technik#0",
+   "control": null
+  },
+  "p0230": {
+   "qid": "q048",
+   "chunk_id": "de_schmierfett#10",
+   "control": null
+  },
+  "p0231": {
+   "qid": "q013",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p0232": {
+   "qid": "q003",
+   "chunk_id": "en_ball_bearing#11",
+   "control": null
+  },
+  "p0233": {
+   "qid": "q045",
+   "chunk_id": "de_schmierfett#2",
+   "control": null
+  },
+  "p0234": {
+   "qid": "q089",
+   "chunk_id": "en_ball_bearing#14",
+   "control": null
+  },
+  "p0235": {
+   "qid": "q014",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0236": {
+   "qid": "q039",
+   "chunk_id": "de_gleitlager#2",
+   "control": null
+  },
+  "p0237": {
+   "qid": "q035",
+   "chunk_id": "en_bearing_mechanical#17",
+   "control": null
+  },
+  "p0238": {
+   "qid": "q064",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0239": {
+   "qid": "q070",
+   "chunk_id": "en_wear#0",
+   "control": null
+  },
+  "p0240": {
+   "qid": "q066",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p0241": {
+   "qid": "q013",
+   "chunk_id": "en_tribology#24",
+   "control": null
+  },
+  "p0242": {
+   "qid": "q014",
+   "chunk_id": "en_tribology#9",
+   "control": null
+  },
+  "p0243": {
+   "qid": "q005",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0244": {
+   "qid": "q066",
+   "chunk_id": "de_dichtung_technik#0",
+   "control": null
+  },
+  "p0245": {
+   "qid": "q085",
+   "chunk_id": "de_verschleiss#2",
+   "control": null
+  },
+  "p0246": {
+   "qid": "q013",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0247": {
+   "qid": "q034",
+   "chunk_id": "de_gleitlager#9",
+   "control": null
+  },
+  "p0248": {
+   "qid": "q044",
+   "chunk_id": "de_schmierfett#17",
+   "control": null
+  },
+  "p0249": {
+   "qid": "q011",
+   "chunk_id": "en_cv_joint#3",
+   "control": null
+  },
+  "p0250": {
+   "qid": "q060",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0251": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0252": {
+   "qid": "q041",
+   "chunk_id": "en_cv_joint#4",
+   "control": null
+  },
+  "p0253": {
+   "qid": "q037",
+   "chunk_id": "de_materialermuedung#5",
+   "control": null
+  },
+  "p0254": {
+   "qid": "q047",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0255": {
+   "qid": "q038",
+   "chunk_id": "en_cv_joint#7",
+   "control": null
+  },
+  "p0256": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0257": {
+   "qid": "q033",
+   "chunk_id": "de_dichtung_technik#1",
+   "control": null
+  },
+  "p0258": {
+   "qid": "q004",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0259": {
+   "qid": "q051",
+   "chunk_id": "en_plain_bearing#9",
+   "control": null
+  },
+  "p0260": {
+   "qid": "q015",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0261": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#17",
+   "control": null
+  },
+  "p0262": {
+   "qid": "q081",
+   "chunk_id": "de_tribologie#1",
+   "control": null
+  },
+  "p0263": {
+   "qid": "q010",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0264": {
+   "qid": "q060",
+   "chunk_id": "de_lager_maschinenelement#1",
+   "control": null
+  },
+  "p0265": {
+   "qid": "q055",
+   "chunk_id": "en_ball_bearing#8",
+   "control": null
+  },
+  "p0266": {
+   "qid": "q058",
+   "chunk_id": "ko_grease#0",
+   "control": null
+  },
+  "p0267": {
+   "qid": "q068",
+   "chunk_id": "de_gleitlager#9",
+   "control": null
+  },
+  "p0268": {
+   "qid": "q041",
+   "chunk_id": "de_waelzlager#16",
+   "control": null
+  },
+  "p0269": {
+   "qid": "q055",
+   "chunk_id": "ko_ball_bearing#9",
+   "control": null
+  },
+  "p0270": {
+   "qid": "q068",
+   "chunk_id": "en_ball_bearing#1",
+   "control": null
+  },
+  "p0271": {
+   "qid": "q058",
+   "chunk_id": "de_dichtung_technik#1",
+   "control": null
+  },
+  "p0272": {
+   "qid": "q082",
+   "chunk_id": "de_homokinetisches_gelenk#3",
+   "control": null
+  },
+  "p0273": {
+   "qid": "q029",
+   "chunk_id": "de_waelzlager#31",
+   "control": "gold"
+  },
+  "p0274": {
+   "qid": "q050",
+   "chunk_id": "ko_seal#1",
+   "control": null
+  },
+  "p0275": {
+   "qid": "q010",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0276": {
+   "qid": "q015",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0277": {
+   "qid": "q002",
+   "chunk_id": "en_rolling_element_bearing#13",
+   "control": null
+  },
+  "p0278": {
+   "qid": "q068",
+   "chunk_id": "en_fretting#2",
+   "control": null
+  },
+  "p0279": {
+   "qid": "q032",
+   "chunk_id": "de_gleitlager#0",
+   "control": "gold"
+  },
+  "p0280": {
+   "qid": "q012",
+   "chunk_id": "en_ball_bearing#10",
+   "control": null
+  },
+  "p0281": {
+   "qid": "q086",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0282": {
+   "qid": "q018",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": null
+  },
+  "p0283": {
+   "qid": "q060",
+   "chunk_id": "en_tapered_roller_bearing#3",
+   "control": null
+  },
+  "p0284": {
+   "qid": "q049",
+   "chunk_id": "en_fatigue_material#1",
+   "control": null
+  },
+  "p0285": {
+   "qid": "q084",
+   "chunk_id": "de_verschleiss#2",
+   "control": null
+  },
+  "p0286": {
+   "qid": "q051",
+   "chunk_id": "de_gleitlager#5",
+   "control": null
+  },
+  "p0287": {
+   "qid": "q031",
+   "chunk_id": "de_lager_maschinenelement#6",
+   "control": null
+  },
+  "p0288": {
+   "qid": "q048",
+   "chunk_id": "ko_ball_bearing#9",
+   "control": null
+  },
+  "p0289": {
+   "qid": "q079",
+   "chunk_id": "de_waelzlager#0",
+   "control": null
+  },
+  "p0290": {
+   "qid": "q052",
+   "chunk_id": "de_wellendichtring#0",
+   "control": null
+  },
+  "p0291": {
+   "qid": "q001",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0292": {
+   "qid": "q060",
+   "chunk_id": "en_bearing_mechanical#12",
+   "control": null
+  },
+  "p0293": {
+   "qid": "q050",
+   "chunk_id": "en_seal_mechanical#0",
+   "control": null
+  },
+  "p0294": {
+   "qid": "q066",
+   "chunk_id": "en_tribology#20",
+   "control": null
+  },
+  "p0295": {
+   "qid": "q014",
+   "chunk_id": "ko_ball_bearing#9",
+   "control": null
+  },
+  "p0296": {
+   "qid": "q053",
+   "chunk_id": "en_bearing_mechanical#3",
+   "control": null
+  },
+  "p0297": {
+   "qid": "q061",
+   "chunk_id": "en_ball_bearing#16",
+   "control": null
+  },
+  "p0298": {
+   "qid": "q006",
+   "chunk_id": "de_waelzlager#3",
+   "control": null
+  },
+  "p0299": {
+   "qid": "q086",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0300": {
+   "qid": "q042",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0301": {
+   "qid": "q002",
+   "chunk_id": "de_waelzlager#6",
+   "control": null
+  },
+  "p0302": {
+   "qid": "q078",
+   "chunk_id": "de_schmierfett#4",
+   "control": null
+  },
+  "p0303": {
+   "qid": "q073",
+   "chunk_id": "de_lager_maschinenelement#7",
+   "control": null
+  },
+  "p0304": {
+   "qid": "q053",
+   "chunk_id": "ko_ball_bearing#4",
+   "control": null
+  },
+  "p0305": {
+   "qid": "q087",
+   "chunk_id": "de_waelzlager#0",
+   "control": null
+  },
+  "p0306": {
+   "qid": "q050",
+   "chunk_id": "de_waelzlager#28",
+   "control": null
+  },
+  "p0307": {
+   "qid": "q011",
+   "chunk_id": "ko_bearing#1",
+   "control": null
+  },
+  "p0308": {
+   "qid": "q065",
+   "chunk_id": "en_ball_bearing#2",
+   "control": null
+  },
+  "p0309": {
+   "qid": "q052",
+   "chunk_id": "ko_seal#1",
+   "control": null
+  },
+  "p0310": {
+   "qid": "q086",
+   "chunk_id": "de_gleitlager#2",
+   "control": null
+  },
+  "p0311": {
+   "qid": "q019",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0312": {
+   "qid": "q053",
+   "chunk_id": "en_bearing_mechanical#15",
+   "control": null
+  },
+  "p0313": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0314": {
+   "qid": "q049",
+   "chunk_id": "en_fatigue_material#21",
+   "control": null
+  },
+  "p0315": {
+   "qid": "q028",
+   "chunk_id": "en_plain_bearing#7",
+   "control": null
+  },
+  "p0316": {
+   "qid": "q023",
+   "chunk_id": "en_ball_bearing#4",
+   "control": null
+  },
+  "p0317": {
+   "qid": "q001",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0318": {
+   "qid": "q070",
+   "chunk_id": "en_tribology#2",
+   "control": null
+  },
+  "p0319": {
+   "qid": "q044",
+   "chunk_id": "ko_lubricant#1",
+   "control": "gold"
+  },
+  "p0320": {
+   "qid": "q067",
+   "chunk_id": "de_schmierfett#15",
+   "control": null
+  },
+  "p0321": {
+   "qid": "q001",
+   "chunk_id": "ko_bearing#1",
+   "control": null
+  },
+  "p0322": {
+   "qid": "q066",
+   "chunk_id": "en_seal_mechanical#1",
+   "control": null
+  },
+  "p0323": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0324": {
+   "qid": "q029",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0325": {
+   "qid": "q082",
+   "chunk_id": "en_plain_bearing#8",
+   "control": null
+  },
+  "p0326": {
+   "qid": "q042",
+   "chunk_id": "de_waelzlager#32",
+   "control": null
+  },
+  "p0327": {
+   "qid": "q076",
+   "chunk_id": "en_fatigue_material#12",
+   "control": null
+  },
+  "p0328": {
+   "qid": "q047",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0329": {
+   "qid": "q035",
+   "chunk_id": "en_grease#3",
+   "control": null
+  },
+  "p0330": {
+   "qid": "q073",
+   "chunk_id": "en_ball_bearing#14",
+   "control": null
+  },
+  "p0331": {
+   "qid": "q018",
+   "chunk_id": "en_plain_bearing#0",
+   "control": null
+  },
+  "p0332": {
+   "qid": "q052",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0333": {
+   "qid": "q039",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0334": {
+   "qid": "q036",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0335": {
+   "qid": "q076",
+   "chunk_id": "de_schmierfett#16",
+   "control": null
+  },
+  "p0336": {
+   "qid": "q012",
+   "chunk_id": "ko_lubricant#0",
+   "control": null
+  },
+  "p0337": {
+   "qid": "q052",
+   "chunk_id": "en_grease#3",
+   "control": null
+  },
+  "p0338": {
+   "qid": "q052",
+   "chunk_id": "en_grease#2",
+   "control": null
+  },
+  "p0339": {
+   "qid": "q088",
+   "chunk_id": "de_waelzlager#32",
+   "control": null
+  },
+  "p0340": {
+   "qid": "q015",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0341": {
+   "qid": "q048",
+   "chunk_id": "en_wear#8",
+   "control": null
+  },
+  "p0342": {
+   "qid": "q001",
+   "chunk_id": "de_gleitlager#1",
+   "control": null
+  },
+  "p0343": {
+   "qid": "q048",
+   "chunk_id": "ko_differential#0",
+   "control": null
+  },
+  "p0344": {
+   "qid": "q078",
+   "chunk_id": "de_waelzlager#7",
+   "control": null
+  },
+  "p0345": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0346": {
+   "qid": "q064",
+   "chunk_id": "en_wear#5",
+   "control": null
+  },
+  "p0347": {
+   "qid": "q083",
+   "chunk_id": "de_waelzlager#2",
+   "control": null
+  },
+  "p0348": {
+   "qid": "q054",
+   "chunk_id": "ko_ball_bearing#3",
+   "control": null
+  },
+  "p0349": {
+   "qid": "q019",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0350": {
+   "qid": "q079",
+   "chunk_id": "de_verschleiss#2",
+   "control": null
+  },
+  "p0351": {
+   "qid": "q037",
+   "chunk_id": "de_waelzlager#26",
+   "control": null
+  },
+  "p0352": {
+   "qid": "q004",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0353": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#8",
+   "control": null
+  },
+  "p0354": {
+   "qid": "q059",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0355": {
+   "qid": "q011",
+   "chunk_id": "en_wear#2",
+   "control": "random"
+  },
+  "p0356": {
+   "qid": "q047",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0357": {
+   "qid": "q068",
+   "chunk_id": "en_ball_bearing#7",
+   "control": null
+  },
+  "p0358": {
+   "qid": "q011",
+   "chunk_id": "ko_drive_shaft#0",
+   "control": null
+  },
+  "p0359": {
+   "qid": "q043",
+   "chunk_id": "en_radial_shaft_seal#1",
+   "control": null
+  },
+  "p0360": {
+   "qid": "q072",
+   "chunk_id": "en_fatigue_material#10",
+   "control": null
+  },
+  "p0361": {
+   "qid": "q025",
+   "chunk_id": "en_cv_joint#2",
+   "control": null
+  },
+  "p0362": {
+   "qid": "q081",
+   "chunk_id": "de_verschleiss#2",
+   "control": null
+  },
+  "p0363": {
+   "qid": "q061",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0364": {
+   "qid": "q053",
+   "chunk_id": "en_seal_mechanical#0",
+   "control": null
+  },
+  "p0365": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#4",
+   "control": null
+  },
+  "p0366": {
+   "qid": "q078",
+   "chunk_id": "de_schmierung#1",
+   "control": null
+  },
+  "p0367": {
+   "qid": "q038",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0368": {
+   "qid": "q088",
+   "chunk_id": "de_wellendichtring#3",
+   "control": null
+  },
+  "p0369": {
+   "qid": "q012",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0370": {
+   "qid": "q032",
+   "chunk_id": "de_lager_maschinenelement#4",
+   "control": null
+  },
+  "p0371": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#2",
+   "control": null
+  },
+  "p0372": {
+   "qid": "q013",
+   "chunk_id": "en_tribology#26",
+   "control": null
+  },
+  "p0373": {
+   "qid": "q027",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0374": {
+   "qid": "q021",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0375": {
+   "qid": "q028",
+   "chunk_id": "en_ball_bearing#1",
+   "control": null
+  },
+  "p0376": {
+   "qid": "q066",
+   "chunk_id": "en_radial_shaft_seal#1",
+   "control": null
+  },
+  "p0377": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#2",
+   "control": null
+  },
+  "p0378": {
+   "qid": "q064",
+   "chunk_id": "en_fatigue_material#19",
+   "control": null
+  },
+  "p0379": {
+   "qid": "q075",
+   "chunk_id": "en_bearing_mechanical#12",
+   "control": null
+  },
+  "p0380": {
+   "qid": "q015",
+   "chunk_id": "ko_differential#0",
+   "control": null
+  },
+  "p0381": {
+   "qid": "q025",
+   "chunk_id": "en_cv_joint#4",
+   "control": null
+  },
+  "p0382": {
+   "qid": "q036",
+   "chunk_id": "de_hydrodynamisches_gleitlager#3",
+   "control": null
+  },
+  "p0383": {
+   "qid": "q055",
+   "chunk_id": "ko_ball_bearing#19",
+   "control": null
+  },
+  "p0384": {
+   "qid": "q077",
+   "chunk_id": "de_waelzlager#2",
+   "control": null
+  },
+  "p0385": {
+   "qid": "q044",
+   "chunk_id": "en_grease#6",
+   "control": null
+  },
+  "p0386": {
+   "qid": "q029",
+   "chunk_id": "en_rolling_element_bearing#14",
+   "control": null
+  },
+  "p0387": {
+   "qid": "q079",
+   "chunk_id": "de_waelzlager#29",
+   "control": null
+  },
+  "p0388": {
+   "qid": "q005",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p0389": {
+   "qid": "q075",
+   "chunk_id": "en_needle_roller_bearing#0",
+   "control": null
+  },
+  "p0390": {
+   "qid": "q013",
+   "chunk_id": "en_fretting#0",
+   "control": null
+  },
+  "p0391": {
+   "qid": "q083",
+   "chunk_id": "en_ball_bearing#17",
+   "control": null
+  },
+  "p0392": {
+   "qid": "q071",
+   "chunk_id": "en_tribology#28",
+   "control": null
+  },
+  "p0393": {
+   "qid": "q010",
+   "chunk_id": "en_bearing_mechanical#10",
+   "control": null
+  },
+  "p0394": {
+   "qid": "q013",
+   "chunk_id": "en_wear#8",
+   "control": null
+  },
+  "p0395": {
+   "qid": "q039",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0396": {
+   "qid": "q086",
+   "chunk_id": "en_wear#4",
+   "control": null
+  },
+  "p0397": {
+   "qid": "q043",
+   "chunk_id": "de_wellendichtring#1",
+   "control": null
+  },
+  "p0398": {
+   "qid": "q075",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0399": {
+   "qid": "q049",
+   "chunk_id": "en_tribology#28",
+   "control": null
+  },
+  "p0400": {
+   "qid": "q018",
+   "chunk_id": "en_tapered_roller_bearing#2",
+   "control": null
+  },
+  "p0401": {
+   "qid": "q052",
+   "chunk_id": "de_waelzlager#28",
+   "control": null
+  },
+  "p0402": {
+   "qid": "q061",
+   "chunk_id": "en_ball_bearing#9",
+   "control": null
+  },
+  "p0403": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0404": {
+   "qid": "q012",
+   "chunk_id": "de_fressen_technik#0",
+   "control": null
+  },
+  "p0405": {
+   "qid": "q077",
+   "chunk_id": "ko_ball_bearing#4",
+   "control": null
+  },
+  "p0406": {
+   "qid": "q015",
+   "chunk_id": "en_cv_joint#0",
+   "control": null
+  },
+  "p0407": {
+   "qid": "q048",
+   "chunk_id": "en_tribology#24",
+   "control": null
+  },
+  "p0408": {
+   "qid": "q051",
+   "chunk_id": "ko_tribology#0",
+   "control": null
+  },
+  "p0409": {
+   "qid": "q014",
+   "chunk_id": "ko_lubricant#1",
+   "control": null
+  },
+  "p0410": {
+   "qid": "q041",
+   "chunk_id": "de_materialermuedung#0",
+   "control": null
+  },
+  "p0411": {
+   "qid": "q081",
+   "chunk_id": "en_wear#4",
+   "control": null
+  },
+  "p0412": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#12",
+   "control": null
+  },
+  "p0413": {
+   "qid": "q075",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0414": {
+   "qid": "q028",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0415": {
+   "qid": "q016",
+   "chunk_id": "en_rolling_element_bearing#0",
+   "control": null
+  },
+  "p0416": {
+   "qid": "q014",
+   "chunk_id": "en_tribology#8",
+   "control": null
+  },
+  "p0417": {
+   "qid": "q073",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0418": {
+   "qid": "q030",
+   "chunk_id": "de_gleitlager#7",
+   "control": null
+  },
+  "p0419": {
+   "qid": "q078",
+   "chunk_id": "de_schmierfett#12",
+   "control": null
+  },
+  "p0420": {
+   "qid": "q005",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0421": {
+   "qid": "q071",
+   "chunk_id": "en_tribology#1",
+   "control": null
+  },
+  "p0422": {
+   "qid": "q023",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0423": {
+   "qid": "q005",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": "gold"
+  },
+  "p0424": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#6",
+   "control": null
+  },
+  "p0425": {
+   "qid": "q064",
+   "chunk_id": "en_fatigue_material#20",
+   "control": null
+  },
+  "p0426": {
+   "qid": "q067",
+   "chunk_id": "en_rolling_element_bearing#13",
+   "control": null
+  },
+  "p0427": {
+   "qid": "q023",
+   "chunk_id": "en_rolling_element_bearing#14",
+   "control": null
+  },
+  "p0428": {
+   "qid": "q034",
+   "chunk_id": "de_lager_maschinenelement#0",
+   "control": null
+  },
+  "p0429": {
+   "qid": "q090",
+   "chunk_id": "en_grease#6",
+   "control": null
+  },
+  "p0430": {
+   "qid": "q027",
+   "chunk_id": "en_bearing_mechanical#8",
+   "control": null
+  },
+  "p0431": {
+   "qid": "q002",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p0432": {
+   "qid": "q049",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0433": {
+   "qid": "q044",
+   "chunk_id": "de_schmierfett#13",
+   "control": null
+  },
+  "p0434": {
+   "qid": "q032",
+   "chunk_id": "en_plain_bearing#9",
+   "control": null
+  },
+  "p0435": {
+   "qid": "q010",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p0436": {
+   "qid": "q041",
+   "chunk_id": "de_waelzlager#17",
+   "control": null
+  },
+  "p0437": {
+   "qid": "q011",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0438": {
+   "qid": "q052",
+   "chunk_id": "de_schmierfett#13",
+   "control": null
+  },
+  "p0439": {
+   "qid": "q059",
+   "chunk_id": "en_grease#3",
+   "control": null
+  },
+  "p0440": {
+   "qid": "q048",
+   "chunk_id": "en_tribology#17",
+   "control": null
+  },
+  "p0441": {
+   "qid": "q078",
+   "chunk_id": "en_fatigue_material#12",
+   "control": null
+  },
+  "p0442": {
+   "qid": "q030",
+   "chunk_id": "ko_bearing#3",
+   "control": "gold"
+  },
+  "p0443": {
+   "qid": "q089",
+   "chunk_id": "de_gleitlager#2",
+   "control": null
+  },
+  "p0444": {
+   "qid": "q008",
+   "chunk_id": "en_needle_roller_bearing#0",
+   "control": null
+  },
+  "p0445": {
+   "qid": "q076",
+   "chunk_id": "en_wear#1",
+   "control": null
+  },
+  "p0446": {
+   "qid": "q059",
+   "chunk_id": "en_tribology#25",
+   "control": "random"
+  },
+  "p0447": {
+   "qid": "q059",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0448": {
+   "qid": "q079",
+   "chunk_id": "en_plain_bearing#11",
+   "control": null
+  },
+  "p0449": {
+   "qid": "q074",
+   "chunk_id": "de_waelzlager#18",
+   "control": "random"
+  },
+  "p0450": {
+   "qid": "q086",
+   "chunk_id": "de_gleitlager#8",
+   "control": null
+  },
+  "p0451": {
+   "qid": "q072",
+   "chunk_id": "en_fatigue_material#5",
+   "control": null
+  },
+  "p0452": {
+   "qid": "q081",
+   "chunk_id": "de_gleitlager#3",
+   "control": null
+  },
+  "p0453": {
+   "qid": "q036",
+   "chunk_id": "de_waelzlager#10",
+   "control": null
+  },
+  "p0454": {
+   "qid": "q012",
+   "chunk_id": "en_plain_bearing#9",
+   "control": null
+  },
+  "p0455": {
+   "qid": "q033",
+   "chunk_id": "de_wellendichtring#3",
+   "control": null
+  },
+  "p0456": {
+   "qid": "q076",
+   "chunk_id": "en_plain_bearing#10",
+   "control": "random"
+  },
+  "p0457": {
+   "qid": "q045",
+   "chunk_id": "de_schmierfett#9",
+   "control": null
+  },
+  "p0458": {
+   "qid": "q004",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0459": {
+   "qid": "q083",
+   "chunk_id": "de_waelzlager#1",
+   "control": null
+  },
+  "p0460": {
+   "qid": "q048",
+   "chunk_id": "en_wear#9",
+   "control": null
+  },
+  "p0461": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0462": {
+   "qid": "q031",
+   "chunk_id": "en_ball_bearing#15",
+   "control": null
+  },
+  "p0463": {
+   "qid": "q034",
+   "chunk_id": "de_gleitlager#10",
+   "control": null
+  },
+  "p0464": {
+   "qid": "q013",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0465": {
+   "qid": "q079",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0466": {
+   "qid": "q031",
+   "chunk_id": "de_waelzlager#30",
+   "control": null
+  },
+  "p0467": {
+   "qid": "q027",
+   "chunk_id": "en_plain_bearing#6",
+   "control": null
+  },
+  "p0468": {
+   "qid": "q086",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0469": {
+   "qid": "q085",
+   "chunk_id": "de_gleitlager#5",
+   "control": null
+  },
+  "p0470": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#1",
+   "control": null
+  },
+  "p0471": {
+   "qid": "q007",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0472": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0473": {
+   "qid": "q038",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0474": {
+   "qid": "q086",
+   "chunk_id": "de_gleitlager#3",
+   "control": null
+  },
+  "p0475": {
+   "qid": "q046",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0476": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#15",
+   "control": null
+  },
+  "p0477": {
+   "qid": "q085",
+   "chunk_id": "de_gleitlager#3",
+   "control": null
+  },
+  "p0478": {
+   "qid": "q074",
+   "chunk_id": "en_grease#0",
+   "control": null
+  },
+  "p0479": {
+   "qid": "q025",
+   "chunk_id": "de_homokinetisches_gelenk#2",
+   "control": null
+  },
+  "p0480": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#8",
+   "control": "gold"
+  },
+  "p0481": {
+   "qid": "q082",
+   "chunk_id": "de_schmierfett#17",
+   "control": null
+  },
+  "p0482": {
+   "qid": "q067",
+   "chunk_id": "en_tapered_roller_bearing#1",
+   "control": null
+  },
+  "p0483": {
+   "qid": "q043",
+   "chunk_id": "de_wellendichtring#2",
+   "control": null
+  },
+  "p0484": {
+   "qid": "q011",
+   "chunk_id": "en_rolling_element_bearing#6",
+   "control": null
+  },
+  "p0485": {
+   "qid": "q070",
+   "chunk_id": "en_wear#7",
+   "control": null
+  },
+  "p0486": {
+   "qid": "q038",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": null
+  },
+  "p0487": {
+   "qid": "q047",
+   "chunk_id": "de_hydrodynamisches_gleitlager#1",
+   "control": null
+  },
+  "p0488": {
+   "qid": "q089",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0489": {
+   "qid": "q012",
+   "chunk_id": "de_gleitlager#7",
+   "control": null
+  },
+  "p0490": {
+   "qid": "q032",
+   "chunk_id": "de_hydrodynamisches_gleitlager#0",
+   "control": null
+  },
+  "p0491": {
+   "qid": "q048",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0492": {
+   "qid": "q040",
+   "chunk_id": "en_fretting#2",
+   "control": null
+  },
+  "p0493": {
+   "qid": "q012",
+   "chunk_id": "en_rolling_element_bearing#5",
+   "control": "random"
+  },
+  "p0494": {
+   "qid": "q010",
+   "chunk_id": "ko_bearing#4",
+   "control": null
+  },
+  "p0495": {
+   "qid": "q058",
+   "chunk_id": "ko_ball_bearing#2",
+   "control": null
+  },
+  "p0496": {
+   "qid": "q012",
+   "chunk_id": "de_schmierung#0",
+   "control": null
+  },
+  "p0497": {
+   "qid": "q039",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0498": {
+   "qid": "q053",
+   "chunk_id": "de_tribologie#2",
+   "control": null
+  },
+  "p0499": {
+   "qid": "q031",
+   "chunk_id": "de_gleitlager#2",
+   "control": null
+  },
+  "p0500": {
+   "qid": "q012",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0501": {
+   "qid": "q031",
+   "chunk_id": "de_lager_maschinenelement#2",
+   "control": null
+  },
+  "p0502": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#3",
+   "control": null
+  },
+  "p0503": {
+   "qid": "q053",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p0504": {
+   "qid": "q004",
+   "chunk_id": "en_bearing_mechanical#17",
+   "control": null
+  },
+  "p0505": {
+   "qid": "q067",
+   "chunk_id": "en_bearing_mechanical#15",
+   "control": null
+  },
+  "p0506": {
+   "qid": "q075",
+   "chunk_id": "en_cv_joint#4",
+   "control": null
+  },
+  "p0507": {
+   "qid": "q052",
+   "chunk_id": "en_grease#4",
+   "control": null
+  },
+  "p0508": {
+   "qid": "q088",
+   "chunk_id": "de_dichtung_technik#2",
+   "control": null
+  },
+  "p0509": {
+   "qid": "q018",
+   "chunk_id": "en_bearing_mechanical#9",
+   "control": null
+  },
+  "p0510": {
+   "qid": "q007",
+   "chunk_id": "de_gleitlager#8",
+   "control": null
+  },
+  "p0511": {
+   "qid": "q026",
+   "chunk_id": "en_rolling_element_bearing#3",
+   "control": null
+  },
+  "p0512": {
+   "qid": "q055",
+   "chunk_id": "ko_ball_bearing#6",
+   "control": null
+  },
+  "p0513": {
+   "qid": "q027",
+   "chunk_id": "de_hydrodynamisches_gleitlager#0",
+   "control": null
+  },
+  "p0514": {
+   "qid": "q023",
+   "chunk_id": "en_ball_bearing#0",
+   "control": null
+  },
+  "p0515": {
+   "qid": "q002",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0516": {
+   "qid": "q075",
+   "chunk_id": "en_fatigue_material#10",
+   "control": null
+  },
+  "p0517": {
+   "qid": "q030",
+   "chunk_id": "en_bearing_mechanical#8",
+   "control": null
+  },
+  "p0518": {
+   "qid": "q010",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0519": {
+   "qid": "q001",
+   "chunk_id": "en_tribology#2",
+   "control": null
+  },
+  "p0520": {
+   "qid": "q047",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0521": {
+   "qid": "q077",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0522": {
+   "qid": "q005",
+   "chunk_id": "ko_ball_bearing#3",
+   "control": null
+  },
+  "p0523": {
+   "qid": "q077",
+   "chunk_id": "de_waelzlager#4",
+   "control": null
+  },
+  "p0524": {
+   "qid": "q032",
+   "chunk_id": "de_hydrodynamisches_gleitlager#5",
+   "control": null
+  },
+  "p0525": {
+   "qid": "q044",
+   "chunk_id": "en_lubrication#3",
+   "control": null
+  },
+  "p0526": {
+   "qid": "q043",
+   "chunk_id": "de_waelzlagerstahl#0",
+   "control": null
+  },
+  "p0527": {
+   "qid": "q038",
+   "chunk_id": "ko_differential#0",
+   "control": null
+  },
+  "p0528": {
+   "qid": "q075",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0529": {
+   "qid": "q084",
+   "chunk_id": "de_materialermuedung#5",
+   "control": null
+  },
+  "p0530": {
+   "qid": "q032",
+   "chunk_id": "de_hydrodynamisches_gleitlager#1",
+   "control": null
+  },
+  "p0531": {
+   "qid": "q037",
+   "chunk_id": "en_bearing_mechanical#14",
+   "control": null
+  },
+  "p0532": {
+   "qid": "q005",
+   "chunk_id": "en_ball_bearing#9",
+   "control": null
+  },
+  "p0533": {
+   "qid": "q015",
+   "chunk_id": "ko_linear_motion_bearing#0",
+   "control": null
+  },
+  "p0534": {
+   "qid": "q076",
+   "chunk_id": "de_verschleiss#1",
+   "control": null
+  },
+  "p0535": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0536": {
+   "qid": "q089",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0537": {
+   "qid": "q086",
+   "chunk_id": "de_gleitlager#9",
+   "control": null
+  },
+  "p0538": {
+   "qid": "q046",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0539": {
+   "qid": "q039",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0540": {
+   "qid": "q051",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0541": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#16",
+   "control": null
+  },
+  "p0542": {
+   "qid": "q042",
+   "chunk_id": "de_schmierfett#2",
+   "control": null
+  },
+  "p0543": {
+   "qid": "q051",
+   "chunk_id": "en_tribology#17",
+   "control": null
+  },
+  "p0544": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0545": {
+   "qid": "q085",
+   "chunk_id": "en_tribology#3",
+   "control": null
+  },
+  "p0546": {
+   "qid": "q054",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p0547": {
+   "qid": "q028",
+   "chunk_id": "en_rolling_element_bearing#2",
+   "control": null
+  },
+  "p0548": {
+   "qid": "q015",
+   "chunk_id": "en_cv_joint#7",
+   "control": null
+  },
+  "p0549": {
+   "qid": "q065",
+   "chunk_id": "de_nadellager#2",
+   "control": null
+  },
+  "p0550": {
+   "qid": "q056",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0551": {
+   "qid": "q069",
+   "chunk_id": "en_ball_bearing#14",
+   "control": null
+  },
+  "p0552": {
+   "qid": "q003",
+   "chunk_id": "en_cv_joint#3",
+   "control": null
+  },
+  "p0553": {
+   "qid": "q027",
+   "chunk_id": "en_plain_bearing#5",
+   "control": null
+  },
+  "p0554": {
+   "qid": "q037",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0555": {
+   "qid": "q032",
+   "chunk_id": "de_hydrodynamisches_gleitlager#4",
+   "control": null
+  },
+  "p0556": {
+   "qid": "q090",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p0557": {
+   "qid": "q088",
+   "chunk_id": "de_wellendichtring#0",
+   "control": null
+  },
+  "p0558": {
+   "qid": "q009",
+   "chunk_id": "de_schmierfett#15",
+   "control": "gold"
+  },
+  "p0559": {
+   "qid": "q071",
+   "chunk_id": "en_wear#4",
+   "control": null
+  },
+  "p0560": {
+   "qid": "q010",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0561": {
+   "qid": "q090",
+   "chunk_id": "en_rolling_element_bearing#0",
+   "control": "random"
+  },
+  "p0562": {
+   "qid": "q082",
+   "chunk_id": "de_fressen_technik#1",
+   "control": null
+  },
+  "p0563": {
+   "qid": "q046",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0564": {
+   "qid": "q072",
+   "chunk_id": "en_fatigue_material#9",
+   "control": null
+  },
+  "p0565": {
+   "qid": "q051",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0566": {
+   "qid": "q042",
+   "chunk_id": "de_waelzlager#16",
+   "control": null
+  },
+  "p0567": {
+   "qid": "q029",
+   "chunk_id": "de_waelzlager#30",
+   "control": null
+  },
+  "p0568": {
+   "qid": "q029",
+   "chunk_id": "en_bearing_mechanical#12",
+   "control": null
+  },
+  "p0569": {
+   "qid": "q018",
+   "chunk_id": "de_waelzlager#17",
+   "control": null
+  },
+  "p0570": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#0",
+   "control": null
+  },
+  "p0571": {
+   "qid": "q060",
+   "chunk_id": "en_rolling_element_bearing#13",
+   "control": null
+  },
+  "p0572": {
+   "qid": "q017",
+   "chunk_id": "en_tapered_roller_bearing#1",
+   "control": null
+  },
+  "p0573": {
+   "qid": "q009",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0574": {
+   "qid": "q010",
+   "chunk_id": "en_cv_joint#8",
+   "control": null
+  },
+  "p0575": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0576": {
+   "qid": "q025",
+   "chunk_id": "en_cv_joint#1",
+   "control": null
+  },
+  "p0577": {
+   "qid": "q029",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0578": {
+   "qid": "q006",
+   "chunk_id": "en_bearing_mechanical#2",
+   "control": null
+  },
+  "p0579": {
+   "qid": "q061",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0580": {
+   "qid": "q008",
+   "chunk_id": "ko_bearing#1",
+   "control": null
+  },
+  "p0581": {
+   "qid": "q084",
+   "chunk_id": "de_materialermuedung#7",
+   "control": null
+  },
+  "p0582": {
+   "qid": "q061",
+   "chunk_id": "en_ball_bearing#15",
+   "control": null
+  },
+  "p0583": {
+   "qid": "q028",
+   "chunk_id": "en_bearing_mechanical#0",
+   "control": null
+  },
+  "p0584": {
+   "qid": "q054",
+   "chunk_id": "en_ball_bearing#2",
+   "control": null
+  },
+  "p0585": {
+   "qid": "q001",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0586": {
+   "qid": "q047",
+   "chunk_id": "en_bearing_mechanical#8",
+   "control": null
+  },
+  "p0587": {
+   "qid": "q045",
+   "chunk_id": "de_schmierfett#6",
+   "control": null
+  },
+  "p0588": {
+   "qid": "q001",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0589": {
+   "qid": "q041",
+   "chunk_id": "de_nadellager#2",
+   "control": null
+  },
+  "p0590": {
+   "qid": "q028",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": null
+  },
+  "p0591": {
+   "qid": "q086",
+   "chunk_id": "de_verschleiss#1",
+   "control": null
+  },
+  "p0592": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#5",
+   "control": null
+  },
+  "p0593": {
+   "qid": "q024",
+   "chunk_id": "en_brinelling#2",
+   "control": null
+  },
+  "p0594": {
+   "qid": "q064",
+   "chunk_id": "en_wear#7",
+   "control": null
+  },
+  "p0595": {
+   "qid": "q087",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0596": {
+   "qid": "q050",
+   "chunk_id": "de_dichtung_technik#1",
+   "control": null
+  },
+  "p0597": {
+   "qid": "q007",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0598": {
+   "qid": "q067",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0599": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0600": {
+   "qid": "q086",
+   "chunk_id": "en_wear#2",
+   "control": null
+  },
+  "p0601": {
+   "qid": "q064",
+   "chunk_id": "en_tribology#11",
+   "control": null
+  },
+  "p0602": {
+   "qid": "q005",
+   "chunk_id": "en_rolling_element_bearing#14",
+   "control": null
+  },
+  "p0603": {
+   "qid": "q053",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0604": {
+   "qid": "q053",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0605": {
+   "qid": "q049",
+   "chunk_id": "ko_bearing#4",
+   "control": null
+  },
+  "p0606": {
+   "qid": "q018",
+   "chunk_id": "en_bearing_mechanical#6",
+   "control": null
+  },
+  "p0607": {
+   "qid": "q061",
+   "chunk_id": "en_ball_bearing#3",
+   "control": null
+  },
+  "p0608": {
+   "qid": "q004",
+   "chunk_id": "en_brinelling#3",
+   "control": null
+  },
+  "p0609": {
+   "qid": "q013",
+   "chunk_id": "de_verschleiss#1",
+   "control": null
+  },
+  "p0610": {
+   "qid": "q042",
+   "chunk_id": "en_cv_joint#0",
+   "control": null
+  },
+  "p0611": {
+   "qid": "q056",
+   "chunk_id": "ko_bearing#1",
+   "control": null
+  },
+  "p0612": {
+   "qid": "q075",
+   "chunk_id": "en_ball_bearing#14",
+   "control": null
+  },
+  "p0613": {
+   "qid": "q081",
+   "chunk_id": "de_verschleiss#3",
+   "control": null
+  },
+  "p0614": {
+   "qid": "q037",
+   "chunk_id": "en_rolling_element_bearing#11",
+   "control": null
+  },
+  "p0615": {
+   "qid": "q072",
+   "chunk_id": "de_materialermuedung#6",
+   "control": null
+  },
+  "p0616": {
+   "qid": "q012",
+   "chunk_id": "en_bearing_mechanical#14",
+   "control": null
+  },
+  "p0617": {
+   "qid": "q003",
+   "chunk_id": "de_waelzlager#13",
+   "control": null
+  },
+  "p0618": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#7",
+   "control": null
+  },
+  "p0619": {
+   "qid": "q014",
+   "chunk_id": "ko_lubricant#0",
+   "control": null
+  },
+  "p0620": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#5",
+   "control": null
+  },
+  "p0621": {
+   "qid": "q054",
+   "chunk_id": "ko_ball_bearing#7",
+   "control": null
+  },
+  "p0622": {
+   "qid": "q044",
+   "chunk_id": "de_waelzlager#26",
+   "control": null
+  },
+  "p0623": {
+   "qid": "q028",
+   "chunk_id": "en_plain_bearing#0",
+   "control": null
+  },
+  "p0624": {
+   "qid": "q044",
+   "chunk_id": "en_bearing_mechanical#11",
+   "control": null
+  },
+  "p0625": {
+   "qid": "q027",
+   "chunk_id": "en_bearing_mechanical#7",
+   "control": null
+  },
+  "p0626": {
+   "qid": "q080",
+   "chunk_id": "de_lager_maschinenelement#1",
+   "control": null
+  },
+  "p0627": {
+   "qid": "q014",
+   "chunk_id": "de_verschleiss#1",
+   "control": null
+  },
+  "p0628": {
+   "qid": "q004",
+   "chunk_id": "ko_lubricant#2",
+   "control": null
+  },
+  "p0629": {
+   "qid": "q001",
+   "chunk_id": "en_bearing_mechanical#1",
+   "control": null
+  },
+  "p0630": {
+   "qid": "q018",
+   "chunk_id": "en_rolling_element_bearing#5",
+   "control": null
+  },
+  "p0631": {
+   "qid": "q036",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0632": {
+   "qid": "q084",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": "gold"
+  },
+  "p0633": {
+   "qid": "q072",
+   "chunk_id": "en_fatigue_material#6",
+   "control": null
+  },
+  "p0634": {
+   "qid": "q005",
+   "chunk_id": "en_wear#3",
+   "control": null
+  },
+  "p0635": {
+   "qid": "q077",
+   "chunk_id": "de_waelzlager#3",
+   "control": null
+  },
+  "p0636": {
+   "qid": "q064",
+   "chunk_id": "en_rolling_element_bearing#0",
+   "control": null
+  },
+  "p0637": {
+   "qid": "q017",
+   "chunk_id": "en_rolling_element_bearing#5",
+   "control": null
+  },
+  "p0638": {
+   "qid": "q064",
+   "chunk_id": "en_rolling_element_bearing#12",
+   "control": null
+  },
+  "p0639": {
+   "qid": "q041",
+   "chunk_id": "de_nadellager#1",
+   "control": null
+  },
+  "p0640": {
+   "qid": "q078",
+   "chunk_id": "de_schmierfett#11",
+   "control": null
+  },
+  "p0641": {
+   "qid": "q079",
+   "chunk_id": "de_gleitlager#1",
+   "control": null
+  },
+  "p0642": {
+   "qid": "q046",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0643": {
+   "qid": "q078",
+   "chunk_id": "de_lager_maschinenelement#6",
+   "control": null
+  },
+  "p0644": {
+   "qid": "q033",
+   "chunk_id": "en_radial_shaft_seal#1",
+   "control": null
+  },
+  "p0645": {
+   "qid": "q004",
+   "chunk_id": "ko_bearing#4",
+   "control": null
+  },
+  "p0646": {
+   "qid": "q044",
+   "chunk_id": "en_grease#5",
+   "control": null
+  },
+  "p0647": {
+   "qid": "q001",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0648": {
+   "qid": "q058",
+   "chunk_id": "de_schmierung#1",
+   "control": null
+  },
+  "p0649": {
+   "qid": "q037",
+   "chunk_id": "de_waelzlager#23",
+   "control": null
+  },
+  "p0650": {
+   "qid": "q013",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0651": {
+   "qid": "q014",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0652": {
+   "qid": "q047",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0653": {
+   "qid": "q064",
+   "chunk_id": "en_brinelling#0",
+   "control": null
+  },
+  "p0654": {
+   "qid": "q023",
+   "chunk_id": "en_plain_bearing#0",
+   "control": null
+  },
+  "p0655": {
+   "qid": "q027",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0656": {
+   "qid": "q021",
+   "chunk_id": "ko_ball_bearing#6",
+   "control": null
+  },
+  "p0657": {
+   "qid": "q052",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0658": {
+   "qid": "q088",
+   "chunk_id": "de_dichtung_technik#3",
+   "control": null
+  },
+  "p0659": {
+   "qid": "q011",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0660": {
+   "qid": "q008",
+   "chunk_id": "en_brinelling#1",
+   "control": null
+  },
+  "p0661": {
+   "qid": "q085",
+   "chunk_id": "de_tribologie#2",
+   "control": null
+  },
+  "p0662": {
+   "qid": "q002",
+   "chunk_id": "en_ball_bearing#8",
+   "control": null
+  },
+  "p0663": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0664": {
+   "qid": "q070",
+   "chunk_id": "en_lubrication#2",
+   "control": "random"
+  },
+  "p0665": {
+   "qid": "q068",
+   "chunk_id": "en_bearing_mechanical#12",
+   "control": null
+  },
+  "p0666": {
+   "qid": "q028",
+   "chunk_id": "en_tribology#8",
+   "control": null
+  },
+  "p0667": {
+   "qid": "q078",
+   "chunk_id": "en_fatigue_material#10",
+   "control": null
+  },
+  "p0668": {
+   "qid": "q019",
+   "chunk_id": "en_grease#2",
+   "control": null
+  },
+  "p0669": {
+   "qid": "q089",
+   "chunk_id": "de_homokinetisches_gelenk#3",
+   "control": null
+  },
+  "p0670": {
+   "qid": "q028",
+   "chunk_id": "en_ball_bearing#2",
+   "control": null
+  },
+  "p0671": {
+   "qid": "q082",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0672": {
+   "qid": "q076",
+   "chunk_id": "de_materialermuedung#5",
+   "control": null
+  },
+  "p0673": {
+   "qid": "q006",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p0674": {
+   "qid": "q086",
+   "chunk_id": "en_wear#7",
+   "control": null
+  },
+  "p0675": {
+   "qid": "q090",
+   "chunk_id": "de_waelzlager#23",
+   "control": null
+  },
+  "p0676": {
+   "qid": "q006",
+   "chunk_id": "ko_ball_bearing#6",
+   "control": null
+  },
+  "p0677": {
+   "qid": "q076",
+   "chunk_id": "en_brinelling#2",
+   "control": null
+  },
+  "p0678": {
+   "qid": "q027",
+   "chunk_id": "en_plain_bearing#12",
+   "control": null
+  },
+  "p0679": {
+   "qid": "q060",
+   "chunk_id": "de_hydrodynamisches_gleitlager#3",
+   "control": null
+  },
+  "p0680": {
+   "qid": "q089",
+   "chunk_id": "de_waelzlager#3",
+   "control": null
+  },
+  "p0681": {
+   "qid": "q038",
+   "chunk_id": "en_cv_joint#6",
+   "control": null
+  },
+  "p0682": {
+   "qid": "q044",
+   "chunk_id": "de_schmierfett#1",
+   "control": null
+  },
+  "p0683": {
+   "qid": "q023",
+   "chunk_id": "de_hydrodynamisches_gleitlager#3",
+   "control": null
+  },
+  "p0684": {
+   "qid": "q060",
+   "chunk_id": "en_cv_joint#4",
+   "control": null
+  },
+  "p0685": {
+   "qid": "q011",
+   "chunk_id": "en_tapered_roller_bearing#2",
+   "control": null
+  },
+  "p0686": {
+   "qid": "q047",
+   "chunk_id": "de_gleitlager#7",
+   "control": null
+  },
+  "p0687": {
+   "qid": "q073",
+   "chunk_id": "en_plain_bearing#1",
+   "control": null
+  },
+  "p0688": {
+   "qid": "q034",
+   "chunk_id": "de_lager_maschinenelement#4",
+   "control": null
+  },
+  "p0689": {
+   "qid": "q002",
+   "chunk_id": "en_bearing_mechanical#7",
+   "control": null
+  },
+  "p0690": {
+   "qid": "q008",
+   "chunk_id": "en_rolling_element_bearing#13",
+   "control": null
+  },
+  "p0691": {
+   "qid": "q082",
+   "chunk_id": "en_lubrication#3",
+   "control": "gold"
+  },
+  "p0692": {
+   "qid": "q066",
+   "chunk_id": "en_rolling_element_bearing#14",
+   "control": null
+  },
+  "p0693": {
+   "qid": "q056",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p0694": {
+   "qid": "q023",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p0695": {
+   "qid": "q067",
+   "chunk_id": "en_bearing_mechanical#0",
+   "control": null
+  },
+  "p0696": {
+   "qid": "q019",
+   "chunk_id": "en_tribology#24",
+   "control": null
+  },
+  "p0697": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#9",
+   "control": null
+  },
+  "p0698": {
+   "qid": "q035",
+   "chunk_id": "en_tribology#17",
+   "control": null
+  },
+  "p0699": {
+   "qid": "q026",
+   "chunk_id": "en_tapered_roller_bearing#1",
+   "control": null
+  },
+  "p0700": {
+   "qid": "q012",
+   "chunk_id": "de_gleitlager#3",
+   "control": null
+  },
+  "p0701": {
+   "qid": "q052",
+   "chunk_id": "de_schmierfett#14",
+   "control": null
+  },
+  "p0702": {
+   "qid": "q047",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0703": {
+   "qid": "q010",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0704": {
+   "qid": "q001",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0705": {
+   "qid": "q023",
+   "chunk_id": "en_ball_bearing#9",
+   "control": null
+  },
+  "p0706": {
+   "qid": "q074",
+   "chunk_id": "en_grease#6",
+   "control": null
+  },
+  "p0707": {
+   "qid": "q073",
+   "chunk_id": "de_waelzlager#19",
+   "control": null
+  },
+  "p0708": {
+   "qid": "q082",
+   "chunk_id": "en_lubrication#2",
+   "control": null
+  },
+  "p0709": {
+   "qid": "q050",
+   "chunk_id": "ko_lubricant#1",
+   "control": null
+  },
+  "p0710": {
+   "qid": "q075",
+   "chunk_id": "en_cv_joint#3",
+   "control": null
+  },
+  "p0711": {
+   "qid": "q006",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0712": {
+   "qid": "q059",
+   "chunk_id": "de_schmierfett#4",
+   "control": null
+  },
+  "p0713": {
+   "qid": "q029",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0714": {
+   "qid": "q065",
+   "chunk_id": "en_plain_bearing#3",
+   "control": null
+  },
+  "p0715": {
+   "qid": "q023",
+   "chunk_id": "en_tribology#19",
+   "control": null
+  },
+  "p0716": {
+   "qid": "q041",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0717": {
+   "qid": "q065",
+   "chunk_id": "de_waelzlager#18",
+   "control": null
+  },
+  "p0718": {
+   "qid": "q046",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0719": {
+   "qid": "q042",
+   "chunk_id": "en_plain_bearing#7",
+   "control": null
+  },
+  "p0720": {
+   "qid": "q053",
+   "chunk_id": "ko_lubricant#1",
+   "control": null
+  },
+  "p0721": {
+   "qid": "q037",
+   "chunk_id": "de_waelzlager#9",
+   "control": null
+  },
+  "p0722": {
+   "qid": "q007",
+   "chunk_id": "en_plain_bearing#5",
+   "control": null
+  },
+  "p0723": {
+   "qid": "q031",
+   "chunk_id": "de_lager_maschinenelement#5",
+   "control": null
+  },
+  "p0724": {
+   "qid": "q030",
+   "chunk_id": "en_plain_bearing#9",
+   "control": null
+  },
+  "p0725": {
+   "qid": "q079",
+   "chunk_id": "en_tribology#10",
+   "control": null
+  },
+  "p0726": {
+   "qid": "q009",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p0727": {
+   "qid": "q042",
+   "chunk_id": "de_materialermuedung#5",
+   "control": null
+  },
+  "p0728": {
+   "qid": "q055",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0729": {
+   "qid": "q002",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p0730": {
+   "qid": "q001",
+   "chunk_id": "en_plain_bearing#1",
+   "control": null
+  },
+  "p0731": {
+   "qid": "q050",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p0732": {
+   "qid": "q034",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0733": {
+   "qid": "q076",
+   "chunk_id": "de_hertzsche_pressung#2",
+   "control": null
+  },
+  "p0734": {
+   "qid": "q005",
+   "chunk_id": "en_bearing_mechanical#13",
+   "control": null
+  },
+  "p0735": {
+   "qid": "q062",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0736": {
+   "qid": "q051",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0737": {
+   "qid": "q090",
+   "chunk_id": "de_schmierfett#18",
+   "control": null
+  },
+  "p0738": {
+   "qid": "q020",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0739": {
+   "qid": "q007",
+   "chunk_id": "en_ball_bearing#17",
+   "control": null
+  },
+  "p0740": {
+   "qid": "q073",
+   "chunk_id": "en_plain_bearing#0",
+   "control": null
+  },
+  "p0741": {
+   "qid": "q002",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0742": {
+   "qid": "q018",
+   "chunk_id": "en_plain_bearing#1",
+   "control": null
+  },
+  "p0743": {
+   "qid": "q082",
+   "chunk_id": "de_schmierfett#15",
+   "control": null
+  },
+  "p0744": {
+   "qid": "q059",
+   "chunk_id": "ko_differential#0",
+   "control": null
+  },
+  "p0745": {
+   "qid": "q079",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0746": {
+   "qid": "q034",
+   "chunk_id": "de_gleitlager#7",
+   "control": null
+  },
+  "p0747": {
+   "qid": "q045",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0748": {
+   "qid": "q077",
+   "chunk_id": "en_bearing_mechanical#3",
+   "control": null
+  },
+  "p0749": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#3",
+   "control": null
+  },
+  "p0750": {
+   "qid": "q082",
+   "chunk_id": "en_bearing_mechanical#11",
+   "control": null
+  },
+  "p0751": {
+   "qid": "q079",
+   "chunk_id": "en_plain_bearing#0",
+   "control": null
+  },
+  "p0752": {
+   "qid": "q007",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0753": {
+   "qid": "q004",
+   "chunk_id": "de_verschleiss#4",
+   "control": null
+  },
+  "p0754": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#0",
+   "control": null
+  },
+  "p0755": {
+   "qid": "q067",
+   "chunk_id": "ko_drive_shaft#0",
+   "control": null
+  },
+  "p0756": {
+   "qid": "q004",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0757": {
+   "qid": "q002",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0758": {
+   "qid": "q089",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0759": {
+   "qid": "q032",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0760": {
+   "qid": "q014",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0761": {
+   "qid": "q004",
+   "chunk_id": "en_brinelling#2",
+   "control": null
+  },
+  "p0762": {
+   "qid": "q048",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0763": {
+   "qid": "q028",
+   "chunk_id": "en_tribology#17",
+   "control": null
+  },
+  "p0764": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlagerstahl#0",
+   "control": null
+  },
+  "p0765": {
+   "qid": "q060",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0766": {
+   "qid": "q034",
+   "chunk_id": "de_schmierung#1",
+   "control": null
+  },
+  "p0767": {
+   "qid": "q001",
+   "chunk_id": "en_plain_bearing#0",
+   "control": null
+  },
+  "p0768": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#34",
+   "control": null
+  },
+  "p0769": {
+   "qid": "q008",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0770": {
+   "qid": "q037",
+   "chunk_id": "de_materialermuedung#6",
+   "control": null
+  },
+  "p0771": {
+   "qid": "q074",
+   "chunk_id": "de_schmierfett#4",
+   "control": null
+  },
+  "p0772": {
+   "qid": "q047",
+   "chunk_id": "ko_bearing#4",
+   "control": null
+  },
+  "p0773": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#1",
+   "control": null
+  },
+  "p0774": {
+   "qid": "q048",
+   "chunk_id": "de_gleitlager#5",
+   "control": null
+  },
+  "p0775": {
+   "qid": "q085",
+   "chunk_id": "de_wellendichtring#2",
+   "control": "random"
+  },
+  "p0776": {
+   "qid": "q078",
+   "chunk_id": "de_waelzlager#6",
+   "control": null
+  },
+  "p0777": {
+   "qid": "q010",
+   "chunk_id": "en_plain_bearing#12",
+   "control": null
+  },
+  "p0778": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#10",
+   "control": null
+  },
+  "p0779": {
+   "qid": "q021",
+   "chunk_id": "de_waelzlager#27",
+   "control": null
+  },
+  "p0780": {
+   "qid": "q004",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p0781": {
+   "qid": "q089",
+   "chunk_id": "de_homokinetisches_gelenk#4",
+   "control": null
+  },
+  "p0782": {
+   "qid": "q062",
+   "chunk_id": "en_fatigue_material#8",
+   "control": null
+  },
+  "p0783": {
+   "qid": "q023",
+   "chunk_id": "en_bearing_mechanical#6",
+   "control": null
+  },
+  "p0784": {
+   "qid": "q077",
+   "chunk_id": "de_homokinetisches_gelenk#2",
+   "control": null
+  },
+  "p0785": {
+   "qid": "q081",
+   "chunk_id": "en_tribology#3",
+   "control": null
+  },
+  "p0786": {
+   "qid": "q076",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0787": {
+   "qid": "q063",
+   "chunk_id": "en_tribology#3",
+   "control": null
+  },
+  "p0788": {
+   "qid": "q059",
+   "chunk_id": "en_grease#1",
+   "control": null
+  },
+  "p0789": {
+   "qid": "q083",
+   "chunk_id": "de_waelzlager#5",
+   "control": null
+  },
+  "p0790": {
+   "qid": "q002",
+   "chunk_id": "de_waelzlager#13",
+   "control": null
+  },
+  "p0791": {
+   "qid": "q082",
+   "chunk_id": "de_homokinetisches_gelenk#2",
+   "control": null
+  },
+  "p0792": {
+   "qid": "q060",
+   "chunk_id": "en_plain_bearing#4",
+   "control": null
+  },
+  "p0793": {
+   "qid": "q069",
+   "chunk_id": "en_ball_bearing#12",
+   "control": null
+  },
+  "p0794": {
+   "qid": "q033",
+   "chunk_id": "de_schmierfett#16",
+   "control": null
+  },
+  "p0795": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#10",
+   "control": null
+  },
+  "p0796": {
+   "qid": "q028",
+   "chunk_id": "en_cv_joint#0",
+   "control": null
+  },
+  "p0797": {
+   "qid": "q090",
+   "chunk_id": "de_schmierfett#15",
+   "control": null
+  },
+  "p0798": {
+   "qid": "q005",
+   "chunk_id": "en_ball_bearing#10",
+   "control": null
+  },
+  "p0799": {
+   "qid": "q064",
+   "chunk_id": "en_fretting#0",
+   "control": null
+  },
+  "p0800": {
+   "qid": "q077",
+   "chunk_id": "de_tribologie#4",
+   "control": null
+  },
+  "p0801": {
+   "qid": "q042",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": null
+  },
+  "p0802": {
+   "qid": "q015",
+   "chunk_id": "ko_drive_shaft#0",
+   "control": null
+  },
+  "p0803": {
+   "qid": "q007",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0804": {
+   "qid": "q078",
+   "chunk_id": "de_gleitlager#3",
+   "control": null
+  },
+  "p0805": {
+   "qid": "q080",
+   "chunk_id": "en_fatigue_material#5",
+   "control": null
+  },
+  "p0806": {
+   "qid": "q036",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0807": {
+   "qid": "q011",
+   "chunk_id": "ko_ball_bearing#10",
+   "control": null
+  },
+  "p0808": {
+   "qid": "q082",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0809": {
+   "qid": "q024",
+   "chunk_id": "en_brinelling#3",
+   "control": null
+  },
+  "p0810": {
+   "qid": "q046",
+   "chunk_id": "ko_tribology#0",
+   "control": null
+  },
+  "p0811": {
+   "qid": "q007",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0812": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#18",
+   "control": null
+  },
+  "p0813": {
+   "qid": "q045",
+   "chunk_id": "ko_lubricant#1",
+   "control": null
+  },
+  "p0814": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#7",
+   "control": null
+  },
+  "p0815": {
+   "qid": "q056",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p0816": {
+   "qid": "q084",
+   "chunk_id": "de_materialermuedung#0",
+   "control": null
+  },
+  "p0817": {
+   "qid": "q026",
+   "chunk_id": "en_rolling_element_bearing#7",
+   "control": null
+  },
+  "p0818": {
+   "qid": "q020",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p0819": {
+   "qid": "q082",
+   "chunk_id": "de_gleitlager#1",
+   "control": null
+  },
+  "p0820": {
+   "qid": "q058",
+   "chunk_id": "en_wear#2",
+   "control": null
+  },
+  "p0821": {
+   "qid": "q074",
+   "chunk_id": "de_schmierfett#0",
+   "control": null
+  },
+  "p0822": {
+   "qid": "q083",
+   "chunk_id": "de_lager_maschinenelement#5",
+   "control": null
+  },
+  "p0823": {
+   "qid": "q090",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0824": {
+   "qid": "q053",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p0825": {
+   "qid": "q029",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p0826": {
+   "qid": "q072",
+   "chunk_id": "de_waelzlager#21",
+   "control": "random"
+  },
+  "p0827": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#17",
+   "control": null
+  },
+  "p0828": {
+   "qid": "q026",
+   "chunk_id": "en_tapered_roller_bearing#2",
+   "control": null
+  },
+  "p0829": {
+   "qid": "q011",
+   "chunk_id": "en_cv_joint#0",
+   "control": null
+  },
+  "p0830": {
+   "qid": "q032",
+   "chunk_id": "de_gleitlager#6",
+   "control": null
+  },
+  "p0831": {
+   "qid": "q005",
+   "chunk_id": "en_rolling_element_bearing#9",
+   "control": null
+  },
+  "p0832": {
+   "qid": "q088",
+   "chunk_id": "de_waelzlager#8",
+   "control": null
+  },
+  "p0833": {
+   "qid": "q028",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0834": {
+   "qid": "q028",
+   "chunk_id": "en_fatigue_material#10",
+   "control": null
+  },
+  "p0835": {
+   "qid": "q089",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0836": {
+   "qid": "q028",
+   "chunk_id": "en_tribology#9",
+   "control": null
+  },
+  "p0837": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#1",
+   "control": null
+  },
+  "p0838": {
+   "qid": "q010",
+   "chunk_id": "en_radial_shaft_seal#0",
+   "control": null
+  },
+  "p0839": {
+   "qid": "q042",
+   "chunk_id": "de_hydrodynamisches_gleitlager#0",
+   "control": null
+  },
+  "p0840": {
+   "qid": "q029",
+   "chunk_id": "en_ball_bearing#12",
+   "control": null
+  },
+  "p0841": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#5",
+   "control": null
+  },
+  "p0842": {
+   "qid": "q033",
+   "chunk_id": "en_radial_shaft_seal#0",
+   "control": null
+  },
+  "p0843": {
+   "qid": "q042",
+   "chunk_id": "en_bearing_mechanical#6",
+   "control": null
+  },
+  "p0844": {
+   "qid": "q065",
+   "chunk_id": "de_nadellager#0",
+   "control": null
+  },
+  "p0845": {
+   "qid": "q009",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0846": {
+   "qid": "q083",
+   "chunk_id": "de_waelzlager#6",
+   "control": null
+  },
+  "p0847": {
+   "qid": "q050",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p0848": {
+   "qid": "q030",
+   "chunk_id": "en_needle_roller_bearing#0",
+   "control": null
+  },
+  "p0849": {
+   "qid": "q077",
+   "chunk_id": "de_waelzlager#5",
+   "control": null
+  },
+  "p0850": {
+   "qid": "q011",
+   "chunk_id": "de_nadellager#0",
+   "control": null
+  },
+  "p0851": {
+   "qid": "q034",
+   "chunk_id": "de_fressen_technik#1",
+   "control": null
+  },
+  "p0852": {
+   "qid": "q061",
+   "chunk_id": "de_lager_maschinenelement#6",
+   "control": null
+  },
+  "p0853": {
+   "qid": "q028",
+   "chunk_id": "en_bearing_mechanical#15",
+   "control": null
+  },
+  "p0854": {
+   "qid": "q049",
+   "chunk_id": "ko_wear#0",
+   "control": null
+  },
+  "p0855": {
+   "qid": "q048",
+   "chunk_id": "de_materialermuedung#3",
+   "control": null
+  },
+  "p0856": {
+   "qid": "q042",
+   "chunk_id": "en_bearing_mechanical#14",
+   "control": null
+  },
+  "p0857": {
+   "qid": "q013",
+   "chunk_id": "ko_lubricant#2",
+   "control": null
+  },
+  "p0858": {
+   "qid": "q090",
+   "chunk_id": "de_waelzlager#3",
+   "control": null
+  },
+  "p0859": {
+   "qid": "q007",
+   "chunk_id": "ko_ball_bearing#2",
+   "control": null
+  },
+  "p0860": {
+   "qid": "q005",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0861": {
+   "qid": "q011",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0862": {
+   "qid": "q036",
+   "chunk_id": "ko_bearing#4",
+   "control": null
+  },
+  "p0863": {
+   "qid": "q002",
+   "chunk_id": "en_plain_bearing#7",
+   "control": null
+  },
+  "p0864": {
+   "qid": "q064",
+   "chunk_id": "de_materialermuedung#1",
+   "control": null
+  },
+  "p0865": {
+   "qid": "q006",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p0866": {
+   "qid": "q050",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0867": {
+   "qid": "q087",
+   "chunk_id": "de_lager_maschinenelement#2",
+   "control": null
+  },
+  "p0868": {
+   "qid": "q057",
+   "chunk_id": "ko_tribology#0",
+   "control": null
+  },
+  "p0869": {
+   "qid": "q049",
+   "chunk_id": "en_fatigue_material#20",
+   "control": null
+  },
+  "p0870": {
+   "qid": "q042",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0871": {
+   "qid": "q058",
+   "chunk_id": "ko_differential#0",
+   "control": null
+  },
+  "p0872": {
+   "qid": "q014",
+   "chunk_id": "de_verschleiss#3",
+   "control": null
+  },
+  "p0873": {
+   "qid": "q075",
+   "chunk_id": "en_bearing_mechanical#9",
+   "control": null
+  },
+  "p0874": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#4",
+   "control": null
+  },
+  "p0875": {
+   "qid": "q005",
+   "chunk_id": "ko_bearing#4",
+   "control": null
+  },
+  "p0876": {
+   "qid": "q034",
+   "chunk_id": "de_fressen_technik#0",
+   "control": "gold"
+  },
+  "p0877": {
+   "qid": "q010",
+   "chunk_id": "en_cv_joint#7",
+   "control": null
+  },
+  "p0878": {
+   "qid": "q018",
+   "chunk_id": "en_rolling_element_bearing#6",
+   "control": null
+  },
+  "p0879": {
+   "qid": "q037",
+   "chunk_id": "de_hydrodynamisches_gleitlager#3",
+   "control": null
+  },
+  "p0880": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#6",
+   "control": null
+  },
+  "p0881": {
+   "qid": "q030",
+   "chunk_id": "en_plain_bearing#8",
+   "control": null
+  },
+  "p0882": {
+   "qid": "q012",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0883": {
+   "qid": "q012",
+   "chunk_id": "en_rolling_element_bearing#14",
+   "control": null
+  },
+  "p0884": {
+   "qid": "q035",
+   "chunk_id": "de_schmierfett#11",
+   "control": null
+  },
+  "p0885": {
+   "qid": "q083",
+   "chunk_id": "en_bearing_mechanical#3",
+   "control": null
+  },
+  "p0886": {
+   "qid": "q031",
+   "chunk_id": "de_waelzlager#23",
+   "control": null
+  },
+  "p0887": {
+   "qid": "q028",
+   "chunk_id": "en_rolling_element_bearing#6",
+   "control": null
+  },
+  "p0888": {
+   "qid": "q082",
+   "chunk_id": "ko_lubricant#1",
+   "control": null
+  },
+  "p0889": {
+   "qid": "q032",
+   "chunk_id": "de_gleitlager#2",
+   "control": null
+  },
+  "p0890": {
+   "qid": "q033",
+   "chunk_id": "de_wellendichtring#2",
+   "control": null
+  },
+  "p0891": {
+   "qid": "q021",
+   "chunk_id": "de_waelzlager#18",
+   "control": null
+  },
+  "p0892": {
+   "qid": "q025",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0893": {
+   "qid": "q047",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p0894": {
+   "qid": "q065",
+   "chunk_id": "en_rolling_element_bearing#5",
+   "control": null
+  },
+  "p0895": {
+   "qid": "q060",
+   "chunk_id": "de_homokinetisches_gelenk#0",
+   "control": null
+  },
+  "p0896": {
+   "qid": "q073",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0897": {
+   "qid": "q073",
+   "chunk_id": "de_lager_maschinenelement#1",
+   "control": null
+  },
+  "p0898": {
+   "qid": "q070",
+   "chunk_id": "en_tribology#31",
+   "control": null
+  },
+  "p0899": {
+   "qid": "q048",
+   "chunk_id": "ko_tribology#0",
+   "control": null
+  },
+  "p0900": {
+   "qid": "q035",
+   "chunk_id": "en_grease#4",
+   "control": null
+  },
+  "p0901": {
+   "qid": "q005",
+   "chunk_id": "en_rolling_element_bearing#10",
+   "control": null
+  },
+  "p0902": {
+   "qid": "q076",
+   "chunk_id": "en_bearing_mechanical#6",
+   "control": null
+  },
+  "p0903": {
+   "qid": "q012",
+   "chunk_id": "de_gleitlager#4",
+   "control": null
+  },
+  "p0904": {
+   "qid": "q028",
+   "chunk_id": "en_bearing_mechanical#17",
+   "control": null
+  },
+  "p0905": {
+   "qid": "q036",
+   "chunk_id": "ko_differential#0",
+   "control": null
+  },
+  "p0906": {
+   "qid": "q090",
+   "chunk_id": "de_schmierfett#2",
+   "control": null
+  },
+  "p0907": {
+   "qid": "q075",
+   "chunk_id": "ko_fatigue_material#0",
+   "control": null
+  },
+  "p0908": {
+   "qid": "q086",
+   "chunk_id": "de_fressen_technik#0",
+   "control": null
+  },
+  "p0909": {
+   "qid": "q018",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p0910": {
+   "qid": "q036",
+   "chunk_id": "en_cv_joint#0",
+   "control": null
+  },
+  "p0911": {
+   "qid": "q015",
+   "chunk_id": "ko_shaft#0",
+   "control": null
+  },
+  "p0912": {
+   "qid": "q061",
+   "chunk_id": "en_bearing_mechanical#14",
+   "control": null
+  },
+  "p0913": {
+   "qid": "q041",
+   "chunk_id": "en_cv_joint#7",
+   "control": null
+  },
+  "p0914": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p0915": {
+   "qid": "q065",
+   "chunk_id": "en_rolling_element_bearing#4",
+   "control": null
+  },
+  "p0916": {
+   "qid": "q012",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0917": {
+   "qid": "q051",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0918": {
+   "qid": "q045",
+   "chunk_id": "en_radial_shaft_seal#2",
+   "control": null
+  },
+  "p0919": {
+   "qid": "q061",
+   "chunk_id": "de_schmierfett#9",
+   "control": null
+  },
+  "p0920": {
+   "qid": "q007",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0921": {
+   "qid": "q027",
+   "chunk_id": "en_plain_bearing#11",
+   "control": null
+  },
+  "p0922": {
+   "qid": "q010",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p0923": {
+   "qid": "q016",
+   "chunk_id": "en_ball_bearing#0",
+   "control": null
+  },
+  "p0924": {
+   "qid": "q068",
+   "chunk_id": "en_bearing_mechanical#5",
+   "control": null
+  },
+  "p0925": {
+   "qid": "q010",
+   "chunk_id": "ko_seal#1",
+   "control": null
+  },
+  "p0926": {
+   "qid": "q019",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0927": {
+   "qid": "q027",
+   "chunk_id": "en_plain_bearing#10",
+   "control": null
+  },
+  "p0928": {
+   "qid": "q078",
+   "chunk_id": "de_gleitlager#10",
+   "control": null
+  },
+  "p0929": {
+   "qid": "q076",
+   "chunk_id": "en_bearing_mechanical#10",
+   "control": "random"
+  },
+  "p0930": {
+   "qid": "q042",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p0931": {
+   "qid": "q078",
+   "chunk_id": "en_rolling_element_bearing#12",
+   "control": null
+  },
+  "p0932": {
+   "qid": "q012",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p0933": {
+   "qid": "q015",
+   "chunk_id": "en_cv_joint#4",
+   "control": null
+  },
+  "p0934": {
+   "qid": "q014",
+   "chunk_id": "de_lager_maschinenelement#3",
+   "control": null
+  },
+  "p0935": {
+   "qid": "q017",
+   "chunk_id": "en_tapered_roller_bearing#2",
+   "control": null
+  },
+  "p0936": {
+   "qid": "q037",
+   "chunk_id": "de_waelzlager#8",
+   "control": null
+  },
+  "p0937": {
+   "qid": "q031",
+   "chunk_id": "de_waelzlager#15",
+   "control": null
+  },
+  "p0938": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#0",
+   "control": null
+  },
+  "p0939": {
+   "qid": "q016",
+   "chunk_id": "en_bearing_mechanical#2",
+   "control": null
+  },
+  "p0940": {
+   "qid": "q074",
+   "chunk_id": "en_fatigue_material#20",
+   "control": null
+  },
+  "p0941": {
+   "qid": "q020",
+   "chunk_id": "en_grease#5",
+   "control": null
+  },
+  "p0942": {
+   "qid": "q079",
+   "chunk_id": "de_lager_maschinenelement#1",
+   "control": null
+  },
+  "p0943": {
+   "qid": "q014",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0944": {
+   "qid": "q045",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": "random"
+  },
+  "p0945": {
+   "qid": "q056",
+   "chunk_id": "en_bearing_mechanical#3",
+   "control": null
+  },
+  "p0946": {
+   "qid": "q049",
+   "chunk_id": "ko_ball_bearing#20",
+   "control": null
+  },
+  "p0947": {
+   "qid": "q031",
+   "chunk_id": "de_waelzlager#29",
+   "control": null
+  },
+  "p0948": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#8",
+   "control": null
+  },
+  "p0949": {
+   "qid": "q015",
+   "chunk_id": "de_homokinetisches_gelenk#3",
+   "control": null
+  },
+  "p0950": {
+   "qid": "q019",
+   "chunk_id": "de_schmierfett#0",
+   "control": null
+  },
+  "p0951": {
+   "qid": "q075",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p0952": {
+   "qid": "q044",
+   "chunk_id": "de_hydrodynamisches_gleitlager#5",
+   "control": null
+  },
+  "p0953": {
+   "qid": "q081",
+   "chunk_id": "en_wear#2",
+   "control": null
+  },
+  "p0954": {
+   "qid": "q008",
+   "chunk_id": "ko_bearing#0",
+   "control": null
+  },
+  "p0955": {
+   "qid": "q012",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p0956": {
+   "qid": "q045",
+   "chunk_id": "de_schmierfett#17",
+   "control": null
+  },
+  "p0957": {
+   "qid": "q042",
+   "chunk_id": "de_gleitlager#2",
+   "control": null
+  },
+  "p0958": {
+   "qid": "q064",
+   "chunk_id": "de_verschleiss#1",
+   "control": null
+  },
+  "p0959": {
+   "qid": "q015",
+   "chunk_id": "ko_ball_bearing#2",
+   "control": null
+  },
+  "p0960": {
+   "qid": "q053",
+   "chunk_id": "en_grease#3",
+   "control": null
+  },
+  "p0961": {
+   "qid": "q090",
+   "chunk_id": "de_schmierfett#16",
+   "control": null
+  },
+  "p0962": {
+   "qid": "q088",
+   "chunk_id": "de_dichtung_technik#0",
+   "control": null
+  },
+  "p0963": {
+   "qid": "q035",
+   "chunk_id": "en_grease#5",
+   "control": null
+  },
+  "p0964": {
+   "qid": "q078",
+   "chunk_id": "en_grease#2",
+   "control": null
+  },
+  "p0965": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#0",
+   "control": null
+  },
+  "p0966": {
+   "qid": "q030",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0967": {
+   "qid": "q089",
+   "chunk_id": "de_waelzlager#17",
+   "control": null
+  },
+  "p0968": {
+   "qid": "q030",
+   "chunk_id": "en_plain_bearing#12",
+   "control": null
+  },
+  "p0969": {
+   "qid": "q061",
+   "chunk_id": "en_ball_bearing#0",
+   "control": null
+  },
+  "p0970": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p0971": {
+   "qid": "q016",
+   "chunk_id": "de_lager_maschinenelement#1",
+   "control": null
+  },
+  "p0972": {
+   "qid": "q014",
+   "chunk_id": "de_gleitlager#7",
+   "control": null
+  },
+  "p0973": {
+   "qid": "q006",
+   "chunk_id": "ko_ball_bearing#5",
+   "control": null
+  },
+  "p0974": {
+   "qid": "q016",
+   "chunk_id": "en_brinelling#2",
+   "control": "gold"
+  },
+  "p0975": {
+   "qid": "q043",
+   "chunk_id": "de_wellendichtring#0",
+   "control": null
+  },
+  "p0976": {
+   "qid": "q002",
+   "chunk_id": "ko_lubrication#0",
+   "control": null
+  },
+  "p0977": {
+   "qid": "q003",
+   "chunk_id": "de_homokinetisches_gelenk#1",
+   "control": null
+  },
+  "p0978": {
+   "qid": "q051",
+   "chunk_id": "en_plain_bearing#8",
+   "control": null
+  },
+  "p0979": {
+   "qid": "q057",
+   "chunk_id": "en_wear#4",
+   "control": null
+  },
+  "p0980": {
+   "qid": "q036",
+   "chunk_id": "de_dichtung_technik#0",
+   "control": null
+  },
+  "p0981": {
+   "qid": "q087",
+   "chunk_id": "de_waelzlager#19",
+   "control": null
+  },
+  "p0982": {
+   "qid": "q012",
+   "chunk_id": "en_bearing_mechanical#12",
+   "control": "random"
+  },
+  "p0983": {
+   "qid": "q057",
+   "chunk_id": "ko_wear#1",
+   "control": null
+  },
+  "p0984": {
+   "qid": "q021",
+   "chunk_id": "en_rolling_element_bearing#4",
+   "control": null
+  },
+  "p0985": {
+   "qid": "q034",
+   "chunk_id": "de_schmierfett#16",
+   "control": null
+  },
+  "p0986": {
+   "qid": "q034",
+   "chunk_id": "de_waelzlager#30",
+   "control": null
+  },
+  "p0987": {
+   "qid": "q005",
+   "chunk_id": "en_bearing_mechanical#14",
+   "control": null
+  },
+  "p0988": {
+   "qid": "q059",
+   "chunk_id": "en_grease#4",
+   "control": null
+  },
+  "p0989": {
+   "qid": "q010",
+   "chunk_id": "de_dichtung_technik#0",
+   "control": null
+  },
+  "p0990": {
+   "qid": "q061",
+   "chunk_id": "en_rolling_element_bearing#10",
+   "control": null
+  },
+  "p0991": {
+   "qid": "q040",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p0992": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#11",
+   "control": null
+  },
+  "p0993": {
+   "qid": "q052",
+   "chunk_id": "ko_ball_bearing#14",
+   "control": null
+  },
+  "p0994": {
+   "qid": "q028",
+   "chunk_id": "en_rolling_element_bearing#3",
+   "control": null
+  },
+  "p0995": {
+   "qid": "q082",
+   "chunk_id": "de_lager_maschinenelement#4",
+   "control": null
+  },
+  "p0996": {
+   "qid": "q023",
+   "chunk_id": "en_bearing_mechanical#9",
+   "control": null
+  },
+  "p0997": {
+   "qid": "q028",
+   "chunk_id": "en_bearing_mechanical#6",
+   "control": null
+  },
+  "p0998": {
+   "qid": "q075",
+   "chunk_id": "en_cv_joint#6",
+   "control": null
+  },
+  "p0999": {
+   "qid": "q007",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p1000": {
+   "qid": "q082",
+   "chunk_id": "de_schmierfett#8",
+   "control": null
+  },
+  "p1001": {
+   "qid": "q002",
+   "chunk_id": "de_lager_maschinenelement#5",
+   "control": null
+  },
+  "p1002": {
+   "qid": "q084",
+   "chunk_id": "en_fatigue_material#11",
+   "control": null
+  },
+  "p1003": {
+   "qid": "q028",
+   "chunk_id": "en_bearing_mechanical#11",
+   "control": null
+  },
+  "p1004": {
+   "qid": "q009",
+   "chunk_id": "ko_ball_bearing#13",
+   "control": null
+  },
+  "p1005": {
+   "qid": "q034",
+   "chunk_id": "de_gleitlager#0",
+   "control": null
+  },
+  "p1006": {
+   "qid": "q088",
+   "chunk_id": "de_schmierfett#16",
+   "control": null
+  },
+  "p1007": {
+   "qid": "q081",
+   "chunk_id": "de_verschleiss#0",
+   "control": null
+  },
+  "p1008": {
+   "qid": "q037",
+   "chunk_id": "ko_bearing#3",
+   "control": null
+  },
+  "p1009": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#14",
+   "control": null
+  },
+  "p1010": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#16",
+   "control": null
+  },
+  "p1011": {
+   "qid": "q090",
+   "chunk_id": "de_verschleiss#2",
+   "control": null
+  },
+  "p1012": {
+   "qid": "q010",
+   "chunk_id": "ko_ball_bearing#8",
+   "control": null
+  },
+  "p1013": {
+   "qid": "q045",
+   "chunk_id": "en_tribology#33",
+   "control": null
+  },
+  "p1014": {
+   "qid": "q019",
+   "chunk_id": "en_ball_bearing#13",
+   "control": null
+  },
+  "p1015": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#8",
+   "control": "gold"
+  },
+  "p1016": {
+   "qid": "q050",
+   "chunk_id": "en_radial_shaft_seal#0",
+   "control": null
+  },
+  "p1017": {
+   "qid": "q063",
+   "chunk_id": "en_wear#0",
+   "control": null
+  },
+  "p1018": {
+   "qid": "q012",
+   "chunk_id": "ko_ball_bearing#9",
+   "control": null
+  },
+  "p1019": {
+   "qid": "q065",
+   "chunk_id": "en_bearing_mechanical#10",
+   "control": null
+  },
+  "p1020": {
+   "qid": "q042",
+   "chunk_id": "de_gleitlager#10",
+   "control": null
+  },
+  "p1021": {
+   "qid": "q073",
+   "chunk_id": "en_bearing_mechanical#8",
+   "control": null
+  },
+  "p1022": {
+   "qid": "q052",
+   "chunk_id": "de_schmierfett#8",
+   "control": null
+  },
+  "p1023": {
+   "qid": "q072",
+   "chunk_id": "de_materialermuedung#5",
+   "control": null
+  },
+  "p1024": {
+   "qid": "q021",
+   "chunk_id": "en_ball_bearing#15",
+   "control": null
+  },
+  "p1025": {
+   "qid": "q069",
+   "chunk_id": "en_rolling_element_bearing#15",
+   "control": null
+  },
+  "p1026": {
+   "qid": "q067",
+   "chunk_id": "en_brinelling#3",
+   "control": null
+  },
+  "p1027": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#6",
+   "control": null
+  },
+  "p1028": {
+   "qid": "q050",
+   "chunk_id": "de_dichtung_technik#2",
+   "control": null
+  },
+  "p1029": {
+   "qid": "q061",
+   "chunk_id": "de_waelzlager#23",
+   "control": null
+  },
+  "p1030": {
+   "qid": "q011",
+   "chunk_id": "en_tapered_roller_bearing#1",
+   "control": null
+  },
+  "p1031": {
+   "qid": "q018",
+   "chunk_id": "de_schmierfett#0",
+   "control": "random"
+  },
+  "p1032": {
+   "qid": "q001",
+   "chunk_id": "ko_drive_shaft#0",
+   "control": null
+  },
+  "p1033": {
+   "qid": "q037",
+   "chunk_id": "de_waelzlager#0",
+   "control": null
+  },
+  "p1034": {
+   "qid": "q057",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p1035": {
+   "qid": "q078",
+   "chunk_id": "en_ball_bearing#17",
+   "control": null
+  },
+  "p1036": {
+   "qid": "q053",
+   "chunk_id": "de_dichtung_technik#3",
+   "control": null
+  },
+  "p1037": {
+   "qid": "q051",
+   "chunk_id": "ko_ball_bearing#12",
+   "control": null
+  },
+  "p1038": {
+   "qid": "q013",
+   "chunk_id": "en_wear#1",
+   "control": null
+  },
+  "p1039": {
+   "qid": "q059",
+   "chunk_id": "ko_ball_bearing#15",
+   "control": null
+  },
+  "p1040": {
+   "qid": "q007",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p1041": {
+   "qid": "q070",
+   "chunk_id": "de_tribologie#1",
+   "control": null
+  },
+  "p1042": {
+   "qid": "q046",
+   "chunk_id": "de_tribologie#2",
+   "control": null
+  },
+  "p1043": {
+   "qid": "q018",
+   "chunk_id": "ko_bearing#2",
+   "control": null
+  },
+  "p1044": {
+   "qid": "q004",
+   "chunk_id": "ko_ball_bearing#2",
+   "control": null
+  },
+  "p1045": {
+   "qid": "q079",
+   "chunk_id": "de_lager_maschinenelement#5",
+   "control": null
+  },
+  "p1046": {
+   "qid": "q020",
+   "chunk_id": "en_grease#1",
+   "control": null
+  },
+  "p1047": {
+   "qid": "q023",
+   "chunk_id": "en_rolling_element_bearing#1",
+   "control": null
+  },
+  "p1048": {
+   "qid": "q060",
+   "chunk_id": "ko_linear_motion_bearing#0",
+   "control": null
+  },
+  "p1049": {
+   "qid": "q060",
+   "chunk_id": "en_ball_bearing#14",
+   "control": null
+  },
+  "p1050": {
+   "qid": "q049",
+   "chunk_id": "ko_ball_bearing#1",
+   "control": null
+  },
+  "p1051": {
+   "qid": "q003",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p1052": {
+   "qid": "q031",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p1053": {
+   "qid": "q012",
+   "chunk_id": "en_tapered_roller_bearing#2",
+   "control": null
+  },
+  "p1054": {
+   "qid": "q041",
+   "chunk_id": "de_nadellager#0",
+   "control": null
+  },
+  "p1055": {
+   "qid": "q028",
+   "chunk_id": "ko_ball_bearing#2",
+   "control": null
+  },
+  "p1056": {
+   "qid": "q080",
+   "chunk_id": "en_tribology#30",
+   "control": null
+  },
+  "p1057": {
+   "qid": "q080",
+   "chunk_id": "de_waelzlager#10",
+   "control": null
+  },
+  "p1058": {
+   "qid": "q066",
+   "chunk_id": "en_seal_mechanical#0",
+   "control": null
+  },
+  "p1059": {
+   "qid": "q034",
+   "chunk_id": "de_waelzlager#32",
+   "control": null
+  },
+  "p1060": {
+   "qid": "q038",
+   "chunk_id": "de_lager_maschinenelement#0",
+   "control": null
+  },
+  "p1061": {
+   "qid": "q073",
+   "chunk_id": "en_rolling_element_bearing#0",
+   "control": null
+  },
+  "p1062": {
+   "qid": "q064",
+   "chunk_id": "de_verschleiss#3",
+   "control": null
+  },
+  "p1063": {
+   "qid": "q034",
+   "chunk_id": "de_lager_maschinenelement#6",
+   "control": null
+  },
+  "p1064": {
+   "qid": "q061",
+   "chunk_id": "en_needle_roller_bearing#0",
+   "control": null
+  },
+  "p1065": {
+   "qid": "q048",
+   "chunk_id": "ko_ball_bearing#18",
+   "control": null
+  },
+  "p1066": {
+   "qid": "q022",
+   "chunk_id": "en_fatigue_material#11",
+   "control": null
+  },
+  "p1067": {
+   "qid": "q061",
+   "chunk_id": "ko_ball_bearing#17",
+   "control": null
+  },
+  "p1068": {
+   "qid": "q002",
+   "chunk_id": "en_bearing_mechanical#5",
+   "control": null
+  },
+  "p1069": {
+   "qid": "q038",
+   "chunk_id": "de_waelzlager#0",
+   "control": null
+  },
+  "p1070": {
+   "qid": "q020",
+   "chunk_id": "de_schmierfett#16",
+   "control": null
+  },
+  "p1071": {
+   "qid": "q080",
+   "chunk_id": "de_materialermuedung#3",
+   "control": null
+  },
+  "p1072": {
+   "qid": "q063",
+   "chunk_id": "en_tribology#0",
+   "control": null
+  },
+  "p1073": {
+   "qid": "q064",
+   "chunk_id": "en_fretting#3",
+   "control": null
+  },
+  "p1074": {
+   "qid": "q048",
+   "chunk_id": "ko_seal#0",
+   "control": null
+  },
+  "p1075": {
+   "qid": "q029",
+   "chunk_id": "en_ball_bearing#15",
+   "control": null
+  },
+  "p1076": {
+   "qid": "q087",
+   "chunk_id": "de_waelzlager#32",
+   "control": null
+  },
+  "p1077": {
+   "qid": "q060",
+   "chunk_id": "ko_ball_bearing#16",
+   "control": null
+  },
+  "p1078": {
+   "qid": "q085",
+   "chunk_id": "de_tribologie#1",
+   "control": null
+  },
+  "p1079": {
+   "qid": "q089",
+   "chunk_id": "de_waelzlager#25",
+   "control": null
+  },
+  "p1080": {
+   "qid": "q065",
+   "chunk_id": "en_rolling_element_bearing#3",
+   "control": null
+  },
+  "p1081": {
+   "qid": "q090",
+   "chunk_id": "de_schmierfett#11",
+   "control": null
+  },
+  "p1082": {
+   "qid": "q064",
+   "chunk_id": "en_tribology#25",
+   "control": null
+  },
+  "p1083": {
+   "qid": "q087",
+   "chunk_id": "de_gleitlager#8",
+   "control": null
+  },
+  "p1084": {
+   "qid": "q079",
+   "chunk_id": "de_waelzlager#33",
+   "control": null
+  },
+  "p1085": {
+   "qid": "q002",
+   "chunk_id": "ko_ball_bearing#19",
+   "control": null
+  }
+ }
+}

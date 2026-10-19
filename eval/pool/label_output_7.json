@@ -1,0 +1,677 @@
+[
+ {
+  "id": "p0007",
+  "label": 1,
+  "evidence": "ball bearing patents; reduce friction in wheel and axle assemblies"
+ },
+ {
+  "id": "p0015",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0023",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0031",
+  "label": 2,
+  "evidence": "V=K W L/Hv wear volume formula"
+ },
+ {
+  "id": "p0039",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0047",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0055",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0063",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0071",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0079",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0087",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0095",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0103",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0111",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0119",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0127",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0135",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0143",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0151",
+  "label": 1,
+  "evidence": "Timken patented tapered roller bearing 1898, carriage manufacturing"
+ },
+ {
+  "id": "p0159",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0167",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0175",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0183",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0191",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0199",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0207",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0215",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0223",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0231",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0239",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0247",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0255",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0263",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0271",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0279",
+  "label": 2,
+  "evidence": "Beim Anlauf der Welle entsteht zunächst Mischreibung"
+ },
+ {
+  "id": "p0287",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0295",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0303",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0311",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0319",
+  "label": 2,
+  "evidence": "피마자유와 대두유 ... 내연기관에도 사용"
+ },
+ {
+  "id": "p0327",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0335",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0343",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0351",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0359",
+  "label": 2,
+  "evidence": "DIN 3760 Radial-Wellendichtringe"
+ },
+ {
+  "id": "p0367",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0375",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0383",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0391",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0399",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0407",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0415",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0423",
+  "label": 2,
+  "evidence": "three usual limits: abrasion, fatigue and pressure-induced welding"
+ },
+ {
+  "id": "p0431",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0439",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0447",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0455",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0463",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0471",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0479",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0487",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0495",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0503",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0511",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0519",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0527",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0535",
+  "label": 2,
+  "evidence": "케이지가 없으면 두 볼록한 표면이 서로 미끄러지면서 안정화"
+ },
+ {
+  "id": "p0543",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0551",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0559",
+  "label": 2,
+  "evidence": "V=K W L/Hv for single-abrasive wear"
+ },
+ {
+  "id": "p0567",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0575",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0583",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0591",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0599",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0607",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0615",
+  "label": 2,
+  "evidence": "Bereich der Dauerfestigkeit; unterhalb beliebig viele Schwingspiele"
+ },
+ {
+  "id": "p0623",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0631",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0639",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0647",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0655",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0663",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0671",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0679",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0687",
+  "label": 1,
+  "evidence": "Thrust bearing: forces acting axial to the shaft"
+ },
+ {
+  "id": "p0695",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0703",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0711",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0719",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0727",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0735",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0743",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0751",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0759",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0767",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0775",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0783",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0791",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0799",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0807",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0815",
+  "label": 1,
+  "evidence": "케이지형 롤러 베어링은 존 해리슨이 18세기 중반 발명"
+ },
+ {
+  "id": "p0823",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0831",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0839",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0847",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0855",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0863",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0871",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0879",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0887",
+  "label": 1,
+  "evidence": "For light loads, such as bicycles, ball bearings are used"
+ },
+ {
+  "id": "p0895",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0903",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0911",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0919",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0927",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0935",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0943",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0951",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0959",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0967",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0975",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0983",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p0991",
+  "label": 2,
+  "evidence": "진동력 충격 손상 브리넬링 vs 짧은 호 회전 가짜 브리넬링"
+ },
+ {
+  "id": "p0999",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1007",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1015",
+  "label": 2,
+  "evidence": "metallische Rollgeräusche, Pfeif- und Schleifgeräusche bei gerader Fahrt"
+ },
+ {
+  "id": "p1023",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1031",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1039",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1047",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1055",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1063",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1071",
+  "label": 0,
+  "evidence": ""
+ },
+ {
+  "id": "p1079",
+  "label": 0,
+  "evidence": ""
+ }
+]
