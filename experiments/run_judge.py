@@ -88,6 +88,8 @@ def main() -> None:
     for name in args.results:
         src = json.loads((REPO / "experiments" / "results" / f"{name}.json").read_text(encoding="utf-8"))
         per_query = []
+        # 평가셋은 생성 결과에 기록된 경로를 쓴다 (판정 설정의 기본값은 45문항 평가셋이라 v2 결과가 KeyError가 난다)
+        queries = {q["qid"]: q for q in load_queries(REPO / src["config"].get("eval_path", cfg.eval_path))}
         for p in src["per_query"]:
             q = queries[p["qid"]]
             ctx_ids, answer = p["context_ids"], p["answer"]

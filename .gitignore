@@ -31,3 +31,5 @@ logs/
 # Stage 4 intermediates and model files
 data/sft/_work/
 outputs/
+data/sft_v2/_work/
+data/sft_v2x/_work/
