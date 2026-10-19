@@ -77,6 +77,10 @@ uv run python experiments/analyze_v2_generation.py
 # Local chat server (http://127.0.0.1:8000)
 uv run python experiments/serve_chat.py configs/s35_pipeline.json
 
+# Service performance (stage latency, concurrent requests)
+uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30
+uv run python experiments/bench_chat_concurrency.py configs/s6_pipeline_en.json
+
 uv run pytest -q
 ```
 
@@ -223,6 +227,40 @@ Base bf16 model with contexts from different retrieval results:
 |---|---|---|---|---|
 | RRF + reranker | 0.767 | 0.722 | 0.896 | 0.805 |
 | English RRF + reranker | 0.833 | 0.744 | 0.881 | 0.857 |
+| English RRF + reranker (English reranker input) | 0.989 | 0.933 | 0.955 | 0.886 |
+
+Difference to RRF + reranker (95 % interval by document cluster), English reranker input: gold chunk in context +0.222 (+0.120 .. +0.320), cites gold chunk +0.211 (+0.125 .. +0.292), correctness +0.105 (+0.013 .. +0.208), faithfulness +0.066 (-0.022 .. +0.151).
+
+### Service performance (real models)
+
+30 questions taken evenly from eval set v2 were asked one after another. The cold pass starts with empty translation and LLM caches; the warm pass asks the same questions again and is answered from the caches. Values are in ms as `p50 / p95`. The service handles one request at a time. Configs: `configs/s35_pipeline.json` (original retrieval) and `configs/s6_pipeline_en.json` (English pivot + English reranker input).
+
+| Item | original retrieval (s35) | English pivot (s6) |
+|---|---|---|
+| Retrieval (query translation + search + reranking) | 184 / 192 | 740 / 1004 |
+| Query translation | - | 570 / 828 |
+| Reranking | 173 / 182 | 161 / 168 |
+| Generation | 2521 / 6362 | 2929 / 4888 |
+| Total | 2703 / 6552 | 3590 / 5866 |
+| Throughput (questions/min, cold pass) | 19.3 | 14.9 |
+| Generation speed (tokens/s, p50) | 29.6 | 30.1 |
+| Total, cache answer (same question again) | 170 / 174 | 171 / 173 |
+| Blocked by output validation | 4/30 | 1/30 |
+| GPU memory (nvidia-smi, cuda:0 / cuda:1) | 2881 / 8798 MiB | 10647 / 8942 MiB |
+| Retrieval model load + indexing / generator load | 18.3 s / 3.0 s | 15.3 s / 3.1 s |
+
+Concurrent HTTP requests (every question different, no cache hit, translation and LLM caches empty at server start). Queue wait = client latency - server processing time.
+
+| Requests | Config | Wall time | Requests/min | Client latency p50 / max | Queue wait p50 |
+|---|---|---|---|---|---|
+| 4 one after another | s35 | 14.0 s | 17.1 | 3.4 s / 5.9 s | 0.0 s |
+| 4 one after another | s6 | 22.8 s | 10.5 | 4.6 s / 10.7 s | 0.0 s |
+| 2 at once | s35 | 10.3 s | 11.7 | 6.8 s / 10.3 s | 1.7 s |
+| 2 at once | s6 | 12.2 s | 9.8 | 8.8 s / 12.2 s | 2.7 s |
+| 4 at once | s35 | 10.1 s | 23.7 | 5.2 s / 10.1 s | 3.4 s |
+| 4 at once | s6 | 10.4 s | 23.0 | 6.2 s / 10.4 s | 3.9 s |
+| 8 at once | s35 | 23.2 s | 20.7 | 15.3 s / 23.2 s | 13.1 s |
+| 8 at once | s6 | 28.4 s | 16.9 | 16.4 s / 28.4 s | 11.2 s |
 
 ## Limitations
 
@@ -230,6 +268,7 @@ Base bf16 model with contexts from different retrieval results:
 - Human grading covers 8 answers by one grader. Judge results are approximate.
 - Training answers were selected by `sentence_coverage = 1`, so the sentence-level citation rate is the same metric as the selection criterion. Fine-tuning used 66 to 125 training examples and one rank (16); hyperparameters were not tuned.
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
+- Service performance uses 30 questions, and each concurrent request pattern was measured once. The server handles one request at a time.
 - The English pivot uses the same model for chunks and queries. The chunk-size and contextual-prefix experiments cover the original-text pipelines only, and the chunk-size variants are excluded from pooling.
 
 ## Repository layout
