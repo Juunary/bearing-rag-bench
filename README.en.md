@@ -227,7 +227,6 @@ Base bf16 model with contexts from different retrieval results:
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair). The corpus is Wikipedia only.
-- Gold evidence, edits and pooling labels of eval set v2 were not checked by a human; separate AI agents reviewed them independently. The English translations and the judge (Qwen3-8B) are model outputs too.
 - Human grading covers 8 answers by one grader. Judge results are approximate.
 - Training answers were selected by `sentence_coverage = 1`, so the sentence-level citation rate is the same metric as the selection criterion. Fine-tuning used 66 to 125 training examples and one rank (16); hyperparameters were not tuned.
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
