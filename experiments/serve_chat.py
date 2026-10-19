@@ -43,6 +43,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("config", type=Path)
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--cache", type=Path, default=None, help="LLM cache file (default logs/chat_cache.sqlite)")
+    ap.add_argument("--cold-translation", action="store_true", help="benchmark mode: start with an empty translation cache")
     args = ap.parse_args()
     cfg = ExperimentConfig.load(args.config)
     g = cfg.generation
@@ -53,8 +55,11 @@ def main() -> None:
         # 이 함수는 서버의 작업 스레드 안에서 실행된다 (캐시 SQLite 연결과 GPU 모델의 소유 스레드)
         retriever = build_retriever(cfg)
         retriever.index(chunks)
+        if args.cold_translation:
+            from ragbench.retrieval.factory import use_cold_translation_cache
+            use_cold_translation_cache(retriever)        # 번역 캐시를 비워 질의 번역이 실제로 실행되게 한다
         generator = Generator(g.model, device=g.device, quantize_4bit=g.quantize_4bit, adapter=g.adapter)
-        return RAGPipeline(retriever, chunks, generator, LLMCache(REPO / "logs" / "chat_cache.sqlite"),
+        return RAGPipeline(retriever, chunks, generator, LLMCache(args.cache or REPO / "logs" / "chat_cache.sqlite"),
                            RequestLogger(REPO / "logs" / "requests.jsonl"), prompt_version=g.prompt_version,
                            context_k=g.context_k, max_new_tokens=g.max_new_tokens, config_id=f"chat:{cfg.exp_id}")
 

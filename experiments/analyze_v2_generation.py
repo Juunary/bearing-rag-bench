@@ -78,7 +78,7 @@ def fmt(x: np.ndarray) -> str:
 
 def main() -> None:
     queries = {q["qid"]: q for q in load_queries(REPO / "eval" / "queries_v2.jsonl")}
-    names = ["base_bf16", "base_4bit", *QL["qlora"], *QL["lora"], "xqlora_s42", "xlora_s42", "ret_b_rrf_en_rerank"]
+    names = ["base_bf16", "base_4bit", *QL["qlora"], *QL["lora"], "xqlora_s42", "xlora_s42", "ret_b_rrf_en_rerank", "ret_x2_rerank_en_text"]
     M = {n: per_query_matrix(n) for n in names}
     M = {n: m for n, m in M.items() if m is not None}
     first = load(f"v2g_{next(iter(M))}")
@@ -131,15 +131,17 @@ def main() -> None:
                 out.append(f"| {meth} | {label} | " + " | ".join(fmt(M[n][c][cross]) for c in ("sentence_coverage", "cites_gold", "faithfulness", "correctness", "answer_language_ok")) + " |")
 
     out += ["", "## 5. Retrieval effect on the answers (base bf16 model)", "", "| contexts from | gold_in_context | cites_gold | faithfulness | correctness | answer_relevance |", "|---|---|---|---|---|---|"]
-    for label, n in (("RRF + reranker (original)", "base_bf16"), ("English-pivot RRF + reranker", "ret_b_rrf_en_rerank")):
+    for label, n in (("RRF + reranker (original)", "base_bf16"), ("English-pivot RRF + reranker", "ret_b_rrf_en_rerank"),
+                     ("English-pivot RRF + reranker with English reranker input", "ret_x2_rerank_en_text")):
         if n in M:
             out.append(f"| {label} | " + " | ".join(fmt(M[n][c]) for c in ("gold_in_context", "cites_gold", "faithfulness", "correctness", "answer_relevance")) + " |")
-    if "base_bf16" in M and "ret_b_rrf_en_rerank" in M:
-        for metric in ("gold_in_context", "correctness"):
-            xa, xb = M["ret_b_rrf_en_rerank"][metric], M["base_bf16"][metric]
+    for ret in ("ret_b_rrf_en_rerank", "ret_x2_rerank_en_text"):
+      if "base_bf16" in M and ret in M:
+        for metric in ("gold_in_context", "cites_gold", "correctness", "faithfulness"):
+            xa, xb = M[ret][metric], M["base_bf16"][metric]
             ok = ~np.isnan(xa) & ~np.isnan(xb)
             c = compare((xa - xb)[ok], [cl for cl, k in zip(clusters, ok) if k])
-            out.append(f"\n- {metric}, English pivot minus original: {c['mean']:+.3f}, CI question {c['ci_iid'][0]:+.3f}..{c['ci_iid'][1]:+.3f}, CI cluster {c['ci_cluster'][0]:+.3f}..{c['ci_cluster'][1]:+.3f}, better/worse/tie {c['better']}/{c['worse']}/{c['tie']}")
+            out.append(f"\n- {metric}, {ret} minus original: {c['mean']:+.3f}, CI question {c['ci_iid'][0]:+.3f}..{c['ci_iid'][1]:+.3f}, CI cluster {c['ci_cluster'][0]:+.3f}..{c['ci_cluster'][1]:+.3f}, better/worse/tie {c['better']}/{c['worse']}/{c['tie']}")
 
     out += ["", "## 6. Answer language (ko: Hangul present; en/de: no Hangul; German vs English is not distinguished)", "",
             "| condition | ko questions | en questions | de questions |", "|---|---|---|---|"]

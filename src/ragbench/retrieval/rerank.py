@@ -67,6 +67,7 @@ class RerankRetriever:
         # english_chunks_path / query_translator: 리랭커가 번역 청크와 번역 질의를 읽게 한다 (후보 ID는 base가 정한 그대로)
         self.english_chunks_path, self.query_translator = english_chunks_path, query_translator
         self.name = f"rerank({base.name})_{model_name.split('/')[-1]}_n{top_n}" + ("_en" if english_chunks_path else "")
+        self.last_rerank_seconds = 0.0         # 마지막 질의의 cross-encoder 채점 시간 (측정기가 첫 검색 전에도 이 속성을 찾을 수 있게 미리 만든다)
         self.last_pool: list[str] = []         # 마지막 질의에서 리랭커에 들어간 후보 ID (정답이 후보 안에 있었는지 진단용)
         self.chunk_text: dict[str, str] = {}
         self.last_base_ranks: dict[str, int] = {}

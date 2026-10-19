@@ -41,7 +41,7 @@ def _translate_query(retriever, query: str) -> dict[str, Any]:
     else:
         r = {**retriever.translator.translate(query, "query"), "skipped": False}
     retriever.query_log.append({"query": query, "english": r["text"], "truncated": r["truncated"], "seconds": r["seconds"],
-                                "skipped": r["skipped"]})
+                                "skipped": r["skipped"], "from_cache": bool(r.get("from_cache", False))})
     return r
 
 

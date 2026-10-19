@@ -83,3 +83,30 @@ def build_retriever(cfg: ExperimentConfig):
                                    english_chunks_path=_english_chunks_path(cfg), query_translator=tr)
         return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n)
     raise ValueError(f"unknown retrieval method {r.method!r}")
+
+
+def translators_of(retriever) -> list:
+    """Every distinct Translator object inside a retriever tree (BM25 pivot, query expansion, reranker input)."""
+    found, stack, seen = [], [retriever], set()
+    while stack:
+        r = stack.pop()
+        if id(r) in seen:
+            continue
+        seen.add(id(r))
+        for attr in ("translator", "query_translator"):
+            t = getattr(r, attr, None)
+            if t is not None and all(t is not f for f in found):
+                found.append(t)
+        stack.extend(getattr(r, "retrievers", []))
+        stack.extend(x for x in (getattr(r, "base", None), getattr(r, "en", None)) if x is not None)
+    return found
+
+
+def use_cold_translation_cache(retriever) -> int:
+    """Swap every translator's cache for an empty in-memory one (benchmarks: translation latency must not be hidden by the cache)."""
+    from ragbench.cache import LLMCache
+
+    ts = translators_of(retriever)
+    for t in ts:
+        t.cache = LLMCache(":memory:")
+    return len(ts)
