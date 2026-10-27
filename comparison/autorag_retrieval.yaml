@@ -1,0 +1,49 @@
+# AutoRAG search space (retrieval only). Same bge-m3 embedding and bge-reranker-v2-m3 as every other system.
+# Each node tries all modules; AutoRAG keeps the best by its own metrics for the next node. All module results are
+# re-scored with the repository's metrics by collect_autorag.py.
+vectordb:
+  - name: bge_m3
+    db_type: chroma
+    client_type: persistent
+    embedding_model: huggingface_bge_m3
+    collection_name: bge_m3
+    path: ${PROJECT_DIR}/resources/chroma
+node_lines:
+  - node_line_name: retrieve_node_line
+    nodes:
+      - node_type: lexical_retrieval
+        strategy:
+          metrics: [retrieval_recall, retrieval_ndcg, retrieval_mrr]
+        top_k: 30
+        modules:
+          - module_type: bm25
+            bm25_tokenizer: [space, porter_stemmer, ko_kiwi]
+      - node_type: semantic_retrieval
+        strategy:
+          metrics: [retrieval_recall, retrieval_ndcg, retrieval_mrr]
+        top_k: 30
+        modules:
+          - module_type: vectordb
+            vectordb: bge_m3
+      - node_type: hybrid_retrieval
+        strategy:
+          metrics: [retrieval_recall, retrieval_ndcg, retrieval_mrr]
+        top_k: 30
+        modules:
+          - module_type: hybrid_rrf
+            weight_range: (60, 60)
+          - module_type: hybrid_cc
+            normalize_method: [mm, z, dbsf]
+            weight_range: (0.0, 1.0)
+            test_weight_size: 11
+      - node_type: passage_reranker
+        strategy:
+          metrics: [retrieval_recall, retrieval_ndcg, retrieval_mrr]
+        top_k: 10
+        modules:
+          - module_type: pass_reranker
+          - module_type: flag_embedding_reranker
+            model_name: BAAI/bge-reranker-v2-m3
+            batch: 8
+          - module_type: sentence_transformer_reranker
+            model_name: BAAI/bge-reranker-v2-m3

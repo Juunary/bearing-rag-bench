@@ -1,0 +1,26 @@
+[project]
+name = "rag-compare"
+version = "0.1.0"
+description = "Comparison of open-source RAG frameworks (AutoRAG, LlamaIndex, Haystack) with bearing-rag-bench on the same corpus, questions and models"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "autorag[gpu]",
+    "llama-index-embeddings-huggingface",
+    "llama-index-retrievers-bm25",
+    "haystack-ai",
+    "sentence-transformers-haystack",
+    "sentence-transformers",
+    "FlagEmbedding",
+    "kiwipiepy",
+    "torch",
+    "numpy",
+]
+
+# This machine's NVIDIA driver is 550 (CUDA 12.4); default PyPI torch wheels are CUDA 13 builds it cannot load.
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }

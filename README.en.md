@@ -81,6 +81,13 @@ uv run python experiments/serve_chat.py configs/s35_pipeline.json
 uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30
 uv run python experiments/bench_chat_concurrency.py configs/s6_pipeline_en.json
 
+# External framework comparison (LlamaIndex, Haystack, AutoRAG; separate environment comparison/.venv)
+uv run python comparison/prepare_data.py                     # export the same 346 chunks and 90 questions as framework input
+cd comparison && uv sync && uv run python run_frameworks.py all && uv run python make_autorag_data.py
+uv run python run_autorag.py && uv run python collect_autorag.py && cd ..
+uv run python experiments/run_generation.py configs/cmp/v2g_cmp_ar.json   # li and hs likewise (then run_judge.py)
+uv run python experiments/analyze_comparison.py
+
 uv run pytest -q
 ```
 
@@ -262,6 +269,46 @@ Concurrent HTTP requests (every question different, no cache hit, translation an
 | 8 at once | s35 | 23.2 s | 20.7 | 15.3 s / 23.2 s | 13.1 s |
 | 8 at once | s6 | 28.4 s | 16.9 | 16.4 s / 28.4 s | 11.2 s |
 
+### External framework comparison (eval set v2, 90 questions)
+
+LlamaIndex 0.14.25, Haystack 3.4.1 and AutoRAG 0.3.27 ran in a separate environment under `comparison/` (Python 3.11). Every system indexes this repository's 346 chunks under the same chunk ids and returns a chunk-id ranking for the same 90 questions. Embedding is bge-m3, the reranker is bge-reranker-v2-m3, and generation is Qwen3-4B-Instruct-2507 (cite_v1, top 5) for all of them; scoring uses only this repository's metrics (`ragbench.metrics`) and the same judge (Qwen3-8B), no framework metric. The framework rows use no translation.
+
+| System | R@5 | MRR@10 | nDCG@10 | mono | cross |
+|---|---|---|---|---|---|
+| This repo: BM25 whitespace | 0.313 | 0.394 | 0.328 | 0.772 | 0.106 |
+| LlamaIndex: BM25 | 0.323 | 0.379 | 0.323 | 0.755 | 0.107 |
+| Haystack: BM25 | 0.322 | 0.380 | 0.315 | 0.761 | 0.091 |
+| AutoRAG: BM25 (ko_kiwi, best of its search) | 0.333 | 0.400 | 0.333 | 0.791 | 0.104 |
+| This repo: dense bge-m3 | 0.514 | 0.506 | 0.487 | 0.760 | 0.350 |
+| LlamaIndex: vector | 0.514 | 0.506 | 0.486 | 0.760 | 0.350 |
+| Haystack: dense | 0.514 | 0.506 | 0.486 | 0.760 | 0.350 |
+| AutoRAG: vector | 0.514 | 0.506 | 0.486 | 0.760 | 0.350 |
+| This repo: RRF | 0.341 | 0.433 | 0.360 | 0.825 | 0.128 |
+| LlamaIndex: hybrid (reciprocal rerank fusion) | 0.434 | 0.471 | 0.444 | 0.811 | 0.261 |
+| Haystack: hybrid (RRF) | 0.419 | 0.470 | 0.425 | 0.821 | 0.227 |
+| AutoRAG: hybrid RRF | 0.397 | 0.441 | 0.407 | 0.817 | 0.203 |
+| This repo: RRF + reranker | 0.608 | 0.650 | 0.586 | 0.864 | 0.448 |
+| LlamaIndex: hybrid + reranker | 0.617 | 0.654 | 0.592 | 0.863 | 0.456 |
+| Haystack: hybrid + reranker | 0.612 | 0.659 | 0.591 | 0.860 | 0.456 |
+| AutoRAG: best pipeline of its search (30 dense candidates + reranker) | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 |
+| This repo: English RRF + reranker (reranker reads English) | 0.892 | 0.933 | 0.895 | 0.903 | 0.891 |
+
+The AutoRAG search (`comparison/autorag_retrieval.yaml`) ran 3 BM25 tokenizers, 4 hybrid modules (RRF and three convex-combination normalizations) and 3 rerankers. In the hybrid node, the module chosen by AutoRAG's own metrics is convex combination (mm) with weight 1.0, which equals the dense result. Per-module results and the per-language-pair table are in `experiments/results/cmp_analysis.md`.
+
+Paired nDCG@10 differences (A - B, document-cluster 95% interval): LlamaIndex hybrid + reranker - this repo RRF + reranker +0.005 (-0.001 .. +0.018), Haystack +0.004 (-0.015 .. +0.027), AutoRAG best pipeline +0.056 (+0.025 .. +0.094). This repo English RRF + reranker (reranker reads English) - AutoRAG best pipeline +0.253 (+0.169 .. +0.333), - LlamaIndex +0.303 (+0.214 .. +0.385), - Haystack +0.304 (+0.217 .. +0.387).
+
+Top 5 of each system's retrieval fed to the same base bf16 model:
+
+| Context source | gold chunk in context | cites gold chunk | faithfulness | correctness | answer relevance |
+|---|---|---|---|---|---|
+| LlamaIndex hybrid + reranker | 0.778 | 0.733 | 0.911 | 0.797 | 0.937 |
+| Haystack hybrid + reranker | 0.778 | 0.733 | 0.912 | 0.812 | 0.950 |
+| AutoRAG best pipeline | 0.811 | 0.744 | 0.915 | 0.817 | 0.951 |
+| This repo: English RRF + reranker | 0.833 | 0.744 | 0.881 | 0.857 | 0.929 |
+| This repo: English RRF + reranker (reranker reads English) | 0.989 | 0.933 | 0.955 | 0.886 | 0.977 |
+
+This repo English RRF + reranker (reranker reads English) - AutoRAG best pipeline (document-cluster 95% interval): gold chunk in context +0.178 (+0.077 .. +0.277), cites gold chunk +0.189 (+0.106 .. +0.267), faithfulness +0.049 (-0.025 .. +0.127), correctness +0.086 (+0.012 .. +0.162). AutoRAG - LlamaIndex and AutoRAG - Haystack include 0 in all four metrics (gold chunk in context has a lower bound of +0.000).
+
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair). The corpus is Wikipedia only.
@@ -270,6 +317,9 @@ Concurrent HTTP requests (every question different, no cache hit, translation an
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
 - Service performance uses 30 questions, and each concurrent request pattern was measured once. The server handles one request at a time.
 - The English pivot uses the same model for chunks and queries. The chunk-size and contextual-prefix experiments cover the original-text pipelines only, and the chunk-size variants are excluded from pooling.
+- The framework comparison feeds this repository's 346 chunks to every system; each framework's document loader, chunker and any translation (pivot) feature are not compared. The framework rows have no English pivot.
+- LlamaIndex and Haystack have one hybrid + reranker configuration each, without parameter search. The AutoRAG search is limited to 11 modules of the retrieval and reranking nodes; query expansion, prompt and generation nodes were not searched. The generation comparison uses the best configuration of each system and one judge model.
+- The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
 
@@ -286,6 +336,8 @@ configs/v2/     eval-set-v2 experiment configs (generated by scripts/make_v2_con
 eval/pool/      pooling candidates, labels, index
 eval/v2_draft/  eval set v2 drafts, review inputs and outputs
 data/sft_v2*/   training data rebuilt for v2 (general, cross-language-only), data/glossary.json glossary
+comparison/     external framework comparison (separate environment): prepare_data, run_frameworks, run_autorag, collect_autorag
+configs/cmp/    generation configs that take the frameworks' retrieval results
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```

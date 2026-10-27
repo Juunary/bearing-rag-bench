@@ -81,6 +81,13 @@ uv run python experiments/serve_chat.py configs/s35_pipeline.json
 uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30
 uv run python experiments/bench_chat_concurrency.py configs/s6_pipeline_en.json
 
+# 외부 프레임워크 비교 (LlamaIndex, Haystack, AutoRAG; 별도 환경 comparison/.venv)
+uv run python comparison/prepare_data.py                     # 같은 346 청크·90문항을 프레임워크 입력으로 내보냄
+cd comparison && uv sync && uv run python run_frameworks.py all && uv run python make_autorag_data.py
+uv run python run_autorag.py && uv run python collect_autorag.py && cd ..
+uv run python experiments/run_generation.py configs/cmp/v2g_cmp_ar.json   # li, hs도 같은 방식 (이후 run_judge.py)
+uv run python experiments/analyze_comparison.py
+
 uv run pytest -q
 ```
 
@@ -262,6 +269,46 @@ HTTP 동시 요청(질문은 모두 다르고 캐시 히트 없음, 서버 시�
 | 동시 8개 | s35 | 23.2 s | 20.7 | 15.3 s / 23.2 s | 13.1 s |
 | 동시 8개 | s6 | 28.4 s | 16.9 | 16.4 s / 28.4 s | 11.2 s |
 
+### 외부 프레임워크 비교 (평가셋 v2, 질문 90개)
+
+LlamaIndex 0.14.25, Haystack 3.4.1, AutoRAG 0.3.27을 `comparison/`의 별도 환경(Python 3.11)에서 실행했습니다. 모든 시스템이 이 저장소의 청크 346개를 같은 청크 ID로 색인하고, 같은 질문 90개에 청크 ID 순위를 반환합니다. 임베딩은 bge-m3, 리랭커는 bge-reranker-v2-m3, 생성은 Qwen3-4B-Instruct-2507(cite_v1, 상위 5개)로 같고, 채점은 프레임워크 지표 없이 이 저장소의 지표(`ragbench.metrics`)와 같은 판정 모델(Qwen3-8B)로만 했습니다. 프레임워크 행은 번역을 쓰지 않습니다.
+
+| 시스템 | R@5 | MRR@10 | nDCG@10 | 단일 언어 | 교차 언어 |
+|---|---|---|---|---|---|
+| 이 저장소: BM25 공백 | 0.313 | 0.394 | 0.328 | 0.772 | 0.106 |
+| LlamaIndex: BM25 | 0.323 | 0.379 | 0.323 | 0.755 | 0.107 |
+| Haystack: BM25 | 0.322 | 0.380 | 0.315 | 0.761 | 0.091 |
+| AutoRAG: BM25 (ko_kiwi, 탐색 중 최고) | 0.333 | 0.400 | 0.333 | 0.791 | 0.104 |
+| 이 저장소: 밀집 bge-m3 | 0.514 | 0.506 | 0.487 | 0.760 | 0.350 |
+| LlamaIndex: 벡터 | 0.514 | 0.506 | 0.486 | 0.760 | 0.350 |
+| Haystack: 밀집 | 0.514 | 0.506 | 0.486 | 0.760 | 0.350 |
+| AutoRAG: 벡터 | 0.514 | 0.506 | 0.486 | 0.760 | 0.350 |
+| 이 저장소: RRF | 0.341 | 0.433 | 0.360 | 0.825 | 0.128 |
+| LlamaIndex: 하이브리드(reciprocal rerank fusion) | 0.434 | 0.471 | 0.444 | 0.811 | 0.261 |
+| Haystack: 하이브리드(RRF) | 0.419 | 0.470 | 0.425 | 0.821 | 0.227 |
+| AutoRAG: 하이브리드 RRF | 0.397 | 0.441 | 0.407 | 0.817 | 0.203 |
+| 이 저장소: RRF + 리랭커 | 0.608 | 0.650 | 0.586 | 0.864 | 0.448 |
+| LlamaIndex: 하이브리드 + 리랭커 | 0.617 | 0.654 | 0.592 | 0.863 | 0.456 |
+| Haystack: 하이브리드 + 리랭커 | 0.612 | 0.659 | 0.591 | 0.860 | 0.456 |
+| AutoRAG: 탐색 최고 파이프라인(밀집 후보 30개 + 리랭커) | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 |
+| 이 저장소: 영어 RRF + 리랭커(리랭커 영어 입력) | 0.892 | 0.933 | 0.895 | 0.903 | 0.891 |
+
+AutoRAG 탐색(`comparison/autorag_retrieval.yaml`)은 BM25 토크나이저 3종, 하이브리드 4종(RRF, convex combination 정규화 3종), 리랭커 3종을 돌렸고, 하이브리드 단계에서 AutoRAG 자체 지표로 고른 모듈은 convex combination(mm)에 가중치 1.0이어서 밀집 결과와 같습니다. 모듈별 전체 결과와 언어쌍별 표는 `experiments/results/cmp_analysis.md`에 있습니다.
+
+nDCG@10 쌍체 비교(A - B, 문서 군집 95% 구간): LlamaIndex 하이브리드 + 리랭커 - 이 저장소 RRF + 리랭커 +0.005(-0.001 .. +0.018), Haystack +0.004(-0.015 .. +0.027), AutoRAG 최고 파이프라인 +0.056(+0.025 .. +0.094). 이 저장소 영어 RRF + 리랭커(리랭커 영어 입력) - AutoRAG 최고 파이프라인 +0.253(+0.169 .. +0.333), - LlamaIndex +0.303(+0.214 .. +0.385), - Haystack +0.304(+0.217 .. +0.387).
+
+각 시스템의 검색 결과 상위 5개를 같은 기반 bf16 모델에 주었을 때:
+
+| 컨텍스트 출처 | 정답 청크가 컨텍스트에 있음 | 정답 청크 인용 | 충실도 | 정확성 | 답변 관련성 |
+|---|---|---|---|---|---|
+| LlamaIndex 하이브리드 + 리랭커 | 0.778 | 0.733 | 0.911 | 0.797 | 0.937 |
+| Haystack 하이브리드 + 리랭커 | 0.778 | 0.733 | 0.912 | 0.812 | 0.950 |
+| AutoRAG 최고 파이프라인 | 0.811 | 0.744 | 0.915 | 0.817 | 0.951 |
+| 이 저장소: 영어 RRF + 리랭커 | 0.833 | 0.744 | 0.881 | 0.857 | 0.929 |
+| 이 저장소: 영어 RRF + 리랭커(리랭커 영어 입력) | 0.989 | 0.933 | 0.955 | 0.886 | 0.977 |
+
+이 저장소 영어 RRF + 리랭커(리랭커 영어 입력) - AutoRAG 최고 파이프라인(문서 군집 95% 구간): 정답 청크가 컨텍스트에 있음 +0.178(+0.077 .. +0.277), 정답 청크 인용 +0.189(+0.106 .. +0.267), 충실도 +0.049(-0.025 .. +0.127), 정확성 +0.086(+0.012 .. +0.162). AutoRAG - LlamaIndex, AutoRAG - Haystack은 네 지표 모두 구간이 0을 포함합니다(정답 청크가 컨텍스트에 있음은 하한 +0.000).
+
 ## 한계
 
 - 평가 질문은 45개(언어쌍별 2~9개)와 90개(언어쌍별 10개)입니다. 코퍼스는 위키백과 문서만 사용했습니다.
@@ -270,6 +317,9 @@ HTTP 동시 요청(질문은 모두 다르고 캐시 히트 없음, 서버 시�
 - 4단계의 학습·검증 데이터 138개 중 34개가 v2 정답 청크를 출처로 썼기 때문에, 그 어댑터는 v2 평가에 쓰지 않았고 v2 기준으로 데이터를 다시 만들어 학습했습니다.
 - 서비스 성능은 질문 30개, 동시 요청은 요청 방식마다 1회 측정입니다. 서버는 한 번에 요청 하나를 처리합니다.
 - 영어 피벗은 같은 모델이 청크와 질의를 번역합니다. 청크 크기·맥락 접두사 실험은 원문 텍스트 파이프라인만 대상이고, 청크 크기 변형은 풀링에서 제외했습니다.
+- 프레임워크 비교는 이 저장소의 청크 346개를 모든 시스템에 같게 넣은 결과이며, 각 프레임워크의 문서 로더·청커와 번역(피벗) 기능은 비교하지 않았습니다. 프레임워크 행에는 영어 피벗이 없습니다.
+- LlamaIndex·Haystack는 하이브리드 + 리랭커 구성 1개씩이고 파라미터 탐색을 하지 않았습니다. AutoRAG 탐색은 검색·리랭킹 노드의 모듈 11개로 한정했고 질의 확장, 프롬프트, 생성 노드는 탐색하지 않았습니다. 생성 비교는 시스템마다 최고 구성 1개, 판정 모델 1종입니다.
+- 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
 
@@ -286,6 +336,8 @@ configs/v2/     평가셋 v2 실험 설정 (scripts/make_v2_configs.py, make_v2_
 eval/pool/      풀링 후보, 라벨, 인덱스
 eval/v2_draft/  평가셋 v2 초안, 검수 입력·출력
 data/sft_v2*/   v2 기준 학습 데이터(일반, 교차 언어 전용), data/glossary.json 용어집
+comparison/     외부 프레임워크 비교(별도 환경): prepare_data, run_frameworks, run_autorag, collect_autorag
+configs/cmp/    프레임워크 검색 결과를 받는 생성 설정
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
 ```

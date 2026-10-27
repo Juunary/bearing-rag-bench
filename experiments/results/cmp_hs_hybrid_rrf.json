@@ -1,0 +1,3602 @@
+{
+ "environment": {
+  "timestamp": "2026-10-27T09:06:47+00:00",
+  "python": "3.11.11",
+  "git_commit": "52194ab9c2a349d3b42d95171fca0b9bfea158fb",
+  "packages": {
+   "autorag": "0.3.27",
+   "llama-index-core": "0.14.25",
+   "llama-index-retrievers-bm25": "0.8.0",
+   "haystack-ai": "3.4.1",
+   "sentence-transformers": "6.2.0",
+   "FlagEmbedding": "1.4.2",
+   "torch": "2.14.1+cu126",
+   "transformers": "5.21.0",
+   "kiwipiepy": "0.24.1"
+  }
+ },
+ "config": {
+  "exp_id": "cmp_hs_hybrid_rrf",
+  "stage": "cmp",
+  "framework": "Haystack",
+  "description": "BM25 + embedding retrievers joined by DocumentJoiner reciprocal_rank_fusion, top 10 each, fused 10",
+  "eval_path": "eval/queries_v2.jsonl"
+ },
+ "metrics": {
+  "overall": {
+   "recall@5": 0.41944444444444445,
+   "mrr@10": 0.4703306878306878,
+   "ndcg@10": 0.42491512166425965,
+   "n": 90
+  },
+  "by_group": {
+   "ko->en": {
+    "recall@5": 0.1,
+    "mrr@10": 0.13912698412698413,
+    "ndcg@10": 0.2117182089269613,
+    "n": 10
+   },
+   "ko->de": {
+    "recall@5": 0.05,
+    "mrr@10": 0.058611111111111114,
+    "ndcg@10": 0.08729670098569108,
+    "n": 10
+   },
+   "ko->ko": {
+    "recall@5": 0.6166666666666667,
+    "mrr@10": 0.8033333333333333,
+    "ndcg@10": 0.7253514941578999,
+    "n": 10
+   },
+   "en->en": {
+    "recall@5": 0.7666666666666667,
+    "mrr@10": 0.85,
+    "ndcg@10": 0.8090018454330817,
+    "n": 10
+   },
+   "en->de": {
+    "recall@5": 0.1,
+    "mrr@10": 0.21428571428571427,
+    "ndcg@10": 0.10935208667652019,
+    "n": 10
+   },
+   "en->ko": {
+    "recall@5": 0.65,
+    "mrr@10": 0.5333333333333333,
+    "ndcg@10": 0.42242885464251867,
+    "n": 10
+   },
+   "de->de": {
+    "recall@5": 0.8833333333333332,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.9295561899211038,
+    "n": 10
+   },
+   "de->en": {
+    "recall@5": 0.375,
+    "mrr@10": 0.44761904761904764,
+    "ndcg@10": 0.3458819114617657,
+    "n": 10
+   },
+   "de->ko": {
+    "recall@5": 0.23333333333333334,
+    "mrr@10": 0.18666666666666668,
+    "ndcg@10": 0.183648802772794,
+    "n": 10
+   }
+  }
+ },
+ "per_query": [
+  {
+   "qid": "q001",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_tapered_roller_bearing#2": 2,
+    "de_waelzlager#2": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#0",
+    "ko_bearing#0",
+    "ko_bearing#3",
+    "ko_bearing#2",
+    "ko_bearing#1",
+    "ko_ball_bearing#1",
+    "ko_ball_bearing#19",
+    "en_bearing_mechanical#2",
+    "ko_shaft#0",
+    "en_tapered_roller_bearing#1"
+   ],
+   "scores": [
+    0.9761,
+    0.9692,
+    0.9405,
+    0.9049,
+    0.5,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q002",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_waelzlager#5": 2
+   },
+   "ranked": [
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#12",
+    "ko_bearing#3",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#19",
+    "ko_bearing#2",
+    "en_bearing_mechanical#7",
+    "ko_ball_bearing#11",
+    "ko_bearing#1",
+    "en_ball_bearing#8"
+   ],
+   "scores": [
+    0.9766,
+    0.9534,
+    0.9472,
+    0.9472,
+    0.9327,
+    0.5,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q003",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_ball_bearing#4": 2,
+    "en_ball_bearing#4": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#17",
+    "ko_ball_bearing#13",
+    "ko_ball_bearing#4",
+    "ko_ball_bearing#9",
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#12",
+    "ko_ball_bearing#10",
+    "ko_ball_bearing#2"
+   ],
+   "scores": [
+    0.9621,
+    0.9607,
+    0.9534,
+    0.934,
+    0.9245,
+    0.8978,
+    0.5,
+    0.4919,
+    0.4766,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.2,
+    "ndcg@10": 0.2940806813328203
+   }
+  },
+  {
+   "qid": "q004",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_fretting#2": 2,
+    "en_fretting#1": 1,
+    "de_fressen_technik#1": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#12",
+    "ko_bearing#0",
+    "ko_ball_bearing#18",
+    "ko_bearing#3",
+    "ko_bearing#1",
+    "ko_ball_bearing#2",
+    "ko_bearing#4",
+    "en_fretting#2",
+    "ko_ball_bearing#11",
+    "en_bearing_mechanical#17"
+   ],
+   "scores": [
+    0.9692,
+    0.9198,
+    0.9104,
+    0.8971,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.125,
+    "ndcg@10": 0.20151514190050246
+   }
+  },
+  {
+   "qid": "q005",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_rolling_element_bearing#7": 2,
+    "en_rolling_element_bearing#8": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#11",
+    "ko_bearing#0",
+    "ko_bearing#2",
+    "en_rolling_element_bearing#14",
+    "en_bearing_mechanical#14",
+    "ko_ball_bearing#16",
+    "ko_ball_bearing#17",
+    "en_rolling_element_bearing#13",
+    "ko_ball_bearing#10",
+    "en_rolling_element_bearing#8"
+   ],
+   "scores": [
+    0.9841,
+    0.9766,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.1,
+    "ndcg@10": 0.10987173866025332
+   }
+  },
+  {
+   "qid": "q006",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_waelzlager#2": 2,
+    "en_bearing_mechanical#3": 2
+   },
+   "ranked": [
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#4",
+    "ko_bearing#0",
+    "en_bearing_mechanical#3",
+    "ko_ball_bearing#17",
+    "ko_bearing#2",
+    "ko_ball_bearing#5",
+    "ko_ball_bearing#6",
+    "ko_seal#0",
+    "ko_ball_bearing#1"
+   ],
+   "scores": [
+    0.9394,
+    0.9387,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.25,
+    "ndcg@10": 0.2640681225725909
+   }
+  },
+  {
+   "qid": "q007",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_waelzlager#6": 2
+   },
+   "ranked": [
+    "ko_ball_bearing#12",
+    "ko_ball_bearing#13",
+    "ko_bearing#3",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#19",
+    "ko_ball_bearing#2",
+    "en_plain_bearing#5",
+    "ko_bearing#0",
+    "ko_ball_bearing#11",
+    "ko_lubrication#0"
+   ],
+   "scores": [
+    0.9766,
+    0.9485,
+    0.9327,
+    0.8777,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q008",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_nadellager#2": 2,
+    "de_waelzlager#18": 2,
+    "en_rolling_element_bearing#5": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#10",
+    "ko_ball_bearing#5",
+    "ko_ball_bearing#7",
+    "ko_ball_bearing#0",
+    "ko_bearing#0",
+    "ko_ball_bearing#3",
+    "ko_bearing#1",
+    "ko_ball_bearing#15",
+    "en_rolling_element_bearing#5",
+    "en_brinelling#1"
+   ],
+   "scores": [
+    0.9766,
+    0.9385,
+    0.934,
+    0.9038,
+    0.8906,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.1111111111111111,
+    "ndcg@10": 0.08002159439830056
+   }
+  },
+  {
+   "qid": "q009",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_grease#2": 2,
+    "de_schmierfett#15": 1
+   },
+   "ranked": [
+    "ko_wear#1",
+    "ko_ball_bearing#14",
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#13",
+    "ko_grease#0",
+    "ko_bearing#1",
+    "en_grease#2",
+    "ko_ball_bearing#19",
+    "en_fatigue_material#13",
+    "ko_ball_bearing#12"
+   ],
+   "scores": [
+    0.9839,
+    0.9683,
+    0.9314,
+    0.5,
+    0.5,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.14285714285714285,
+    "ndcg@10": 0.25339584447728947
+   }
+  },
+  {
+   "qid": "q010",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_wellendichtring#1": 2
+   },
+   "ranked": [
+    "ko_seal#0",
+    "en_cv_joint#7",
+    "ko_shaft#0",
+    "en_cv_joint#8",
+    "ko_ball_bearing#18",
+    "en_ball_bearing#13",
+    "ko_bearing#3",
+    "en_bearing_mechanical#10",
+    "ko_drive_shaft#0",
+    "en_cv_joint#3"
+   ],
+   "scores": [
+    0.9357,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q011",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_differential#0": 2
+   },
+   "ranked": [
+    "ko_differential#0",
+    "ko_drive_shaft#0",
+    "en_cv_joint#3",
+    "ko_bearing#1",
+    "ko_ball_bearing#10",
+    "ko_shaft#0",
+    "en_bearing_mechanical#8",
+    "ko_ball_bearing#12",
+    "en_cv_joint#0",
+    "ko_ball_bearing#19"
+   ],
+   "scores": [
+    1.0,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q012",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_lubrication#0": 2,
+    "de_waelzlager#0": 1
+   },
+   "ranked": [
+    "ko_lubrication#0",
+    "ko_lubricant#0",
+    "ko_ball_bearing#13",
+    "ko_bearing#3",
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#12",
+    "ko_bearing#0",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#7",
+    "ko_ball_bearing#5"
+   ],
+   "scores": [
+    1.0,
+    0.9534,
+    0.9531,
+    0.9472,
+    0.9462,
+    0.934,
+    0.9107,
+    0.9049,
+    0.4552,
+    0.4485
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.7601875334318685
+   }
+  },
+  {
+   "qid": "q013",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_wear#2": 2,
+    "de_fressen_technik#0": 1
+   },
+   "ranked": [
+    "ko_wear#0",
+    "ko_lubricant#1",
+    "en_fretting#0",
+    "ko_ball_bearing#10",
+    "en_wear#7",
+    "ko_ball_bearing#9",
+    "en_tribology#11",
+    "ko_ball_bearing#0",
+    "en_wear#2",
+    "ko_bearing#3"
+   ],
+   "scores": [
+    1.0,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.1111111111111111,
+    "ndcg@10": 0.22883924989280793
+   }
+  },
+  {
+   "qid": "q014",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_lubrication#0": 2,
+    "en_lubrication#3": 1,
+    "de_fressen_technik#0": 1,
+    "en_bearing_mechanical#11": 1,
+    "en_rolling_element_bearing#8": 1
+   },
+   "ranked": [
+    "ko_lubrication#0",
+    "ko_lubricant#1",
+    "ko_ball_bearing#15",
+    "ko_lubricant#0",
+    "ko_ball_bearing#18",
+    "ko_ball_bearing#17",
+    "en_fretting#0",
+    "ko_ball_bearing#13",
+    "en_lubrication#3",
+    "ko_ball_bearing#12"
+   ],
+   "scores": [
+    0.9472,
+    0.9178,
+    0.5,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.1111111111111111,
+    "ndcg@10": 0.07623986638854101
+   }
+  },
+  {
+   "qid": "q015",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_cv_joint#3": 2,
+    "de_homokinetisches_gelenk#1": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#13",
+    "ko_ball_bearing#17",
+    "en_cv_joint#7",
+    "ko_shaft#0",
+    "en_cv_joint#3",
+    "ko_drive_shaft#0",
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#10",
+    "ko_ball_bearing#16",
+    "ko_ball_bearing#18"
+   ],
+   "scores": [
+    0.9173,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.2,
+    "ndcg@10": 0.2940806813328203
+   }
+  },
+  {
+   "qid": "q016",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_brinelling#2": 2,
+    "en_brinelling#1": 1,
+    "de_waelzlager#30": 1,
+    "de_waelzlager#31": 1
+   },
+   "ranked": [
+    "en_brinelling#2",
+    "en_brinelling#1",
+    "en_bearing_mechanical#9",
+    "en_ball_bearing#0",
+    "en_rolling_element_bearing#7",
+    "en_rolling_element_bearing#0",
+    "en_ball_bearing#8",
+    "en_bearing_mechanical#10",
+    "en_rolling_element_bearing#5",
+    "en_rolling_element_bearing#8"
+   ],
+   "scores": [
+    0.9919,
+    0.9612,
+    0.8906,
+    0.5,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.7386919056633241
+   }
+  },
+  {
+   "qid": "q017",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_tapered_roller_bearing#0": 2
+   },
+   "ranked": [
+    "en_tapered_roller_bearing#0",
+    "en_rolling_element_bearing#5",
+    "en_tapered_roller_bearing#1",
+    "en_tapered_roller_bearing#2",
+    "en_rolling_element_bearing#7",
+    "en_bearing_mechanical#6",
+    "en_bearing_mechanical#12",
+    "en_rolling_element_bearing#4",
+    "en_ball_bearing#7",
+    "en_rolling_element_bearing#0"
+   ],
+   "scores": [
+    1.0,
+    0.9761,
+    0.9531,
+    0.934,
+    0.4841,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q018",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_brinelling#1": 2
+   },
+   "ranked": [
+    "en_plain_bearing#1",
+    "en_brinelling#1",
+    "en_plain_bearing#3",
+    "en_plain_bearing#12",
+    "en_rolling_element_bearing#5",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#0",
+    "en_tapered_roller_bearing#2",
+    "en_rolling_element_bearing#7",
+    "en_bearing_mechanical#1"
+   ],
+   "scores": [
+    0.9841,
+    0.9766,
+    0.9387,
+    0.8842,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 0.5,
+    "ndcg@10": 0.6309297535714575
+   }
+  },
+  {
+   "qid": "q019",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_grease#0": 2,
+    "en_grease#1": 2
+   },
+   "ranked": [
+    "en_grease#0",
+    "en_grease#1",
+    "en_ball_bearing#13",
+    "en_bearing_mechanical#10",
+    "en_grease#2",
+    "en_grease#3",
+    "en_tribology#8",
+    "en_fatigue_material#8",
+    "en_grease#5",
+    "en_tribology#14"
+   ],
+   "scores": [
+    1.0,
+    0.9839,
+    0.9534,
+    0.9318,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q020",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_grease#2": 2,
+    "de_schmierfett#4": 1
+   },
+   "ranked": [
+    "en_grease#2",
+    "en_grease#3",
+    "en_grease#1",
+    "en_ball_bearing#13",
+    "en_tribology#11",
+    "en_grease#5",
+    "en_bearing_mechanical#10",
+    "de_schmierfett#4",
+    "en_ball_bearing#12",
+    "ko_ball_bearing#15"
+   ],
+   "scores": [
+    1.0,
+    0.9683,
+    0.934,
+    0.4919,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8800937667159342
+   }
+  },
+  {
+   "qid": "q021",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_waelzlager#32": 2,
+    "de_waelzlager#33": 2
+   },
+   "ranked": [
+    "en_ball_bearing#6",
+    "en_ball_bearing#8",
+    "en_rolling_element_bearing#4",
+    "en_ball_bearing#16",
+    "en_tapered_roller_bearing#0",
+    "en_ball_bearing#5",
+    "en_ball_bearing#4",
+    "en_ball_bearing#15",
+    "en_plain_bearing#1",
+    "en_cv_joint#3"
+   ],
+   "scores": [
+    1.0,
+    0.9685,
+    0.9541,
+    0.9394,
+    0.8777,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q022",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_fatigue_material#3": 2
+   },
+   "ranked": [
+    "en_fatigue_material#15",
+    "en_fatigue_material#0",
+    "en_fatigue_material#11",
+    "en_fatigue_material#5",
+    "en_fatigue_material#14",
+    "en_fatigue_material#17",
+    "en_fatigue_material#20",
+    "en_fatigue_material#8",
+    "en_fatigue_material#1",
+    "en_rolling_element_bearing#12"
+   ],
+   "scores": [
+    1.0,
+    0.9534,
+    0.9276,
+    0.9107,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q023",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_bearing#3": 2,
+    "ko_bearing#4": 1
+   },
+   "ranked": [
+    "en_ball_bearing#9",
+    "en_bearing_mechanical#5",
+    "ko_bearing#4",
+    "en_tribology#19",
+    "en_bearing_mechanical#9",
+    "en_ball_bearing#0",
+    "en_rolling_element_bearing#1",
+    "en_tribology#8",
+    "en_tapered_roller_bearing#2",
+    "en_bearing_mechanical#6"
+   ],
+   "scores": [
+    0.9607,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.3333333333333333,
+    "ndcg@10": 0.19004688335796713
+   }
+  },
+  {
+   "qid": "q024",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_fretting#2": 2
+   },
+   "ranked": [
+    "en_fretting#2",
+    "en_brinelling#3",
+    "en_brinelling#2",
+    "en_brinelling#0",
+    "en_fretting#0",
+    "en_brinelling#1",
+    "en_rolling_element_bearing#8",
+    "en_bearing_mechanical#13",
+    "en_ball_bearing#10",
+    "en_rolling_element_bearing#7"
+   ],
+   "scores": [
+    0.9841,
+    0.9841,
+    0.9839,
+    0.9186,
+    0.9107,
+    0.9049,
+    0.8978,
+    0.4766,
+    0.4692,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q025",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_cv_joint#3": 2
+   },
+   "ranked": [
+    "en_cv_joint#3",
+    "en_cv_joint#4",
+    "en_cv_joint#2",
+    "en_cv_joint#1",
+    "en_cv_joint#0",
+    "en_cv_joint#5",
+    "en_ball_bearing#7",
+    "en_ball_bearing#4",
+    "de_homokinetisches_gelenk#2",
+    "en_ball_bearing#3"
+   ],
+   "scores": [
+    1.0,
+    0.9761,
+    0.9612,
+    0.9607,
+    0.9387,
+    0.9178,
+    0.8909,
+    0.8777,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q026",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_rolling_element_bearing#6": 2,
+    "en_rolling_element_bearing#5": 1,
+    "de_waelzlager#18": 1
+   },
+   "ranked": [
+    "en_rolling_element_bearing#6",
+    "en_rolling_element_bearing#5",
+    "en_tapered_roller_bearing#2",
+    "en_tapered_roller_bearing#0",
+    "en_tapered_roller_bearing#1",
+    "en_rolling_element_bearing#3",
+    "en_rolling_element_bearing#7",
+    "en_rolling_element_bearing#0",
+    "en_ball_bearing#7",
+    "en_rolling_element_bearing#2"
+   ],
+   "scores": [
+    1.0,
+    0.9839,
+    0.9458,
+    0.9394,
+    0.9262,
+    0.9107,
+    0.9049,
+    0.8906,
+    0.4766,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8403030283801005
+   }
+  },
+  {
+   "qid": "q027",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_gleitlager#1": 2,
+    "en_plain_bearing#7": 1,
+    "en_plain_bearing#8": 1
+   },
+   "ranked": [
+    "en_plain_bearing#12",
+    "en_plain_bearing#5",
+    "en_bearing_mechanical#7",
+    "en_plain_bearing#10",
+    "ko_bearing#3",
+    "en_tribology#30",
+    "en_plain_bearing#9",
+    "en_plain_bearing#6",
+    "en_bearing_mechanical#8",
+    "en_rolling_element_bearing#7"
+   ],
+   "scores": [
+    0.9919,
+    0.9245,
+    0.9123,
+    0.9042,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q028",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_waelzlager#33": 2
+   },
+   "ranked": [
+    "en_rolling_element_bearing#3",
+    "en_plain_bearing#0",
+    "en_fatigue_material#10",
+    "en_bearing_mechanical#0",
+    "en_cv_joint#0",
+    "en_bearing_mechanical#6",
+    "en_bearing_mechanical#11",
+    "en_ball_bearing#2",
+    "en_rolling_element_bearing#6",
+    "en_bearing_mechanical#5"
+   ],
+   "scores": [
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q029",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_waelzlager#31": 2
+   },
+   "ranked": [
+    "en_ball_bearing#16",
+    "en_ball_bearing#15",
+    "en_bearing_mechanical#12",
+    "ko_bearing#3",
+    "en_ball_bearing#5",
+    "en_rolling_element_bearing#14",
+    "en_tapered_roller_bearing#1",
+    "ko_ball_bearing#18",
+    "en_fatigue_material#18",
+    "en_plain_bearing#1"
+   ],
+   "scores": [
+    0.9766,
+    0.9761,
+    0.9621,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q030",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_bearing#3": 2
+   },
+   "ranked": [
+    "en_plain_bearing#9",
+    "en_ball_bearing#13",
+    "en_plain_bearing#8",
+    "ko_bearing#3",
+    "en_bearing_mechanical#7",
+    "en_plain_bearing#12",
+    "en_plain_bearing#11",
+    "en_bearing_mechanical#8",
+    "en_plain_bearing#0",
+    "en_grease#2"
+   ],
+   "scores": [
+    0.9841,
+    0.9405,
+    0.9314,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 0.25,
+    "ndcg@10": 0.43067655807339306
+   }
+  },
+  {
+   "qid": "q031",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_waelzlager#32": 2
+   },
+   "ranked": [
+    "de_waelzlager#32",
+    "de_waelzlager#29",
+    "de_lager_maschinenelement#6",
+    "de_lager_maschinenelement#2",
+    "de_lager_maschinenelement#5",
+    "de_gleitlager#2",
+    "de_waelzlager#23",
+    "de_nadellager#1",
+    "de_lager_maschinenelement#3",
+    "de_homokinetisches_gelenk#1"
+   ],
+   "scores": [
+    1.0,
+    0.9472,
+    0.9405,
+    0.9318,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q032",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_gleitlager#0": 2,
+    "de_gleitlager#1": 2,
+    "de_gleitlager#4": 1
+   },
+   "ranked": [
+    "de_gleitlager#0",
+    "de_hydrodynamisches_gleitlager#1",
+    "de_gleitlager#2",
+    "de_gleitlager#1",
+    "de_lager_maschinenelement#4",
+    "de_gleitlager#4",
+    "de_gleitlager#6",
+    "de_wellendichtring#3",
+    "de_hydrodynamisches_gleitlager#2",
+    "de_gleitlager#3"
+   ],
+   "scores": [
+    0.9919,
+    0.9607,
+    0.9485,
+    0.9276,
+    0.9173,
+    0.8777,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8553111292820462
+   }
+  },
+  {
+   "qid": "q033",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_wellendichtring#0": 2
+   },
+   "ranked": [
+    "de_wellendichtring#0",
+    "de_wellendichtring#1",
+    "de_wellendichtring#2",
+    "de_wellendichtring#3",
+    "de_schmierfett#16",
+    "de_waelzlager#32",
+    "de_dichtung_technik#2",
+    "de_dichtung_technik#1",
+    "de_homokinetisches_gelenk#0",
+    "de_hydrodynamisches_gleitlager#1"
+   ],
+   "scores": [
+    1.0,
+    0.9839,
+    0.9607,
+    0.9462,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4552,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q034",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_fressen_technik#0": 2
+   },
+   "ranked": [
+    "de_fressen_technik#0",
+    "de_waelzlager#32",
+    "de_fressen_technik#1",
+    "de_schmierfett#16",
+    "de_gleitlager#0",
+    "de_lager_maschinenelement#4",
+    "de_waelzlager#7",
+    "de_gleitlager#2",
+    "de_lager_maschinenelement#6",
+    "de_gleitlager#7"
+   ],
+   "scores": [
+    1.0,
+    0.9198,
+    0.9104,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q035",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_schmierfett#0": 2,
+    "en_grease#0": 1,
+    "de_schmierfett#1": 2
+   },
+   "ranked": [
+    "de_schmierfett#0",
+    "de_schmierfett#9",
+    "de_schmierfett#5",
+    "de_schmierfett#12",
+    "de_schmierfett#1",
+    "de_schmierfett#15",
+    "de_waelzlager#13",
+    "de_schmierfett#2",
+    "de_schmierfett#6",
+    "de_nadellager#2"
+   ],
+   "scores": [
+    0.9841,
+    0.9541,
+    0.9385,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.7373230204909161
+   }
+  },
+  {
+   "qid": "q036",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_wellendichtring#3": 2
+   },
+   "ranked": [
+    "de_wellendichtring#3",
+    "ko_bearing#4",
+    "de_hydrodynamisches_gleitlager#4",
+    "ko_ball_bearing#12",
+    "de_gleitlager#4",
+    "ko_bearing#3",
+    "de_waelzlager#29",
+    "en_cv_joint#0",
+    "de_homokinetisches_gelenk#4",
+    "en_ball_bearing#11"
+   ],
+   "scores": [
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q037",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_waelzlager#7": 2
+   },
+   "ranked": [
+    "de_waelzlager#7",
+    "de_lager_maschinenelement#7",
+    "de_materialermuedung#6",
+    "de_waelzlager#26",
+    "de_verschleiss#1",
+    "de_waelzlager#8",
+    "de_materialermuedung#5",
+    "de_waelzlager#0",
+    "de_wellendichtring#1",
+    "de_gleitlager#9"
+   ],
+   "scores": [
+    1.0,
+    0.9113,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q038",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_waelzlager#8": 2
+   },
+   "ranked": [
+    "de_waelzlager#8",
+    "de_gleitlager#1",
+    "de_lager_maschinenelement#0",
+    "de_schmierfett#6",
+    "de_lager_maschinenelement#7",
+    "de_schmierfett#0",
+    "de_waelzlager#16",
+    "de_dichtung_technik#3",
+    "de_waelzlager#0",
+    "de_waelzlager#10"
+   ],
+   "scores": [
+    0.9919,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q039",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_gleitlager#1": 2,
+    "de_schmierung#0": 1,
+    "de_lager_maschinenelement#4": 1,
+    "de_hydrodynamisches_gleitlager#0": 1,
+    "en_lubrication#0": 1,
+    "en_plain_bearing#9": 1
+   },
+   "ranked": [
+    "de_lager_maschinenelement#4",
+    "de_gleitlager#1",
+    "de_gleitlager#0",
+    "de_hydrodynamisches_gleitlager#0",
+    "de_lager_maschinenelement#3",
+    "de_gleitlager#2",
+    "de_schmierung#0",
+    "de_gleitlager#6",
+    "de_gleitlager#7",
+    "de_schmierfett#15"
+   ],
+   "scores": [
+    0.9919,
+    0.9612,
+    0.9552,
+    0.9262,
+    0.9251,
+    0.9173,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.7029277494380742
+   }
+  },
+  {
+   "qid": "q040",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_brinelling#2": 2,
+    "en_brinelling#0": 1,
+    "de_fressen_technik#1": 1,
+    "en_brinelling#3": 1
+   },
+   "ranked": [
+    "en_brinelling#3",
+    "en_brinelling#2",
+    "en_fretting#2",
+    "de_fressen_technik#1",
+    "en_ball_bearing#10",
+    "en_brinelling#0",
+    "en_brinelling#1",
+    "de_gleitlager#2",
+    "ko_ball_bearing#12",
+    "de_materialermuedung#5"
+   ],
+   "scores": [
+    0.9919,
+    0.9841,
+    0.9462,
+    0.9251,
+    0.8841,
+    0.4919,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.75,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8560023162459902
+   }
+  },
+  {
+   "qid": "q041",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_needle_roller_bearing#0": 2
+   },
+   "ranked": [
+    "de_waelzlager#18",
+    "de_nadellager#0",
+    "de_waelzlager#17",
+    "de_nadellager#1",
+    "de_materialermuedung#0",
+    "de_waelzlager#28",
+    "de_homokinetisches_gelenk#4",
+    "de_schmierfett#11",
+    "de_waelzlager#8",
+    "de_waelzlager#11"
+   ],
+   "scores": [
+    0.9841,
+    0.9841,
+    0.9276,
+    0.9245,
+    0.4919,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q042",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_rolling_element_bearing#8": 2,
+    "de_waelzlager#8": 1,
+    "de_waelzlager#9": 1,
+    "en_lubrication#3": 1,
+    "de_gleitlager#3": 1,
+    "de_gleitlager#4": 1
+   },
+   "ranked": [
+    "de_gleitlager#1",
+    "de_gleitlager#10",
+    "de_lager_maschinenelement#4",
+    "de_materialermuedung#5",
+    "de_gleitlager#2",
+    "de_waelzlager#32",
+    "de_gleitlager#6",
+    "de_waelzlager#16",
+    "de_gleitlager#5",
+    "de_gleitlager#7"
+   ],
+   "scores": [
+    0.9458,
+    0.9042,
+    0.9042,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q043",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_radial_shaft_seal#2": 2
+   },
+   "ranked": [
+    "en_radial_shaft_seal#2",
+    "de_wellendichtring#1",
+    "de_wellendichtring#0",
+    "de_waelzlager#26",
+    "de_wellendichtring#2",
+    "en_radial_shaft_seal#1",
+    "de_waelzlagerstahl#0",
+    "de_waelzlagerstahl#1",
+    "de_wellendichtring#3",
+    "de_waelzlager#10"
+   ],
+   "scores": [
+    1.0,
+    0.9839,
+    0.9462,
+    0.9387,
+    0.9251,
+    0.9104,
+    0.4841,
+    0.4692,
+    0.4692,
+    0.4485
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q044",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_lubricant#1": 2
+   },
+   "ranked": [
+    "de_schmierfett#1",
+    "de_schmierfett#17",
+    "ko_lubricant#1",
+    "de_waelzlager#26",
+    "de_schmierfett#13",
+    "de_homokinetisches_gelenk#4",
+    "en_grease#5",
+    "de_hydrodynamisches_gleitlager#5",
+    "de_tribologie#2",
+    "de_schmierfett#2"
+   ],
+   "scores": [
+    0.9186,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 0.3333333333333333,
+    "ndcg@10": 0.5
+   }
+  },
+  {
+   "qid": "q045",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_lubricant#2": 2
+   },
+   "ranked": [
+    "de_schmierfett#17",
+    "de_schmierfett#6",
+    "de_schmierfett#1",
+    "de_schmierfett#9",
+    "ko_lubricant#2",
+    "de_schmierfett#2",
+    "de_schmierfett#0",
+    "de_schmierfett#15",
+    "de_lager_maschinenelement#1",
+    "de_schmierung#1"
+   ],
+   "scores": [
+    0.9841,
+    0.9692,
+    0.9245,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 0.2,
+    "ndcg@10": 0.38685280723454163
+   }
+  },
+  {
+   "qid": "q046",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_tribologie#1": 2
+   },
+   "ranked": [
+    "ko_bearing#0",
+    "en_tribology#3",
+    "ko_bearing#3",
+    "en_tribology#11",
+    "ko_lubrication#0",
+    "en_fatigue_material#20",
+    "ko_ball_bearing#7",
+    "ko_wear#0",
+    "ko_ball_bearing#3",
+    "de_tribologie#1"
+   ],
+   "scores": [
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.1,
+    "ndcg@10": 0.2890648263178879
+   }
+  },
+  {
+   "qid": "q047",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_hydrodynamisches_gleitlager#2": 2
+   },
+   "ranked": [
+    "ko_ball_bearing#17",
+    "ko_ball_bearing#18",
+    "ko_ball_bearing#13",
+    "ko_bearing#0",
+    "ko_bearing#4",
+    "ko_ball_bearing#11",
+    "ko_bearing#3",
+    "ko_ball_bearing#14",
+    "ko_shaft#0",
+    "ko_lubrication#0"
+   ],
+   "scores": [
+    1.0,
+    0.9458,
+    0.9394,
+    0.9178,
+    0.9123,
+    0.9107,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q048",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_verschleiss#3": 2,
+    "en_wear#4": 1
+   },
+   "ranked": [
+    "ko_wear#0",
+    "ko_ball_bearing#12",
+    "en_radial_shaft_seal#1",
+    "ko_ball_bearing#9",
+    "de_schmierfett#10",
+    "ko_bearing#0",
+    "ko_ball_bearing#19",
+    "de_verschleiss#3",
+    "ko_ball_bearing#18",
+    "en_grease#4"
+   ],
+   "scores": [
+    0.9262,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.125,
+    "ndcg@10": 0.23981246656813146
+   }
+  },
+  {
+   "qid": "q049",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_materialermuedung#2": 2
+   },
+   "ranked": [
+    "ko_fatigue_material#0",
+    "ko_ball_bearing#11",
+    "ko_bearing#4",
+    "ko_ball_bearing#9",
+    "en_fatigue_material#1",
+    "ko_bearing#3",
+    "ko_ball_bearing#18",
+    "ko_wear#0",
+    "ko_ball_bearing#14",
+    "ko_ball_bearing#17"
+   ],
+   "scores": [
+    0.9692,
+    0.942,
+    0.9038,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q050",
+   "group": "ko->de",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "de_dichtung_technik#3": 2
+   },
+   "ranked": [
+    "ko_seal#0",
+    "ko_bearing#3",
+    "ko_seal#1",
+    "ko_lubricant#1",
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#16",
+    "ko_lubrication#0",
+    "ko_ball_bearing#17",
+    "ko_shaft#0",
+    "ko_ball_bearing#9"
+   ],
+   "scores": [
+    1.0,
+    0.9612,
+    0.9612,
+    0.9262,
+    0.9242,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4552,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q051",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_lubrication#2": 2,
+    "de_schmierung#0": 1
+   },
+   "ranked": [
+    "ko_lubrication#0",
+    "ko_lubricant#0",
+    "ko_wear#1",
+    "ko_lubricant#1",
+    "ko_bearing#1",
+    "en_lubrication#0",
+    "ko_bearing#0",
+    "en_lubrication#2",
+    "en_tribology#17",
+    "ko_ball_bearing#15"
+   ],
+   "scores": [
+    0.9919,
+    0.9919,
+    0.9607,
+    0.9042,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.125,
+    "ndcg@10": 0.23981246656813146
+   }
+  },
+  {
+   "qid": "q052",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_radial_shaft_seal#1": 2
+   },
+   "ranked": [
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#14",
+    "ko_bearing#3",
+    "ko_seal#0",
+    "en_grease#3",
+    "ko_bearing#4",
+    "en_radial_shaft_seal#1",
+    "de_schmierfett#8",
+    "ko_ball_bearing#19",
+    "en_grease#2"
+   ],
+   "scores": [
+    0.9394,
+    0.9107,
+    0.8909,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.14285714285714285,
+    "ndcg@10": 0.3333333333333333
+   }
+  },
+  {
+   "qid": "q053",
+   "group": "ko->en",
+   "q_lang": "ko",
+   "type": "cross",
+   "gold": {
+    "en_radial_shaft_seal#1": 2,
+    "de_wellendichtring#2": 1
+   },
+   "ranked": [
+    "ko_bearing#2",
+    "ko_bearing#1",
+    "en_radial_shaft_seal#1",
+    "ko_bearing#0",
+    "en_bearing_mechanical#3",
+    "ko_shaft#0",
+    "ko_ball_bearing#1",
+    "ko_bearing#3",
+    "en_rolling_element_bearing#2",
+    "ko_ball_bearing#13"
+   ],
+   "scores": [
+    0.9919,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.3333333333333333,
+    "ndcg@10": 0.38009376671593426
+   }
+  },
+  {
+   "qid": "q054",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_ball_bearing#1": 2,
+    "ko_ball_bearing#2": 2,
+    "en_ball_bearing#1": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#1",
+    "ko_ball_bearing#3",
+    "ko_ball_bearing#16",
+    "ko_ball_bearing#7",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#13",
+    "ko_ball_bearing#4",
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#6"
+   ],
+   "scores": [
+    0.9919,
+    0.9841,
+    0.9761,
+    0.9531,
+    0.9314,
+    0.9107,
+    0.4692,
+    0.4552,
+    0.4552,
+    0.4485
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8670870086853021
+   }
+  },
+  {
+   "qid": "q055",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_ball_bearing#2": 2,
+    "en_ball_bearing#2": 1
+   },
+   "ranked": [
+    "ko_ball_bearing#9",
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#19",
+    "ko_ball_bearing#13",
+    "ko_bearing#3",
+    "en_ball_bearing#8",
+    "ko_bearing#0",
+    "ko_ball_bearing#10",
+    "ko_ball_bearing#12"
+   ],
+   "scores": [
+    1.0,
+    0.9685,
+    0.9607,
+    0.9534,
+    0.9173,
+    0.4919,
+    0.4692,
+    0.4621,
+    0.4552,
+    0.4485
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.3333333333333333,
+    "ndcg@10": 0.38009376671593426
+   }
+  },
+  {
+   "qid": "q056",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_bearing#2": 2,
+    "en_bearing_mechanical#2": 1
+   },
+   "ranked": [
+    "ko_bearing#1",
+    "ko_bearing#2",
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#4",
+    "ko_bearing#0",
+    "en_bearing_mechanical#2",
+    "ko_ball_bearing#1",
+    "ko_ball_bearing#10",
+    "en_bearing_mechanical#3"
+   ],
+   "scores": [
+    0.9841,
+    0.9766,
+    0.9612,
+    0.934,
+    0.9173,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.5,
+    "ndcg@10": 0.6063228553749076
+   }
+  },
+  {
+   "qid": "q057",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_wear#0": 2,
+    "en_tribology#24": 1,
+    "en_tribology#25": 1
+   },
+   "ranked": [
+    "ko_wear#0",
+    "ko_ball_bearing#17",
+    "ko_ball_bearing#2",
+    "ko_bearing#0",
+    "ko_wear#1",
+    "ko_ball_bearing#3",
+    "en_tribology#25",
+    "ko_ball_bearing#4",
+    "ko_ball_bearing#20",
+    "ko_ball_bearing#12"
+   ],
+   "scores": [
+    0.9839,
+    0.9242,
+    0.8971,
+    0.5,
+    0.5,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.3333333333333333,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.7452525342261976
+   }
+  },
+  {
+   "qid": "q058",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_seal#0": 2,
+    "en_seal_mechanical#0": 1
+   },
+   "ranked": [
+    "ko_seal#0",
+    "ko_seal#1",
+    "ko_ball_bearing#2",
+    "ko_lubrication#0",
+    "de_schmierung#1",
+    "ko_wear#0",
+    "en_rolling_element_bearing#14",
+    "ko_shaft#0",
+    "en_wear#2",
+    "ko_ball_bearing#7"
+   ],
+   "scores": [
+    1.0,
+    0.9839,
+    0.9458,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.7601875334318685
+   }
+  },
+  {
+   "qid": "q059",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_grease#0": 2,
+    "ko_lubrication#0": 1,
+    "en_grease#2": 1
+   },
+   "ranked": [
+    "ko_grease#0",
+    "ko_lubrication#0",
+    "en_grease#3",
+    "ko_bearing#0",
+    "en_grease#4",
+    "ko_ball_bearing#15",
+    "ko_wear#1",
+    "ko_bearing#1",
+    "ko_ball_bearing#2",
+    "de_gleitlager#9"
+   ],
+   "scores": [
+    0.9919,
+    0.9692,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8403030283801005
+   }
+  },
+  {
+   "qid": "q060",
+   "group": "ko->ko",
+   "q_lang": "ko",
+   "type": "mono",
+   "gold": {
+    "ko_drive_shaft#0": 2
+   },
+   "ranked": [
+    "ko_drive_shaft#0",
+    "ko_shaft#0",
+    "ko_ball_bearing#19",
+    "en_ball_bearing#14",
+    "ko_ball_bearing#5",
+    "en_tapered_roller_bearing#3",
+    "ko_ball_bearing#15",
+    "en_bearing_mechanical#8",
+    "ko_ball_bearing#12",
+    "ko_ball_bearing#16"
+   ],
+   "scores": [
+    0.9919,
+    0.9038,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q061",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_lager_maschinenelement#7": 2
+   },
+   "ranked": [
+    "en_ball_bearing#15",
+    "en_bearing_mechanical#14",
+    "en_rolling_element_bearing#10",
+    "en_rolling_element_bearing#11",
+    "en_needle_roller_bearing#0",
+    "en_ball_bearing#16",
+    "en_ball_bearing#11",
+    "en_ball_bearing#9",
+    "en_rolling_element_bearing#2",
+    "ko_ball_bearing#13"
+   ],
+   "scores": [
+    1.0,
+    0.9612,
+    0.9276,
+    0.9251,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q062",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_materialermuedung#5": 2,
+    "en_fatigue_material#11": 1
+   },
+   "ranked": [
+    "en_fatigue_material#11",
+    "en_fatigue_material#8",
+    "en_fatigue_material#15",
+    "en_fatigue_material#5",
+    "en_tribology#25",
+    "en_fatigue_material#9",
+    "en_fatigue_material#0",
+    "en_fatigue_material#6",
+    "en_fatigue_material#16",
+    "en_fatigue_material#23"
+   ],
+   "scores": [
+    0.9766,
+    0.9685,
+    0.9683,
+    0.942,
+    0.4919,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.38009376671593426
+   }
+  },
+  {
+   "qid": "q063",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_tribologie#1": 2,
+    "en_tribology#2": 1
+   },
+   "ranked": [
+    "en_tribology#2",
+    "en_tribology#0",
+    "en_tribology#3",
+    "en_wear#0",
+    "en_tribology#1",
+    "en_rolling_element_bearing#1",
+    "en_fatigue_material#6",
+    "en_tribology#25",
+    "en_tribology#28",
+    "en_tribology#10"
+   ],
+   "scores": [
+    1.0,
+    0.9761,
+    0.9612,
+    0.9534,
+    0.9318,
+    0.4766,
+    0.4621,
+    0.4621,
+    0.4552,
+    0.4485
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.38009376671593426
+   }
+  },
+  {
+   "qid": "q064",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_verschleiss#4": 2
+   },
+   "ranked": [
+    "en_tribology#11",
+    "en_brinelling#0",
+    "en_fretting#3",
+    "en_wear#5",
+    "en_fatigue_material#20",
+    "en_wear#7",
+    "en_tribology#25",
+    "en_fretting#2",
+    "en_rolling_element_bearing#12",
+    "en_fretting#0"
+   ],
+   "scores": [
+    0.9262,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q065",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_nadellager#1": 2
+   },
+   "ranked": [
+    "en_rolling_element_bearing#3",
+    "en_rolling_element_bearing#5",
+    "en_needle_roller_bearing#0",
+    "en_ball_bearing#2",
+    "en_rolling_element_bearing#6",
+    "en_rolling_element_bearing#4",
+    "en_rolling_element_bearing#13",
+    "en_ball_bearing#7",
+    "en_bearing_mechanical#10",
+    "en_plain_bearing#3"
+   ],
+   "scores": [
+    0.9766,
+    0.9692,
+    0.9685,
+    0.9327,
+    0.4919,
+    0.4841,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q066",
+   "group": "en->de",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "de_dichtung_technik#3": 2
+   },
+   "ranked": [
+    "en_seal_mechanical#0",
+    "en_seal_mechanical#1",
+    "en_radial_shaft_seal#0",
+    "en_lubrication#1",
+    "en_radial_shaft_seal#1",
+    "en_tribology#17",
+    "de_dichtung_technik#3",
+    "en_rolling_element_bearing#14",
+    "en_grease#6",
+    "en_lubrication#3"
+   ],
+   "scores": [
+    0.9841,
+    0.9621,
+    0.9472,
+    0.9113,
+    0.9107,
+    0.8842,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.14285714285714285,
+    "ndcg@10": 0.3333333333333333
+   }
+  },
+  {
+   "qid": "q067",
+   "group": "en->en",
+   "q_lang": "en",
+   "type": "mono",
+   "gold": {
+    "en_plain_bearing#1": 2
+   },
+   "ranked": [
+    "en_plain_bearing#1",
+    "en_bearing_mechanical#0",
+    "en_bearing_mechanical#3",
+    "en_tapered_roller_bearing#1",
+    "en_tribology#25",
+    "en_bearing_mechanical#15",
+    "en_rolling_element_bearing#13",
+    "en_ball_bearing#3",
+    "en_rolling_element_bearing#4",
+    "en_rolling_element_bearing#1"
+   ],
+   "scores": [
+    0.9919,
+    0.9485,
+    0.9276,
+    0.9186,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q068",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_ball_bearing#9": 2,
+    "en_ball_bearing#8": 1
+   },
+   "ranked": [
+    "en_ball_bearing#8",
+    "en_ball_bearing#7",
+    "en_brinelling#1",
+    "en_bearing_mechanical#5",
+    "ko_ball_bearing#9",
+    "en_ball_bearing#1",
+    "en_ball_bearing#0",
+    "en_bearing_mechanical#12",
+    "en_rolling_element_bearing#7",
+    "en_ball_bearing#16"
+   ],
+   "scores": [
+    1.0,
+    0.9683,
+    0.9107,
+    0.4919,
+    0.4919,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.6741744480487545
+   }
+  },
+  {
+   "qid": "q069",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_ball_bearing#14": 2,
+    "ko_ball_bearing#15": 2,
+    "en_ball_bearing#13": 2
+   },
+   "ranked": [
+    "en_ball_bearing#13",
+    "en_ball_bearing#12",
+    "en_bearing_mechanical#10",
+    "ko_ball_bearing#15",
+    "en_ball_bearing#14",
+    "en_rolling_element_bearing#4",
+    "en_rolling_element_bearing#13",
+    "ko_ball_bearing#14",
+    "en_bearing_mechanical#14",
+    "en_bearing_mechanical#15"
+   ],
+   "scores": [
+    0.9919,
+    0.9534,
+    0.9173,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.8194270280062366
+   }
+  },
+  {
+   "qid": "q070",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_tribology#0": 2,
+    "en_tribology#0": 2
+   },
+   "ranked": [
+    "en_tribology#3",
+    "en_tribology#0",
+    "en_wear#7",
+    "en_tribology#31",
+    "en_wear#0",
+    "en_tribology#30",
+    "de_tribologie#1",
+    "en_tribology#2",
+    "en_tribology#25",
+    "en_wear#2"
+   ],
+   "scores": [
+    1.0,
+    0.9839,
+    0.9314,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.5,
+    "ndcg@10": 0.38685280723454163
+   }
+  },
+  {
+   "qid": "q071",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_wear#0": 2,
+    "en_tribology#24": 1,
+    "en_tribology#25": 1
+   },
+   "ranked": [
+    "en_tribology#24",
+    "en_wear#2",
+    "en_tribology#28",
+    "en_tribology#25",
+    "en_wear#4",
+    "en_wear#1",
+    "en_tribology#1",
+    "en_tribology#27",
+    "en_tribology#23",
+    "en_tribology#0"
+   ],
+   "scores": [
+    0.9839,
+    0.9766,
+    0.9621,
+    0.9534,
+    0.9186,
+    0.8971,
+    0.4841,
+    0.4692,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.4569494273838043
+   }
+  },
+  {
+   "qid": "q072",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_fatigue_material#0": 2,
+    "en_fatigue_material#8": 2
+   },
+   "ranked": [
+    "en_fatigue_material#5",
+    "en_fatigue_material#8",
+    "en_fatigue_material#10",
+    "en_fatigue_material#9",
+    "en_fatigue_material#0",
+    "en_fatigue_material#11",
+    "en_fatigue_material#1",
+    "en_fatigue_material#6",
+    "de_materialermuedung#0",
+    "en_fatigue_material#12"
+   ],
+   "scores": [
+    0.9766,
+    0.9761,
+    0.9685,
+    0.9462,
+    0.9173,
+    0.9049,
+    0.9049,
+    0.5,
+    0.4552,
+    0.4485
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 0.5,
+    "ndcg@10": 0.38685280723454163
+   }
+  },
+  {
+   "qid": "q073",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_shaft#1": 2
+   },
+   "ranked": [
+    "en_ball_bearing#14",
+    "en_bearing_mechanical#8",
+    "en_plain_bearing#10",
+    "en_rolling_element_bearing#0",
+    "en_plain_bearing#11",
+    "en_ball_bearing#0",
+    "en_plain_bearing#12",
+    "en_bearing_mechanical#15",
+    "en_plain_bearing#0",
+    "en_tribology#17"
+   ],
+   "scores": [
+    0.9761,
+    0.5,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q074",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_grease#0": 2,
+    "ko_lubrication#0": 1,
+    "en_grease#2": 1
+   },
+   "ranked": [
+    "en_grease#1",
+    "en_grease#2",
+    "en_grease#0",
+    "en_grease#6",
+    "ko_grease#0",
+    "en_plain_bearing#3",
+    "en_grease#4",
+    "en_plain_bearing#5",
+    "de_schmierfett#3",
+    "en_seal_mechanical#1"
+   ],
+   "scores": [
+    0.9839,
+    0.9766,
+    0.9607,
+    0.9485,
+    0.4841,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.6666666666666666,
+    "mrr@10": 0.5,
+    "ndcg@10": 0.44863202901255467
+   }
+  },
+  {
+   "qid": "q075",
+   "group": "en->ko",
+   "q_lang": "en",
+   "type": "cross",
+   "gold": {
+    "ko_drive_shaft#0": 2
+   },
+   "ranked": [
+    "en_cv_joint#6",
+    "en_cv_joint#3",
+    "en_cv_joint#0",
+    "ko_drive_shaft#0",
+    "en_fatigue_material#10",
+    "en_ball_bearing#14",
+    "en_cv_joint#4",
+    "en_bearing_mechanical#9",
+    "en_cv_joint#1",
+    "en_fatigue_material#20"
+   ],
+   "scores": [
+    0.9178,
+    0.8714,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 0.25,
+    "ndcg@10": 0.43067655807339306
+   }
+  },
+  {
+   "qid": "q076",
+   "group": "de->de",
+   "q_lang": "de",
+   "type": "mono",
+   "gold": {
+    "de_hertzsche_pressung#0": 2
+   },
+   "ranked": [
+    "de_hertzsche_pressung#0",
+    "de_schmierfett#16",
+    "de_hertzsche_pressung#1",
+    "de_dichtung_technik#0",
+    "en_fatigue_material#12",
+    "de_schmierung#1",
+    "en_bearing_mechanical#8",
+    "de_lager_maschinenelement#3",
+    "en_tribology#25",
+    "de_waelzlager#8"
+   ],
+   "scores": [
+    1.0,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 1.0,
+    "ndcg@10": 1.0
+   }
+  },
+  {
+   "qid": "q077",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_ball_bearing#0": 2,
+    "en_bearing_mechanical#2": 1,
+    "en_rolling_element_bearing#2": 1,
+    "de_waelzlager#1": 1
+   },
+   "ranked": [
+    "de_waelzlager#1",
+    "de_waelzlager#2",
+    "de_waelzlager#5",
+    "de_tribologie#4",
+    "en_bearing_mechanical#2",
+    "de_waelzlager#10",
+    "de_waelzlager#4",
+    "de_waelzlager#0",
+    "de_waelzlager#3",
+    "en_bearing_mechanical#3"
+   ],
+   "scores": [
+    1.0,
+    0.9761,
+    0.9107,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.3893896983223993
+   }
+  },
+  {
+   "qid": "q078",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_ball_bearing#2": 2,
+    "ko_ball_bearing#2": 1
+   },
+   "ranked": [
+    "de_waelzlager#6",
+    "de_schmierfett#12",
+    "en_fatigue_material#10",
+    "de_lager_maschinenelement#6",
+    "de_schmierfett#13",
+    "de_schmierfett#11",
+    "de_schmierfett#4",
+    "de_waelzlager#12",
+    "de_schmierfett#14",
+    "de_gleitlager#10"
+   ],
+   "scores": [
+    0.8841,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q079",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_plain_bearing#4": 2,
+    "de_gleitlager#8": 1
+   },
+   "ranked": [
+    "de_gleitlager#8",
+    "de_waelzlager#29",
+    "de_gleitlager#6",
+    "de_waelzlager#23",
+    "de_gleitlager#0",
+    "de_homokinetisches_gelenk#1",
+    "de_waelzlager#0",
+    "de_waelzlager#30",
+    "de_gleitlager#1",
+    "de_lager_maschinenelement#1"
+   ],
+   "scores": [
+    1.0,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.5,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.38009376671593426
+   }
+  },
+  {
+   "qid": "q080",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_bearing_mechanical#4": 2
+   },
+   "ranked": [
+    "de_materialermuedung#3",
+    "de_waelzlager#2",
+    "de_waelzlager#6",
+    "de_lager_maschinenelement#1",
+    "de_waelzlagerstahl#0",
+    "de_materialermuedung#4",
+    "de_waelzlager#9",
+    "de_wellendichtring#3",
+    "de_waelzlager#7",
+    "de_waelzlager#14"
+   ],
+   "scores": [
+    0.9692,
+    0.9173,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q081",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_wear#0": 2
+   },
+   "ranked": [
+    "de_tribologie#1",
+    "de_verschleiss#0",
+    "de_verschleiss#2",
+    "de_verschleiss#3",
+    "en_tribology#3",
+    "de_schmierung#0",
+    "en_wear#0",
+    "de_lager_maschinenelement#6",
+    "de_schmierfett#12",
+    "de_tribologie#2"
+   ],
+   "scores": [
+    0.9766,
+    0.9761,
+    0.9485,
+    0.9049,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.14285714285714285,
+    "ndcg@10": 0.3333333333333333
+   }
+  },
+  {
+   "qid": "q082",
+   "group": "de->en",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "en_lubrication#3": 2
+   },
+   "ranked": [
+    "de_lager_maschinenelement#4",
+    "de_homokinetisches_gelenk#2",
+    "en_lubrication#3",
+    "de_gleitlager#0",
+    "de_gleitlager#6",
+    "de_homokinetisches_gelenk#3",
+    "de_schmierfett#15",
+    "de_waelzlager#28",
+    "de_gleitlager#7",
+    "de_schmierfett#8"
+   ],
+   "scores": [
+    0.8841,
+    0.5,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 1.0,
+    "mrr@10": 0.3333333333333333,
+    "ndcg@10": 0.5
+   }
+  },
+  {
+   "qid": "q083",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_bearing#1": 2,
+    "en_bearing_mechanical#2": 2
+   },
+   "ranked": [
+    "de_waelzlager#1",
+    "de_waelzlager#2",
+    "de_waelzlager#17",
+    "de_waelzlager#6",
+    "de_waelzlager#5",
+    "en_bearing_mechanical#2",
+    "de_waelzlager#7",
+    "ko_bearing#1",
+    "de_lager_maschinenelement#5",
+    "en_rolling_element_bearing#2"
+   ],
+   "scores": [
+    1.0,
+    0.9405,
+    0.8841,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.16666666666666666,
+    "ndcg@10": 0.41183384043543503
+   }
+  },
+  {
+   "qid": "q084",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_fatigue_material#0": 2,
+    "de_materialermuedung#6": 1,
+    "en_fatigue_material#8": 1
+   },
+   "ranked": [
+    "de_materialermuedung#6",
+    "de_materialermuedung#5",
+    "de_materialermuedung#0",
+    "de_materialermuedung#7",
+    "de_verschleiss#1",
+    "de_verschleiss#2",
+    "en_fatigue_material#5",
+    "de_verschleiss#4",
+    "ko_ball_bearing#11",
+    "de_materialermuedung#2"
+   ],
+   "scores": [
+    0.9839,
+    0.9766,
+    0.9683,
+    0.9485,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621,
+    0.4552
+   ],
+   "metrics": {
+    "recall@5": 0.3333333333333333,
+    "mrr@10": 1.0,
+    "ndcg@10": 0.31939394323979897
+   }
+  },
+  {
+   "qid": "q085",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_tribology#0": 2,
+    "en_tribology#0": 2
+   },
+   "ranked": [
+    "de_tribologie#2",
+    "de_tribologie#1",
+    "en_tribology#3",
+    "de_gleitlager#4",
+    "de_gleitlager#3",
+    "en_tribology#0",
+    "de_gleitlager#7",
+    "de_verschleiss#0",
+    "de_schmierung#0",
+    "en_wear#0"
+   ],
+   "scores": [
+    0.9621,
+    0.9541,
+    0.5,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.16666666666666666,
+    "ndcg@10": 0.21840743681816419
+   }
+  },
+  {
+   "qid": "q086",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_wear#0": 2,
+    "en_tribology#24": 1,
+    "en_tribology#25": 1
+   },
+   "ranked": [
+    "de_gleitlager#3",
+    "de_gleitlager#6",
+    "de_verschleiss#1",
+    "de_gleitlager#0",
+    "de_gleitlager#9",
+    "de_gleitlager#2",
+    "de_materialermuedung#5",
+    "de_verschleiss#0",
+    "de_gleitlager#4",
+    "de_gleitlager#7"
+   ],
+   "scores": [
+    0.9841,
+    0.9761,
+    0.9251,
+    0.5,
+    0.4919,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q087",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_shaft#0": 2,
+    "ko_shaft#1": 2
+   },
+   "ranked": [
+    "de_lager_maschinenelement#1",
+    "de_lager_maschinenelement#2",
+    "de_waelzlager#32",
+    "de_waelzlager#31",
+    "de_gleitlager#1",
+    "de_lager_maschinenelement#5",
+    "de_waelzlager#0",
+    "de_waelzlager#19",
+    "de_lager_maschinenelement#0",
+    "de_homokinetisches_gelenk#0"
+   ],
+   "scores": [
+    0.9919,
+    0.9841,
+    0.9314,
+    0.8973,
+    0.8909,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q088",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_seal#0": 2,
+    "en_seal_mechanical#0": 1
+   },
+   "ranked": [
+    "de_dichtung_technik#0",
+    "de_wellendichtring#3",
+    "de_waelzlager#32",
+    "de_schmierfett#16",
+    "de_dichtung_technik#2",
+    "de_waelzlager#8",
+    "de_dichtung_technik#3",
+    "de_waelzlager#7",
+    "de_dichtung_technik#1",
+    "de_schmierfett#15"
+   ],
+   "scores": [
+    0.942,
+    0.8909,
+    0.5,
+    0.4919,
+    0.4919,
+    0.4841,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q089",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_drive_shaft#0": 2,
+    "ko_shaft#0": 1
+   },
+   "ranked": [
+    "de_homokinetisches_gelenk#4",
+    "de_waelzlager#25",
+    "de_homokinetisches_gelenk#3",
+    "ko_bearing#3",
+    "de_gleitlager#1",
+    "ko_ball_bearing#13",
+    "de_waelzlager#22",
+    "ko_ball_bearing#12",
+    "de_waelzlager#14",
+    "en_ball_bearing#14"
+   ],
+   "scores": [
+    1.0,
+    0.9761,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  },
+  {
+   "qid": "q090",
+   "group": "de->ko",
+   "q_lang": "de",
+   "type": "cross",
+   "gold": {
+    "ko_grease#0": 2,
+    "ko_lubrication#0": 1,
+    "en_grease#0": 2
+   },
+   "ranked": [
+    "de_schmierfett#15",
+    "de_schmierfett#16",
+    "de_schmierfett#2",
+    "de_schmierfett#18",
+    "de_lager_maschinenelement#6",
+    "de_schmierfett#0",
+    "de_gleitlager#10",
+    "en_grease#2",
+    "de_waelzlager#23",
+    "en_grease#1"
+   ],
+   "scores": [
+    1.0,
+    0.9761,
+    0.4919,
+    0.4841,
+    0.4766,
+    0.4766,
+    0.4692,
+    0.4692,
+    0.4621,
+    0.4621
+   ],
+   "metrics": {
+    "recall@5": 0.0,
+    "mrr@10": 0.0,
+    "ndcg@10": 0.0
+   }
+  }
+ ],
+ "timing": {
+  "query_latency_ms": {
+   "p50": 30.487647047266364,
+   "p95": 31.96644689887762,
+   "mean": 30.754126618719763
+  }
+ },
+ "extra": {}
+}
