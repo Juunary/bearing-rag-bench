@@ -75,7 +75,7 @@ uv run python scripts/make_v2_ft_configs.py --retrieval v2_b_rrf_en_rerank
 uv run python experiments/analyze_v2_generation.py
 
 # 로컬 채팅 서버 (http://127.0.0.1:8000)
-uv run python experiments/serve_chat.py configs/s35_pipeline.json
+uv run python experiments/serve_chat.py   # 기본 configs/s6_pipeline_en.json
 
 # 서비스 성능 (단계별 지연, 동시 요청)
 uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30

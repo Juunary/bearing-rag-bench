@@ -7,7 +7,8 @@
   sessions, key includes model and prompt), and requests are logged to logs/requests.jsonl with
   config_id "chat:<exp_id>" so chat traffic can be told apart from experiment runs.
 - Binds to 127.0.0.1 only. Retrieval models use cuda:0 and the generator generation.device (cuda:1).
-- Usage: uv run python experiments/serve_chat.py configs/s35_pipeline.json [--port 8000]
+- Usage: uv run python experiments/serve_chat.py [configs/s6_pipeline_en.json] [--port 8000]
+  (default config = English pivot; configs/s35_pipeline.json serves the original-text pipeline)
 
 [KO]
 - 역할: experiments/run_pipeline.py와 똑같이 실제 서비스 파이프라인(설정의 검색기, Qwen3 생성기, SQLite
@@ -15,7 +16,8 @@
 - run_pipeline.py와의 차이: 시작할 때 캐시를 지우지 않고(답변이 세션 간 유지되며 키에 모델·프롬프트가
   들어간다), 요청은 config_id "chat:<exp_id>"로 logs/requests.jsonl에 기록해 실험 실행과 구별한다.
 - 127.0.0.1에만 열린다. 검색 모델은 cuda:0, 생성기는 generation.device(cuda:1)를 쓴다.
-- 사용: uv run python experiments/serve_chat.py configs/s35_pipeline.json [--port 8000]
+- 사용: uv run python experiments/serve_chat.py [configs/s6_pipeline_en.json] [--port 8000]
+  (기본 설정 = 영어 피벗, 원문 검색 파이프라인은 configs/s35_pipeline.json)
 """
 
 from __future__ import annotations
@@ -41,7 +43,8 @@ from ragbench.retrieval.factory import build_retriever  # noqa: E402
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("config", type=Path)
+    ap.add_argument("config", type=Path, nargs="?", default=REPO / "configs" / "s6_pipeline_en.json",
+                    help="serving config (default configs/s6_pipeline_en.json: English pivot + reranker on English text)")
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--cache", type=Path, default=None, help="LLM cache file (default logs/chat_cache.sqlite)")
     ap.add_argument("--cold-translation", action="store_true", help="benchmark mode: start with an empty translation cache")

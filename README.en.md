@@ -75,7 +75,7 @@ uv run python scripts/make_v2_ft_configs.py --retrieval v2_b_rrf_en_rerank
 uv run python experiments/analyze_v2_generation.py
 
 # Local chat server (http://127.0.0.1:8000)
-uv run python experiments/serve_chat.py configs/s35_pipeline.json
+uv run python experiments/serve_chat.py   # default configs/s6_pipeline_en.json
 
 # Service performance (stage latency, concurrent requests)
 uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30
