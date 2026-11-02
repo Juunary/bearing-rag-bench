@@ -41,7 +41,8 @@ import time
 from typing import Any
 
 NO_ANSWER = "NO_ANSWER"
-CITE_RE = re.compile(r"\[([A-Za-z0-9_]+#\d+)\]")
+# 청크 ID: 위키 "en_grease#2", PDF "nasa-tp-2013-215305-rev1#111" (하이픈·점 허용)
+CITE_RE = re.compile(r"\[([A-Za-z0-9_.\-]+#\d+)\]")
 SENT_RE = re.compile(r"(?<=[.!?。])\s+")
 
 _BASE = (

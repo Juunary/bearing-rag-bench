@@ -45,3 +45,10 @@ def test_parse_refusal_sentinel_only_when_exact():
 def test_parse_no_citation():
     r = parse_answer("Plain answer.", ["a#1"])
     assert not r["has_citation"] and not r["citations_valid"] and r["sentence_coverage"] == 0.0
+
+
+# PDF 청크 ID에는 하이픈이 들어간다 (nasa-tp-2013-215305-rev1#111)
+def test_parse_citation_of_pdf_chunk_id():
+    r = parse_answer("The life factor is 12 [nasa-tp-2013-215305-rev1#111].", ["nasa-tp-2013-215305-rev1#111"], {"nasa-tp-2013-215305-rev1#111"})
+    assert r["cited"] == ["nasa-tp-2013-215305-rev1#111"] and r["citations_valid"] and r["cites_gold"]
+    assert r["sentence_coverage"] == 1.0

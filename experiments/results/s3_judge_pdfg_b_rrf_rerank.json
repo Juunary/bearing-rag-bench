@@ -1,0 +1,1196 @@
+{
+  "config": {
+    "exp_id": "s3_judge_pdfg_b_rrf_rerank",
+    "stage": "s3",
+    "description": "LLM-as-a-judge (Qwen3-8B, two GPUs, thinking off, greedy): faithfulness, answer relevance, context relevance, correctness; judged file: pdfg_b_rrf_rerank",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3",
+      "corpus": "wiki",
+      "table_header": false
+    },
+    "retrieval": {
+      "method": "bm25",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "bm25_include_original": false,
+      "bm25_original_tokenizer": "kiwi",
+      "rerank_text": "original",
+      "query_expansion": null,
+      "contextual_prefix": false,
+      "translate_model": null,
+      "translate_glossary": false,
+      "translate_skip_english": false,
+      "bm25_english_pivot": false,
+      "dense_english_pivot": false,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": "Qwen/Qwen3-8B",
+      "prompt_version": "judge_v1",
+      "max_new_tokens": 80,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "auto",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-11-02T17:53:26+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "c9ea83653a2ca07a41db35966f418aad805467ef",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "faithfulness": 0.8292682926829268,
+      "faithfulness_n": 41,
+      "answer_relevance": 0.9512195121951219,
+      "answer_relevance_n": 41,
+      "context_relevance": 0.7708333333333334,
+      "context_relevance_n": 48,
+      "correctness": 0.7317073170731707,
+      "correctness_n": 41,
+      "judge_context_vs_gold_agreement": 0.8958333333333334,
+      "n": 48
+    },
+    "by_group": {
+      "de->de": {
+        "faithfulness": 0.875,
+        "answer_relevance": 1.0,
+        "context_relevance": 1.0,
+        "correctness": 0.5,
+        "n": 8
+      },
+      "de->en": {
+        "faithfulness": 0.625,
+        "answer_relevance": 0.875,
+        "context_relevance": 0.625,
+        "correctness": 0.625,
+        "n": 8
+      },
+      "en->de": {
+        "faithfulness": 1.0,
+        "answer_relevance": 1.0,
+        "context_relevance": 0.5,
+        "correctness": 1.0,
+        "n": 8
+      },
+      "en->en": {
+        "faithfulness": 0.8571428571428571,
+        "answer_relevance": 1.0,
+        "context_relevance": 0.75,
+        "correctness": 0.8571428571428571,
+        "n": 8
+      },
+      "ko->de": {
+        "faithfulness": 0.875,
+        "answer_relevance": 1.0,
+        "context_relevance": 0.75,
+        "correctness": 0.625,
+        "n": 8
+      },
+      "ko->en": {
+        "faithfulness": 0.875,
+        "answer_relevance": 0.875,
+        "context_relevance": 1.0,
+        "correctness": 1.0,
+        "n": 8
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "pdf001",
+      "group": "ko->en",
+      "question": "진공유도용해-진공아크재용해(VIM–VAR)로 만든 AISI M-50 베어링강에 적용하는 수명계수는 재료, 공정, 최종 값이 각각 얼마인가요?",
+      "answer": "재료는 AISI M-50, 공정은 VAR, 최종 값은 6입니다 [nasa-tp-2013-215305-rev1#111].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the material as AISI M-50, the process as VAR, and the final value as 6, all of which are supported by the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides the material (AISI M-50), process (VAR), and final value (6) as requested in the question.  \nVERDICT: YES",
+        "context_relevance": "The passages provide the life factors for VIM–VAR AISI M-50 bearing steel, which can be used to determine the material, process, and final life coefficients.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the material as AISI M-50, the process as VAR, and the resultant value as 6, which matches the information in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf002",
+      "group": "en->en",
+      "question": "In the mission profile of the commercial turboprop gearbox, what share of the time is spent in cruise and how much propeller shaft power is delivered in that segment?",
+      "answer": "In the mission profile of the commercial turboprop gearbox, 68.08 percent of the time is spent in cruise, and the propeller shaft power delivered in that segment is 1516 kW (2033 hp) [nasa-tp-2013-215305-rev1#115].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly states the percentage of time spent in cruise and the corresponding propeller shaft power based on the data provided in the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides specific percentages and power values related to the cruise segment of a commercial turboprop gearbox mission profile, directly addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passages contain a table (Table XIII) that directly provides the percentage of time spent in cruise and the corresponding propeller shaft power for the commercial turboprop gearbox.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the percentage of time spent in cruise and the propeller shaft power delivered during that segment as per the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf003",
+      "group": "de->en",
+      "question": "Welche L10-Lebensdauer in Stunden sagt die Lundberg-Palmgren-Analyse mit Lebensdauerfaktoren für das Propeller-Axialkugellager des kommerziellen Turboprop-Getriebes voraus?",
+      "answer": "Die Lundberg-Palmgren-Analyse sagt eine vorhergesagte L10-Lebensdauer von 774 Stunden für das Getriebe vor. [nasa-tm-2015-218895#23] Die Analyse berücksichtigt einen Lebensdauerexponenten p = 10/3 für die rollerbearbeiteten Lager. [de_waelzlager#20] Die tatsächliche L10-Lebensdauer aus den Felddaten beträgt 5627 Stunden, was eine Unterabschätzung um einen Faktor von 7,56 zeigt. [nasa-tm-2015-218895#23]",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": true,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort enthält Angaben zu einer L10-Lebensdauer von 774 Stunden und einer tatsächlichen L10-Lebensdauer von 5627 Stunden, die jedoch in den Passagen nicht erwähnt werden.  \nVERDICT: NO",
+        "answer_relevance": "Die Antwort nennt eine vorhergesagte L10-Lebensdauer von 774 Stunden, was direkt auf die Frage antwortet.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that the Lundberg-Palmgren model predicted an L10 life of 774 hours for the gearbox, and the field data suggested this was underpredicted by a factor of 7.56, implying the actual L10 life was around 5627 hours. However, the question specifically asks about the L10 life predicted by the Lundberg-Palmgren analysis with life factors for the propeller axial roller bearing, not the entire gearbox. The passages do not provide the specific L10 life prediction for the propeller axial roller bearing.  \nVERDICT: NO",
+        "correctness": "Die Antwort enthält falsche Angaben zur vorhergesagten L10-Lebensdauer und verwechselt die Lebensdauerfaktoren für Kugellager und Rollenlager.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf004",
+      "group": "ko->en",
+      "question": "와이블 기반 몬테카를로 시뮬레이션에서 깊은 홈 볼베어링의 고장 중 내륜 고장이 차지하는 비율은 몇 퍼센트였나요?",
+      "answer": "와이블 기반 몬테카를로 시뮬레이션에서 깊은 홈 볼베어링의 고장 중 내륜 고장은 70.1%를 차지했습니다 [nasa-tp-2013-215305-rev1#58].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the percentage of inner race failures for deep groove ball bearings from the provided table in the passage.  \nVERDICT: YES",
+        "answer_relevance": "Answer는 질문에 대한 답변을 시도하고 있습니다.  \nVERDICT: YES",
+        "context_relevance": "The passage explicitly states the percentage of inner race failures for deep groove ball bearings using a Weibull-based Monte Carlo method.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the percentage of inner race failures in deep groove ball bearings based on the provided Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf005",
+      "group": "en->en",
+      "question": "For a medium-series ball bearing, what is the outer-race to inner-race life ratio Lo/Li for Hertz stress-life exponents of 9 and 12?",
+      "answer": "For a medium-series ball bearing, the outer-race to inner-race life ratio Lo/Li for a Hertz stress-life exponent of 9 is 8.36, and for a Hertz stress-life exponent of 12 is 16.96 [nasa-tp-2013-215305-rev1#73].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly cites the outer-race to inner-race life ratio values for a medium-series ball bearing with Hertz stress-life exponents of 9 and 12 from the provided table in the Passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides the Lo/Li ratios for the specified Hertz stress-life exponents, directly addressing the question.  \nVERDICT: YES",
+        "context_relevance": "The passages contain a table (Table VI) that directly provides the outer-race to inner-race life ratio Lo/Li for a medium-series ball bearing for Hertz stress-life exponents of 9 and 12.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the Lo/Li ratios for Hertz stress-life exponents of 9 and 12 as 8.36 and 16.96, respectively, which matches the values provided in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf006",
+      "group": "de->en",
+      "question": "Welche Last-Lebensdauer- und Spannungs-Lebensdauer-Exponenten ergaben Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff?",
+      "answer": "Die Last-Lebensdauer-Exponenten und der Spannungs-Lebensdauer-Exponent für Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff betragen 3.6 und 10.8 [nasa-tp-2013-215305-rev1#86].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort wird durch den Passus in [nasa-tp-2013-215305-rev1#86] gestützt, der die Last-Lebensdauer-Exponenten und den Spannungs-Lebensdauer-Exponenten für Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff angibt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt spezifische Werte für die Last-Lebensdauer- und Spannungs-Lebensdauer-Exponenten, die direkt auf die gestellte Frage antworten.  \nVERDICT: YES",
+        "context_relevance": "The passage [nasa-tp-2013-215305-rev1#85] directly mentions Scott's Four Ball tests with EN-31 steel and diester lubricant, and provides the load-life exponent (3.6) and stress-life exponent (10.8).  \nVERDICT: YES",
+        "correctness": "Die Antwort gibt die korrekten Werte für die Last-Lebensdauer-Exponenten (3.6) und den Spannungs-Lebensdauer-Exponenten (10.8) aus der Referenz an.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf007",
+      "group": "ko->en",
+      "question": "피로한도를 두지 않는 Lundberg-Palmgren 모델에서 최대 헤르츠 응력을 1379 MPa에서 2068 MPa로 올리면 상대 수명은 얼마로 줄어드나요?",
+      "answer": "피로한도를 두지 않는 Lundberg-Palmgren 모델에서 최대 헤르츠 응력을 1379 MPa에서 2068 MPa로 올리면, 수명은 약 1/4258로 줄어듭니다. [nasa-tp-2013-215305-rev1#49]  \n이 값은 ISO 281:2007 기준에서 2068 MPa에서의 수명이 4258×10⁶ 사이클임을 나타냅니다. [nasa-tp-2013-215305-rev1#49]  \n1379 MPa에서의 수명은 무한대로 간주되며, 2068 MPa에서는 유한한 수명이 됩니다. [nasa-tp-2013-215305-rev1#49]",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer incorrectly states that the life at 1379 MPa is infinite and at 2068 MPa is 4258×10⁶ cycles, while the passages indicate that the life at 1379 MPa is normalized to 1 and the life at 2068 MPa is 4258×10⁶ cycles relative to that normalization. The Answer also misrepresents the relationship between the Hertz stress and life.  \nVERDICT: NO",
+        "answer_relevance": "Answer는 질문에서 요구하는 상대 수명의 변화에 대해 설명하고 있으며, 관련된 정보를 제공하고 있으므로 질문을 다루고 있습니다.  \nVERDICT: YES",
+        "context_relevance": "The passages provide the relative life values (0.134 and 0.026) for the Lundberg-Palmgren model at maximum Hertz stresses of 1379 MPa and 2068 MPa, which allows calculation of the relative life reduction.  \nVERDICT: YES",
+        "correctness": "The Answer correctly interprets the Reference by stating that the relative life decreases to approximately 1/4258, aligning with the provided data.  \nVERDICT: YES"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "pdf008",
+      "group": "en->en",
+      "question": "How much compressive residual stress does AMS 6278 (VIM-VAR M50 NiL) have from heat treatment, and what is its theoretical relative life at a maximum Hertz stress of 1.4 GPa compared with AISI M-50?",
+      "answer": "AMS 6278 (VIM–VAR M50 NiL) has a compressive residual stress of 0.4 GPa (58 ksi) from heat treatment [nasa-tp-2013-215305-rev1#97]. Its theoretical relative life at a maximum Hertz stress of 1.4 GPa is 280×10⁻², compared to 1 for AISI M–50 [nasa-tp-2013-215305-rev1#97].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly cites the compressive residual stress value and the relative life from the table in the passage, which directly supports the claims made.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides both the compressive residual stress of AMS 6278 and its theoretical relative life compared to AISI M-50, directly addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passage provides the compressive residual stress value for AMS 6278 (VIM-VAR M50 NiL) and the relative life data at a maximum Hertz stress of 1.4 GPa compared to AISI M-50.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the compressive residual stress and relative life values from the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf009",
+      "group": "ko->en",
+      "question": "구름 베어링 크기별 형상·재료 계수 fcm 대표값은 ANSI/ABMA의 몇 번 규격에 나오나요?",
+      "answer": "구름 베어링 크기별 형상·재료 계수 fcm 대표값은 ANSI/ABMA의 9번 및 11번 규격에 나오나요 [nasa-tp-2013-215305-rev1#39].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies that the representative values of fcm for roller bearings are found in ANSI/ABMA standards 9 and 11, as supported by the passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer attempts to provide a reference to the ANSI/ABMA standard that includes information about the fcm coefficient for roller bearings.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that representative values of fcm are given in Table I from the ANSI/ABMA standards (Refs. 13 and 14) and also reference ANSI/ABMA Standard 9.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies that the representative values of fcm are found in ANSI/ABMA standards 9 and 11, as indicated in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf010",
+      "group": "en->en",
+      "question": "In the NASA review of rolling-element bearing life prediction, which figure shows Wöhler-type stress-cycle curves with an endurance limit, and which source is it credited to?",
+      "answer": "Figure 27(b) shows Wöhler-type stress-cycle curves with an endurance limit [nasa-tp-2013-215305-rev1#127]. This is credited to Wohler's work, as the text states that Wohler was seeking to determine what was later determined as an \"endurance limit\" or \"fatigue limit\" [nasa-tp-2013-215305-rev1#127].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies Figure 27(b) as showing Wöhler-type stress-cycle curves with an endurance limit and attributes it to Wohler's work, as supported by the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer identifies the figure and credits the source, addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passages mention Figure 27(b) as the classic Wöhler curve introducing the concept of a fatigue limit and credit it to Wöhler.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies Figure 27(b) as showing Wöhler-type stress-cycle curves with an endurance limit and credits Wohler's work, aligning with the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf011",
+      "group": "de->en",
+      "question": "Welche Schmiegung an Innen- und Außenring liegt den nach Einführungsjahr aufgelisteten fcm-Werten der ANSI/ABMA-Norm 9 für Kugellager zugrunde?",
+      "answer": "Die nach Einführungsjahr aufgelisteten fcm-Werten der ANSI/ABMA-Norm 9 für Kugellager liegen der Schmierungsbedingung zugrunde, bei der die Kontaktflächen zwischen Innen- und Außenring sowie den Wälzkörpern durch einen Schmierfilm unterstützt werden, der die Reibung und Verschleiß reduziert [de_waelzlager#0]. Die Werte von fcm sind Material- und Geometriekoeffizienten, die die Schmierleistung und die Reibung in Kugellagern beschreiben, insbesondere bei unterschiedlichen Kontaktwinkeln und Wälzkörperdurchmesser [nasa-tp-2013-215305-rev1#39]. Diese Koeffizienten berücksichtigen die Oberflächenkonformität und die Schmierbedingungen, die für eine optimale Schmierfilmbildung notwendig sind [nasa-tp-2013-215305-rev1#39]. Die genauen fcm-Werte hängen",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": false,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt fcm-Werte und Schmierfilm, die in den Passagen beschrieben werden, aber sie erwähnt nicht explizit, dass die fcm-Werte der ANSI/ABMA-Norm 9 auf Schmiegung an Innen- und Außenring beruhen. Die Passagen sprechen nicht direkt über die fcm-Werte der ANSI/ABMA-Norm 9 oder deren Beziehung zur Schmiegung.  \nVERDICT: NO",
+        "answer_relevance": "Die Antwort versucht, die Frage zu beantworten, indem sie allgemeine Informationen zur Schmierung und den fcm-Werten in Kugellagern liefert, jedoch nicht direkt die Schmiegung an Innen- und Außenring in Bezug auf die nach Einführungsjahr aufgelisteten fcm-Werte der ANSI/ABMA-Norm 9 beschreibt.  \nVERDICT: NO",
+        "context_relevance": "Die Passagen erwähnen die ANSI/ABMA-Norm 9 und beschreiben fcm-Werte, aber keine spezifische Schmiegung an Innen- und Außenring in Bezug auf das Einführungsjahr der Norm.  \nVERDICT: NO",
+        "correctness": "Die Antwort enthält keine Informationen über die Schmiegung an Innen- und Außenring, sondern beschreibt allgemein die Bedeutung von fcm-Werten.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf012",
+      "group": "de->en",
+      "question": "Unterhalb welcher maximalen Hertzschen Pressung arbeiten praktisch alle Wälzlager in rotierenden Maschinen?",
+      "answer": "Praktisch alle Wälzlager in rotierenden Maschinen arbeiten unter einer maximalen Hertzschen Pressung von 2,1 GPa (300 ksi) [nasa-tp-2013-215305-rev1#89].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Passage nasa-tp-2013-215305-rev1#89 besagt explizit, dass in rotierenden Maschinen fast alle Wälzlager unter einer maximalen Hertzschen Pressung von 2,1 GPa (300 ksi) arbeiten.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort gibt eine spezifische numerische Antwort auf die Frage, obwohl sie möglicherweise nicht vollständig korrekt ist.  \nVERDICT: YES",
+        "context_relevance": "The passage explicitly states that in rotating machinery nearly all rolling-element bearings operate at a maximum Hertz stress less than 2.1 GPa (300 ksi).  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie die korrekte maximale Hertzschen Pressung von 2,1 GPa (300 ksi) angibt, unter der praktisch alle Wälzlager in rotierenden Maschinen arbeiten.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf013",
+      "group": "en->en",
+      "question": "Out of the roughly 224,000 airline engine bearings that came back for repair, how many had to be scrapped because of spalling fatigue?",
+      "answer": "Out of the roughly 224,000 airline engine bearings that came back for repair, 1,977 were rejected because of fatigue, but the specific number attributed to spalling fatigue is not provided in the context. [nasa-tm-2017-219545#3] The data indicate that fatigue failures are generally not classified as spalling fatigue, and no subset of the fatigue failures is specified as spalling. [nasa-tm-2017-219545#27] Therefore, the exact number of bearings scrapped due to spalling fatigue cannot be determined from the given information.",
+      "refused": true,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention that out of approximately 224,000 bearings, 1,977 were rejected due to fatigue, but they do not specifically state how many of these were due to spalling fatigue.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "over_refusal"
+    },
+    {
+      "qid": "pdf014",
+      "group": "ko->en",
+      "question": "Cunningham과 Morgan이 해군 항공 정비시설(Naval Air Rework Facility)에서 베어링 폐기 원인 데이터를 모은 표본 기간은 어느 해였고, 한 번에 며칠씩이었나요?",
+      "answer": "Cunningham과 Morgan은 1969년, 1971년, 그리고 1977년 동안 각각 80일간의 기간을 설정하여 베어링 폐기 원인 데이터를 모으었습니다 [nasa-tm-2017-219545#19]. 각 표본 기간은 80일이었습니다 [nasa-tm-2017-219545#10].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Cunningham과 Morgan은 1969년, 1971년, 1977년 각각 80일간의 표본 기간 동안 데이터를 수집했으며, 이는 Passage에 명시되어 있습니다.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides the years (1969, 1971, 1977) and the duration (80 days each) of the sampling periods, which directly addresses the question about the sample period and duration.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that Cunningham and Morgan collected data from three 80-day periods during 1969, 1971, and 1977.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the years (1969, 1971, 1977) and the duration (80 days) of the sampling periods as stated in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf015",
+      "group": "de->en",
+      "question": "Wie viel Prozent der Lager wären laut der auf die Naval-Air-Rework-Daten gestützten Analyse bereits ausgebaut, wenn die rechnerische L10-Ermüdungslebensdauer von 5000 h erreicht ist?",
+      "answer": "Laut der Analyse würden 97 Prozent der Lager bereits ausgebaut sein, wenn die rechnerische L10-Ermüdungslebensdauer von 5.000 Stunden erreicht ist [nasa-tm-2017-219545#23]. Dieses Ergebnis wird aus den Daten des Naval Air Rework Facility abgeleitet [nasa-tm-2017-219545#23]. Die Analyse zeigt, dass bei 5.000 Stunden (L10-Ermüdungslebensdauer) 97 Prozent der Lager aufgrund von Ermüdung oder anderen Ursachen ausgebaut werden [nasa-tm-2017-219545#23].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt korrekt, dass 97 Prozent der Lager bei Erreichen der L10-Ermüdungslebensdauer von 5.000 Stunden ausgebaut wären, was in den Passagen explizit angegeben wird.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort gibt eine konkrete Prozentzahl an, die direkt auf die gestellte Frage antwortet, indem sie angibt, wie viel Prozent der Lager ausgebaut wären, wenn die L10-Ermüdungslebensdauer von 5000 Stunden erreicht ist.  \nVERDICT: YES",
+        "context_relevance": "The passages provide specific data about the percentage of bearings removed from service at the L10 fatigue life of 5000 hours, which directly answers the question.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass 97 Prozent der Lager ausgebaut wären, wenn die L10-Ermüdungslebensdauer von 5.000 Stunden erreicht ist.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf016",
+      "group": "en->en",
+      "question": "In the service life analysis built on the Naval Air Rework Facility removal data, which cause for removal gives the shortest bearing life?",
+      "answer": "Rolling-element fatigue gives the shortest bearing life in the service life analysis built on the Naval Air Rework Facility removal data. This is because eliminating rolling-element fatigue as a cause for removal increases the L10 service life by approximately 3 percent, indicating that fatigue-related failures occur earlier and reduce the overall service life. The data show that 0.88 percent of bearings were removed due to fatigue out of ~224,000 total bearings, and at 5,000 hours, 97 percent of bearings would be removed for cause, suggesting a significant impact on life. [nasa-tm-2017-219545#3] [nasa-tm-2017-219545#34]",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": true,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The answer incorrectly states that rolling-element fatigue gives the shortest bearing life, while the passages indicate that fatigue-related failures are relatively rare (0.88%) and that eliminating fatigue as a cause increases L10 life by 3%, suggesting fatigue is not the primary cause of short life.  \nVERDICT: NO",
+        "answer_relevance": "The answer directly addresses the question by identifying rolling-element fatigue as the cause for removal that gives the shortest bearing life and provides supporting data.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss the causes for bearing removal and provide data on the percentage of bearings removed due to fatigue, but they do not explicitly state which cause for removal gives the shortest bearing life.  \nVERDICT: NO",
+        "correctness": "The Answer incorrectly states that rolling-element fatigue gives the shortest bearing life, while the Reference clearly indicates that \"corrosion pitting\" is the lowest lived failure mode.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf017",
+      "group": "ko->en",
+      "question": "베어링을 새로 사는 대신 재가공(rework)해서 다시 쓰면 신품 대비 비용을 얼마나 아낄 수 있나요?",
+      "answer": "베어링을 새로 사는 대신 재가공해서 다시 쓰면, 재가공 비용은 신규 베어링 대비 53%에서 82%까지 절약할 수 있습니다. 이 비용 절감은 베어링의 크기, 복잡성, 그리고 재가공의 범위에 따라 달라질 수 있습니다 [nasa-tm-2017-219545#26]. 재가공은 주로 검사, 청소, 비파괴 검사, 그리고 롤링 요소 또는 보호 장치의 교체를 포함하며, 이 과정을 통해 사용된 베어링의 수명은 신규 베어링의 0.87배에서 0.99배까지 감소할 수 있습니다 [nasa-tm-2017-219545#26].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The answer correctly states the cost savings range and references the relevant passage that supports the claim.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides information on cost savings from reworking bearings compared to purchasing new ones, addressing the question directly.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that the potential cost savings from bearing rework varies from 53 to 82 percent compared to new bearings.  \nVERDICT: YES",
+        "correctness": "The Answer correctly reflects the cost savings range mentioned in the Reference, which states that rework can save 53 to 82 percent of the cost of new bearings.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf018",
+      "group": "de->en",
+      "question": "Auf welche Lebensdauer waren die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre begrenzt?",
+      "answer": "Die Hauptwellenlager von Fluggasturbinen waren Anfang der 1950er-Jahre auf etwa 300 Stunden begrenzt [nasa-tm-2017-219545#9]. Dieses Lebensverhalten wurde auch in anderen Quellen bestätigt, die die frühen Lebensdauern von Gasdampfmaschinen und -motoren beschreiben [nasa-tm-2017-219545#32].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt korrekt, dass die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre auf etwa 300 Stunden begrenzt waren, was in den Passagen explizit erwähnt wird.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort gibt eine konkrete Lebensdauer von 300 Stunden an und bezieht sich auf die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre, wodurch sie die Frage adäquat adressiert.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that in the early 1950s, the lives of main rotor bearings in aircraft turbine engines were limited to approximately 300 hours.  \nVERDICT: YES",
+        "correctness": "Die Antwort gibt die korrekte Lebensdauer der Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre wieder, wie sie in der Referenz beschrieben wird.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf019",
+      "group": "en->en",
+      "question": "Sugiura et al. ran rolling contact tests on fully crowned rollers with several crown radii. How much shorter was life because of edge loading than the central contact stress alone would suggest?",
+      "answer": "Life was approximately 30 percent shorter because of edge loading compared to the effect of stress at the center of the contact area [nasa-tm-2015-218895#7].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly states that Sugiura et al. found a 30 percent reduction in life due to edge loading compared to central contact stress, as explicitly mentioned in the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a specific percentage (30 percent) that addresses the question about how much shorter the life was due to edge loading compared to central contact stress.  \nVERDICT: YES",
+        "context_relevance": "The passage explicitly states that Sugiura et al. found an approximate 30 percent reduction in life due to edge loading compared to central contact stress.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states that life was approximately 30 percent shorter due to edge loading compared to central contact stress, as confirmed by the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf020",
+      "group": "ko->en",
+      "question": "210 사이즈 원통 롤러 베어링에 기준 하중 29,190 N을 걸었을 때, 에어로스페이스 롤러 프로파일(평탄부 8 mm + 곡률 반경 크라운)에서 내륜 최대 헤르츠 응력은 얼마인가요?",
+      "answer": "에어로스페이스 롤러 프로파일에서 내륜 최대 헤르츠 응력은 2240 MPa (325 ksi)입니다 [nasa-tm-2015-218895#19].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": false,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The passage explicitly states that the reference load produces an inner-ring maximum Hertz stress of 2240 MPa (325 ksi) with the aerospace profile.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a specific value for the maximum Hertz stress without explaining how it was calculated or relating it to the given parameters in the question.  \nVERDICT: NO",
+        "context_relevance": "The passage explicitly states that the reference load produces an inner-ring maximum Hertz stress of 2240 MPa (325 ksi) with the aerospace profile.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the maximum Hertz stress value from the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf021",
+      "group": "de->en",
+      "question": "Auf welchen Wert sinkt nach Lundberg-Palmgren der Last-Lebensdauer-Exponent p bei Zylinderrollen mit sehr starker Vollbombierung (Bombierradius R = 100·d) im Vergleich zu unbombierten Rollen?",
+      "answer": "Der Last-Lebensdauer-Exponent p sinkt bei Zylinderrollen mit sehr starker Vollbombierung (Bombierradius R = 100·d) im Vergleich zu unbombierten Rollen von p = 4 (für unbombierte Rollen) auf p = 4.3 (für vollbombierte Rollen) nach dem Zaretsky-Modell [nasa-tm-2015-218895#21]. Allerdings zeigt die Passage, dass das Lundberg-Palmgren-Modell für unbombierte Rollen p = 4 annimmt und bei vollbombierten Rollen p = 10/3 ≈ 3.33 annimmt, was mit den Daten nicht übereinstimmt [nasa-tm-2015-218895#3]. Die genaue Angabe für den Wert bei vollbombierten Rollen im Rahmen des Lundberg-Palmgren-Modells ist nicht direkt angegeben, aber im Zaretsky-Modell sinkt p von 5 (flach) auf 4.3 (vollbombiert) [nasa-tm-2015",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": true,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort enthält Fakten, die nicht vollständig oder korrekt aus den Passagen abgeleitet sind, insbesondere bezüglich des Wertes des Last-Lebensdauer-Exponenten p bei vollbombierten Rollen im Rahmen des Lundberg-Palmgren-Modells.  \nVERDICT: NO",
+        "answer_relevance": "Die Antwort erwähnt das Lundberg-Palmgren-Modell und erwähnt, dass bei vollbombierten Rollen p = 10/3 ≈ 3.33 angenommen wird, was die Frage anspricht.  \nVERDICT: YES",
+        "context_relevance": "The passages discuss the load-life exponent p for different roller profiles and mention that for fully-crowned rollers, the exponent is reduced from 5.0 for flat rollers to 4.3 according to the Zaretsky model, and that the Lundberg-Palmgren model assumes p = 10/3 for crowned rollers. However, the specific value of p for very strongly crowned rollers (Bombierradius R = 100·d) is not directly stated.  \nVERDICT: NO",
+        "correctness": "Die Antwort enthält widersprüchliche Angaben und verwechselt Modelle, wobei sie nicht korrekt auf die Referenz zurückgreift.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf022",
+      "group": "en->en",
+      "question": "If I size a cylindrical roller bearing with Zaretsky's life equation and the rollers have an aerospace-type or chamfered end relief, which load exponent should I use, and how does it differ from uncrowned and fully crowned rollers?",
+      "answer": "For cylindrical roller bearings with an aerospace-type or chamfered end relief, you should use a load-life exponent of p = 4.6 according to the Zaretsky life model [nasa-tm-2015-218895#28]. This is lower than the p = 5.0 exponent for flat (uncrowned) rollers, indicating a reduced sensitivity to load [nasa-tm-2015-218895#3]. It is also higher than the p = 4.3 exponent for fully crowned rollers, showing that aerospace or chamfered rollers offer intermediate load-life behavior [nasa-tm-2015-218895#28].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the load-life exponent for aerospace-type or chamfered rollers as p = 4.6 according to the Zaretsky model and accurately compares it to exponents for flat and fully crowned rollers as described in the Passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer directly addresses the question by specifying the load exponent for aerospace-type or chamfered end relief rollers and compares it to other roller types as requested.  \nVERDICT: YES",
+        "context_relevance": "The passages provide specific information about the load-life exponents for different roller profiles according to the Zaretsky model, directly addressing the question about aerospace-type/chamfered rollers and their difference from uncrowned and fully crowned rollers.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states the load-life exponent values for aerospace-type, chamfered, and fully crowned rollers as per the Reference, and accurately compares them.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf023",
+      "group": "ko->en",
+      "question": "상용 터보프롭 기어박스의 현장 수명 데이터와 비교하면, Lundberg-Palmgren 방식은 기어박스의 L10 수명을 몇 배나 낮게 예측했나요?",
+      "answer": "Lundberg-Palmgren 방식은 상용 터보프롭 기어박스의 L10 수명을 7.56배나 낮게 예측했습니다. [nasa-tp-2013-215305-rev1#122] 이 데이터는 현장 수명이 5627시간이었고, Lundberg-Palmgren 모델로 예측된 수명은 774시간이었기 때문입니다. [nasa-tm-218895#23] 이는 실제 수명보다 예측된 수명이 약 7.56배 낮다는 것을 의미합니다.",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly states that the Lundberg-Palmgren method predicted the L10 life of the gearbox to be 774 hours, while the field data indicated an L10 life of 5627 hours, resulting in a factor of 7.56 difference. This is directly supported by the passages.  \nVERDICT: YES",
+        "answer_relevance": "Lundberg-Palmgren 방식의 예측 수명과 실제 현장 수명의 비율을 계산하여 질문에 답하려 시도했습니다.  \nVERDICT: YES",
+        "context_relevance": "The passages provide specific information about the L10 life predicted by the Lundberg-Palmgren method (774 hr) and the L10 life from field data (5627 hr), allowing for the calculation of the underprediction factor.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states that the Lundberg-Palmgren method underpredicted the L10 life by a factor of 7.56, which matches the information in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf024",
+      "group": "de->en",
+      "question": "Worauf gingen die Ausfälle der im Feld beobachteten Turboprop-Getriebe zurück: Welcher Anteil entfiel auf die Planetenlager und welcher auf die Zahnräder?",
+      "answer": "Die Ausfälle der im Feld beobachteten Turboprop-Getriebe gingen zu etwa 90 Prozent auf die Planetenlager zurück, weniger als 2 Prozent auf die Zahnräder und der Rest auf andere Lager [nasa-tm-2015-218895#2].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort ist korrekt, da sie die Angaben aus dem Passage [nasa-tm-2015-218895#25] wiedergibt, die explizit erwähnen, dass 90 Prozent der Ausfälle auf Planetenlager, weniger als 2 Prozent auf Zahnräder und der Rest auf andere Lager zurückgehen.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt die Anteile der Ausfälle auf Planetenlager und Zahnräder, wie in der Frage gefordert.  \nVERDICT: YES",
+        "context_relevance": "The passages provide specific information about the causes of failures in turboprop gearboxes, stating that approximately 90 percent of failures were due to planetary bearing failures and less than 2 percent from gear failures.  \nVERDICT: YES",
+        "correctness": "Die Antwort widerspricht der Referenz, da sie angibt, dass weniger als 2 Prozent der Ausfälle auf Zahnräder zurückgehen, während die Referenz besagt, dass weniger als 2 Prozent der Ausfälle auf Zahnräder zurückgehen.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf025",
+      "group": "en->de",
+      "question": "In the full-factorial slip measurements on the full-complement NUP 2208 cylindrical roller bearing, over what shaft speed range was the speed varied and in what step size?",
+      "answer": "The provided context does not specify the shaft speed range or the step size used in the full-factorial slip measurements on the full-complement NUP 2208 cylindrical roller bearing. [luh-diss-stuhler-2024#3] mentions measurements of slip under varying rotational speed, oil temperature, and other parameters, but it does not detail the exact speed range or step size. [luh-diss-stuhler-2024#4] discusses the influence of rotational speed on smearing but again lacks specific numerical values for speed variation. Therefore, the required information is not available in the given passages.",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention experimental investigations on full-complement cylindrical roller bearings but do not specify the exact shaft speed range or step size used in the measurements.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "pdf026",
+      "group": "ko->de",
+      "question": "총형 원통롤러베어링 스미어링 시험에 쓴 두 가지 유압유에서, 표준 첨가제 오일과 저첨가 오일의 황(S) 함량은 각각 몇 mg/kg인가요?",
+      "answer": "표준 첨가제 오일의 황 함량은 2975 mg/kg이고, 저첨가 오일의 황 함량은 489 mg/kg입니다 [luh-diss-stuhler-2024#175].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the sulfur content from the table in the passage, which states the standard additive oil has 2975 mg/kg and the low additive oil has 489 mg/kg.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides the sulfur content for both standard additive oil and low additive oil, which directly addresses the question.  \nVERDICT: YES",
+        "context_relevance": "The passages provide a table (Table 15) that lists the sulfur (S) content for both the standard additive and low additive hydraulic oils.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the sulfur content for both oils as specified in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf027",
+      "group": "de->de",
+      "question": "Welche Radialkraft wurde in der Einzelparametervariation der Anschmierversuche am vollrolligen Zylinderrollenlager als hohe Stufe gefahren, und traten dabei Anschmierungen auf?",
+      "answer": "Die hohe Radialkraft, die in der Einzelparametervariation der Anschmierversuche am vollrolligen Zylinderrollenlager als hohe Stufe gefahren wurde, lag bei ±30 kN [luh-diss-stuhler-2024#123]. Bei dieser Stufe traten Anschmierungen auf [luh-diss-stuhler-2024#194].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt die hohe Radialkraft von ±30 kN und bestätigt, dass Anschmierungen auftraten, was in den Passagen explizit erwähnt wird.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt eine spezifische Radialkraft und erwähnt, dass Anschmierungen auftraten, was die Frage beantwortet.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erwähnen, dass bei der Einzelparametervariation der Anschmierversuche die höchste Radialkraftstufe zu Anschmierungen führt.  \nVERDICT: YES",
+        "correctness": "Die Antwort gibt eine falsche Radialkraft an (±30 kN), während die Referenz explizit 50 kN als hohe Stufe angibt.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "pdf028",
+      "group": "en->de",
+      "question": "In the central composite test plan for smearing of the full-complement NUP 2208 bearing, which three levels of mounted radial clearance were used?",
+      "answer": "The provided context does not specify the three levels of mounted radial clearance used in the central composite test plan for smearing of the full-complement NUP 2208 bearing. [luh-diss-stuhler-2024#4] mentions radial clearance as a variable but does not list the specific levels. [luh-diss-stuhler-2024#121] references radial and axial forces and oil temperature but does not provide clearance levels. Therefore, the required information is not available in the given passages.",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention radial clearance as a parameter affecting smearing but do not specify the three levels of mounted radial clearance used in the central composite test plan.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "pdf029",
+      "group": "ko->de",
+      "question": "NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용한 유압유의 ISO 점도 등급은 무엇인가요?",
+      "answer": "주어진 문맥에서 NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용한 유압유의 ISO 점도 등급은 명시되어 있지 않습니다. [luh-diss-stuhler-2024#121]에서 사용된 오일은 \"나이어지 않게 조정된 버전\"이며, 추가제가 없이 사용되었지만, ISO 점도 등급은 언급되지 않았습니다. 따라서 ISO 점도 등급은 확인할 수 없습니다.",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The answer correctly states that the ISO viscosity grade is not mentioned in the provided passages. The relevant passage [luh-diss-stuhler-2024#121] only mentions the use of an additive-free oil but does not specify the ISO viscosity grade.  \nVERDICT: YES",
+        "answer_relevance": "The answer acknowledges that the ISO viscosity grade is not mentioned in the provided context.  \nVERDICT: YES",
+        "context_relevance": "The passage in German mentions the use of an almost additive-free version of oil for testing the NUP 2208 bearing, but it does not specify the ISO viscosity grade. The other passages discuss various oils and tests but do not directly mention the ISO viscosity grade for the smearing test of the NUP 2208 bearing.  \nVERDICT: NO",
+        "correctness": "주어진 참조 자료는 ISO 점도 등급 32를 언급하고 있지만, 이는 특정 테스트에 사용된 오일의 점도 등급을 나타내는 것이지 NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용된 오일의 점도 등급을 명시하지는 않음.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "pdf030",
+      "group": "de->de",
+      "question": "Wie stark (Schadensklasse) schmierte das vollrollige NUP 2208 bei 1350 min−1, 35 kN Radial-, 2,3 kN Axialkraft und 70 °C trotz reduzierter axialer Luft am Außenring und 60 min Einlauf an?",
+      "answer": "Die Schadensklasse des vollrolligen NUP 2208 bei 1350 min−1, 35 kN Radial-, 2,3 kN Axialkraft und 70 °C mit reduzierter axiale Luft am Außenring und 60 min Einlauf ist nicht direkt angegeben. In den Versuchen wird nur erwähnt, dass Versuch 21 (1350 min−1, 10 kN Radialkraft, 2,3 kN Axialkraft, 70 °C) keine Anschmierungen zeigt, während Versuch 18 (1350 min−1, 35 kN Radialkraft, 2,3 kN Axialkraft, 70 °C) Anschmierungen zeigt, die jedoch geringer ausgeprägt sind. Es wird jedoch nicht explizit die Schadensklasse für die Kombination aus 35 kN Radialkraft und 60 min Einlauf genannt. [luh-diss-stuhler-2024#172]",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt korrekt, dass die Schadensklasse für die genannte Kombination nicht direkt angegeben ist und dass Versuch 18 Anschmierungen zeigt, während Versuch 21 keine zeigt, was mit den Passagen übereinstimmt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort erwähnt, dass die Schadensklasse für die genannten Bedingungen nicht direkt angegeben ist, und beschreibt verwandte Versuche, aber sie versucht, die Frage zu beantworten, indem sie die verfügbaren Informationen präsentiert.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen enthalten Angaben zu Anschmierungen unter den genannten Bedingungen, einschließlich der Schadensklasse und der Auswirkung von Einlauf und axialer Luft.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt darauf hinweist, dass die Schadensklasse nicht direkt angegeben ist und dass Versuch 18 Anschmierungen aufweist, die geringer ausgeprägt sind als in anderen Versuchen.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf031",
+      "group": "de->de",
+      "question": "In welcher Abbildung der Dissertation zu Schlupf und Anschmierungen in vollrolligen Zylinderrollenlagern sieht man, wie die Messspule und die mit Magnet präparierte Rolle zur Messung der Rollendrehzahl aufgebaut sind?",
+      "answer": "In Abbildung 12 sieht man, wie die Messspule und der mit Magnet präparierte Wälzkörper zur Messung der Rollendrehzahl aufgebaut sind [luh-diss-stuhler-2024#47].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt Abbildung 12 und beschreibt korrekt den Aufbau der Messspule und des mit Magnet präparierten Wälzkörpers zur Drehzahlmessung, wie in Passage [luh-diss-stuhler-2024#47] beschrieben.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt eine Abbildung (Abbildung 12) und beschreibt den Aufbau der Messspule und des mit Magnet präparierten Wälzkörpers, was der Frage entspricht.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [luh-diss-stuhler-2024#47] beschreibt den Aufbau der Messspule und des mit Magnet präparierten Wälzkörpers für die Schlupfmessung, was direkt auf die Frage antwortet.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass Abbildung 12 den Aufbau der Messspule und des mit Magnet präparierten Wälzkörpers zur Messung der Rollendrehzahl zeigt.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf032",
+      "group": "en->de",
+      "question": "Which table of the smearing study on full-complement cylindrical roller bearings collects the energy-based criteria from earlier work for predicting the risk of smearing?",
+      "answer": "The provided context does not mention any table that collects energy-based criteria from earlier work for predicting the risk of smearing. Therefore, no such table can be identified in the given passages. [luh-diss-stuhler-2024#3] [luh-diss-stuhler-2024#7] [luh-diss-stuhler-2024#204] [luh-diss-stuhler-2024#4]",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention a study on smearing in full-complement cylindrical roller bearings and reference earlier work on energy-based criteria, but they do not explicitly identify which table contains the energy-based criteria from earlier work.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "pdf033",
+      "group": "ko->de",
+      "question": "NUP 2208 총형 원통롤러베어링의 단일 파라미터 변화 스미어링 시험에서, 시작 시 오일 온도를 몇 °C만 높여도 스미어링이 생기지 않았나요?",
+      "answer": "시작 시 오일 온도를 11°C만 높여도 스미어링이 생기지 않았습니다 [luh-diss-stuhler-2024#135]. 이는 이미 11°C의 온도 상승이 스미어링의 발생을 방지한다는 것을 의미합니다 [luh-diss-stuhler-2024#193].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly states that increasing the start oil temperature by 11°C prevents smearing, as supported by the passages.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a specific temperature increase (11°C) and states that smearing did not occur, directly addressing the question about the temperature increase needed to prevent smearing.  \nVERDICT: YES",
+        "context_relevance": "The passage explicitly states that increasing the start oil temperature by 11°C prevents smearing.  \nVERDICT: YES",
+        "correctness": "The Answer correctly states that increasing the start oil temperature by 11°C prevents smearing, which aligns with the information in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf034",
+      "group": "en->de",
+      "question": "What roller mass and roller-set pitch diameter were used to compute the centrifugal force on the rollers of the NUP 2208 test bearing?",
+      "answer": "The provided context does not mention roller mass or roller-set pitch diameter for the NUP 2208 test bearing or any related centrifugal force computation. Therefore, no such values can be determined from the given information. [nasa-tm-2015-218895#10] [nasa-tp-2013-215305-rev1#80] [nasa-tm-2015-218895#18] [luh-diss-pelzer-2022#76]",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": false,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passages mention roller pitch diameter (de) and rolling element diameter (ad), but do not specifically state the roller mass or roller-set pitch diameter used for the NUP 2208 test bearing.  \nVERDICT: NO",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "pdf035",
+      "group": "de->de",
+      "question": "Wie teilt sich im Wälzlagerprüfstand mit dem vollrolligen Prüflager NUP 2208 die aufgebrachte Last zwischen Prüflager und Gleitlager auf?",
+      "answer": "Das Prüflager NUP 2208 nimmt vollständig die Axialkraft Fax und 67 % der exzentrisch aufgebrachten Radialkraft Frad auf [luh-diss-stuhler-2024#45]. Der Rest der Radialkraft, also 33 % von Frad, wird vom Gleitlager aufgenommen [luh-diss-stuhler-2024#45].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort ist korrekt, da sie die Aufteilung der Last zwischen Prüflager und Gleitlager aus dem Passage [luh-diss-stuhler-2024#45] zitiert und korrekt interpretiert.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort beschreibt, wie die Last zwischen dem Prüflager und dem Gleitlager aufgeteilt wird, indem sie die Anteile der Axialkraft und der Radialkraft angibt.  \nVERDICT: YES",
+        "context_relevance": "Die Passage [luh-diss-stuhler-2024#45] beschreibt explizit, dass das Prüflager NUP 2208 die vollständige Axialkraft Fax und 67 % der exzentrisch aufgebrachten Radialkraft Frad aufnimmt, wodurch die Lastverteilung zwischen Prüflager und Gleitlager klar definiert ist.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass das Prüflager NUP 2208 die Axialkraft Fax und 67 % der Radialkraft Frad trägt, während das Gleitlager den verbleibenden 33 % der Radialkraft aufnimmt.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf036",
+      "group": "ko->de",
+      "question": "호칭경 80 mm RWDR 5개의 상온 정적 반경력 측정에서, D3 시료의 스프링 장착 상태 반경력은 몇 N이었나요?",
+      "answer": "호칭경 80 mm RWDR 5개의 상온 정적 반경력 측정에서, D3 시료의 스프링 장착 상태 반경력은 32,74 N이었습니다 [luh-diss-pelzer-2022#73].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the static radial force with spring (MF) for D3 from the table in the passage, which states 32.74 N.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a specific numerical value for the spring-mounted radial stiffness of D3 sample, directly addressing the question.  \nVERDICT: YES",
+        "context_relevance": "The passage contains a table with radial force measurements for RWDR 80 mm with and without a spring, including the value for D3 with a spring.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the value for D3 sample's spring-mounted radial force from the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf037",
+      "group": "en->de",
+      "question": "The dissertation on rotating radial shaft seals illustrates an early Simmerring as a historical example. What year is that example seal from (not the year the Simmerring was first developed)?",
+      "answer": "The provided context does not mention a dissertation on rotating radial shaft seals that illustrates an early Simmerring as a historical example, nor does it specify the year of such an example seal. Therefore, the year cannot be determined from the given information. [en_radial_shaft_seal#0]",
+      "refused": true,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": true,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passage mentions that the first development of Simmerring was in 1929.  \nVERDICT: YES",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "correct_refusal"
+    },
+    {
+      "qid": "pdf038",
+      "group": "en->de",
+      "question": "Which oil was used for all the experiments with rotating radial shaft seals at IMKT, and why was that oil chosen?",
+      "answer": "The oil used for all the experiments with rotating radial shaft seals at IMKT was the mineralische FVA Referenzöl Nr. 3 without Anglamol1 [luh-diss-pelzer-2022#70]. This oil was chosen because it has a known and stable oil composition, ensuring long-term availability and consistency in future experiments without the need for recipe changes [luh-diss-pelzer-2022#70].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies the oil used and provides a valid reason supported by the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides the specific oil used and mentions the reason for its selection, addressing both parts of the question.  \nVERDICT: YES",
+        "context_relevance": "The passage explicitly states that the mineral oil FVA Reference Oil No. 3 was used for all experiments and explains the reason for its selection.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the oil used and provides the reason based on the Reference, which mentions the mineralische FVA Referenzöl Nr. 3 without Anglamol1 was chosen for its known composition and long-term availability.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf039",
+      "group": "de->de",
+      "question": "Aus welchem Werkstoff bestehen die Standard-Prüfdichtungen in den Untersuchungen zu rotierenden Radial-Wellendichtringen, und sind sie mit Feder ausgeführt?",
+      "answer": "Die Standard-Prüfdichtungen in den Untersuchungen zu rotierenden Radial-Wellendichtringen bestehen aus Kunstharz, wie in der Abbildung 5.2 beschrieben, die ein Schliffbild einer Prüfdichtung zeigt, die eingegossen in Kunstharz ist [luh-diss-pelzer-2022#5]. Die Dichtungen sind nicht explizit mit Feder ausgeführt, da die Messungen sowohl mit Feder (MF) als auch ohne Feder (OF) durchgeführt werden, um die Federkraft zu ermitteln [luh-diss-pelzer-2022#72]. Die Prüfdichtungen dienen als Modell für die Messung der Radialkräfte, nicht als funktionelle Dichtungen aus dem Endprodukt [luh-diss-pelzer-2022#5].",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt Kunstharz als Werkstoff der Prüfdichtungen, was in den Passagen nicht direkt erwähnt wird, und interpretiert die Messungen mit und ohne Feder falsch, da die Federkraft aus der Differenz der Messwerte ermittelt wird, nicht dass die Dichtungen ohne Feder ausgestattet sind.  \nVERDICT: NO",
+        "answer_relevance": "Die Antwort beantwortet beide Teile der Frage, indem sie den Werkstoff der Standard-Prüfdichtungen nennt und klärt, ob sie mit Feder ausgeführt sind.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erwähnen, dass Standard-Prüfdichtungen aus verschiedenen Werkstoffen wie NBR, H-NBR, FPM/FKM und PTFE hergestellt werden und beschreiben Messungen mit und ohne Feder.  \nVERDICT: YES",
+        "correctness": "Die Antwort stimmt nicht mit der Referenz überein, da sie behauptet, die Dichtungen seien nicht mit Feder ausgeführt, während die Referenz explizit besagt, dass die Standard-Prüfdichtungen mit Feder ausgestattet sind.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf040",
+      "group": "ko->de",
+      "question": "상온에서 호칭경 120 mm 회전 RWDR을 해석 계산했을 때, 가터 스프링이 홈에서 들뜨는 회전수는 대략 얼마인가요?",
+      "answer": "상온에서 호칭경 120 mm 회전 RWDR을 해석 계산했을 때, 가터 스프링이 홈에서 들뜨는 회전수는 대략 2400 1/min입니다. [luh-diss-pelzer-2022#86] 이 값은 실험 결과와 비교했을 때 약간의 차이가 있지만, 계산된 값이 실제와 거의 일치함을 보여줍니다. [luh-diss-pelzer-2022#85] 또한, 계산에서 유체 압력에 의한 수직력이 포함되지 않았던 점을 고려할 때, 이를 추가로 반영하면 더 정확한 예측이 가능합니다. [luh-diss-pelzer-2022#86]",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The answer correctly identifies 2400 1/min as the rotational speed at which the gate spring lifts from the groove, supported by the passages mentioning this value and the comparison between calculation and measurement.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a numerical value for the rotational speed at which the gate spring lifts from the groove, directly addressing the question.  \nVERDICT: YES",
+        "context_relevance": "The passages mention that the measured lift-off speed of the seal is around 2400 1/min, which directly answers the question about the rotational speed at which the spring lifts from the groove.  \nVERDICT: YES",
+        "correctness": "The Answer provides a value of 2400 1/min, which is not directly mentioned in the Reference, and introduces additional interpretation not supported by the Reference.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf041",
+      "group": "en->de",
+      "question": "For the rotating 120 mm radial shaft seal, at roughly what speed does the analytically computed remaining radial force drop to zero when the hydrostatic oil force is not yet included?",
+      "answer": "The analytically computed remaining radial force drops to zero at approximately 1900 min⁻¹ when the hydrostatic oil force is not yet included. This is indicated by the intersection of the verbleibende Gesamtradialkraft curve with the abscissa in Abbildung 5.21, where it is stated that the curve intersects at about 1900 min⁻¹. [luh-diss-pelzer-2022#85]",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies that the analytically computed remaining radial force drops to zero at approximately 1900 min⁻¹, as stated in the passage.  \nVERDICT: YES",
+        "answer_relevance": "The answer provides a specific speed (1900 min⁻¹) and references a figure where the intersection occurs, directly addressing the question about when the radial force drops to zero.  \nVERDICT: YES",
+        "context_relevance": "The passages mention the critical speed at which the remaining radial force drops to zero and provide specific values related to the 120 mm radial shaft seal.  \nVERDICT: YES",
+        "correctness": "The Answer correctly identifies the speed at which the analytically computed remaining radial force drops to zero as approximately 1900 min⁻¹, which matches the information provided in the Reference.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf042",
+      "group": "de->de",
+      "question": "Wie wirkt sich bei einem rotierenden Radial-Wellendichtring ein höherer Ölfüllgrad der rotierenden Kammer auf das Reibmoment und das Abheben der Dichtlippe aus?",
+      "answer": "Ein höherer Ölfüllgrad der rotierenden Kammer führt zu einem größeren hydrostatischen Druck auf die Dichtlippe, was zu größeren Reibmomenten führt [luh-diss-pelzer-2022#88]. Dieser erhöhte Druck kann das Abheben der Dichtung fördern, da er die Radialkraft erhöht und das Kräftegleichgewicht bei niedrigerem Reibmoment stört [luh-diss-pelzer-2022#88]. Die Abfälle im Reibmoment zeigen das Hinausspritzen von Öl auf, was den hydrostatischen Druck verringert und das Abheben der Dichtung erst bei vermindertem Reibmoment wieder ermöglicht [luh-diss-pelzer-2022#88].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort fasst korrekt die Hauptpunkte aus den Passagen zusammen, einschließlich der Beziehung zwischen Ölfüllgrad, hydrostatischem Druck, Reibmoment und Abheben der Dichtlippe.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort beschreibt die Auswirkungen eines höheren Ölfüllgrads auf das Reibmoment und das Abheben der Dichtlippe in einem rotierenden Radial-Wellendichtring.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen beschreiben den Einfluss des Ölfüllgrads auf das Reibmoment und das Abheben der Dichtlippe bei einem rotierenden Radial-Wellendichtring.  \nVERDICT: YES",
+        "correctness": "Die Antwort enthält widersprüchliche Informationen, insbesondere bezüglich der Auswirkung des erhöhten Ölfüllgrads auf das Abheben der Dichtung, was nicht mit der Referenz übereinstimmt.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "pdf043",
+      "group": "ko->de",
+      "question": "회전 RWDR의 동적 반경력 측정 장치는 시일 홀더를 모터로 최대 몇 rpm까지 돌릴 수 있나요?",
+      "answer": "회전 RWDR의 동적 반경력 측정 장치는 시일 홀더를 모터로 1400 rpm까지 돌릴 수 있습니다. [luh-diss-pelzer-2022#80]",
+      "refused": false,
+      "gold_in_context": false,
+      "labels": {
+        "faithfulness": false,
+        "answer_relevance": true,
+        "context_relevance": false,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "The passage mentions that measurements are conducted at 0 1/min and 1400 1/min, indicating that 1400 rpm is a tested speed, but it does not explicitly state that the motor can rotate the seal holder up to 1400 rpm.  \nVERDICT: NO",
+        "answer_relevance": "Answer는 질문에 대한 직접적인 답변을 제공하고 있으므로 질문을 해결하려고 시도하고 있습니다.  \nVERDICT: YES",
+        "context_relevance": "The passages mention measurements conducted at various RPM values, including up to 1800 1/min and 2400 1/min, but do not explicitly state the maximum RPM a motor can turn a seal holder.  \nVERDICT: NO",
+        "correctness": "The Answer incorrectly states the maximum RPM as 1400, while the Reference specifies 7000 RPM.  \nVERDICT: NO"
+      },
+      "outcome": "retrieval_failure"
+    },
+    {
+      "qid": "pdf044",
+      "group": "de->de",
+      "question": "Wie verteilt sich die Radialkraft eines Radial-Wellendichtrings üblicherweise auf Feder und Elastomer?",
+      "answer": "Die Radialkraft eines Radial-Wellendichtrings verteilt sich üblicherweise auf Feder und Elastomer in einem Verhältnis von etwa 50 % zu 50 % [luh-diss-pelzer-2022#21].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": false
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt das Verhältnis von 50 % zu 50 %, was in den Passagen explizit erwähnt wird.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort versucht, das Verteilungsverhältnis der Radialkraft auf Feder und Elastomer eines Radial-Wellendichtrings zu erklären, was der Frage entspricht.  \nVERDICT: YES",
+        "context_relevance": "Die Passagen erklären, dass die Radialkraft eines Radial-Wellendichtrings in der Regel etwa gleichmäßig zwischen Federkraft und Elastomerkraft aufgeteilt ist.  \nVERDICT: YES",
+        "correctness": "Die Antwort widerspricht der Referenz, da die Referenz angibt, dass die Differenzierung der Radialkraftanteile zwischen Federkraft und Elastomerkraft von ca. 50 % zu 50 % üblich ist, während die Antwort eine andere Verteilung suggeriert.  \nVERDICT: NO"
+      },
+      "outcome": "generation_failure"
+    },
+    {
+      "qid": "pdf045",
+      "group": "ko->de",
+      "question": "센서가 내장된 플라스틱 미끄럼 베어링 연구에서, 온도 측정용 센서 소재로 가장 좋게 평가된 전도성 플라스틱은 무엇이고 그 이유는 무엇인가요?",
+      "answer": "온도 측정용 센서 소재로 가장 좋게 평가된 전도성 플라스틱은 PA66입니다. 이는 50°C 이상의 온도에서 온도가 상승할수록 전기 저항이 선형적으로 증가하기 때문에 온도 변화를 정확하게 측정할 수 있기 때문입니다 [innotrac-2020-467#6].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "PA66은 50°C 이상의 온도에서 전기 저항이 선형적으로 증가하는 특성을 가지며, 이는 온도 측정에 적합하다는 내용이 Passage [innotrac-2020-467#6]에 명시되어 있습니다.  \nVERDICT: YES",
+        "answer_relevance": "PA66는 전도성 플라스틱으로서 온도 측정용 센서 소재로 평가되었으며, 그 이유도 제시되었으므로 질문에 답하고 있다.  \nVERDICT: YES",
+        "context_relevance": "Passages mention that PA66 exhibits a linear increase in resistance with temperature, making it suitable for temperature measurement in sensor-integrated plastic bearings.  \nVERDICT: YES",
+        "correctness": "PA66은 Reference에 따르면 온도가 상승할수록 전기 저항이 선형적으로 증가하는 전도성 플라스틱으로, 온도 측정용 센서 소재로 가장 좋게 평가되었습니다.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf046",
+      "group": "en->de",
+      "question": "In the polymer plain bearing with integrated wear sensors, why was PPS judged unsuitable as the conductive sensor material?",
+      "answer": "The provided context does not mention PPS (polyphenylene sulfide) being judged unsuitable as a conductive sensor material in a polymer plain bearing with integrated wear sensors. Therefore, based on the given passages, it is not possible to determine why PPS was deemed unsuitable for this purpose. [innotrac-2020-467#7]",
+      "refused": true,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": null,
+        "answer_relevance": null,
+        "context_relevance": true,
+        "correctness": null
+      },
+      "reasons": {
+        "faithfulness": "n/a (refusal)",
+        "answer_relevance": "n/a (refusal)",
+        "context_relevance": "The passage explicitly states that PPS shows high temperature stability in terms of its resistance change, making it unsuitable for the described application.  \nVERDICT: YES",
+        "correctness": "n/a (refusal)"
+      },
+      "outcome": "over_refusal"
+    },
+    {
+      "qid": "pdf047",
+      "group": "de->de",
+      "question": "Mit welcher Kraft wurde die Welle in der numerischen Simulation des Kunststoffgleitlagers mit integrierter Verschleißsensorik belastet?",
+      "answer": "Die Welle wurde in der numerischen Simulation mit einer Kraft von 60 kN belastet [innotrac-2020-467#4].",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "Die Antwort erwähnt korrekt, dass eine Kraft von 60 kN auf die Welle in der Simulation angewendet wurde, und diese Information ist in den Passagen explizit genannt.  \nVERDICT: YES",
+        "answer_relevance": "Die Antwort nennt eine spezifische Kraft (60 kN), die in der Simulation auf die Welle einwirkte, und verweist auf eine Quelle.  \nVERDICT: YES",
+        "context_relevance": "Die Passage erwähnt, dass in der Simulation eine Kraft von 60 kN auf die Welle angewendet wurde.  \nVERDICT: YES",
+        "correctness": "Die Antwort entspricht der Angabe in der Referenz, da dort explizit eine Kraft von 60 kN genannt wird.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    },
+    {
+      "qid": "pdf048",
+      "group": "ko->de",
+      "question": "센서 내장 플라스틱 미끄럼 베어링 논문에서, 여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여주는 그림은 몇 번인가요?",
+      "answer": "여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여주는 그림은 Abbildung 9입니다. [innotrac-2020-467#6]",
+      "refused": false,
+      "gold_in_context": true,
+      "labels": {
+        "faithfulness": true,
+        "answer_relevance": true,
+        "context_relevance": true,
+        "correctness": true
+      },
+      "reasons": {
+        "faithfulness": "The Answer correctly identifies Abbildung 9 as the figure showing the measurement results of the through resistance of multiple conductive modified plastic sensor elements.  \nVERDICT: YES",
+        "answer_relevance": "Answer는 질문에 답하려고 시도하고 있습니다.  \nVERDICT: YES",
+        "context_relevance": "Passages contain information about measurements of through resistance of sensor elements and mention specific figures (Abbildung 8 and Abbildung 9) related to these measurements.  \nVERDICT: YES",
+        "correctness": "Abbildung 9은 여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여주는 그림으로, 질문에 대한 정답입니다.  \nVERDICT: YES"
+      },
+      "outcome": "ok"
+    }
+  ],
+  "timing": {},
+  "extra": {
+    "judged_result": "pdfg_b_rrf_rerank",
+    "judge_model": "Qwen/Qwen3-8B",
+    "judge_model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "judge_max_memory": {
+      "0": 6979321856,
+      "1": 10737418240,
+      "cpu": 68719476736
+    },
+    "judge_prompt_version": "judge_v1",
+    "outcomes": {
+      "ok": 29,
+      "retrieval_failure": 7,
+      "generation_failure": 5,
+      "over_refusal": 2,
+      "correct_refusal": 5
+    },
+    "judge_calls": 182,
+    "judge_cache_hits": 52,
+    "judge_retries_for_cut_off_verdict": 11,
+    "source_commit": "11ca3fd0d34510a63cd2c993c50d45bf87a96550"
+  }
+}
