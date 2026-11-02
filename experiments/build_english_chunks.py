@@ -39,13 +39,14 @@ def main() -> None:
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--cache", default=str(REPO / "logs" / "translate_cache.sqlite"))
     ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf (PDF chunks get their own chunks_en_<set>_pdf.jsonl)")
+    ap.add_argument("--table-header", action="store_true", help="chunk set with repeated table headers (chunking.table_header)")
     ap.add_argument("--glossary", action="store_true", help="add term hints from data/glossary.json; writes chunks_en_<set>_gl.jsonl")
     args = ap.parse_args()
     set_seed(42)
 
     # 청크는 기존 청킹 설정 그대로 읽는다 (청크 ID가 같아야 평가셋·gold가 그대로 유효)
 
-    cfg = ChunkingConfig(corpus=args.corpus)
+    cfg = ChunkingConfig(corpus=args.corpus, table_header=args.table_header)
     chunks = load_chunks(cfg)
     out_path = REPO / "data" / "processed" / f"chunks_en_{chunk_set_id(cfg)}{'_gl' if args.glossary else ''}.jsonl"
     glossary = load_glossary(REPO / "data" / "glossary.json") if args.glossary else None

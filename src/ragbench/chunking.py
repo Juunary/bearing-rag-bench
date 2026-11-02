@@ -56,6 +56,28 @@ SENT_SPLIT_RE = re.compile(r"(?<=[.!?。！？])\s+")
 
 TokenCounter = Callable[[str], int]
 
+# 표 캡션: "TABLE XI.—…", "Table 3 …", "Tabelle 5: …", "Tab. 2 …"
+CAPTION_RE = re.compile(r"^\s*(TABLE|Table|Tabelle|Tab\.)\s*[0-9IVXLC]")
+
+
+def table_header_prefix(doc: dict[str, Any], start: int) -> str:
+    """Caption and header row(s) of the table a chunk starts inside, "" otherwise (PDF documents with blocks only).
+
+    [KO] 청크가 표 중간(머리글 행 뒤)에서 시작하면 그 표의 캡션과 머리글 행을 돌려준다. 머리글 = 첫 행, 첫 행에 빈 칸이 있으면
+    둘째 행까지(두 줄 머리글). 캡션 = 표 바로 앞 1~2개 문단 중 "TABLE/Table/Tabelle"로 시작하는 것(최대 200자).
+    """
+    blocks = doc.get("blocks") or []
+    for i, b in enumerate(blocks):
+        if b["kind"] != "table" or not (b["start"] < start < b["end"]):
+            continue
+        lines = doc["text"][b["start"]:b["end"]].split("\n")
+        header = lines[:2] if len(lines) > 1 and "|  |" in lines[0] else lines[:1]
+        # 표 시작보다 뒤에서 시작하면 (두 줄 머리글의 둘째 줄에서 시작해도) 머리글 전체를 붙인다
+        caption = next((doc["text"][p["start"]:p["end"]][:200] for p in reversed(blocks[max(0, i - 2):i])
+                        if p["kind"] == "paragraph" and CAPTION_RE.match(doc["text"][p["start"]:p["end"]])), "")
+        return "\n".join([caption, *header] if caption else header)
+    return ""
+
 
 @dataclass
 class Span:
@@ -68,7 +90,8 @@ class Span:
 def chunk_set_id(cfg: ChunkingConfig) -> str:
     # 위키 코퍼스는 예전 ID 그대로 (청크 파일·임베딩·번역 캐시가 계속 맞는다), PDF를 넣으면 "_pdf"가 붙는다
     base = f"{cfg.strategy}_{'tok' if cfg.unit == 'token' else 'chr'}{cfg.size}_ov{cfg.overlap}"
-    return base if cfg.corpus == "wiki" else f"{base}_{cfg.corpus.removeprefix('wiki_')}"
+    base = base if cfg.corpus == "wiki" else f"{base}_{cfg.corpus.removeprefix('wiki_')}"
+    return base + ("_th" if cfg.table_header else "")
 
 
 def get_token_counter(cfg: ChunkingConfig):
@@ -163,11 +186,16 @@ def chunk_document(doc: dict[str, Any], cfg: ChunkingConfig, count, hard_cut) ->
     for idx, group in enumerate(pack(spans, cfg.size, cfg.overlap)):
         start, end = group[0].start, group[-1].end
         text = doc["text"][start:end]
+        # 표 머리글 반복: 색인·생성에 쓰는 text 앞에만 붙이고, 정답 매핑용 char_start/char_end는 원문 위치 그대로 둔다
+        prefix = table_header_prefix(doc, start) if cfg.table_header else ""
+        if prefix:
+            text = prefix + "\n" + text
         out.append({
             "chunk_id": f"{doc['doc_id']}#{idx}", "doc_id": doc["doc_id"], "lang": doc["lang"],
             "idx": idx, "text": text, "char_start": start, "char_end": end,
             "n_tokens": count(text), "section_path": section_path_at(doc, start),
             "section_path_end": section_path_at(doc, max(start, end - 1)),   # chunks may span sections
+            **({"table_header_prefix": len(prefix)} if prefix else {}),
         })
     return out
 
@@ -209,8 +237,10 @@ def main() -> None:
     ap.add_argument("--size", type=int, default=384)
     ap.add_argument("--overlap", type=int, default=48)
     ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf")
+    ap.add_argument("--table-header", action="store_true", help="repeat table caption and header row in chunks that start inside a table")
     args = ap.parse_args()
-    cfg = ChunkingConfig(strategy=args.strategy, unit=args.unit, size=args.size, overlap=args.overlap, corpus=args.corpus)
+    cfg = ChunkingConfig(strategy=args.strategy, unit=args.unit, size=args.size, overlap=args.overlap, corpus=args.corpus,
+                         table_header=args.table_header)
     chunks = build_chunks(cfg)
     path = chunks_path(cfg)
     save_chunks(chunks, path)

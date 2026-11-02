@@ -1,0 +1,19 @@
+{
+  "exp_id": "pdfth_x13_dense_en_rerank_en_text",
+  "stage": "pdfth",
+  "description": "English dense top 30 -> reranker reads English [corpus: wiki + pdf, eval: 48 PDF questions, table headers repeated]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense_rerank",
+    "embedding_model": "BAAI/bge-m3",
+    "dense_english_pivot": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english"
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  }
+}

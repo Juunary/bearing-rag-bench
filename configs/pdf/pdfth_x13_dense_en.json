@@ -1,0 +1,16 @@
+{
+  "exp_id": "pdfth_x13_dense_en",
+  "stage": "pdfth",
+  "description": "dense over English-translated chunks, English-translated query [corpus: wiki + pdf, eval: 48 PDF questions, table headers repeated]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense",
+    "embedding_model": "BAAI/bge-m3",
+    "dense_english_pivot": true
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "exp_id": "pdfth_b_bm25_en",
+  "stage": "pdfth",
+  "description": "English-pivot BM25 (chunk-first translation) [corpus: wiki + pdf, eval: 48 PDF questions, table headers repeated]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  }
+}

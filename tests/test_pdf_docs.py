@@ -41,3 +41,26 @@ def test_build_doc_rules_and_block_offsets():
     assert [(b["kind"], d["text"][b["start"]:b["end"]]) for b in d["blocks"]] == [
         ("paragraph", "The basic rating life is L10."), ("table", "| Type | C (kN) |\n| 6205 | 14.8 |")]
     assert d["source_type"] == "pdf" and d["extractor"]["pdf_editor_commit"] == "abc"
+
+
+# 표 중간에서 시작하는 청크만 캡션·머리글을 반복하고, 두 줄 머리글(첫 행에 빈 칸)은 둘째 행까지 쓴다
+def test_table_header_prefix_only_inside_a_table():
+    from ragbench.chunking import table_header_prefix
+
+    text = "TABLE II.—Load ratings\n|  | C (kN) |  |\n| Type | static | dynamic |\n| 6205 | 7.8 | 14.8 |\n| 6206 | 11.2 | 19.5 |"
+    cap_end = text.index("\n")
+    doc = {"text": text, "blocks": [{"kind": "paragraph", "start": 0, "end": cap_end},
+                                    {"kind": "table", "start": cap_end + 1, "end": len(text)}]}
+    assert table_header_prefix(doc, text.index("| 6206")) == "TABLE II.—Load ratings\n|  | C (kN) |  |\n| Type | static | dynamic |"
+    assert table_header_prefix(doc, cap_end + 1) == ""          # 표 첫 행에서 시작하면 머리글이 이미 들어 있다
+    assert table_header_prefix(doc, 0) == ""                    # 표 밖
+    assert chunk_set_id(ChunkingConfig(corpus="wiki_pdf", table_header=True)) == "fixed_tok384_ov48_pdf_th"
+
+
+# 두 줄 머리글의 둘째 줄에서 시작하는 청크도 첫 줄이 빠져 있으므로 머리글 전체를 붙인다
+def test_table_header_prefix_when_chunk_starts_in_second_header_line():
+    from ragbench.chunking import table_header_prefix
+
+    text = "|  | C (kN) |  |\n| Type | static | dynamic |\n| 6205 | 7.8 | 14.8 |"
+    doc = {"text": text, "blocks": [{"kind": "table", "start": 0, "end": len(text)}]}
+    assert table_header_prefix(doc, text.index("| Type")) == "|  | C (kN) |  |\n| Type | static | dynamic |"

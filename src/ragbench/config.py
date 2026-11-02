@@ -66,6 +66,7 @@ class ChunkingConfig:
     overlap: int = 48
     tokenizer: str = "BAAI/bge-m3"  # tokenizer used to count tokens when unit == "token"
     corpus: str = "wiki"           # "wiki" | "wiki_pdf" ([KO] 위키 문서 + data/processed/docs_pdf.jsonl의 PDF 문서)
+    table_header: bool = False     # [KO] 표 중간에서 시작하는 청크 앞에 표 캡션·머리글 행을 반복 (청크 세트 ID "_th")
 
 
 @dataclass
