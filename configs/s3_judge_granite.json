@@ -1,0 +1,7 @@
+{
+  "exp_id": "s3_judge_granite",
+  "stage": "s3",
+  "description": "LLM-as-a-judge with a model of another family (IBM Granite 3.3 8B Instruct, Apache 2.0, two GPUs, greedy): same judge_v1 prompts as s3_judge",
+  "generation": {"model": "ibm-granite/granite-3.3-8b-instruct", "prompt_version": "judge_v1", "max_new_tokens": 80,
+                 "temperature": 0.0, "context_k": 5, "device": "auto"}
+}

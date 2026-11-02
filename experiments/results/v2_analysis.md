@@ -1,6 +1,6 @@
 # v2 analysis (90 questions)
 
-configs: 31; clusters (primary-evidence documents): 39
+configs: 37; clusters (primary-evidence documents): 39
 
 ## 1. All configs
 
@@ -16,6 +16,12 @@ configs: 31; clusters (primary-evidence documents): 39
 | b_rrf_en_rerank | 0.679 | 0.700 | 0.656 | 0.876 | 0.545 | 0.60 | 175.4 |
 | b_rrf_rerank | 0.608 | 0.650 | 0.586 | 0.864 | 0.448 | 0.00 | 168.9 |
 | x11_bm25_en_skip | 0.745 | 0.773 | 0.756 | 0.714 | 0.776 | 0.57 | 6.2 |
+| x12_dense_rerank | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 | 0.00 | 171.0 |
+| x12_dense_rerank_en_text | 0.784 | 0.829 | 0.778 | 0.894 | 0.720 | 0.00 | 175.1 |
+| x13_dense_en | 0.782 | 0.766 | 0.738 | 0.689 | 0.763 | 0.60 | 14.9 |
+| x13_dense_en_rerank_en_text | 0.897 | 0.934 | 0.891 | 0.891 | 0.892 | 0.60 | 183.1 |
+| x13_rrf_en_dense_en | 0.813 | 0.789 | 0.782 | 0.704 | 0.821 | 0.60 | 21.8 |
+| x13_rrf_en_dense_en_rerank_en_text | 0.897 | 0.934 | 0.893 | 0.891 | 0.894 | 0.60 | 190.1 |
 | x1_rrf3 | 0.391 | 0.465 | 0.455 | 0.812 | 0.276 | 0.60 | 15.6 |
 | x1_rrf3_rerank | 0.658 | 0.684 | 0.639 | 0.869 | 0.524 | 0.60 | 176.7 |
 | x2_orig_rerank_n100 | 0.656 | 0.685 | 0.636 | 0.869 | 0.519 | 0.00 | 414.0 |
@@ -38,7 +44,7 @@ configs: 31; clusters (primary-evidence documents): 39
 | x6_rrf_rerank_c512 | 0.588 | 0.636 | 0.568 | 0.884 | 0.410 | 0.00 | 205.7 |
 | x6_rrf_rerank_ctx | 0.590 | 0.641 | 0.565 | 0.862 | 0.416 | 0.00 | 173.9 |
 
-## 2. Paired comparisons fixed before the runs (nDCG@10, A - B; 27 comparisons, no multiplicity correction)
+## 2. Paired comparisons fixed before the runs (nDCG@10, A - B; 34 comparisons, no multiplicity correction)
 
 | A | B | mean diff | 95% CI (question) | 95% CI (document cluster) | better/worse/tie | sign-test p |
 |---|---|---|---|---|---|---|
@@ -69,6 +75,13 @@ configs: 31; clusters (primary-evidence documents): 39
 | x6_bm25_kiwi_ctx | b_bm25_kiwi | +0.001 | -0.002 .. +0.006 | -0.003 .. +0.006 | 3/4/83 | 1.000 |
 | x6_rrf_rerank_ctx | b_rrf_rerank | -0.022 | -0.054 .. +0.007 | -0.056 .. +0.009 | 8/17/65 | 0.108 |
 | x11_bm25_en_skip | b_bm25_en | +0.007 | +0.001 .. +0.017 | +0.001 .. +0.017 | 4/0/86 | 0.125 |
+| x12_dense_rerank | b_rrf_rerank | +0.056 | +0.024 .. +0.094 | +0.025 .. +0.094 | 18/4/68 | 0.004 |
+| x12_dense_rerank_en_text | x2_rerank_en_text | -0.117 | -0.180 .. -0.061 | -0.180 .. -0.055 | 4/20/66 | 0.002 |
+| x13_dense_en | b_dense | +0.252 | +0.174 .. +0.331 | +0.164 .. +0.336 | 56/15/19 | 0.000 |
+| x13_dense_en | b_bm25_en | -0.011 | -0.083 .. +0.062 | -0.096 .. +0.066 | 28/31/31 | 0.795 |
+| x13_rrf_en_dense_en | b_rrf_en | +0.144 | +0.079 .. +0.212 | +0.059 .. +0.230 | 44/17/29 | 0.001 |
+| x13_dense_en_rerank_en_text | x2_rerank_en_text | -0.003 | -0.018 .. +0.013 | -0.019 .. +0.014 | 5/8/77 | 0.581 |
+| x13_rrf_en_dense_en_rerank_en_text | x2_rerank_en_text | -0.002 | -0.015 .. +0.013 | -0.015 .. +0.013 | 2/5/83 | 0.453 |
 
 ## 3. Reranker pool diagnosis
 
@@ -78,6 +91,10 @@ gold in pool = at least one gold chunk is among the candidates given to the rera
 |---|---|---|---|---|---|
 | b_rrf_en_rerank | 30 | 90/90 | 75/90 | 15 | 0 |
 | b_rrf_rerank | 30 | 73/90 | 69/90 | 4 | 17 |
+| x12_dense_rerank | 30 | 81/90 | 73/90 | 8 | 9 |
+| x12_dense_rerank_en_text | 30 | 81/90 | 81/90 | 0 | 9 |
+| x13_dense_en_rerank_en_text | 30 | 89/90 | 89/90 | 0 | 1 |
+| x13_rrf_en_dense_en_rerank_en_text | 30 | 89/90 | 89/90 | 0 | 1 |
 | x1_rrf3_rerank | 30 | 83/90 | 72/90 | 11 | 7 |
 | x2_orig_rerank_n100 | 72 | 82/90 | 73/90 | 9 | 8 |
 | x2_rerank_en_text | 30 | 90/90 | 89/90 | 1 | 0 |
@@ -99,3 +116,6 @@ gold in pool = at least one gold chunk is among the candidates given to the rera
 | b_rrf_en_rerank | 0.88 | 0.67 | 0.42 | 0.42 | 0.87 | 0.83 | 0.25 | 0.68 | 0.88 |
 | x1_rrf3_rerank | 0.88 | 0.67 | 0.39 | 0.36 | 0.86 | 0.83 | 0.23 | 0.67 | 0.87 |
 | x5_bm25_en_multi | 0.67 | 0.70 | 0.76 | 0.74 | 0.62 | 0.90 | 0.71 | 0.49 | 0.59 |
+| x12_dense_rerank | 0.88 | 0.65 | 0.39 | 0.36 | 0.86 | 0.84 | 0.25 | 0.68 | 0.88 |
+| x13_dense_en | 0.68 | 0.90 | 0.67 | 0.79 | 0.59 | 0.90 | 0.74 | 0.58 | 0.79 |
+| x13_rrf_en_dense_en_rerank_en_text | 0.87 | 0.92 | 0.89 | 0.96 | 0.88 | 0.91 | 0.82 | 0.87 | 0.92 |

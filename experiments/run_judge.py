@@ -141,7 +141,7 @@ def main() -> None:
         exp_cfg["description"] = f"{cfg.description}; judged file: {name}"
         result = ExperimentResult(
             config=exp_cfg, environment=environment_snapshot(), metrics={"overall": overall, "by_group": by_group}, per_query=per_query,
-            extra={"judged_result": name, "judge_model": cfg.generation.model, "judge_model_revision": judge.revision,
+            extra={"judged_result": name, "judge_model": cfg.generation.model, "judge_model_revision": judge.revision, "judge_max_memory": judge.max_memory,
                    "judge_prompt_version": JUDGE_PROMPT_VERSION, "outcomes": dict(Counter(x["outcome"] for x in per_query)),
                    "judge_calls": n_calls, "judge_cache_hits": n_cached, "judge_retries_for_cut_off_verdict": n_retries,
                    "source_commit": src["environment"]["git_commit"]})

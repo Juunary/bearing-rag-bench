@@ -114,8 +114,11 @@ class Judge:
         self.model_name, self.cache = model_name, cache
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         n = torch.cuda.device_count()
+        # GPU마다 상한 = min(max_gpu_gib, 지금 비어 있는 양 - 1.5 GiB): 다른 프로세스가 쓰는 GPU에서 OOM이 나지 않게 한다
+        free = [torch.cuda.mem_get_info(i)[0] / 2**30 for i in range(n)]
+        self.max_memory = {i: f"{max(0.0, min(max_gpu_gib, free[i] - 1.5)):.1f}GiB" for i in range(n)}
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_name, dtype=torch.bfloat16, device_map="auto", max_memory={i: f"{max_gpu_gib}GiB" for i in range(n)}).eval()
+            model_name, dtype=torch.bfloat16, device_map="auto", max_memory=self.max_memory).eval()
         self.revision = hf_cached_revision(model_name)
 
     def ask(self, messages: list[dict[str, str]], max_new_tokens: int = 80) -> dict[str, Any]:

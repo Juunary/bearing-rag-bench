@@ -49,6 +49,10 @@ PAIRS = [
     ("x6_rrf_rerank_c256", "b_rrf_rerank"), ("x6_rrf_rerank_c512", "b_rrf_rerank"),
     ("x6_dense_ctx", "b_dense"), ("x6_bm25_kiwi_ctx", "b_bm25_kiwi"), ("x6_rrf_rerank_ctx", "b_rrf_rerank"),
     ("x11_bm25_en_skip", "b_bm25_en"),
+    # x12·x13 (2026-11-02 추가): dense 후보 + 리랭커, 번역 청크 임베딩
+    ("x12_dense_rerank", "b_rrf_rerank"), ("x12_dense_rerank_en_text", "x2_rerank_en_text"),
+    ("x13_dense_en", "b_dense"), ("x13_dense_en", "b_bm25_en"), ("x13_rrf_en_dense_en", "b_rrf_en"),
+    ("x13_dense_en_rerank_en_text", "x2_rerank_en_text"), ("x13_rrf_en_dense_en_rerank_en_text", "x2_rerank_en_text"),
 ]
 
 
@@ -63,7 +67,7 @@ def ndcg(d: dict) -> np.ndarray:
 
 def main() -> None:
     names = sorted(p.stem.removeprefix("v2_") for p in RES.glob("v2_*.json")
-                   if p.stem.removeprefix("v2_").split("_")[0] in {"b", *(f"x{i}" for i in range(1, 12))})
+                   if p.stem.removeprefix("v2_").split("_")[0] in {"b", *(f"x{i}" for i in range(1, 14))})
     R = {n: load(n) for n in names}
     queries = {q["qid"]: q for q in load_queries(REPO / "eval" / "queries_v2.jsonl")}
     first = next(iter(R.values()))
@@ -105,7 +109,8 @@ def main() -> None:
     for i, qid in enumerate(qids):
         pairs_of.setdefault(f"{queries[qid]['q_lang']}->{queries[qid]['gold'][0]['doc_lang']}", []).append(i)
     keys = sorted(pairs_of)
-    main_cfgs = [n for n in ("b_bm25_kiwi", "b_dense", "b_rrf_rerank", "b_bm25_en", "b_rrf_en_rerank", "x1_rrf3_rerank", "x5_bm25_en_multi") if n in R]
+    main_cfgs = [n for n in ("b_bm25_kiwi", "b_dense", "b_rrf_rerank", "b_bm25_en", "b_rrf_en_rerank", "x1_rrf3_rerank", "x5_bm25_en_multi",
+                                "x12_dense_rerank", "x13_dense_en", "x13_rrf_en_dense_en_rerank_en_text") if n in R]
     out += ["", "## 4. nDCG@10 per language pair (10 questions each)", "", "| config | " + " | ".join(keys) + " |", "|---|" + "---|" * len(keys)]
     for n in main_cfgs:
         x = ndcg(R[n])
