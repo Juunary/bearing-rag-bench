@@ -1,0 +1,16 @@
+{
+  "exp_id": "v2_x13_rrf_en_dense_en",
+  "stage": "v2",
+  "description": "RRF over English BM25 + English dense [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "dense_english_pivot": true
+  }
+}

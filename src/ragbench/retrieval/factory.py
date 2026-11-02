@@ -54,34 +54,54 @@ def _bm25(cfg: ExperimentConfig, translator=None):
     return BM25Retriever(tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b)
 
 
+def _dense(cfg: ExperimentConfig, translator=None):
+    """dense 검색기: 영어 피벗이면 영어 번역 청크를 임베딩(캐시 키 "_en")하고 질의를 번역해 검색한다."""
+    from ragbench.retrieval.dense import DenseRetriever
+
+    r = cfg.retrieval
+    if not r.dense_english_pivot:
+        return DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg))
+    from ragbench.retrieval.bm25_en import EnglishPivotRetriever
+
+    inner = DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg) + "_en")
+    return EnglishPivotRetriever(translator or _translator(cfg), _english_chunks_path(cfg), inner, skip_english=r.translate_skip_english)
+
+
+def _rerank(cfg: ExperimentConfig, base, translator=None):
+    from ragbench.retrieval.rerank import RerankRetriever
+
+    r = cfg.retrieval
+    if r.rerank_text == "english":
+        # 리랭커가 영어 번역 청크와 영어로 번역한 질의를 읽는다 (후보 ID는 그대로)
+        return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n,
+                               english_chunks_path=_english_chunks_path(cfg), query_translator=translator)
+    return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n)
+
+
 def build_retriever(cfg: ExperimentConfig):
     r = cfg.retrieval
+    # 번역기는 한 실험 안에서 하나만 만들어 BM25·dense·리랭커가 모델 한 벌과 캐시를 공유한다
+    needs_translator = r.bm25_english_pivot or r.dense_english_pivot or r.rerank_text == "english"
+    tr = _translator(cfg) if needs_translator and r.method != "bm25" else None
     if r.method == "bm25":
         return _bm25(cfg)
     if r.method == "dense":
-        from ragbench.retrieval.dense import DenseRetriever
-        return DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search,
-                              chunk_set_id=_index_set_id(cfg))
+        return _dense(cfg, tr)
+    if r.method == "dense_rerank":
+        # dense 후보 rerank_top_n개를 바로 리랭커에 넣는다 (BM25·RRF 없음, AutoRAG 최고 파이프라인과 같은 구조)
+        return _rerank(cfg, _dense(cfg, tr), tr)
     if r.method in ("hybrid", "hybrid_rerank"):
-        from ragbench.retrieval.dense import DenseRetriever
         from ragbench.retrieval.hybrid import RRFRetriever
-        needs_translator = r.bm25_english_pivot or r.rerank_text == "english"
-        tr = _translator(cfg) if needs_translator else None
         parts = [_bm25(cfg, tr)]
         if r.bm25_include_original:
             # 3중 RRF: 영어 BM25 + 원문 BM25(단일 언어에 강함) + dense
             from ragbench.retrieval.bm25 import BM25Retriever
             parts.append(BM25Retriever(tokenizer=r.bm25_original_tokenizer, k1=r.bm25_k1, b=r.bm25_b))
-        parts.append(DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg)))
+        parts.append(_dense(cfg, tr))
         base = RRFRetriever(parts, rrf_k=r.rrf_k, candidates=r.fusion_candidates)
         if r.method == "hybrid":
             return base
-        from ragbench.retrieval.rerank import RerankRetriever
-        if r.rerank_text == "english":
-            # 리랭커가 영어 번역 청크와 영어로 번역한 질의를 읽는다 (후보 ID는 그대로)
-            return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n,
-                                   english_chunks_path=_english_chunks_path(cfg), query_translator=tr)
-        return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n)
+        return _rerank(cfg, base, tr)
     raise ValueError(f"unknown retrieval method {r.method!r}")
 
 

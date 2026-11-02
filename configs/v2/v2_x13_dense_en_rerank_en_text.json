@@ -1,0 +1,15 @@
+{
+  "exp_id": "v2_x13_dense_en_rerank_en_text",
+  "stage": "v2",
+  "description": "English dense top 30 -> reranker reads English [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense_rerank",
+    "embedding_model": "BAAI/bge-m3",
+    "dense_english_pivot": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english"
+  }
+}

@@ -76,7 +76,7 @@ class HNSWConfig:
 
 @dataclass
 class RetrievalConfig:
-    method: str = "bm25"           # "bm25" | "dense" | "hybrid" | "hybrid_rerank"
+    method: str = "bm25"           # "bm25" | "dense" | "dense_rerank" | "hybrid" | "hybrid_rerank"
     top_k: int = 10                # how many results are kept for metrics
     bm25_tokenizer: str = "whitespace"   # "whitespace" | "char_bigram" | "kiwi" | "subword" | "snowball"
     bm25_k1: float = 1.5
@@ -90,6 +90,7 @@ class RetrievalConfig:
     translate_glossary: bool = False          # [KO] data/glossary.json 용어 힌트를 번역 프롬프트에 붙인다 (청크는 *_gl 번역본 사용)
     translate_skip_english: bool = False      # [KO] 영어로 판정된 질문은 번역하지 않는다 (지연 절약, 독일어 오판 위험)
     bm25_english_pivot: bool = False   # [KO] 켜면 청크·질의를 영어로 번역해 BM25. True -> BM25 over English translations of chunks and queries (needs chunks_en_*.jsonl)
+    dense_english_pivot: bool = False  # [KO] 켜면 dense도 영어 번역 청크를 임베딩하고 질의를 영어로 번역해 검색 (임베딩 캐시는 "_en" 키)
     embedding_model: str = "BAAI/bge-m3"
     embedding_revision: str | None = None   # HF commit hash, filled in at run time if None
     hnsw: HNSWConfig = field(default_factory=HNSWConfig)

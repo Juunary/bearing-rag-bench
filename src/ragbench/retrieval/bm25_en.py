@@ -45,15 +45,20 @@ def _translate_query(retriever, query: str) -> dict[str, Any]:
     return r
 
 
-class EnglishBM25Retriever:
-    def __init__(self, translator, english_chunks_path: str | Path, tokenizer: str = "whitespace",
-                 k1: float = 1.5, b: float = 0.75, skip_english: bool = False):
-        self.name = f"bm25en_{tokenizer}"
+class EnglishPivotRetriever:
+    """Any retriever over the English translations of the chunks, searched with the English-translated query.
+
+    [KO] 아무 검색기(BM25, dense)든 청크 텍스트를 영어 번역본으로 바꿔 색인하고, 질의도 영어로 번역해 검색한다.
+    반환 ID는 원래 청크 ID다.
+    """
+
+    def __init__(self, translator, english_chunks_path: str | Path, inner, skip_english: bool = False):
+        self.name = f"{inner.name}_en"
         self.translator = translator
         self.skip_english = skip_english
         self.path = Path(english_chunks_path)
-        # 실제 BM25 계산은 기존 구현을 그대로 쓰고, 이 클래스는 텍스트만 영어로 바꿔 넣는다
-        self.inner = BM25Retriever(tokenizer=tokenizer, k1=k1, b=b)
+        # 실제 검색 계산은 안쪽 검색기가 그대로 하고, 이 클래스는 텍스트만 영어로 바꿔 넣는다
+        self.inner = inner
         # 질의별 번역 결과·시간·잘림 여부를 모아 두었다가 결과 파일에 같이 저장한다
         self.query_log: list[dict[str, Any]] = []
 
@@ -84,6 +89,13 @@ class EnglishBM25Retriever:
                 "query_translations_skipped": sum(bool(q.get("skipped")) for q in self.query_log),
                 "query_translations_truncated": sum(q["truncated"] for q in self.query_log),
                 "query_translations": self.query_log}
+
+
+class EnglishBM25Retriever(EnglishPivotRetriever):
+    def __init__(self, translator, english_chunks_path: str | Path, tokenizer: str = "whitespace",
+                 k1: float = 1.5, b: float = 0.75, skip_english: bool = False):
+        super().__init__(translator, english_chunks_path, BM25Retriever(tokenizer=tokenizer, k1=k1, b=b), skip_english)
+        self.name = f"bm25en_{tokenizer}"
 
 
 class ExpandedQueryRetriever:
@@ -165,4 +177,4 @@ class QueryPivotRetriever:
         r = _translate_query(self, query)
         return self.inner.search(r["text"], k)
 
-    run_extra = EnglishBM25Retriever.run_extra
+    run_extra = EnglishPivotRetriever.run_extra

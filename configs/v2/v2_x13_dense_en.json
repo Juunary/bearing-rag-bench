@@ -1,0 +1,12 @@
+{
+  "exp_id": "v2_x13_dense_en",
+  "stage": "v2",
+  "description": "dense over English-translated chunks, English-translated query [eval: queries_v2, 90 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense",
+    "embedding_model": "BAAI/bge-m3",
+    "dense_english_pivot": true
+  }
+}

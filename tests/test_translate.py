@@ -60,6 +60,31 @@ def test_missing_translation_raises(tmp_path):
         EnglishBM25Retriever(FakeTranslator(), p).index(_chunks())
 
 
+# 일반화한 피벗: 안쪽 검색기(dense 등)는 영어 텍스트로 색인되고 영어 질의로 검색된다
+def test_english_pivot_wraps_any_retriever(tmp_path):
+    from ragbench.retrieval.bm25_en import EnglishPivotRetriever
+
+    class Recorder:
+        name = "dense_exact"
+
+        def index(self, chunks):
+            self.texts = [c["text"] for c in chunks]
+            return {}
+
+        def search(self, query, k):
+            self.query = query
+            return [("ko_a#0", 1.0)]
+
+    p = _write(tmp_path, [{"chunk_id": "ko_a#0", "text": "Bearing life depends on the load.", "translated": True, "truncated": False},
+                          {"chunk_id": "en_b#0", "text": "Seals keep oil in.", "translated": False, "truncated": False}])
+    inner = Recorder()
+    r = EnglishPivotRetriever(FakeTranslator(), p, inner)
+    assert r.name == "dense_exact_en"
+    r.index(_chunks())
+    assert inner.texts == ["Bearing life depends on the load.", "Seals keep oil in."]
+    assert r.search("베어링 수명", 5) == [("ko_a#0", 1.0)] and inner.query == "bearing life"
+
+
 # ---- docfirst: 번역 구간 정렬과 번호 문장 파싱 ----
 from types import SimpleNamespace as NS
 
