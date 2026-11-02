@@ -6,7 +6,8 @@
 - Sections: (1) every setting on the PDF questions, overall, mono / cross, and by evidence kind (text, table, caption)
   and for the table questions whose header is in another chunk; (2) nDCG@10 per language pair; (3) paired comparisons
   on the PDF questions (interval by question; only 6 primary documents, so the cluster interval is printed with the
-  number of clusters and is unreliable); (4) the v2 questions with and without the 557 PDF chunks (paired by question,
+  number of clusters and is unreliable); (5) chunks with repeated table caption and header rows (pdfth_*) against the
+  plain chunks; (4) the v2 questions with and without the 557 PDF chunks (paired by question,
   interval by primary-evidence document), and how often a PDF chunk enters the top 5 of a v2 question.
 - Usage: uv run python experiments/analyze_pdf.py
 
@@ -15,7 +16,7 @@
   코퍼스의 v2 90문항), 위키 코퍼스의 v2_* 결과.
 - 구성: (1) PDF 질문에서 설정별 전체·단일/교차·근거 종류별(본문, 표, 캡션)과 머리글이 다른 청크에 있는 표 문항;
   (2) 언어쌍별 nDCG@10; (3) PDF 질문의 쌍체 비교(질문 단위 구간. 주 근거 문서가 6개뿐이라 군집 구간은 군집 수와 함께
-  적고 신뢰하기 어렵다); (4) PDF 청크 557개가 있을 때와 없을 때의 v2 질문(질문별 쌍, 주 근거 문서 단위 구간)과 v2 질문의
+  적고 신뢰하기 어렵다); (5) 표 캡션·머리글 반복 청크(pdfth_*)와 기본 청크 비교; (4) PDF 청크 557개가 있을 때와 없을 때의 v2 질문(질문별 쌍, 주 근거 문서 단위 구간)과 v2 질문의
   상위 5에 PDF 청크가 들어간 빈도.
 - 사용: uv run python experiments/analyze_pdf.py
 """
@@ -99,6 +100,17 @@ def main() -> None:
         c = compare(ndcg(a) - ndcg(b), cl)
         intr = sum(any(cid.split("#")[0] in pdf_ids for cid in q["ranked"][:5]) for q in a["per_query"])
         out.append(f"| {n} | {ndcg(b).mean():.3f} | {ndcg(a).mean():.3f} | {c['mean']:+.3f} | {c['ci_cluster'][0]:+.3f} .. {c['ci_cluster'][1]:+.3f} | {intr}/{len(cl)} |")
+    TH = {n: load(f"pdfth_{n}") for n in NAMES}
+    TH = {n: d for n, d in TH.items() if d is not None and n in P}
+    if TH:
+        out += ["", "## 5. Table caption and header rows repeated in chunks (chunking.table_header; PDF questions)", "",
+                "| setting | nDCG@10 | with headers | diff (95% CI, question) | table (15) | with headers | header split (5) | with headers |",
+                "|---|---|---|---|---|---|---|---|"]
+        for n, d in TH.items():
+            a, b = ndcg(d), ndcg(P[n])
+            c = compare(a - b)
+            out.append(f"| {n} | {b.mean():.3f} | {a.mean():.3f} | {c['mean']:+.3f} ({c['ci_iid'][0]:+.3f} .. {c['ci_iid'][1]:+.3f}) | "
+                       f"{b[kind == 'table'].mean():.3f} | {a[kind == 'table'].mean():.3f} | {b[split].mean():.3f} | {a[split].mean():.3f} |")
     text = "\n".join(out) + "\n"
     (RES / "pdf_analysis.md").write_text(text, encoding="utf-8")
     print(text)
