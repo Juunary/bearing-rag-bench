@@ -1,0 +1,2476 @@
+{
+  "config": {
+    "exp_id": "pdf_x13_dense_en",
+    "stage": "pdf",
+    "description": "dense over English-translated chunks, English-translated query [corpus: wiki + pdf, eval: 48 PDF questions]",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries_pdf.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3",
+      "corpus": "wiki_pdf"
+    },
+    "retrieval": {
+      "method": "dense",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "bm25_include_original": false,
+      "bm25_original_tokenizer": "kiwi",
+      "rerank_text": "original",
+      "query_expansion": null,
+      "contextual_prefix": false,
+      "translate_model": null,
+      "translate_glossary": false,
+      "translate_skip_english": false,
+      "bm25_english_pivot": false,
+      "dense_english_pivot": true,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": null,
+      "prompt_version": null,
+      "max_new_tokens": 256,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "cuda:0",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-11-02T11:49:51+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "4c376b14f4b76e64db68d2688159a4cf4dde79e8",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "recall@5": 0.6854166666666667,
+      "mrr@10": 0.6008928571428571,
+      "ndcg@10": 0.5959183751716216,
+      "n": 48
+    },
+    "by_group": {
+      "ko->en": {
+        "recall@5": 1.0,
+        "mrr@10": 0.875,
+        "ndcg@10": 0.86137883793052,
+        "n": 8
+      },
+      "en->en": {
+        "recall@5": 0.8125,
+        "mrr@10": 0.6083333333333333,
+        "ndcg@10": 0.6663399132910561,
+        "n": 8
+      },
+      "de->en": {
+        "recall@5": 0.8125,
+        "mrr@10": 0.65625,
+        "ndcg@10": 0.6226658875991298,
+        "n": 8
+      },
+      "en->de": {
+        "recall@5": 0.375,
+        "mrr@10": 0.35639880952380953,
+        "ndcg@10": 0.3745710284214423,
+        "n": 8
+      },
+      "ko->de": {
+        "recall@5": 0.55,
+        "mrr@10": 0.609375,
+        "ndcg@10": 0.5477987037157339,
+        "n": 8
+      },
+      "de->de": {
+        "recall@5": 0.5625,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.5027558800718479,
+        "n": 8
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "pdf001",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#111": 2,
+        "nasa-tp-2013-215305-rev1#110": 1
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#27",
+        "nasa-tp-2013-215305-rev1#110",
+        "nasa-tp-2013-215305-rev1#105",
+        "nasa-tp-2013-215305-rev1#48",
+        "nasa-tp-2013-215305-rev1#111",
+        "nasa-tm-2017-219545#32",
+        "nasa-tm-2017-219545#26",
+        "nasa-tp-2013-215305-rev1#104",
+        "nasa-tm-2017-219545#9",
+        "en_rolling_element_bearing#10"
+      ],
+      "scores": [
+        0.6371,
+        0.6214,
+        0.62,
+        0.6098,
+        0.5982,
+        0.5893,
+        0.5773,
+        0.5708,
+        0.5704,
+        0.569
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.5338931479009518
+      }
+    },
+    {
+      "qid": "pdf002",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#115": 2,
+        "nasa-tp-2013-215305-rev1#116": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tp-2013-215305-rev1#113",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tm-2015-218895#25",
+        "nasa-tp-2013-215305-rev1#118",
+        "ko_ball_bearing#14",
+        "nasa-tm-2015-218895#18"
+      ],
+      "scores": [
+        0.7271,
+        0.6055,
+        0.5785,
+        0.5436,
+        0.5435,
+        0.5347,
+        0.5127,
+        0.4965,
+        0.4943,
+        0.4866
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8315546295836225
+      }
+    },
+    {
+      "qid": "pdf003",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#114": 2,
+        "nasa-tp-2013-215305-rev1#113": 1,
+        "nasa-tp-2013-215305-rev1#111": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#16",
+        "en_rolling_element_bearing#10",
+        "nasa-tm-2017-219545#9",
+        "nasa-tp-2013-215305-rev1#6",
+        "nasa-tm-2015-218895#3",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tm-2015-218895#5",
+        "nasa-tm-2017-219545#8"
+      ],
+      "scores": [
+        0.7122,
+        0.6923,
+        0.6781,
+        0.6652,
+        0.6612,
+        0.661,
+        0.6418,
+        0.6399,
+        0.6394,
+        0.6372
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf004",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#58": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#56",
+        "nasa-tp-2013-215305-rev1#58",
+        "nasa-tm-2015-218895#25",
+        "nasa-tp-2013-215305-rev1#57",
+        "nasa-tp-2013-215305-rev1#109",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#113",
+        "nasa-tm-2015-218895#18",
+        "luh-diss-stuhler-2024#14",
+        "nasa-tp-2013-215305-rev1#106"
+      ],
+      "scores": [
+        0.6889,
+        0.6669,
+        0.5959,
+        0.5852,
+        0.5749,
+        0.5626,
+        0.56,
+        0.549,
+        0.5478,
+        0.5465
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf005",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#73": 2,
+        "nasa-tp-2013-215305-rev1#72": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#82",
+        "nasa-tp-2013-215305-rev1#31",
+        "nasa-tp-2013-215305-rev1#72",
+        "nasa-tp-2013-215305-rev1#61",
+        "nasa-tp-2013-215305-rev1#81",
+        "nasa-tp-2013-215305-rev1#74",
+        "nasa-tp-2013-215305-rev1#62",
+        "nasa-tp-2013-215305-rev1#80",
+        "nasa-tp-2013-215305-rev1#57",
+        "nasa-tp-2013-215305-rev1#102"
+      ],
+      "scores": [
+        0.7243,
+        0.7066,
+        0.7052,
+        0.6994,
+        0.6976,
+        0.6937,
+        0.6911,
+        0.6891,
+        0.6758,
+        0.6753
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.19004688335796713
+      }
+    },
+    {
+      "qid": "pdf006",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#86": 2,
+        "nasa-tp-2013-215305-rev1#85": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#85",
+        "nasa-tp-2013-215305-rev1#88",
+        "nasa-tp-2013-215305-rev1#82",
+        "nasa-tp-2013-215305-rev1#123",
+        "nasa-tp-2013-215305-rev1#101",
+        "nasa-tp-2013-215305-rev1#74",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tm-2015-218895#35",
+        "nasa-tp-2013-215305-rev1#81",
+        "nasa-tp-2013-215305-rev1#51"
+      ],
+      "scores": [
+        0.6017,
+        0.5992,
+        0.5945,
+        0.5893,
+        0.5807,
+        0.5765,
+        0.5741,
+        0.5738,
+        0.5734,
+        0.5719
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.38009376671593426
+      }
+    },
+    {
+      "qid": "pdf007",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#49": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#49",
+        "nasa-tm-2015-218895#19",
+        "nasa-tm-2015-218895#20",
+        "nasa-tp-2013-215305-rev1#102",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#3",
+        "nasa-tp-2013-215305-rev1#50",
+        "nasa-tm-2015-218895#22",
+        "nasa-tp-2013-215305-rev1#11",
+        "nasa-tp-2013-215305-rev1#51"
+      ],
+      "scores": [
+        0.7478,
+        0.6837,
+        0.6741,
+        0.6672,
+        0.6625,
+        0.6579,
+        0.6563,
+        0.6451,
+        0.645,
+        0.643
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf008",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#97": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#97",
+        "nasa-tp-2013-215305-rev1#93",
+        "nasa-tp-2013-215305-rev1#84",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tp-2013-215305-rev1#95",
+        "nasa-tp-2013-215305-rev1#92",
+        "nasa-tp-2013-215305-rev1#91",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tp-2013-215305-rev1#49",
+        "nasa-tp-2013-215305-rev1#48"
+      ],
+      "scores": [
+        0.6758,
+        0.6576,
+        0.6318,
+        0.6202,
+        0.6138,
+        0.5925,
+        0.585,
+        0.582,
+        0.5762,
+        0.5747
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf009",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#38": 2,
+        "nasa-tp-2013-215305-rev1#42": 1,
+        "nasa-tp-2013-215305-rev1#39": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#42",
+        "nasa-tp-2013-215305-rev1#17",
+        "nasa-tp-2013-215305-rev1#39",
+        "nasa-tp-2013-215305-rev1#40",
+        "nasa-tp-2013-215305-rev1#38",
+        "en_rolling_element_bearing#13",
+        "nasa-tp-2013-215305-rev1#103",
+        "nasa-tp-2013-215305-rev1#37",
+        "nasa-tp-2013-215305-rev1#104",
+        "nasa-tp-2013-215305-rev1#74"
+      ],
+      "scores": [
+        0.7095,
+        0.6856,
+        0.685,
+        0.6661,
+        0.6613,
+        0.6335,
+        0.6282,
+        0.6275,
+        0.6232,
+        0.6182
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7262078019717506
+      }
+    },
+    {
+      "qid": "pdf010",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#128": 2,
+        "nasa-tp-2013-215305-rev1#127": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#126",
+        "nasa-tp-2013-215305-rev1#48",
+        "nasa-tp-2013-215305-rev1#102",
+        "nasa-tm-2015-218895#18",
+        "nasa-tp-2013-215305-rev1#127",
+        "nasa-tp-2013-215305-rev1#128",
+        "nasa-tp-2013-215305-rev1#109",
+        "de_materialermuedung#6",
+        "nasa-tp-2013-215305-rev1#5",
+        "nasa-tp-2013-215305-rev1#51"
+      ],
+      "scores": [
+        0.6523,
+        0.6435,
+        0.6265,
+        0.6145,
+        0.6117,
+        0.6084,
+        0.6078,
+        0.6069,
+        0.6066,
+        0.6048
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.41782460362476154
+      }
+    },
+    {
+      "qid": "pdf011",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#40": 2,
+        "nasa-tp-2013-215305-rev1#42": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#39",
+        "nasa-tp-2013-215305-rev1#42",
+        "nasa-tp-2013-215305-rev1#40",
+        "de_lager_maschinenelement#7",
+        "nasa-tp-2013-215305-rev1#17",
+        "luh-diss-stuhler-2024#112",
+        "nasa-tp-2013-215305-rev1#37",
+        "de_waelzlager#28",
+        "de_waelzlager#27",
+        "nasa-tp-2013-215305-rev1#59"
+      ],
+      "scores": [
+        0.6434,
+        0.6038,
+        0.5978,
+        0.5879,
+        0.5854,
+        0.5847,
+        0.5812,
+        0.5812,
+        0.5803,
+        0.5787
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6199062332840657
+      }
+    },
+    {
+      "qid": "pdf012",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#89": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#100",
+        "ko_ball_bearing#13",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tp-2013-215305-rev1#89",
+        "nasa-tp-2013-215305-rev1#96",
+        "nasa-tm-2015-218895#18",
+        "nasa-tm-2015-218895#36",
+        "nasa-tp-2013-215305-rev1#85",
+        "en_bearing_mechanical#8",
+        "nasa-tp-2013-215305-rev1#9"
+      ],
+      "scores": [
+        0.652,
+        0.6465,
+        0.6439,
+        0.6342,
+        0.6321,
+        0.6296,
+        0.6289,
+        0.6287,
+        0.6233,
+        0.6223
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
+      }
+    },
+    {
+      "qid": "pdf013",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tm-2017-219545#27": 2,
+        "nasa-tm-2017-219545#3": 2,
+        "nasa-tm-2017-219545#34": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#28",
+        "nasa-tm-2017-219545#27",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#32",
+        "nasa-tm-2017-219545#29",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#9",
+        "en_fatigue_material#26"
+      ],
+      "scores": [
+        0.7099,
+        0.6415,
+        0.6359,
+        0.6188,
+        0.595,
+        0.584,
+        0.5835,
+        0.5817,
+        0.5737,
+        0.572
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.7328286204777911
+      }
+    },
+    {
+      "qid": "pdf014",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#10": 2,
+        "nasa-tm-2017-219545#19": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#19",
+        "nasa-tm-2017-219545#10",
+        "nasa-tm-2017-219545#21",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#18",
+        "nasa-tm-2017-219545#9",
+        "nasa-tm-2017-219545#2"
+      ],
+      "scores": [
+        0.6799,
+        0.662,
+        0.5955,
+        0.5796,
+        0.5637,
+        0.5576,
+        0.5576,
+        0.5564,
+        0.546,
+        0.541
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf015",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#23": 2,
+        "nasa-tm-2017-219545#34": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#23",
+        "nasa-tm-2017-219545#22",
+        "nasa-tm-2017-219545#30",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#21",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#32",
+        "nasa-tm-2017-219545#4"
+      ],
+      "scores": [
+        0.8183,
+        0.7829,
+        0.7535,
+        0.7497,
+        0.7346,
+        0.7254,
+        0.7159,
+        0.7008,
+        0.6861,
+        0.6785
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9197207891481876
+      }
+    },
+    {
+      "qid": "pdf016",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#24": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#24",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#19",
+        "nasa-tm-2017-219545#10",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#21",
+        "nasa-tm-2017-219545#23",
+        "nasa-tm-2017-219545#9"
+      ],
+      "scores": [
+        0.6647,
+        0.6563,
+        0.6398,
+        0.6346,
+        0.6092,
+        0.609,
+        0.6071,
+        0.6023,
+        0.5968,
+        0.5944
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "qid": "pdf017",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#26": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#26",
+        "en_bearing_mechanical#15",
+        "nasa-tm-2017-219545#3",
+        "luh-diss-stuhler-2024#14",
+        "nasa-tm-2017-219545#34",
+        "en_bearing_mechanical#14",
+        "nasa-tm-2017-219545#25",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#32",
+        "en_ball_bearing#9"
+      ],
+      "scores": [
+        0.6551,
+        0.6166,
+        0.6112,
+        0.6057,
+        0.6028,
+        0.5966,
+        0.5955,
+        0.5904,
+        0.5903,
+        0.5741
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf018",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#9": 2,
+        "nasa-tm-2017-219545#32": 1
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#9",
+        "nasa-tm-2017-219545#32",
+        "en_rolling_element_bearing#11",
+        "nasa-tm-2017-219545#27",
+        "en_rolling_element_bearing#10",
+        "en_bearing_mechanical#14",
+        "nasa-tm-2017-219545#31",
+        "ko_ball_bearing#11",
+        "en_ball_bearing#9",
+        "nasa-tp-2013-215305-rev1#7"
+      ],
+      "scores": [
+        0.6851,
+        0.6516,
+        0.588,
+        0.5809,
+        0.5804,
+        0.5751,
+        0.561,
+        0.5606,
+        0.5534,
+        0.5526
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf019",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#7": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#7",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#3",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tp-2013-215305-rev1#101",
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#28",
+        "nasa-tm-2015-218895#8",
+        "nasa-tp-2013-215305-rev1#28"
+      ],
+      "scores": [
+        0.7764,
+        0.6728,
+        0.6435,
+        0.6333,
+        0.631,
+        0.6298,
+        0.6287,
+        0.6254,
+        0.6218,
+        0.6158
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf020",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#18": 2,
+        "nasa-tm-2015-218895#19": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#19",
+        "nasa-tm-2015-218895#18",
+        "nasa-tm-2015-218895#10",
+        "nasa-tm-2015-218895#8",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tm-2015-218895#9",
+        "nasa-tp-2013-215305-rev1#30",
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#11",
+        "nasa-tp-2013-215305-rev1#142"
+      ],
+      "scores": [
+        0.7429,
+        0.7412,
+        0.7072,
+        0.6684,
+        0.658,
+        0.6551,
+        0.6519,
+        0.6478,
+        0.6427,
+        0.6412
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf021",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#20": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#3",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#28",
+        "nasa-tm-2015-218895#5",
+        "nasa-tm-2015-218895#27",
+        "nasa-tm-2015-218895#24",
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#35",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#19"
+      ],
+      "scores": [
+        0.7043,
+        0.6883,
+        0.6689,
+        0.6575,
+        0.649,
+        0.6429,
+        0.6428,
+        0.6383,
+        0.6338,
+        0.6253
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf022",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tm-2015-218895#28": 2,
+        "nasa-tm-2015-218895#21": 1,
+        "nasa-tm-2015-218895#3": 1
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#28",
+        "nasa-tm-2015-218895#3",
+        "nasa-tm-2015-218895#6",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#10",
+        "nasa-tm-2015-218895#27",
+        "nasa-tm-2015-218895#8",
+        "nasa-tm-2015-218895#18"
+      ],
+      "scores": [
+        0.7449,
+        0.7248,
+        0.7225,
+        0.7079,
+        0.684,
+        0.6814,
+        0.6756,
+        0.6755,
+        0.6717,
+        0.6624
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6584645692843067
+      }
+    },
+    {
+      "qid": "pdf023",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#23": 2,
+        "nasa-tp-2013-215305-rev1#122": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tp-2013-215305-rev1#16",
+        "nasa-tp-2013-215305-rev1#117",
+        "nasa-tm-2015-218895#25",
+        "nasa-tm-2015-218895#24",
+        "nasa-tp-2013-215305-rev1#6",
+        "nasa-tp-2013-215305-rev1#119"
+      ],
+      "scores": [
+        0.7717,
+        0.7248,
+        0.6512,
+        0.6495,
+        0.6124,
+        0.5967,
+        0.592,
+        0.5913,
+        0.5899,
+        0.5893
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf024",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#25": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#25",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#113",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tm-2017-219545#9",
+        "nasa-tp-2013-215305-rev1#118",
+        "luh-diss-stuhler-2024#22"
+      ],
+      "scores": [
+        0.6406,
+        0.6175,
+        0.5944,
+        0.5814,
+        0.5516,
+        0.5326,
+        0.5288,
+        0.5215,
+        0.5157,
+        0.5107
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf025",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#85": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#45",
+        "luh-diss-stuhler-2024#189",
+        "luh-diss-stuhler-2024#29",
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#110",
+        "luh-diss-stuhler-2024#60",
+        "luh-diss-stuhler-2024#59",
+        "luh-diss-stuhler-2024#85",
+        "luh-diss-stuhler-2024#187",
+        "luh-diss-stuhler-2024#177"
+      ],
+      "scores": [
+        0.6372,
+        0.6255,
+        0.6118,
+        0.609,
+        0.6088,
+        0.6081,
+        0.6055,
+        0.6053,
+        0.6019,
+        0.5994
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.125,
+        "ndcg@10": 0.31546487678572877
+      }
+    },
+    {
+      "qid": "pdf026",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#175": 2,
+        "luh-diss-stuhler-2024#176": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#175",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#122",
+        "luh-diss-stuhler-2024#29",
+        "luh-diss-stuhler-2024#187",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#42",
+        "nasa-tp-2013-215305-rev1#86",
+        "luh-diss-stuhler-2024#176",
+        "luh-diss-stuhler-2024#204"
+      ],
+      "scores": [
+        0.6947,
+        0.6409,
+        0.5935,
+        0.5875,
+        0.5787,
+        0.5779,
+        0.5741,
+        0.5733,
+        0.569,
+        0.5689
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7977228895450266
+      }
+    },
+    {
+      "qid": "pdf027",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#136": 2,
+        "luh-diss-stuhler-2024#192": 1,
+        "luh-diss-stuhler-2024#193": 1,
+        "luh-diss-stuhler-2024#135": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#187",
+        "luh-diss-stuhler-2024#21",
+        "luh-diss-stuhler-2024#199",
+        "luh-diss-stuhler-2024#42",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#5",
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#16",
+        "luh-diss-stuhler-2024#134",
+        "luh-diss-stuhler-2024#123"
+      ],
+      "scores": [
+        0.711,
+        0.7065,
+        0.701,
+        0.6985,
+        0.6867,
+        0.6684,
+        0.6683,
+        0.6677,
+        0.6605,
+        0.6565
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf028",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#145": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#44",
+        "nasa-tp-2013-215305-rev1#90",
+        "luh-diss-stuhler-2024#168",
+        "luh-diss-stuhler-2024#43",
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#207",
+        "luh-diss-stuhler-2024#21",
+        "luh-diss-stuhler-2024#177",
+        "nasa-tp-2013-215305-rev1#114"
+      ],
+      "scores": [
+        0.5526,
+        0.5482,
+        0.5238,
+        0.522,
+        0.5081,
+        0.5048,
+        0.5048,
+        0.5045,
+        0.5006,
+        0.4997
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf029",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#122": 2,
+        "luh-diss-stuhler-2024#121": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#45",
+        "nasa-tp-2013-215305-rev1#86",
+        "luh-diss-stuhler-2024#175",
+        "luh-diss-stuhler-2024#204",
+        "de_schmierfett#14",
+        "luh-diss-stuhler-2024#205",
+        "luh-diss-stuhler-2024#207"
+      ],
+      "scores": [
+        0.6333,
+        0.5868,
+        0.5466,
+        0.5464,
+        0.544,
+        0.5376,
+        0.5328,
+        0.5309,
+        0.528,
+        0.5233
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.38009376671593426
+      }
+    },
+    {
+      "qid": "pdf030",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#173": 2,
+        "luh-diss-stuhler-2024#172": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#173",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#10",
+        "luh-diss-stuhler-2024#83",
+        "nasa-tp-2013-215305-rev1#90",
+        "nasa-tp-2013-215305-rev1#57",
+        "luh-diss-stuhler-2024#129",
+        "nasa-tp-2013-215305-rev1#85",
+        "luh-diss-stuhler-2024#11",
+        "luh-diss-stuhler-2024#178"
+      ],
+      "scores": [
+        0.613,
+        0.609,
+        0.5737,
+        0.5665,
+        0.565,
+        0.5634,
+        0.5633,
+        0.5591,
+        0.5583,
+        0.5577
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7601875334318685
+      }
+    },
+    {
+      "qid": "pdf031",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#47": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#5",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-stuhler-2024#187",
+        "luh-diss-stuhler-2024#42",
+        "luh-diss-stuhler-2024#207",
+        "luh-diss-stuhler-2024#91",
+        "luh-diss-stuhler-2024#213",
+        "nasa-tm-2015-218895#10",
+        "luh-diss-stuhler-2024#210"
+      ],
+      "scores": [
+        0.6763,
+        0.6637,
+        0.6633,
+        0.6495,
+        0.6487,
+        0.6338,
+        0.6298,
+        0.6284,
+        0.6269,
+        0.6254
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf032",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#26": 2,
+        "luh-diss-stuhler-2024#25": 2,
+        "luh-diss-stuhler-2024#142": 1,
+        "luh-diss-stuhler-2024#143": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#207",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-stuhler-2024#42",
+        "nasa-tm-2015-218895#18",
+        "luh-diss-stuhler-2024#7",
+        "luh-diss-stuhler-2024#4",
+        "luh-diss-stuhler-2024#208",
+        "luh-diss-stuhler-2024#5",
+        "luh-diss-stuhler-2024#204"
+      ],
+      "scores": [
+        0.6671,
+        0.6412,
+        0.6406,
+        0.6245,
+        0.6223,
+        0.6184,
+        0.6152,
+        0.6115,
+        0.6082,
+        0.6016
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf033",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#135": 2,
+        "luh-diss-stuhler-2024#193": 2,
+        "luh-diss-stuhler-2024#200": 2,
+        "luh-diss-stuhler-2024#136": 1,
+        "luh-diss-stuhler-2024#134": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#4",
+        "luh-diss-stuhler-2024#137",
+        "luh-diss-stuhler-2024#193",
+        "luh-diss-stuhler-2024#135",
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#198",
+        "luh-diss-stuhler-2024#195",
+        "luh-diss-stuhler-2024#6",
+        "luh-diss-stuhler-2024#174"
+      ],
+      "scores": [
+        0.6666,
+        0.6392,
+        0.6229,
+        0.6151,
+        0.611,
+        0.6086,
+        0.6008,
+        0.5982,
+        0.58,
+        0.5798
+      ],
+      "metrics": {
+        "recall@5": 0.4,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.3219006797223106
+      }
+    },
+    {
+      "qid": "pdf034",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#99": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#45",
+        "luh-diss-stuhler-2024#44",
+        "nasa-tp-2013-215305-rev1#40",
+        "luh-diss-stuhler-2024#69",
+        "luh-diss-stuhler-2024#99",
+        "nasa-tm-2015-218895#18",
+        "de_waelzlager#23",
+        "nasa-tp-2013-215305-rev1#38"
+      ],
+      "scores": [
+        0.6322,
+        0.621,
+        0.5859,
+        0.5687,
+        0.5577,
+        0.5567,
+        0.5535,
+        0.5535,
+        0.5531,
+        0.5472
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.14285714285714285,
+        "ndcg@10": 0.3333333333333333
+      }
+    },
+    {
+      "qid": "pdf035",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#45": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#45",
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#196",
+        "luh-diss-stuhler-2024#189",
+        "luh-diss-stuhler-2024#63",
+        "luh-diss-stuhler-2024#65",
+        "luh-diss-stuhler-2024#16",
+        "luh-diss-stuhler-2024#5"
+      ],
+      "scores": [
+        0.6773,
+        0.6576,
+        0.6512,
+        0.6463,
+        0.6233,
+        0.619,
+        0.6164,
+        0.6007,
+        0.5987,
+        0.5916
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf036",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#73": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#73",
+        "luh-diss-pelzer-2022#71",
+        "nasa-tp-2013-215305-rev1#37",
+        "luh-diss-pelzer-2022#6",
+        "luh-diss-stuhler-2024#178",
+        "luh-diss-stuhler-2024#21",
+        "luh-diss-pelzer-2022#7",
+        "nasa-tm-2015-218895#18",
+        "nasa-tp-2013-215305-rev1#36",
+        "luh-diss-pelzer-2022#72"
+      ],
+      "scores": [
+        0.6769,
+        0.6025,
+        0.6008,
+        0.5962,
+        0.5871,
+        0.5834,
+        0.581,
+        0.5776,
+        0.5726,
+        0.5701
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf037",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#16": 2,
+        "luh-diss-pelzer-2022#1": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#105",
+        "luh-diss-pelzer-2022#101",
+        "luh-diss-pelzer-2022#103",
+        "luh-diss-pelzer-2022#1",
+        "en_radial_shaft_seal#1",
+        "luh-diss-pelzer-2022#65",
+        "luh-diss-pelzer-2022#24",
+        "luh-diss-pelzer-2022#97",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-pelzer-2022#5"
+      ],
+      "scores": [
+        0.6612,
+        0.6544,
+        0.6398,
+        0.6355,
+        0.6212,
+        0.6183,
+        0.6143,
+        0.6123,
+        0.6116,
+        0.6114
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.16369747519436975
+      }
+    },
+    {
+      "qid": "pdf038",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#70": 2,
+        "luh-diss-pelzer-2022#48": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#70",
+        "de_wellendichtring#2",
+        "luh-diss-pelzer-2022#7",
+        "luh-diss-pelzer-2022#46",
+        "luh-diss-pelzer-2022#64",
+        "luh-diss-pelzer-2022#97",
+        "luh-diss-pelzer-2022#103",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-pelzer-2022#77",
+        "luh-diss-pelzer-2022#109"
+      ],
+      "scores": [
+        0.6165,
+        0.5155,
+        0.5124,
+        0.5103,
+        0.5093,
+        0.5077,
+        0.5035,
+        0.4974,
+        0.4954,
+        0.4922
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7601875334318685
+      }
+    },
+    {
+      "qid": "pdf039",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#71": 2
+      },
+      "ranked": [
+        "en_radial_shaft_seal#0",
+        "de_wellendichtring#2",
+        "luh-diss-pelzer-2022#1",
+        "luh-diss-pelzer-2022#105",
+        "luh-diss-pelzer-2022#9",
+        "luh-diss-pelzer-2022#69",
+        "luh-diss-pelzer-2022#10",
+        "en_radial_shaft_seal#2",
+        "de_wellendichtring#0",
+        "luh-diss-pelzer-2022#97"
+      ],
+      "scores": [
+        0.6937,
+        0.6878,
+        0.6479,
+        0.6441,
+        0.6406,
+        0.6337,
+        0.6287,
+        0.6259,
+        0.6245,
+        0.6222
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf040",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#84": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#73",
+        "luh-diss-stuhler-2024#91",
+        "luh-diss-pelzer-2022#85",
+        "luh-diss-pelzer-2022#76",
+        "luh-diss-pelzer-2022#81",
+        "luh-diss-pelzer-2022#77",
+        "luh-diss-stuhler-2024#120",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-stuhler-2024#10"
+      ],
+      "scores": [
+        0.6381,
+        0.6268,
+        0.6205,
+        0.6151,
+        0.6073,
+        0.6055,
+        0.6043,
+        0.6032,
+        0.5977,
+        0.5963
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf041",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#85": 2,
+        "luh-diss-pelzer-2022#86": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#85",
+        "luh-diss-pelzer-2022#91",
+        "luh-diss-pelzer-2022#80",
+        "luh-diss-pelzer-2022#86",
+        "luh-diss-pelzer-2022#83",
+        "luh-diss-pelzer-2022#6",
+        "luh-diss-stuhler-2024#45",
+        "luh-diss-pelzer-2022#5",
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#76"
+      ],
+      "scores": [
+        0.7086,
+        0.6663,
+        0.6528,
+        0.6467,
+        0.6326,
+        0.6232,
+        0.6215,
+        0.6152,
+        0.6149,
+        0.6142
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9238850086262381
+      }
+    },
+    {
+      "qid": "pdf042",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#88": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#88",
+        "luh-diss-pelzer-2022#81",
+        "luh-diss-pelzer-2022#27",
+        "luh-diss-pelzer-2022#90",
+        "luh-diss-pelzer-2022#87",
+        "luh-diss-pelzer-2022#63",
+        "luh-diss-pelzer-2022#60",
+        "luh-diss-pelzer-2022#59",
+        "luh-diss-pelzer-2022#86",
+        "luh-diss-pelzer-2022#77"
+      ],
+      "scores": [
+        0.7772,
+        0.7094,
+        0.697,
+        0.6819,
+        0.679,
+        0.6787,
+        0.6782,
+        0.6748,
+        0.6704,
+        0.6695
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf043",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#79": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#89",
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#87",
+        "luh-diss-pelzer-2022#80",
+        "luh-diss-pelzer-2022#7",
+        "luh-diss-pelzer-2022#92",
+        "luh-diss-pelzer-2022#76",
+        "luh-diss-pelzer-2022#79",
+        "luh-diss-pelzer-2022#81",
+        "luh-diss-pelzer-2022#6"
+      ],
+      "scores": [
+        0.6403,
+        0.6359,
+        0.6351,
+        0.6282,
+        0.6109,
+        0.6059,
+        0.5976,
+        0.5971,
+        0.5957,
+        0.5927
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.125,
+        "ndcg@10": 0.31546487678572877
+      }
+    },
+    {
+      "qid": "pdf044",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#21": 2
+      },
+      "ranked": [
+        "en_radial_shaft_seal#0",
+        "luh-diss-pelzer-2022#21",
+        "luh-diss-pelzer-2022#72",
+        "luh-diss-pelzer-2022#83",
+        "luh-diss-pelzer-2022#56",
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#22",
+        "luh-diss-pelzer-2022#60",
+        "luh-diss-pelzer-2022#19",
+        "luh-diss-pelzer-2022#84"
+      ],
+      "scores": [
+        0.6792,
+        0.6641,
+        0.6481,
+        0.6463,
+        0.6463,
+        0.6412,
+        0.6391,
+        0.6363,
+        0.6329,
+        0.6287
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf045",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#6": 2,
+        "innotrac-2020-467#8": 1
+      },
+      "ranked": [
+        "innotrac-2020-467#3",
+        "innotrac-2020-467#8",
+        "innotrac-2020-467#0",
+        "innotrac-2020-467#6",
+        "innotrac-2020-467#1",
+        "innotrac-2020-467#9",
+        "innotrac-2020-467#2",
+        "innotrac-2020-467#4",
+        "de_gleitlager#10",
+        "en_plain_bearing#6"
+      ],
+      "scores": [
+        0.7072,
+        0.6913,
+        0.672,
+        0.66,
+        0.6486,
+        0.6438,
+        0.6191,
+        0.6131,
+        0.613,
+        0.5825
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.5672074169568709
+      }
+    },
+    {
+      "qid": "pdf046",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#7": 2
+      },
+      "ranked": [
+        "innotrac-2020-467#3",
+        "en_plain_bearing#6",
+        "innotrac-2020-467#7",
+        "innotrac-2020-467#8",
+        "innotrac-2020-467#2",
+        "innotrac-2020-467#6",
+        "innotrac-2020-467#0",
+        "innotrac-2020-467#1",
+        "en_bearing_mechanical#5",
+        "luh-diss-stuhler-2024#7"
+      ],
+      "scores": [
+        0.6054,
+        0.592,
+        0.5864,
+        0.5863,
+        0.5671,
+        0.562,
+        0.5607,
+        0.558,
+        0.5214,
+        0.5184
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "qid": "pdf047",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "innotrac-2020-467#4": 2
+      },
+      "ranked": [
+        "innotrac-2020-467#4",
+        "innotrac-2020-467#3",
+        "innotrac-2020-467#8",
+        "innotrac-2020-467#1",
+        "innotrac-2020-467#5",
+        "innotrac-2020-467#0",
+        "innotrac-2020-467#2",
+        "innotrac-2020-467#6",
+        "luh-diss-stuhler-2024#45",
+        "innotrac-2020-467#9"
+      ],
+      "scores": [
+        0.7016,
+        0.6872,
+        0.6821,
+        0.6598,
+        0.6529,
+        0.6508,
+        0.628,
+        0.6181,
+        0.6179,
+        0.6015
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf048",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#6": 2
+      },
+      "ranked": [
+        "innotrac-2020-467#6",
+        "innotrac-2020-467#3",
+        "innotrac-2020-467#0",
+        "innotrac-2020-467#8",
+        "innotrac-2020-467#1",
+        "luh-diss-stuhler-2024#8",
+        "innotrac-2020-467#4",
+        "innotrac-2020-467#2",
+        "luh-diss-pelzer-2022#3",
+        "luh-diss-stuhler-2024#189"
+      ],
+      "scores": [
+        0.6745,
+        0.6737,
+        0.6324,
+        0.6213,
+        0.6086,
+        0.6058,
+        0.593,
+        0.5909,
+        0.5897,
+        0.5865
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    }
+  ],
+  "timing": {
+    "index": {
+      "n_chunks": 903,
+      "dim": 1024,
+      "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "cached": false,
+      "path": "data/processed/emb_bc9676c6f2f5.npz",
+      "encode_seconds": 4.410451245028526,
+      "build_seconds": 0.08474501501768827,
+      "index_bytes": 3833032,
+      "m": 16,
+      "ef_construction": 128,
+      "ef_search": 64,
+      "exact": false,
+      "chunks_translated": 506,
+      "chunks_truncated": 0
+    },
+    "query_latency_ms": {
+      "p50": 17.847387585788965,
+      "p95": 20.097983069717884,
+      "mean": 18.713015791339178
+    }
+  },
+  "extra": {
+    "retriever": "dense_hnsw_m16_efc128_ef64_en",
+    "n_chunks": 903,
+    "query_translation_seconds_p50": 0.972033578203991,
+    "query_translations_skipped": 0,
+    "query_translations_truncated": 0,
+    "query_translations": [
+      {
+        "query": "진공유도용해-진공아크재용해(VIM–VAR)로 만든 AISI M-50 베어링강에 적용하는 수명계수는 재료, 공정, 최종 값이 각각 얼마인가요?",
+        "english": "What is the life factor applied to AISI M-50 bearing steel produced by vacuum induction melting–vacuum arc remelting (VIM–VAR)? What are the material, process, and final values?",
+        "truncated": false,
+        "seconds": 1.7835659328848124,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In the mission profile of the commercial turboprop gearbox, what share of the time is spent in cruise and how much propeller shaft power is delivered in that segment?",
+        "english": "In the mission profile of the commercial turboprop gearbox, what proportion of the time is spent in cruise and how much propeller shaft power is delivered during that phase?",
+        "truncated": false,
+        "seconds": 1.0348203722387552,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Welche L10-Lebensdauer in Stunden sagt die Lundberg-Palmgren-Analyse mit Lebensdauerfaktoren für das Propeller-Axialkugellager des kommerziellen Turboprop-Getriebes voraus?",
+        "english": "What L10 life in hours does the Lundberg-Palmgren analysis with life factors predict for the propeller axial ball bearing in the commercial turboprop transmission?",
+        "truncated": false,
+        "seconds": 0.9834614801220596,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "와이블 기반 몬테카를로 시뮬레이션에서 깊은 홈 볼베어링의 고장 중 내륜 고장이 차지하는 비율은 몇 퍼센트였나요?",
+        "english": "What percentage of failures in deep groove ball bearings in a wobble-based Monte Carlo simulation were due to inner ring failures?",
+        "truncated": false,
+        "seconds": 0.6957256351597607,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "For a medium-series ball bearing, what is the outer-race to inner-race life ratio Lo/Li for Hertz stress-life exponents of 9 and 12?",
+        "english": "For a medium-series ball bearing, what is the outer-race to inner-race life ratio Lo/Li for Hertz stress-life exponents of 9 and 12?",
+        "truncated": false,
+        "seconds": 1.1268091793172061,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Welche Last-Lebensdauer- und Spannungs-Lebensdauer-Exponenten ergaben Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff?",
+        "english": "What load life and stress life exponents were obtained from Scott's four-ball tests using EN-31 steel and ester lubricant?",
+        "truncated": false,
+        "seconds": 0.8311923360452056,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "피로한도를 두지 않는 Lundberg-Palmgren 모델에서 최대 헤르츠 응력을 1379 MPa에서 2068 MPa로 올리면 상대 수명은 얼마로 줄어드나요?",
+        "english": "If the Lundberg-Palmgren model, which does not consider fatigue limit, is used and the maximum Hertz stress is increased from 1379 MPa to 2068 MPa, by what factor does the relative life decrease?",
+        "truncated": false,
+        "seconds": 1.5012125032953918,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "How much compressive residual stress does AMS 6278 (VIM-VAR M50 NiL) have from heat treatment, and what is its theoretical relative life at a maximum Hertz stress of 1.4 GPa compared with AISI M-50?",
+        "english": "What is the compressive residual stress of AMS 6278 (VIM-VAR M50 NiL) resulting from heat treatment, and what is its theoretical relative life at a maximum Hertz stress of 1.4 GPa compared to AISI M50?",
+        "truncated": false,
+        "seconds": 1.7097560060210526,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "구름 베어링 크기별 형상·재료 계수 fcm 대표값은 ANSI/ABMA의 몇 번 규격에 나오나요?",
+        "english": "What are the representative values of the shape and material factors fcm for rolling bearings of different sizes, and in which ANSI/ABMA standard are they specified?",
+        "truncated": false,
+        "seconds": 0.9236619211733341,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In the NASA review of rolling-element bearing life prediction, which figure shows Wöhler-type stress-cycle curves with an endurance limit, and which source is it credited to?",
+        "english": "In the NASA review of rolling-element bearing life prediction, which figure shows Wöhler-type stress-cycle curves with an endurance limit, and which source is it credited to?",
+        "truncated": false,
+        "seconds": 0.9606056762859225,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Welche Schmiegung an Innen- und Außenring liegt den nach Einführungsjahr aufgelisteten fcm-Werten der ANSI/ABMA-Norm 9 für Kugellager zugrunde?",
+        "english": "What inner and outer ring clearance is based on the listed fcm values of the ANSI/ABMA standard 9 for ball bearings according to introduction year?",
+        "truncated": false,
+        "seconds": 0.8928252146579325,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Unterhalb welcher maximalen Hertzschen Pressung arbeiten praktisch alle Wälzlager in rotierenden Maschinen?",
+        "english": "Below what maximum Hertzian pressure do practically all rolling bearings in rotating machinery operate?",
+        "truncated": false,
+        "seconds": 0.5047069662250578,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Out of the roughly 224,000 airline engine bearings that came back for repair, how many had to be scrapped because of spalling fatigue?",
+        "english": "Out of the roughly 224,000 airline engine bearings that came back for repair, how many had to be scrapped due to spalling fatigue?",
+        "truncated": false,
+        "seconds": 0.9847208480350673,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Cunningham과 Morgan이 해군 항공 정비시설(Naval Air Rework Facility)에서 베어링 폐기 원인 데이터를 모은 표본 기간은 어느 해였고, 한 번에 며칠씩이었나요?",
+        "english": "What was the sample period and how many days at a time did Cunningham and Morgan collect bearing disposal reason data at the Naval Air Rework Facility?",
+        "truncated": false,
+        "seconds": 0.877604759298265,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Wie viel Prozent der Lager wären laut der auf die Naval-Air-Rework-Daten gestützten Analyse bereits ausgebaut, wenn die rechnerische L10-Ermüdungslebensdauer von 5000 h erreicht ist?",
+        "english": "What percentage of the bearings would already have been retired according to the analysis based on Naval Air Rework data, when the calculated L10 fatigue life reaches 5000 hours?",
+        "truncated": false,
+        "seconds": 1.0733767980709672,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In the service life analysis built on the Naval Air Rework Facility removal data, which cause for removal gives the shortest bearing life?",
+        "english": "In the service life analysis based on the Naval Air Rework Facility removal data, which failure cause results in the shortest bearing life?",
+        "truncated": false,
+        "seconds": 0.7394332829862833,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "베어링을 새로 사는 대신 재가공(rework)해서 다시 쓰면 신품 대비 비용을 얼마나 아낄 수 있나요?",
+        "english": "How much cost can be saved by reworking and reusing bearings instead of purchasing new ones compared to original equipment?",
+        "truncated": false,
+        "seconds": 0.6573004773817956,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Auf welche Lebensdauer waren die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre begrenzt?",
+        "english": "What was the rated life limit of the main shaft bearings in aircraft gas turbines at the beginning of the 1950s?",
+        "truncated": false,
+        "seconds": 0.8126741228625178,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Sugiura et al. ran rolling contact tests on fully crowned rollers with several crown radii. How much shorter was life because of edge loading than the central contact stress alone would suggest?",
+        "english": "Sugiura et al. conducted rolling contact tests on fully crowned rollers with various crown radii. How much shorter was the life due to edge loading compared to what central contact stress alone would predict?",
+        "truncated": false,
+        "seconds": 1.1232231822796166,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "210 사이즈 원통 롤러 베어링에 기준 하중 29,190 N을 걸었을 때, 에어로스페이스 롤러 프로파일(평탄부 8 mm + 곡률 반경 크라운)에서 내륜 최대 헤르츠 응력은 얼마인가요?",
+        "english": "What is the maximum Hertz stress on the inner ring when a basic load of 29,190 N is applied to a 210-size cylindrical roller bearing with an aerospace roller profile (flat section 8 mm + crown curvature radius)?",
+        "truncated": false,
+        "seconds": 1.4650419321842492,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Auf welchen Wert sinkt nach Lundberg-Palmgren der Last-Lebensdauer-Exponent p bei Zylinderrollen mit sehr starker Vollbombierung (Bombierradius R = 100·d) im Vergleich zu unbombierten Rollen?",
+        "english": "To what value does the load life exponent p decrease according to the Lundberg-Palmgren equation for cylinder rollers with very strong full bombardment (bombardment radius R = 100·d) compared to unbombarded rollers?",
+        "truncated": false,
+        "seconds": 1.3867069287225604,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "If I size a cylindrical roller bearing with Zaretsky's life equation and the rollers have an aerospace-type or chamfered end relief, which load exponent should I use, and how does it differ from uncrowned and fully crowned rollers?",
+        "english": "If I size a cylindrical roller bearing using Zaretsky's life equation and the rollers have an aerospace-type or chamfered end relief, which load exponent should I use, and how does it differ from uncrowned and fully crowned rollers?",
+        "truncated": false,
+        "seconds": 1.407410585321486,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "상용 터보프롭 기어박스의 현장 수명 데이터와 비교하면, Lundberg-Palmgren 방식은 기어박스의 L10 수명을 몇 배나 낮게 예측했나요?",
+        "english": "Compared to field life data of commercial turboprop gearboxes, by how many times did the Lundberg-Palmgren method underestimate the gearbox's L10 life?",
+        "truncated": false,
+        "seconds": 0.9960141154006124,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Worauf gingen die Ausfälle der im Feld beobachteten Turboprop-Getriebe zurück: Welcher Anteil entfiel auf die Planetenlager und welcher auf die Zahnräder?",
+        "english": "What were the causes of the field-observed turboprop gearbox failures: what proportion was attributable to planetary bearings and what proportion to gear teeth?",
+        "truncated": false,
+        "seconds": 0.8794104089029133,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In the full-factorial slip measurements on the full-complement NUP 2208 cylindrical roller bearing, over what shaft speed range was the speed varied and in what step size?",
+        "english": "In the full-factorial slip measurements on the full-complement NUP 2208 cylindrical roller bearing, over what shaft speed range was the speed varied and in what step size?",
+        "truncated": false,
+        "seconds": 1.1137242163531482,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "총형 원통롤러베어링 스미어링 시험에 쓴 두 가지 유압유에서, 표준 첨가제 오일과 저첨가 오일의 황(S) 함량은 각각 몇 mg/kg인가요?",
+        "english": "In the total-type cylindrical roller bearing smearing test using two hydraulic oils, what are the sulfur (S) contents, in mg/kg, for the standard additive oil and the low-additive oil respectively?",
+        "truncated": false,
+        "seconds": 1.1976922121830285,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Welche Radialkraft wurde in der Einzelparametervariation der Anschmierversuche am vollrolligen Zylinderrollenlager als hohe Stufe gefahren, und traten dabei Anschmierungen auf?",
+        "english": "What radial load was applied during the individual parameter variation of the lubrication tests on the fully rolling cylindrical roller bearing at high level, and did lubrication occur under these conditions?",
+        "truncated": false,
+        "seconds": 1.0028208517469466,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In the central composite test plan for smearing of the full-complement NUP 2208 bearing, which three levels of mounted radial clearance were used?",
+        "english": "In the central composite test plan for smearing of the full-complement NUP 2208 bearing, which three levels of mounted radial clearance were used?",
+        "truncated": false,
+        "seconds": 0.9351363340392709,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용한 유압유의 ISO 점도 등급은 무엇인가요?",
+        "english": "What was the ISO viscosity grade of the hydraulic oil used in the smearing test of the NUP 2208 cylindrical roller bearing?",
+        "truncated": false,
+        "seconds": 0.8375988360494375,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Wie stark (Schadensklasse) schmierte das vollrollige NUP 2208 bei 1350 min−1, 35 kN Radial-, 2,3 kN Axialkraft und 70 °C trotz reduzierter axialer Luft am Außenring und 60 min Einlauf an?",
+        "english": "What was the contamination level (damage class) of the fully loaded NUP 2208 bearing operating at 1350 min⁻¹, 35 kN radial load, 2.3 kN axial load, and 70 °C, despite reduced axial air flow at the outer ring and 60 minutes of break-in?",
+        "truncated": false,
+        "seconds": 2.0742384679615498,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In welcher Abbildung der Dissertation zu Schlupf und Anschmierungen in vollrolligen Zylinderrollenlagern sieht man, wie die Messspule und die mit Magnet präparierte Rolle zur Messung der Rollendrehzahl aufgebaut sind?",
+        "english": "In which diagram of the dissertation on play and lubrication in full-rolling cylindrical roller bearings is the construction of the measuring coil and the magnet-prepared roller for measuring the roller rotational speed shown?",
+        "truncated": false,
+        "seconds": 1.1157637271098793,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Which table of the smearing study on full-complement cylindrical roller bearings collects the energy-based criteria from earlier work for predicting the risk of smearing?",
+        "english": "Which table of the smearing study on full-complement cylindrical roller bearings contains the energy-based criteria from earlier work for predicting the risk of smearing?",
+        "truncated": false,
+        "seconds": 0.8503247108310461,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "NUP 2208 총형 원통롤러베어링의 단일 파라미터 변화 스미어링 시험에서, 시작 시 오일 온도를 몇 °C만 높여도 스미어링이 생기지 않았나요?",
+        "english": "In a single-parameter variation smearing test of a total-type cylindrical roller bearing NUP 2208, does raising the oil temperature by only a few °C at startup prevent smearing from occurring?",
+        "truncated": false,
+        "seconds": 1.234500674996525,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "What roller mass and roller-set pitch diameter were used to compute the centrifugal force on the rollers of the NUP 2208 test bearing?",
+        "english": "What roller mass and roller-set pitch diameter were used to compute the centrifugal force on the rollers of the NUP 2208 test bearing?",
+        "truncated": false,
+        "seconds": 0.8750240947119892,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Wie teilt sich im Wälzlagerprüfstand mit dem vollrolligen Prüflager NUP 2208 die aufgebrachte Last zwischen Prüflager und Gleitlager auf?",
+        "english": "How is the applied load shared between the test roller bearing and the sliding bearing in the rolling bearing test stand with the fully rolling test bearing NUP 2208?",
+        "truncated": false,
+        "seconds": 1.0132017089053988,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "호칭경 80 mm RWDR 5개의 상온 정적 반경력 측정에서, D3 시료의 스프링 장착 상태 반경력은 몇 N이었나요?",
+        "english": "During the room-temperature static radial load measurement of five RWDR bearings with a bore diameter of 80 mm, what was the radial load of sample D3 with the spring mounted?",
+        "truncated": false,
+        "seconds": 1.1214975588954985,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "The dissertation on rotating radial shaft seals illustrates an early Simmerring as a historical example. What year is that example seal from (not the year the Simmerring was first developed)?",
+        "english": "The dissertation on rotating radial shaft seals illustrates an early Simmerring as a historical example. What year is that example seal from (not the year the Simmerring was first developed)?",
+        "truncated": false,
+        "seconds": 1.0531589668244123,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Which oil was used for all the experiments with rotating radial shaft seals at IMKT, and why was that oil chosen?",
+        "english": "Which oil was used for all the experiments with rotating radial shaft seals at IMKT, and why was that oil selected?",
+        "truncated": false,
+        "seconds": 0.7014171211048961,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Aus welchem Werkstoff bestehen die Standard-Prüfdichtungen in den Untersuchungen zu rotierenden Radial-Wellendichtringen, und sind sie mit Feder ausgeführt?",
+        "english": "What material are the standard test seals in the studies on rotating radial shaft seals made of, and are they spring-loaded?",
+        "truncated": false,
+        "seconds": 0.7147708628326654,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "상온에서 호칭경 120 mm 회전 RWDR을 해석 계산했을 때, 가터 스프링이 홈에서 들뜨는 회전수는 대략 얼마인가요?",
+        "english": "When performing analytical calculation for a temperature of 20°C for a 120 mm outer diameter deep groove ball bearing (RWDR), at what approximate rotational speed does the retainer spring lift out of its housing?",
+        "truncated": false,
+        "seconds": 1.3092025336809456,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "For the rotating 120 mm radial shaft seal, at roughly what speed does the analytically computed remaining radial force drop to zero when the hydrostatic oil force is not yet included?",
+        "english": "For the rotating 120 mm radial shaft seal, at approximately what speed does the analytically computed remaining radial force drop to zero when the hydrostatic oil force is not yet considered?",
+        "truncated": false,
+        "seconds": 1.144778043963015,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Wie wirkt sich bei einem rotierenden Radial-Wellendichtring ein höherer Ölfüllgrad der rotierenden Kammer auf das Reibmoment und das Abheben der Dichtlippe aus?",
+        "english": "How does a higher oil fill level in the rotating chamber of a rotating radial shaft seal affect the friction moment and the lifting of the seal lip?",
+        "truncated": false,
+        "seconds": 0.879082896746695,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "회전 RWDR의 동적 반경력 측정 장치는 시일 홀더를 모터로 최대 몇 rpm까지 돌릴 수 있나요?",
+        "english": "What is the maximum rotational speed in rpm that the dynamic radial force measurement device for rotating RWDR can achieve when driving the fixture motor?",
+        "truncated": false,
+        "seconds": 0.8101992271840572,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Wie verteilt sich die Radialkraft eines Radial-Wellendichtrings üblicherweise auf Feder und Elastomer?",
+        "english": "How is the radial force of a radial shaft seal typically distributed between the spring and elastomer?",
+        "truncated": false,
+        "seconds": 0.564503148663789,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "센서가 내장된 플라스틱 미끄럼 베어링 연구에서, 온도 측정용 센서 소재로 가장 좋게 평가된 전도성 플라스틱은 무엇이고 그 이유는 무엇인가요?",
+        "english": "What is the conductive plastic most highly evaluated as a temperature-sensing material in research on sensor-integrated plastic sliding bearings, and why?",
+        "truncated": false,
+        "seconds": 0.8401592359878123,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "In the polymer plain bearing with integrated wear sensors, why was PPS judged unsuitable as the conductive sensor material?",
+        "english": "Why was PPS considered unsuitable as the conductive sensor material in a polymer plain bearing with integrated wear sensors?",
+        "truncated": false,
+        "seconds": 0.6706247879192233,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "Mit welcher Kraft wurde die Welle in der numerischen Simulation des Kunststoffgleitlagers mit integrierter Verschleißsensorik belastet?",
+        "english": "What force was applied to the shaft in the numerical simulation of the plastic sliding bearing with integrated wear sensorics?",
+        "truncated": false,
+        "seconds": 0.6436972981318831,
+        "skipped": false,
+        "from_cache": true
+      },
+      {
+        "query": "센서 내장 플라스틱 미끄럼 베어링 논문에서, 여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여주는 그림은 몇 번인가요?",
+        "english": "In papers on sensor-integrated plastic sliding bearings, which figure shows the through-resistance measurement results of multiple conductive modified plastic sensor elements?",
+        "truncated": false,
+        "seconds": 0.8486814317293465,
+        "skipped": false,
+        "from_cache": true
+      }
+    ]
+  }
+}
