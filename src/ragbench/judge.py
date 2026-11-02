@@ -117,6 +117,8 @@ class Judge:
         # GPU마다 상한 = min(max_gpu_gib, 지금 비어 있는 양 - 1.5 GiB): 다른 프로세스가 쓰는 GPU에서 OOM이 나지 않게 한다
         free = [torch.cuda.mem_get_info(i)[0] / 2**30 for i in range(n)]
         self.max_memory = {i: f"{max(0.0, min(max_gpu_gib, free[i] - 1.5)):.1f}GiB" for i in range(n)}
+        # GPU에 다 안 들어가면 넘치는 층을 디스크가 아니라 CPU 메모리에 둔다 (디스크 오프로드는 판정 한 번이 분 단위로 느려짐)
+        self.max_memory["cpu"] = "64GiB"
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name, dtype=torch.bfloat16, device_map="auto", max_memory=self.max_memory).eval()
         self.revision = hf_cached_revision(model_name)

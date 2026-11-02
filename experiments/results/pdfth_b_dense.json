@@ -1,0 +1,2086 @@
+{
+  "config": {
+    "exp_id": "pdfth_b_dense",
+    "stage": "pdfth",
+    "description": "dense bge-m3 + HNSW [corpus: wiki + pdf, eval: 48 PDF questions, table headers repeated]",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries_pdf.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3",
+      "corpus": "wiki_pdf",
+      "table_header": true
+    },
+    "retrieval": {
+      "method": "dense",
+      "top_k": 10,
+      "bm25_tokenizer": "whitespace",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "bm25_include_original": false,
+      "bm25_original_tokenizer": "kiwi",
+      "rerank_text": "original",
+      "query_expansion": null,
+      "contextual_prefix": false,
+      "translate_model": null,
+      "translate_glossary": false,
+      "translate_skip_english": false,
+      "bm25_english_pivot": false,
+      "dense_english_pivot": false,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": null,
+      "prompt_version": null,
+      "max_new_tokens": 256,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "cuda:0",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-11-02T16:58:12+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "11ca3fd0d34510a63cd2c993c50d45bf87a96550",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "recall@5": 0.6600694444444445,
+      "mrr@10": 0.5562748015873016,
+      "ndcg@10": 0.5852402905095326,
+      "n": 48
+    },
+    "by_group": {
+      "ko->en": {
+        "recall@5": 0.875,
+        "mrr@10": 0.8333333333333334,
+        "ndcg@10": 0.8379850503595943,
+        "n": 8
+      },
+      "en->en": {
+        "recall@5": 0.875,
+        "mrr@10": 0.6875,
+        "ndcg@10": 0.7754957717931001,
+        "n": 8
+      },
+      "de->en": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 0.5720238095238095,
+        "ndcg@10": 0.5908362630911834,
+        "n": 8
+      },
+      "en->de": {
+        "recall@5": 0.1875,
+        "mrr@10": 0.203125,
+        "ndcg@10": 0.2038662191964322,
+        "n": 8
+      },
+      "ko->de": {
+        "recall@5": 0.7625,
+        "mrr@10": 0.65625,
+        "ndcg@10": 0.626731132536124,
+        "n": 8
+      },
+      "de->de": {
+        "recall@5": 0.59375,
+        "mrr@10": 0.3854166666666667,
+        "ndcg@10": 0.47652730608076205,
+        "n": 8
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "pdf001",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#111": 2,
+        "nasa-tp-2013-215305-rev1#110": 1
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#27",
+        "ko_ball_bearing#11",
+        "en_bearing_mechanical#14",
+        "nasa-tp-2013-215305-rev1#48",
+        "nasa-tp-2013-215305-rev1#105",
+        "nasa-tp-2013-215305-rev1#111",
+        "nasa-tp-2013-215305-rev1#104",
+        "en_rolling_element_bearing#10",
+        "nasa-tp-2013-215305-rev1#110",
+        "ko_ball_bearing#10"
+      ],
+      "scores": [
+        0.6016,
+        0.5945,
+        0.5818,
+        0.5793,
+        0.5791,
+        0.5715,
+        0.5631,
+        0.5629,
+        0.5595,
+        0.5573
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.16666666666666666,
+        "ndcg@10": 0.3852038879047554
+      }
+    },
+    {
+      "qid": "pdf002",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#115": 2,
+        "nasa-tp-2013-215305-rev1#116": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tp-2013-215305-rev1#113",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#114",
+        "nasa-tm-2015-218895#25",
+        "nasa-tp-2013-215305-rev1#118",
+        "nasa-tm-2015-218895#18"
+      ],
+      "scores": [
+        0.7254,
+        0.6583,
+        0.5982,
+        0.5698,
+        0.5451,
+        0.5446,
+        0.5399,
+        0.5129,
+        0.4929,
+        0.4928
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf003",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#114": 2,
+        "nasa-tp-2013-215305-rev1#113": 1,
+        "nasa-tp-2013-215305-rev1#111": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tp-2013-215305-rev1#114",
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tp-2013-215305-rev1#16",
+        "nasa-tp-2013-215305-rev1#117",
+        "en_rolling_element_bearing#10",
+        "nasa-tm-2015-218895#5"
+      ],
+      "scores": [
+        0.653,
+        0.6401,
+        0.6304,
+        0.6254,
+        0.6178,
+        0.5914,
+        0.5902,
+        0.5898,
+        0.5792,
+        0.5744
+      ],
+      "metrics": {
+        "recall@5": 0.3333333333333333,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.31939394323979897
+      }
+    },
+    {
+      "qid": "pdf004",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#58": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#56",
+        "nasa-tp-2013-215305-rev1#58",
+        "nasa-tm-2015-218895#25",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tp-2013-215305-rev1#113",
+        "ko_ball_bearing#10",
+        "nasa-tm-2015-218895#23",
+        "nasa-tm-2015-218895#24",
+        "nasa-tp-2013-215305-rev1#109",
+        "nasa-tp-2013-215305-rev1#57"
+      ],
+      "scores": [
+        0.6542,
+        0.5988,
+        0.5931,
+        0.5503,
+        0.5476,
+        0.5453,
+        0.5432,
+        0.5399,
+        0.5378,
+        0.5355
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf005",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#73": 2,
+        "nasa-tp-2013-215305-rev1#72": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#73",
+        "nasa-tp-2013-215305-rev1#82",
+        "nasa-tp-2013-215305-rev1#31",
+        "nasa-tp-2013-215305-rev1#72",
+        "nasa-tp-2013-215305-rev1#61",
+        "nasa-tp-2013-215305-rev1#81",
+        "nasa-tp-2013-215305-rev1#74",
+        "nasa-tp-2013-215305-rev1#62",
+        "nasa-tp-2013-215305-rev1#80",
+        "nasa-tp-2013-215305-rev1#76"
+      ],
+      "scores": [
+        0.7715,
+        0.7243,
+        0.7066,
+        0.7053,
+        0.6995,
+        0.6976,
+        0.6937,
+        0.6911,
+        0.6892,
+        0.6769
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9238850086262381
+      }
+    },
+    {
+      "qid": "pdf006",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#86": 2,
+        "nasa-tp-2013-215305-rev1#85": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#85",
+        "nasa-tp-2013-215305-rev1#86",
+        "nasa-tp-2013-215305-rev1#87",
+        "nasa-tm-2015-218895#9",
+        "nasa-tm-2015-218895#4",
+        "nasa-tp-2013-215305-rev1#101",
+        "nasa-tm-2015-218895#35",
+        "nasa-tp-2013-215305-rev1#123",
+        "nasa-tp-2013-215305-rev1#50",
+        "luh-diss-stuhler-2024#130"
+      ],
+      "scores": [
+        0.5803,
+        0.5658,
+        0.5623,
+        0.552,
+        0.5408,
+        0.5388,
+        0.5374,
+        0.536,
+        0.5336,
+        0.5325
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8597186998521972
+      }
+    },
+    {
+      "qid": "pdf007",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#49": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#49",
+        "nasa-tp-2013-215305-rev1#50",
+        "nasa-tp-2013-215305-rev1#102",
+        "en_rolling_element_bearing#11",
+        "nasa-tm-2015-218895#3",
+        "nasa-tp-2013-215305-rev1#46",
+        "nasa-tm-2015-218895#19",
+        "nasa-tp-2013-215305-rev1#51",
+        "nasa-tp-2013-215305-rev1#100",
+        "nasa-tm-2015-218895#21"
+      ],
+      "scores": [
+        0.6617,
+        0.6267,
+        0.6144,
+        0.6078,
+        0.6055,
+        0.603,
+        0.6002,
+        0.5981,
+        0.5974,
+        0.5942
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf008",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#97": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#97",
+        "nasa-tp-2013-215305-rev1#93",
+        "nasa-tp-2013-215305-rev1#84",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tp-2013-215305-rev1#95",
+        "nasa-tp-2013-215305-rev1#92",
+        "nasa-tp-2013-215305-rev1#91",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tp-2013-215305-rev1#48",
+        "nasa-tp-2013-215305-rev1#47"
+      ],
+      "scores": [
+        0.6769,
+        0.6536,
+        0.6474,
+        0.6209,
+        0.6123,
+        0.589,
+        0.5854,
+        0.581,
+        0.5783,
+        0.5773
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf009",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#38": 2,
+        "nasa-tp-2013-215305-rev1#42": 1,
+        "nasa-tp-2013-215305-rev1#39": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#39",
+        "nasa-tp-2013-215305-rev1#42",
+        "nasa-tp-2013-215305-rev1#17",
+        "nasa-tp-2013-215305-rev1#41",
+        "nasa-tp-2013-215305-rev1#38",
+        "ko_ball_bearing#13",
+        "en_rolling_element_bearing#15",
+        "luh-diss-stuhler-2024#27",
+        "nasa-tp-2013-215305-rev1#40",
+        "ko_ball_bearing#14"
+      ],
+      "scores": [
+        0.6233,
+        0.6075,
+        0.5687,
+        0.5676,
+        0.5587,
+        0.5439,
+        0.538,
+        0.5226,
+        0.5212,
+        0.5208
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7680259722523537
+      }
+    },
+    {
+      "qid": "pdf010",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#128": 2,
+        "nasa-tp-2013-215305-rev1#127": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#126",
+        "nasa-tp-2013-215305-rev1#48",
+        "nasa-tp-2013-215305-rev1#102",
+        "luh-diss-stuhler-2024#205",
+        "nasa-tm-2015-218895#18",
+        "nasa-tp-2013-215305-rev1#127",
+        "nasa-tp-2013-215305-rev1#128",
+        "nasa-tp-2013-215305-rev1#109",
+        "nasa-tp-2013-215305-rev1#5",
+        "nasa-tp-2013-215305-rev1#86"
+      ],
+      "scores": [
+        0.6521,
+        0.6435,
+        0.6265,
+        0.6245,
+        0.6145,
+        0.6116,
+        0.6085,
+        0.6078,
+        0.6066,
+        0.606
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.16666666666666666,
+        "ndcg@10": 0.3887879759564652
+      }
+    },
+    {
+      "qid": "pdf011",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#40": 2,
+        "nasa-tp-2013-215305-rev1#42": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#139",
+        "nasa-tp-2013-215305-rev1#39",
+        "luh-diss-stuhler-2024#27",
+        "luh-diss-stuhler-2024#19",
+        "luh-diss-stuhler-2024#127",
+        "luh-diss-stuhler-2024#16",
+        "nasa-tp-2013-215305-rev1#42",
+        "luh-diss-stuhler-2024#17",
+        "luh-diss-stuhler-2024#126",
+        "luh-diss-stuhler-2024#121"
+      ],
+      "scores": [
+        0.581,
+        0.5605,
+        0.552,
+        0.527,
+        0.5265,
+        0.5262,
+        0.5261,
+        0.5258,
+        0.5243,
+        0.5242
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.14285714285714285,
+        "ndcg@10": 0.12669792223864473
+      }
+    },
+    {
+      "qid": "pdf012",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#89": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#45",
+        "de_waelzlager#10",
+        "nasa-tp-2013-215305-rev1#83",
+        "de_waelzlager#0",
+        "nasa-tp-2013-215305-rev1#100",
+        "de_waelzlager#29",
+        "de_waelzlager#14",
+        "luh-diss-stuhler-2024#91",
+        "luh-diss-stuhler-2024#196",
+        "nasa-tp-2013-215305-rev1#89"
+      ],
+      "scores": [
+        0.6161,
+        0.5927,
+        0.5892,
+        0.5871,
+        0.5856,
+        0.5847,
+        0.5799,
+        0.5751,
+        0.5742,
+        0.5729
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.1,
+        "ndcg@10": 0.2890648263178879
+      }
+    },
+    {
+      "qid": "pdf013",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tm-2017-219545#27": 2,
+        "nasa-tm-2017-219545#3": 2,
+        "nasa-tm-2017-219545#34": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#28",
+        "nasa-tm-2017-219545#27",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#29",
+        "nasa-tm-2017-219545#32",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#9",
+        "en_fatigue_material#26"
+      ],
+      "scores": [
+        0.7105,
+        0.6419,
+        0.6362,
+        0.618,
+        0.5954,
+        0.5842,
+        0.584,
+        0.5826,
+        0.5747,
+        0.5736
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.7328286204777911
+      }
+    },
+    {
+      "qid": "pdf014",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#10": 2,
+        "nasa-tm-2017-219545#19": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#19",
+        "nasa-tm-2017-219545#10",
+        "nasa-tm-2017-219545#21",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#2",
+        "en_fatigue_material#7",
+        "nasa-tm-2017-219545#9",
+        "nasa-tm-2017-219545#34"
+      ],
+      "scores": [
+        0.6761,
+        0.6692,
+        0.6044,
+        0.5809,
+        0.5767,
+        0.565,
+        0.5636,
+        0.5576,
+        0.5565,
+        0.5562
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf015",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#23": 2,
+        "nasa-tm-2017-219545#34": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#23",
+        "nasa-tm-2017-219545#30",
+        "nasa-tm-2017-219545#22",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#21",
+        "nasa-tp-2013-215305-rev1#16",
+        "nasa-tm-2015-218895#27"
+      ],
+      "scores": [
+        0.6754,
+        0.6343,
+        0.6243,
+        0.622,
+        0.6186,
+        0.5972,
+        0.5938,
+        0.5874,
+        0.5818,
+        0.5763
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9197207891481876
+      }
+    },
+    {
+      "qid": "pdf016",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#24": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#24",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#21",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#10",
+        "nasa-tm-2017-219545#9",
+        "nasa-tm-2017-219545#22",
+        "nasa-tm-2017-219545#19"
+      ],
+      "scores": [
+        0.6817,
+        0.681,
+        0.6435,
+        0.642,
+        0.6352,
+        0.6337,
+        0.6166,
+        0.611,
+        0.6088,
+        0.6054
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "qid": "pdf017",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#26": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#26",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#34",
+        "ko_ball_bearing#11",
+        "nasa-tm-2017-219545#33",
+        "ko_bearing#0",
+        "nasa-tm-2017-219545#25",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#15",
+        "en_bearing_mechanical#14"
+      ],
+      "scores": [
+        0.6414,
+        0.5938,
+        0.5909,
+        0.5882,
+        0.578,
+        0.5744,
+        0.5691,
+        0.5681,
+        0.5676,
+        0.5575
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf018",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#9": 2,
+        "nasa-tm-2017-219545#32": 1
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#9",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tm-2017-219545#32",
+        "nasa-tp-2013-215305-rev1#7",
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tp-2013-215305-rev1#121",
+        "en_rolling_element_bearing#11",
+        "nasa-tm-2015-218895#25",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2015-218895#23"
+      ],
+      "scores": [
+        0.5519,
+        0.5217,
+        0.5041,
+        0.4804,
+        0.4804,
+        0.4793,
+        0.4777,
+        0.4715,
+        0.4715,
+        0.4708
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9502344167898356
+      }
+    },
+    {
+      "qid": "pdf019",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#7": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#7",
+        "nasa-tm-2015-218895#20",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#3",
+        "nasa-tp-2013-215305-rev1#101",
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#8",
+        "nasa-tm-2015-218895#4",
+        "nasa-tm-2015-218895#28"
+      ],
+      "scores": [
+        0.7634,
+        0.6604,
+        0.6343,
+        0.6278,
+        0.62,
+        0.6168,
+        0.613,
+        0.611,
+        0.6075,
+        0.6073
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf020",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#18": 2,
+        "nasa-tm-2015-218895#19": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#18",
+        "ko_ball_bearing#16",
+        "nasa-tm-2015-218895#19",
+        "ko_ball_bearing#13",
+        "nasa-tm-2015-218895#10",
+        "nasa-tp-2013-215305-rev1#85",
+        "nasa-tp-2013-215305-rev1#86",
+        "nasa-tp-2013-215305-rev1#40",
+        "nasa-tp-2013-215305-rev1#125",
+        "nasa-tp-2013-215305-rev1#83"
+      ],
+      "scores": [
+        0.6464,
+        0.6277,
+        0.6048,
+        0.5986,
+        0.5983,
+        0.5803,
+        0.5796,
+        0.5749,
+        0.5734,
+        0.5728
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9197207891481876
+      }
+    },
+    {
+      "qid": "pdf021",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#20": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#3",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#28",
+        "nasa-tm-2015-218895#5",
+        "nasa-tm-2015-218895#24",
+        "nasa-tp-2013-215305-rev1#52",
+        "nasa-tm-2015-218895#35",
+        "nasa-tm-2015-218895#27",
+        "nasa-tp-2013-215305-rev1#34",
+        "nasa-tm-2015-218895#4"
+      ],
+      "scores": [
+        0.662,
+        0.6353,
+        0.6272,
+        0.6263,
+        0.604,
+        0.6028,
+        0.5997,
+        0.5995,
+        0.5958,
+        0.591
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf022",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tm-2015-218895#28": 2,
+        "nasa-tm-2015-218895#21": 1,
+        "nasa-tm-2015-218895#3": 1
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#28",
+        "nasa-tm-2015-218895#3",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#6",
+        "nasa-tm-2015-218895#10",
+        "nasa-tm-2015-218895#27",
+        "nasa-tm-2015-218895#8",
+        "nasa-tm-2015-218895#18"
+      ],
+      "scores": [
+        0.7388,
+        0.7245,
+        0.7192,
+        0.7022,
+        0.6802,
+        0.6773,
+        0.6716,
+        0.6691,
+        0.6671,
+        0.6541
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6584645692843067
+      }
+    },
+    {
+      "qid": "pdf023",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#23": 2,
+        "nasa-tp-2013-215305-rev1#122": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tp-2013-215305-rev1#114",
+        "nasa-tp-2013-215305-rev1#16",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2015-218895#28",
+        "nasa-tp-2013-215305-rev1#130"
+      ],
+      "scores": [
+        0.7196,
+        0.6848,
+        0.6513,
+        0.6499,
+        0.633,
+        0.6097,
+        0.5932,
+        0.5926,
+        0.5898,
+        0.5864
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf024",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#25": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#23",
+        "nasa-tm-2015-218895#25",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tp-2013-215305-rev1#113",
+        "nasa-tp-2013-215305-rev1#114",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tp-2013-215305-rev1#115",
+        "luh-diss-stuhler-2024#105",
+        "nasa-tp-2013-215305-rev1#121",
+        "luh-diss-stuhler-2024#95"
+      ],
+      "scores": [
+        0.5323,
+        0.527,
+        0.5174,
+        0.5076,
+        0.4803,
+        0.474,
+        0.4629,
+        0.4601,
+        0.4598,
+        0.4586
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf025",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#85": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#83",
+        "nasa-tp-2013-215305-rev1#109",
+        "en_bearing_mechanical#9",
+        "en_rolling_element_bearing#13",
+        "nasa-tp-2013-215305-rev1#90",
+        "luh-diss-stuhler-2024#126",
+        "luh-diss-pelzer-2022#10",
+        "luh-diss-stuhler-2024#189"
+      ],
+      "scores": [
+        0.5999,
+        0.5595,
+        0.5513,
+        0.5355,
+        0.5331,
+        0.5296,
+        0.5273,
+        0.526,
+        0.5241,
+        0.5188
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf026",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#175": 2,
+        "luh-diss-stuhler-2024#176": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#175",
+        "nasa-tp-2013-215305-rev1#86",
+        "luh-diss-stuhler-2024#176",
+        "luh-diss-stuhler-2024#122",
+        "ko_ball_bearing#14",
+        "nasa-tp-2013-215305-rev1#87",
+        "luh-diss-stuhler-2024#121",
+        "nasa-tp-2013-215305-rev1#85",
+        "luh-diss-stuhler-2024#10",
+        "luh-diss-stuhler-2024#126"
+      ],
+      "scores": [
+        0.5837,
+        0.5579,
+        0.556,
+        0.5472,
+        0.5453,
+        0.5404,
+        0.537,
+        0.5364,
+        0.5276,
+        0.5206
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9197207891481876
+      }
+    },
+    {
+      "qid": "pdf027",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#136": 2,
+        "luh-diss-stuhler-2024#192": 1,
+        "luh-diss-stuhler-2024#193": 1,
+        "luh-diss-stuhler-2024#135": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#187",
+        "luh-diss-stuhler-2024#180",
+        "luh-diss-stuhler-2024#21",
+        "luh-diss-stuhler-2024#199",
+        "luh-diss-stuhler-2024#136",
+        "luh-diss-stuhler-2024#16",
+        "luh-diss-stuhler-2024#164",
+        "luh-diss-stuhler-2024#123",
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#193"
+      ],
+      "scores": [
+        0.6792,
+        0.6544,
+        0.6536,
+        0.6517,
+        0.6499,
+        0.6488,
+        0.6454,
+        0.6361,
+        0.6304,
+        0.6269
+      ],
+      "metrics": {
+        "recall@5": 0.25,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.298396382921995
+      }
+    },
+    {
+      "qid": "pdf028",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#145": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#90",
+        "nasa-tp-2013-215305-rev1#87",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-stuhler-2024#4",
+        "nasa-tm-2015-218895#13",
+        "nasa-tp-2013-215305-rev1#83",
+        "luh-diss-stuhler-2024#121",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tm-2015-218895#10"
+      ],
+      "scores": [
+        0.5238,
+        0.5151,
+        0.4898,
+        0.4887,
+        0.4872,
+        0.486,
+        0.4855,
+        0.4854,
+        0.479,
+        0.4778
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf029",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#122": 2,
+        "luh-diss-stuhler-2024#121": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#87",
+        "ko_ball_bearing#14",
+        "nasa-tp-2013-215305-rev1#86",
+        "luh-diss-stuhler-2024#121",
+        "nasa-tp-2013-215305-rev1#90",
+        "ko_ball_bearing#13",
+        "nasa-tp-2013-215305-rev1#83",
+        "en_rolling_element_bearing#15",
+        "nasa-tp-2013-215305-rev1#132",
+        "nasa-tm-2017-219545#27"
+      ],
+      "scores": [
+        0.5413,
+        0.5402,
+        0.5334,
+        0.5303,
+        0.5265,
+        0.5107,
+        0.4994,
+        0.4966,
+        0.4959,
+        0.4907
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.16369747519436975
+      }
+    },
+    {
+      "qid": "pdf030",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#173": 2,
+        "luh-diss-stuhler-2024#172": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#180",
+        "luh-diss-stuhler-2024#179",
+        "luh-diss-stuhler-2024#124",
+        "luh-diss-stuhler-2024#134",
+        "luh-diss-stuhler-2024#173",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#136",
+        "luh-diss-stuhler-2024#132",
+        "luh-diss-stuhler-2024#170",
+        "luh-diss-stuhler-2024#10"
+      ],
+      "scores": [
+        0.6129,
+        0.6119,
+        0.6002,
+        0.598,
+        0.594,
+        0.5914,
+        0.5852,
+        0.5843,
+        0.5835,
+        0.5815
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.2940806813328203
+      }
+    },
+    {
+      "qid": "pdf031",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#47": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#5",
+        "luh-diss-stuhler-2024#7",
+        "luh-diss-stuhler-2024#42",
+        "luh-diss-stuhler-2024#187",
+        "luh-diss-stuhler-2024#207",
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#199",
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#208"
+      ],
+      "scores": [
+        0.6655,
+        0.659,
+        0.6399,
+        0.639,
+        0.636,
+        0.6215,
+        0.6214,
+        0.6198,
+        0.612,
+        0.6117
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf032",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#26": 2,
+        "luh-diss-stuhler-2024#25": 2,
+        "luh-diss-stuhler-2024#142": 1,
+        "luh-diss-stuhler-2024#143": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-stuhler-2024#3",
+        "nasa-tm-2015-218895#18",
+        "luh-diss-stuhler-2024#207",
+        "luh-diss-stuhler-2024#4",
+        "nasa-tm-2015-218895#10",
+        "nasa-tp-2013-215305-rev1#102",
+        "nasa-tp-2013-215305-rev1#9",
+        "nasa-tm-2015-218895#13",
+        "nasa-tp-2013-215305-rev1#87"
+      ],
+      "scores": [
+        0.6202,
+        0.6196,
+        0.618,
+        0.6143,
+        0.608,
+        0.598,
+        0.5751,
+        0.5737,
+        0.5718,
+        0.5679
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf033",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#135": 2,
+        "luh-diss-stuhler-2024#193": 2,
+        "luh-diss-stuhler-2024#200": 2,
+        "luh-diss-stuhler-2024#136": 1,
+        "luh-diss-stuhler-2024#134": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#135",
+        "luh-diss-stuhler-2024#193",
+        "luh-diss-stuhler-2024#137",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#136",
+        "luh-diss-stuhler-2024#195",
+        "ko_ball_bearing#14",
+        "luh-diss-stuhler-2024#123",
+        "luh-diss-stuhler-2024#175",
+        "luh-diss-pelzer-2022#76"
+      ],
+      "scores": [
+        0.6103,
+        0.6014,
+        0.589,
+        0.5847,
+        0.5816,
+        0.5747,
+        0.5717,
+        0.5642,
+        0.5609,
+        0.5584
+      ],
+      "metrics": {
+        "recall@5": 0.6,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7183368720136839
+      }
+    },
+    {
+      "qid": "pdf034",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#99": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#40",
+        "nasa-tm-2015-218895#18",
+        "luh-diss-pelzer-2022#76",
+        "nasa-tp-2013-215305-rev1#38",
+        "nasa-tp-2013-215305-rev1#37",
+        "nasa-tm-2015-218895#2",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tm-2015-218895#4",
+        "nasa-tp-2013-215305-rev1#47",
+        "nasa-tm-2017-219545#2"
+      ],
+      "scores": [
+        0.5577,
+        0.5535,
+        0.5515,
+        0.5472,
+        0.539,
+        0.5368,
+        0.5313,
+        0.5311,
+        0.5257,
+        0.5247
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf035",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#45": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#45",
+        "de_waelzlager#29",
+        "de_waelzlager#26",
+        "luh-diss-stuhler-2024#189",
+        "luh-diss-stuhler-2024#16",
+        "luh-diss-stuhler-2024#69",
+        "luh-diss-stuhler-2024#98",
+        "luh-diss-stuhler-2024#196"
+      ],
+      "scores": [
+        0.6286,
+        0.6197,
+        0.6078,
+        0.5899,
+        0.588,
+        0.5789,
+        0.5758,
+        0.5747,
+        0.5743,
+        0.5724
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "qid": "pdf036",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#73": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#6",
+        "luh-diss-pelzer-2022#73",
+        "luh-diss-stuhler-2024#126",
+        "luh-diss-pelzer-2022#71",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-pelzer-2022#5",
+        "luh-diss-stuhler-2024#212",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-stuhler-2024#183",
+        "luh-diss-pelzer-2022#1"
+      ],
+      "scores": [
+        0.5227,
+        0.5215,
+        0.5191,
+        0.5169,
+        0.5117,
+        0.505,
+        0.502,
+        0.5009,
+        0.4998,
+        0.4966
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf037",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#16": 2,
+        "luh-diss-pelzer-2022#1": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#101",
+        "en_radial_shaft_seal#1",
+        "luh-diss-pelzer-2022#103",
+        "en_rolling_element_bearing#2",
+        "luh-diss-pelzer-2022#99",
+        "luh-diss-pelzer-2022#102",
+        "luh-diss-pelzer-2022#97",
+        "luh-diss-pelzer-2022#104",
+        "en_radial_shaft_seal#2",
+        "luh-diss-pelzer-2022#106"
+      ],
+      "scores": [
+        0.6614,
+        0.6212,
+        0.6042,
+        0.603,
+        0.603,
+        0.6013,
+        0.5993,
+        0.5981,
+        0.5902,
+        0.5867
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf038",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#70": 2,
+        "luh-diss-pelzer-2022#48": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#70",
+        "luh-diss-pelzer-2022#103",
+        "luh-diss-pelzer-2022#97",
+        "luh-diss-pelzer-2022#7",
+        "luh-diss-pelzer-2022#102",
+        "en_radial_shaft_seal#0",
+        "luh-diss-pelzer-2022#101",
+        "luh-diss-pelzer-2022#10",
+        "de_wellendichtring#2",
+        "luh-diss-pelzer-2022#109"
+      ],
+      "scores": [
+        0.5104,
+        0.4984,
+        0.4963,
+        0.4873,
+        0.4783,
+        0.4741,
+        0.471,
+        0.4662,
+        0.4628,
+        0.4626
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.7601875334318685
+      }
+    },
+    {
+      "qid": "pdf039",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#71": 2
+      },
+      "ranked": [
+        "de_wellendichtring#2",
+        "luh-diss-pelzer-2022#5",
+        "luh-diss-pelzer-2022#9",
+        "de_wellendichtring#0",
+        "luh-diss-pelzer-2022#72",
+        "de_wellendichtring#1",
+        "luh-diss-pelzer-2022#1",
+        "luh-diss-pelzer-2022#15",
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#71"
+      ],
+      "scores": [
+        0.6416,
+        0.622,
+        0.6183,
+        0.6092,
+        0.6027,
+        0.6016,
+        0.598,
+        0.5916,
+        0.5881,
+        0.5859
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.1,
+        "ndcg@10": 0.2890648263178879
+      }
+    },
+    {
+      "qid": "pdf040",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#84": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#126",
+        "luh-diss-pelzer-2022#77",
+        "luh-diss-pelzer-2022#76",
+        "luh-diss-pelzer-2022#4",
+        "ko_bearing#4",
+        "luh-diss-pelzer-2022#73",
+        "nasa-tp-2013-215305-rev1#57",
+        "ko_ball_bearing#14",
+        "luh-diss-pelzer-2022#7",
+        "luh-diss-pelzer-2022#81"
+      ],
+      "scores": [
+        0.599,
+        0.5944,
+        0.5923,
+        0.5907,
+        0.5728,
+        0.5682,
+        0.5657,
+        0.5577,
+        0.5571,
+        0.5554
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf041",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#85": 2,
+        "luh-diss-pelzer-2022#86": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#10",
+        "en_ball_bearing#12",
+        "luh-diss-pelzer-2022#97",
+        "luh-diss-stuhler-2024#45",
+        "en_bearing_mechanical#8",
+        "luh-diss-pelzer-2022#5",
+        "nasa-tp-2013-215305-rev1#85",
+        "luh-diss-pelzer-2022#85",
+        "luh-diss-stuhler-2024#92",
+        "luh-diss-stuhler-2024#126"
+      ],
+      "scores": [
+        0.5687,
+        0.5426,
+        0.5335,
+        0.5316,
+        0.5262,
+        0.5228,
+        0.5195,
+        0.517,
+        0.5111,
+        0.5099
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.125,
+        "ndcg@10": 0.23981246656813146
+      }
+    },
+    {
+      "qid": "pdf042",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#88": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#88",
+        "luh-diss-pelzer-2022#81",
+        "luh-diss-pelzer-2022#90",
+        "luh-diss-pelzer-2022#76",
+        "luh-diss-pelzer-2022#77",
+        "luh-diss-pelzer-2022#91",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-pelzer-2022#80",
+        "luh-diss-pelzer-2022#87",
+        "luh-diss-pelzer-2022#59"
+      ],
+      "scores": [
+        0.7422,
+        0.6982,
+        0.6905,
+        0.683,
+        0.6713,
+        0.6688,
+        0.6678,
+        0.661,
+        0.6602,
+        0.6576
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf043",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#79": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#89",
+        "luh-diss-pelzer-2022#79",
+        "luh-diss-pelzer-2022#92",
+        "luh-diss-pelzer-2022#80",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-pelzer-2022#57",
+        "luh-diss-pelzer-2022#87",
+        "luh-diss-pelzer-2022#73",
+        "luh-diss-pelzer-2022#74",
+        "luh-diss-pelzer-2022#81"
+      ],
+      "scores": [
+        0.6087,
+        0.6026,
+        0.5986,
+        0.5969,
+        0.5789,
+        0.5707,
+        0.57,
+        0.5684,
+        0.568,
+        0.5667
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf044",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#21": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#72",
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#73",
+        "luh-diss-pelzer-2022#21",
+        "luh-diss-pelzer-2022#20",
+        "luh-diss-pelzer-2022#84",
+        "luh-diss-pelzer-2022#56",
+        "de_wellendichtring#0",
+        "luh-diss-pelzer-2022#91",
+        "luh-diss-pelzer-2022#79"
+      ],
+      "scores": [
+        0.6656,
+        0.6635,
+        0.652,
+        0.6489,
+        0.6448,
+        0.6368,
+        0.6341,
+        0.6111,
+        0.6094,
+        0.5988
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
+      }
+    },
+    {
+      "qid": "pdf045",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#6": 2,
+        "innotrac-2020-467#8": 1
+      },
+      "ranked": [
+        "innotrac-2020-467#6",
+        "ko_bearing#3",
+        "innotrac-2020-467#8",
+        "ko_ball_bearing#19",
+        "ko_ball_bearing#2",
+        "innotrac-2020-467#7",
+        "innotrac-2020-467#3",
+        "ko_bearing#0",
+        "innotrac-2020-467#2",
+        "ko_ball_bearing#17"
+      ],
+      "scores": [
+        0.5827,
+        0.5774,
+        0.5607,
+        0.5371,
+        0.5346,
+        0.5339,
+        0.5274,
+        0.527,
+        0.5163,
+        0.5148
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.9502344167898356
+      }
+    },
+    {
+      "qid": "pdf046",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#7": 2
+      },
+      "ranked": [
+        "en_plain_bearing#6",
+        "innotrac-2020-467#7",
+        "en_bearing_mechanical#5",
+        "en_bearing_mechanical#12",
+        "nasa-tp-2013-215305-rev1#103",
+        "en_rolling_element_bearing#12",
+        "en_rolling_element_bearing#11",
+        "en_plain_bearing#7",
+        "ko_bearing#3",
+        "nasa-tm-2015-218895#17"
+      ],
+      "scores": [
+        0.5949,
+        0.5774,
+        0.5352,
+        0.5195,
+        0.5173,
+        0.5088,
+        0.5049,
+        0.502,
+        0.4966,
+        0.4937
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf047",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "innotrac-2020-467#4": 2
+      },
+      "ranked": [
+        "innotrac-2020-467#4",
+        "innotrac-2020-467#3",
+        "innotrac-2020-467#6",
+        "innotrac-2020-467#8",
+        "innotrac-2020-467#5",
+        "innotrac-2020-467#2",
+        "innotrac-2020-467#1",
+        "innotrac-2020-467#0",
+        "de_waelzlager#23",
+        "luh-diss-stuhler-2024#45"
+      ],
+      "scores": [
+        0.7151,
+        0.6522,
+        0.6322,
+        0.6123,
+        0.6037,
+        0.6034,
+        0.5973,
+        0.5877,
+        0.5589,
+        0.5558
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf048",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#6": 2
+      },
+      "ranked": [
+        "innotrac-2020-467#6",
+        "luh-diss-stuhler-2024#8",
+        "luh-diss-pelzer-2022#5",
+        "luh-diss-pelzer-2022#106",
+        "luh-diss-pelzer-2022#103",
+        "luh-diss-pelzer-2022#1",
+        "luh-diss-pelzer-2022#97",
+        "luh-diss-pelzer-2022#101",
+        "luh-diss-pelzer-2022#104",
+        "luh-diss-pelzer-2022#6"
+      ],
+      "scores": [
+        0.5788,
+        0.5514,
+        0.5476,
+        0.5451,
+        0.5447,
+        0.5411,
+        0.5396,
+        0.5382,
+        0.5377,
+        0.5365
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    }
+  ],
+  "timing": {
+    "index": {
+      "n_chunks": 903,
+      "dim": 1024,
+      "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "cached": false,
+      "path": "data/processed/emb_325d101a2b58.npz",
+      "encode_seconds": 4.690718716941774,
+      "build_seconds": 0.07565343286842108,
+      "index_bytes": 3833032,
+      "m": 16,
+      "ef_construction": 128,
+      "ef_search": 64,
+      "exact": false
+    },
+    "query_latency_ms": {
+      "p50": 8.686458924785256,
+      "p95": 9.083053097128868,
+      "mean": 9.158414846751839
+    }
+  },
+  "extra": {
+    "retriever": "dense_hnsw_m16_efc128_ef64",
+    "n_chunks": 903
+  }
+}

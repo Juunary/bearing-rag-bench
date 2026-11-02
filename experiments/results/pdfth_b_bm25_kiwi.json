@@ -1,0 +1,2079 @@
+{
+  "config": {
+    "exp_id": "pdfth_b_bm25_kiwi",
+    "stage": "pdfth",
+    "description": "BM25 kiwi tokenizer, original text [corpus: wiki + pdf, eval: 48 PDF questions, table headers repeated]",
+    "seed": 42,
+    "languages": [
+      "ko",
+      "en",
+      "de"
+    ],
+    "eval_path": "eval/queries_pdf.jsonl",
+    "anchor_min_overlap": 0.5,
+    "chunking": {
+      "strategy": "fixed",
+      "unit": "token",
+      "size": 384,
+      "overlap": 48,
+      "tokenizer": "BAAI/bge-m3",
+      "corpus": "wiki_pdf",
+      "table_header": true
+    },
+    "retrieval": {
+      "method": "bm25",
+      "top_k": 10,
+      "bm25_tokenizer": "kiwi",
+      "bm25_k1": 1.5,
+      "bm25_b": 0.75,
+      "bm25_include_original": false,
+      "bm25_original_tokenizer": "kiwi",
+      "rerank_text": "original",
+      "query_expansion": null,
+      "contextual_prefix": false,
+      "translate_model": null,
+      "translate_glossary": false,
+      "translate_skip_english": false,
+      "bm25_english_pivot": false,
+      "dense_english_pivot": false,
+      "embedding_model": "BAAI/bge-m3",
+      "embedding_revision": null,
+      "hnsw": {
+        "m": 16,
+        "ef_construction": 128,
+        "ef_search": 64
+      },
+      "exact_search": false,
+      "rrf_k": 60,
+      "fusion_candidates": 50,
+      "rerank_model": null,
+      "rerank_top_n": 30
+    },
+    "generation": {
+      "model": null,
+      "prompt_version": null,
+      "max_new_tokens": 256,
+      "temperature": 0.0,
+      "context_k": 5,
+      "retrieval_result": null,
+      "device": "cuda:0",
+      "quantize_4bit": false,
+      "adapter": null
+    },
+    "train": {
+      "method": "qlora",
+      "rank": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "lr": 0.0002,
+      "epochs": 3,
+      "grad_accum": 8,
+      "warmup_ratio": 0.05,
+      "max_grad_norm": 1.0,
+      "train_file": "data/sft/train.jsonl",
+      "val_file": "data/sft/val.jsonl",
+      "device": "cuda:0"
+    }
+  },
+  "environment": {
+    "timestamp": "2026-11-02T16:57:51+00:00",
+    "python": "3.12.8",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "git_commit": "11ca3fd0d34510a63cd2c993c50d45bf87a96550",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "packages": {
+      "numpy": "2.5.4",
+      "torch": "2.14.1+cu126",
+      "transformers": "5.19.0",
+      "bm25s": "0.3.13",
+      "kiwipiepy": "0.24.0",
+      "hnswlib": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "recall@5": 0.3246527777777778,
+      "mrr@10": 0.36163194444444446,
+      "ndcg@10": 0.32774089141173485,
+      "n": 48
+    },
+    "by_group": {
+      "ko->en": {
+        "recall@5": 0.22916666666666666,
+        "mrr@10": 0.275,
+        "ndcg@10": 0.22910659920875787,
+        "n": 8
+      },
+      "en->en": {
+        "recall@5": 0.7708333333333334,
+        "mrr@10": 0.7916666666666666,
+        "ndcg@10": 0.7949006911551711,
+        "n": 8
+      },
+      "de->en": {
+        "recall@5": 0.22916666666666666,
+        "mrr@10": 0.3375,
+        "ndcg@10": 0.223228528393251,
+        "n": 8
+      },
+      "en->de": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0,
+        "n": 8
+      },
+      "ko->de": {
+        "recall@5": 0.125,
+        "mrr@10": 0.0625,
+        "ndcg@10": 0.07886621919643219,
+        "n": 8
+      },
+      "de->de": {
+        "recall@5": 0.59375,
+        "mrr@10": 0.703125,
+        "ndcg@10": 0.6403433105167968,
+        "n": 8
+      }
+    }
+  },
+  "per_query": [
+    {
+      "qid": "pdf001",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#111": 2,
+        "nasa-tp-2013-215305-rev1#110": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#17",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#6",
+        "nasa-tp-2013-215305-rev1#97",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#0",
+        "ko_ball_bearing#14",
+        "nasa-tp-2013-215305-rev1#93",
+        "nasa-tp-2013-215305-rev1#89",
+        "ko_bearing#2"
+      ],
+      "scores": [
+        11.1791,
+        10.9442,
+        10.3239,
+        9.255,
+        8.4014,
+        7.9398,
+        7.9105,
+        7.7642,
+        7.7359,
+        7.7131
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf002",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#115": 2,
+        "nasa-tp-2013-215305-rev1#116": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#115",
+        "nasa-tp-2013-215305-rev1#116",
+        "nasa-tp-2013-215305-rev1#121",
+        "nasa-tm-2015-218895#23",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tp-2013-215305-rev1#113",
+        "en_ball_bearing#16",
+        "nasa-tm-2017-219545#9",
+        "nasa-tp-2013-215305-rev1#120",
+        "en_bearing_mechanical#10"
+      ],
+      "scores": [
+        34.49,
+        26.5737,
+        18.2478,
+        16.6357,
+        14.9874,
+        14.7446,
+        10.9555,
+        10.5653,
+        10.3124,
+        10.2507
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf003",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#114": 2,
+        "nasa-tp-2013-215305-rev1#113": 1,
+        "nasa-tp-2013-215305-rev1#111": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#114",
+        "de_waelzlager#21",
+        "de_waelzlager#7",
+        "nasa-tp-2013-215305-rev1#115",
+        "de_waelzlager#23",
+        "luh-diss-pelzer-2022#65",
+        "luh-diss-pelzer-2022#95",
+        "nasa-tp-2013-215305-rev1#116",
+        "luh-diss-pelzer-2022#43",
+        "nasa-tm-2015-218895#23"
+      ],
+      "scores": [
+        8.9736,
+        8.6275,
+        8.1961,
+        8.0137,
+        7.4881,
+        7.2496,
+        7.0967,
+        7.0017,
+        6.6586,
+        6.3205
+      ],
+      "metrics": {
+        "recall@5": 0.3333333333333333,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.6387878864795979
+      }
+    },
+    {
+      "qid": "pdf004",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#58": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#4",
+        "ko_ball_bearing#9",
+        "ko_ball_bearing#1",
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#5",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#0",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#16",
+        "ko_ball_bearing#7"
+      ],
+      "scores": [
+        16.5961,
+        16.0176,
+        13.2231,
+        11.6216,
+        11.4543,
+        10.8775,
+        10.4714,
+        9.3233,
+        9.0229,
+        8.6172
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf005",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#73": 2,
+        "nasa-tp-2013-215305-rev1#72": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#72",
+        "nasa-tp-2013-215305-rev1#73",
+        "nasa-tp-2013-215305-rev1#74",
+        "nasa-tp-2013-215305-rev1#63",
+        "nasa-tp-2013-215305-rev1#62",
+        "nasa-tp-2013-215305-rev1#80",
+        "nasa-tp-2013-215305-rev1#31",
+        "nasa-tp-2013-215305-rev1#61",
+        "nasa-tp-2013-215305-rev1#76",
+        "nasa-tp-2013-215305-rev1#64"
+      ],
+      "scores": [
+        29.0386,
+        27.9661,
+        24.7643,
+        21.9836,
+        21.5013,
+        20.8791,
+        19.7656,
+        19.5933,
+        18.3897,
+        18.1799
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8597186998521972
+      }
+    },
+    {
+      "qid": "pdf006",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#86": 2,
+        "nasa-tp-2013-215305-rev1#85": 1
+      },
+      "ranked": [
+        "de_gleitlager#10",
+        "de_waelzlager#7",
+        "de_verschleiss#3",
+        "de_waelzlager#8",
+        "nasa-tp-2013-215305-rev1#86",
+        "de_gleitlager#11",
+        "de_gleitlager#5",
+        "luh-diss-stuhler-2024#24",
+        "de_verschleiss#0",
+        "luh-diss-stuhler-2024#151"
+      ],
+      "scores": [
+        8.0178,
+        6.7432,
+        6.3072,
+        5.7152,
+        5.6793,
+        5.6269,
+        5.6185,
+        5.5228,
+        5.5134,
+        5.4872
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.2940806813328203
+      }
+    },
+    {
+      "qid": "pdf007",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#49": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#49",
+        "ko_ball_bearing#11",
+        "ko_fatigue_material#0",
+        "nasa-tp-2013-215305-rev1#51",
+        "nasa-tp-2013-215305-rev1#48",
+        "ko_ball_bearing#16",
+        "nasa-tp-2013-215305-rev1#50",
+        "nasa-tm-2015-218895#10",
+        "nasa-tp-2013-215305-rev1#100",
+        "nasa-tm-2015-218895#19"
+      ],
+      "scores": [
+        15.9172,
+        14.4656,
+        12.1047,
+        9.5291,
+        9.116,
+        8.1623,
+        7.564,
+        7.4664,
+        6.1514,
+        5.9731
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf008",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#97": 2
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#97",
+        "nasa-tp-2013-215305-rev1#93",
+        "nasa-tp-2013-215305-rev1#84",
+        "nasa-tp-2013-215305-rev1#91",
+        "nasa-tp-2013-215305-rev1#90",
+        "nasa-tp-2013-215305-rev1#95",
+        "nasa-tp-2013-215305-rev1#89",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tp-2013-215305-rev1#92"
+      ],
+      "scores": [
+        46.8018,
+        30.1317,
+        24.8536,
+        24.6335,
+        24.1831,
+        23.2409,
+        21.4892,
+        19.6148,
+        19.5372,
+        17.6675
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf009",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#38": 2,
+        "nasa-tp-2013-215305-rev1#42": 1,
+        "nasa-tp-2013-215305-rev1#39": 1
+      },
+      "ranked": [
+        "ko_ball_bearing#0",
+        "ko_bearing#1",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#11",
+        "nasa-tp-2013-215305-rev1#39",
+        "ko_ball_bearing#13",
+        "ko_bearing#0",
+        "ko_ball_bearing#17",
+        "nasa-tp-2013-215305-rev1#42",
+        "ko_ball_bearing#8"
+      ],
+      "scores": [
+        10.9284,
+        10.8496,
+        9.6417,
+        7.7527,
+        7.7264,
+        7.5025,
+        7.4274,
+        7.2724,
+        7.261,
+        7.1439
+      ],
+      "metrics": {
+        "recall@5": 0.3333333333333333,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.21970560090460464
+      }
+    },
+    {
+      "qid": "pdf010",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#128": 2,
+        "nasa-tp-2013-215305-rev1#127": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#128",
+        "nasa-tp-2013-215305-rev1#102",
+        "nasa-tp-2013-215305-rev1#4",
+        "nasa-tp-2013-215305-rev1#51",
+        "nasa-tp-2013-215305-rev1#130",
+        "nasa-tp-2013-215305-rev1#127",
+        "nasa-tp-2013-215305-rev1#48",
+        "en_fatigue_material#10",
+        "nasa-tm-2015-218895#20",
+        "nasa-tp-2013-215305-rev1#52"
+      ],
+      "scores": [
+        16.8413,
+        16.3675,
+        14.72,
+        14.6023,
+        14.5382,
+        14.0484,
+        13.2729,
+        13.2305,
+        13.1648,
+        13.1042
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8955796649110442
+      }
+    },
+    {
+      "qid": "pdf011",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#40": 2,
+        "nasa-tp-2013-215305-rev1#42": 1
+      },
+      "ranked": [
+        "nasa-tp-2013-215305-rev1#39",
+        "nasa-tp-2013-215305-rev1#42",
+        "luh-diss-stuhler-2024#139",
+        "luh-diss-stuhler-2024#79",
+        "de_waelzlager#0",
+        "luh-diss-stuhler-2024#83",
+        "nasa-tp-2013-215305-rev1#38",
+        "luh-diss-stuhler-2024#110",
+        "luh-diss-stuhler-2024#96",
+        "luh-diss-stuhler-2024#77"
+      ],
+      "scores": [
+        9.0457,
+        8.2771,
+        8.1948,
+        7.9335,
+        7.0495,
+        6.8754,
+        6.7909,
+        6.6956,
+        6.5944,
+        6.5572
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.23981246656813146
+      }
+    },
+    {
+      "qid": "pdf012",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tp-2013-215305-rev1#89": 2
+      },
+      "ranked": [
+        "de_hertzsche_pressung#0",
+        "luh-diss-pelzer-2022#107",
+        "de_waelzlager#0",
+        "luh-diss-stuhler-2024#165",
+        "de_waelzlager#10",
+        "de_waelzlager#9",
+        "luh-diss-stuhler-2024#137",
+        "luh-diss-pelzer-2022#64",
+        "luh-diss-stuhler-2024#80",
+        "luh-diss-stuhler-2024#13"
+      ],
+      "scores": [
+        6.3635,
+        4.8125,
+        4.2612,
+        4.1032,
+        4.0993,
+        3.9825,
+        3.958,
+        3.8701,
+        3.8669,
+        3.593
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf013",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tm-2017-219545#27": 2,
+        "nasa-tm-2017-219545#3": 2,
+        "nasa-tm-2017-219545#34": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#26",
+        "nasa-tm-2017-219545#28",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#27",
+        "en_bearing_mechanical#16",
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#25",
+        "nasa-tm-2017-219545#24",
+        "en_tapered_roller_bearing#2",
+        "nasa-tm-2017-219545#9"
+      ],
+      "scores": [
+        13.8379,
+        13.4695,
+        11.7647,
+        11.6478,
+        11.2933,
+        11.1778,
+        11.1292,
+        10.6441,
+        10.3231,
+        10.0995
+      ],
+      "metrics": {
+        "recall@5": 0.6666666666666666,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.6039071644781281
+      }
+    },
+    {
+      "qid": "pdf014",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#10": 2,
+        "nasa-tm-2017-219545#19": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#19",
+        "ko_bearing#1",
+        "nasa-tm-2017-219545#9",
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#18",
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#31",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#9"
+      ],
+      "scores": [
+        12.9407,
+        11.4242,
+        9.7018,
+        9.6777,
+        9.2296,
+        7.4799,
+        7.0954,
+        6.7846,
+        6.4166,
+        5.9082
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.6131471927654584
+      }
+    },
+    {
+      "qid": "pdf015",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#23": 2,
+        "nasa-tm-2017-219545#34": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#34",
+        "de_waelzlager#29",
+        "luh-diss-stuhler-2024#127",
+        "de_schmierfett#8",
+        "nasa-tm-2017-219545#3",
+        "de_gleitlager#3",
+        "luh-diss-stuhler-2024#150",
+        "de_homokinetisches_gelenk#0",
+        "luh-diss-stuhler-2024#15",
+        "luh-diss-stuhler-2024#184"
+      ],
+      "scores": [
+        10.4058,
+        9.7314,
+        9.604,
+        9.5965,
+        9.1567,
+        9.0046,
+        8.9341,
+        8.6802,
+        8.5524,
+        8.3781
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.6131471927654584
+      }
+    },
+    {
+      "qid": "pdf016",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#24": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#3",
+        "nasa-tm-2017-219545#34",
+        "nasa-tm-2017-219545#33",
+        "nasa-tm-2017-219545#31",
+        "nasa-tm-2017-219545#9",
+        "nasa-tm-2017-219545#19",
+        "nasa-tm-2017-219545#18",
+        "nasa-tm-2017-219545#21",
+        "nasa-tp-2013-215305-rev1#122",
+        "nasa-tm-2017-219545#30"
+      ],
+      "scores": [
+        27.9207,
+        23.7168,
+        22.951,
+        21.2695,
+        18.0663,
+        16.5176,
+        16.112,
+        14.4602,
+        14.4169,
+        13.931
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf017",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#26": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#7",
+        "ko_ball_bearing#9",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#4",
+        "ko_bearing#1",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#18"
+      ],
+      "scores": [
+        16.6877,
+        11.211,
+        10.7876,
+        10.5726,
+        10.541,
+        10.4869,
+        10.2563,
+        10.075,
+        9.7574,
+        9.4025
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf018",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2017-219545#9": 2,
+        "nasa-tm-2017-219545#32": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#25",
+        "de_tribologie#3",
+        "luh-diss-pelzer-2022#35",
+        "de_waelzlager#3",
+        "de_tribologie#1",
+        "de_waelzlager#1",
+        "de_waelzlager#7",
+        "luh-diss-pelzer-2022#15",
+        "luh-diss-stuhler-2024#79",
+        "de_verschleiss#0"
+      ],
+      "scores": [
+        6.9673,
+        6.671,
+        6.0718,
+        5.6145,
+        5.1068,
+        4.9081,
+        4.885,
+        4.7573,
+        4.7305,
+        4.6888
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf019",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#7": 2
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#7",
+        "nasa-tm-2015-218895#6",
+        "nasa-tp-2013-215305-rev1#94",
+        "nasa-tp-2013-215305-rev1#83",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#11",
+        "nasa-tm-2015-218895#13",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#3",
+        "nasa-tm-2015-218895#28"
+      ],
+      "scores": [
+        29.7256,
+        20.5467,
+        17.0295,
+        16.6775,
+        16.5185,
+        16.2101,
+        15.8405,
+        15.6139,
+        14.9886,
+        14.662
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf020",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#18": 2,
+        "nasa-tm-2015-218895#19": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#16",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#8",
+        "ko_bearing#2",
+        "ko_ball_bearing#13",
+        "ko_bearing#0",
+        "ko_ball_bearing#11",
+        "ko_bearing#1",
+        "ko_shaft#0"
+      ],
+      "scores": [
+        20.7402,
+        18.96,
+        17.4029,
+        16.1017,
+        15.0425,
+        13.8251,
+        11.7211,
+        11.6514,
+        11.0959,
+        10.8433
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf021",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#20": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#101",
+        "de_waelzlager#23",
+        "nasa-tm-2015-218895#21",
+        "de_waelzlager#22",
+        "luh-diss-stuhler-2024#138",
+        "luh-diss-stuhler-2024#100",
+        "luh-diss-stuhler-2024#90",
+        "luh-diss-stuhler-2024#133",
+        "luh-diss-stuhler-2024#19",
+        "luh-diss-stuhler-2024#127"
+      ],
+      "scores": [
+        9.2925,
+        9.1767,
+        9.0419,
+        8.7269,
+        8.3541,
+        8.2463,
+        8.0765,
+        7.9978,
+        7.8897,
+        7.8877
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf022",
+      "group": "en->en",
+      "q_lang": "en",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "nasa-tm-2015-218895#28": 2,
+        "nasa-tm-2015-218895#21": 1,
+        "nasa-tm-2015-218895#3": 1
+      },
+      "ranked": [
+        "nasa-tm-2015-218895#28",
+        "nasa-tm-2015-218895#3",
+        "nasa-tm-2015-218895#21",
+        "nasa-tm-2015-218895#22",
+        "nasa-tm-2015-218895#20",
+        "nasa-tm-2015-218895#12",
+        "nasa-tm-2015-218895#10",
+        "nasa-tm-2015-218895#7",
+        "en_rolling_element_bearing#4",
+        "nasa-tm-2015-218895#11"
+      ],
+      "scores": [
+        32.6547,
+        27.0517,
+        24.6373,
+        22.5119,
+        21.4258,
+        20.9038,
+        20.8826,
+        19.9527,
+        19.8552,
+        18.6174
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf023",
+      "group": "ko->en",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#23": 2,
+        "nasa-tp-2013-215305-rev1#122": 2
+      },
+      "ranked": [
+        "ko_bearing#3",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#19",
+        "ko_ball_bearing#16",
+        "ko_bearing#4",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#13",
+        "ko_differential#0",
+        "ko_drive_shaft#0"
+      ],
+      "scores": [
+        16.5669,
+        12.8106,
+        12.2825,
+        10.4538,
+        10.2456,
+        10.1229,
+        9.1794,
+        8.7072,
+        8.3262,
+        8.1552
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf024",
+      "group": "de->en",
+      "q_lang": "de",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "nasa-tm-2015-218895#25": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#98",
+        "luh-diss-stuhler-2024#15",
+        "luh-diss-stuhler-2024#7",
+        "luh-diss-stuhler-2024#154",
+        "luh-diss-stuhler-2024#151",
+        "luh-diss-stuhler-2024#97",
+        "de_tribologie#3",
+        "luh-diss-stuhler-2024#18",
+        "luh-diss-stuhler-2024#192",
+        "de_wellendichtring#3"
+      ],
+      "scores": [
+        9.3189,
+        8.6909,
+        8.6798,
+        8.6458,
+        8.5273,
+        8.0655,
+        7.9162,
+        7.8536,
+        7.8192,
+        7.8032
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf025",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#85": 2
+      },
+      "ranked": [
+        "nasa-tm-2017-219545#6",
+        "en_ball_bearing#5",
+        "luh-diss-stuhler-2024#7",
+        "luh-diss-stuhler-2024#204",
+        "nasa-tm-2015-218895#18",
+        "nasa-tp-2013-215305-rev1#83",
+        "en_cv_joint#0",
+        "nasa-tp-2013-215305-rev1#109",
+        "nasa-tp-2013-215305-rev1#7",
+        "nasa-tp-2013-215305-rev1#129"
+      ],
+      "scores": [
+        13.3401,
+        13.0155,
+        12.0893,
+        11.8707,
+        11.659,
+        11.2738,
+        11.1407,
+        11.1068,
+        11.1063,
+        11.0761
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf026",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#175": 2,
+        "luh-diss-stuhler-2024#176": 2
+      },
+      "ranked": [
+        "ko_bearing#4",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#13",
+        "ko_lubricant#1",
+        "ko_lubrication#0",
+        "ko_bearing#2",
+        "ko_linear_motion_bearing#0",
+        "ko_ball_bearing#7"
+      ],
+      "scores": [
+        16.2058,
+        14.4808,
+        14.2127,
+        12.8865,
+        11.8238,
+        11.4599,
+        9.8333,
+        9.7769,
+        9.1561,
+        8.5232
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf027",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#136": 2,
+        "luh-diss-stuhler-2024#192": 1,
+        "luh-diss-stuhler-2024#193": 1,
+        "luh-diss-stuhler-2024#135": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#192",
+        "luh-diss-stuhler-2024#151",
+        "luh-diss-stuhler-2024#201",
+        "luh-diss-stuhler-2024#167",
+        "luh-diss-stuhler-2024#83",
+        "luh-diss-stuhler-2024#153",
+        "luh-diss-stuhler-2024#123",
+        "luh-diss-stuhler-2024#42",
+        "luh-diss-stuhler-2024#162",
+        "luh-diss-stuhler-2024#194"
+      ],
+      "scores": [
+        12.1878,
+        10.7778,
+        10.3932,
+        10.3432,
+        10.2076,
+        10.016,
+        9.172,
+        8.9395,
+        8.679,
+        8.6614
+      ],
+      "metrics": {
+        "recall@5": 0.25,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.2807721888661444
+      }
+    },
+    {
+      "qid": "pdf028",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#145": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#4",
+        "en_bearing_mechanical#15",
+        "en_tapered_roller_bearing#1",
+        "luh-diss-stuhler-2024#204",
+        "en_ball_bearing#5",
+        "nasa-tp-2013-215305-rev1#89",
+        "en_rolling_element_bearing#7",
+        "luh-diss-stuhler-2024#7",
+        "en_plain_bearing#9",
+        "nasa-tp-2013-215305-rev1#11"
+      ],
+      "scores": [
+        11.5819,
+        10.3108,
+        10.2683,
+        10.2272,
+        9.9013,
+        9.4155,
+        9.176,
+        9.0059,
+        8.8982,
+        8.7042
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf029",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#122": 2,
+        "luh-diss-stuhler-2024#121": 1
+      },
+      "ranked": [
+        "ko_lubrication#0",
+        "ko_ball_bearing#10",
+        "ko_bearing#2",
+        "ko_bearing#4",
+        "ko_linear_motion_bearing#0",
+        "ko_ball_bearing#4",
+        "ko_lubricant#1",
+        "ko_ball_bearing#8",
+        "ko_bearing#1",
+        "ko_ball_bearing#6"
+      ],
+      "scores": [
+        14.0229,
+        11.644,
+        11.3367,
+        11.2136,
+        10.8344,
+        10.6273,
+        10.3999,
+        9.6242,
+        9.4221,
+        7.8098
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf030",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#173": 2,
+        "luh-diss-stuhler-2024#172": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#173",
+        "luh-diss-stuhler-2024#170",
+        "luh-diss-stuhler-2024#166",
+        "luh-diss-stuhler-2024#168",
+        "luh-diss-stuhler-2024#149",
+        "luh-diss-stuhler-2024#172",
+        "luh-diss-stuhler-2024#115",
+        "luh-diss-stuhler-2024#123",
+        "luh-diss-stuhler-2024#93",
+        "luh-diss-stuhler-2024#167"
+      ],
+      "scores": [
+        25.9569,
+        21.0829,
+        20.0089,
+        19.1472,
+        18.5668,
+        17.9836,
+        17.8309,
+        17.708,
+        17.6316,
+        17.5089
+      ],
+      "metrics": {
+        "recall@5": 0.5,
+        "mrr@10": 1.0,
+        "ndcg@10": 0.8955796649110442
+      }
+    },
+    {
+      "qid": "pdf031",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#47": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#7",
+        "luh-diss-stuhler-2024#45",
+        "luh-diss-stuhler-2024#48",
+        "luh-diss-stuhler-2024#22",
+        "luh-diss-stuhler-2024#133",
+        "luh-diss-stuhler-2024#21",
+        "luh-diss-stuhler-2024#64",
+        "luh-diss-stuhler-2024#32",
+        "luh-diss-stuhler-2024#5",
+        "luh-diss-stuhler-2024#185"
+      ],
+      "scores": [
+        13.3359,
+        12.9685,
+        12.9521,
+        12.7885,
+        12.6514,
+        12.6326,
+        12.611,
+        12.5646,
+        12.216,
+        11.9818
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf032",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#26": 2,
+        "luh-diss-stuhler-2024#25": 2,
+        "luh-diss-stuhler-2024#142": 1,
+        "luh-diss-stuhler-2024#143": 1
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#204",
+        "nasa-tm-2017-219545#6",
+        "luh-diss-stuhler-2024#7",
+        "luh-diss-stuhler-2024#3",
+        "luh-diss-stuhler-2024#4",
+        "luh-diss-stuhler-2024#206",
+        "en_tribology#30",
+        "nasa-tm-2017-219545#28",
+        "nasa-tm-2015-218895#27",
+        "nasa-tm-2015-218895#10"
+      ],
+      "scores": [
+        15.1704,
+        15.0229,
+        14.8715,
+        14.7921,
+        13.753,
+        13.3238,
+        11.5791,
+        10.9762,
+        10.8803,
+        10.7122
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf033",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#135": 2,
+        "luh-diss-stuhler-2024#193": 2,
+        "luh-diss-stuhler-2024#200": 2,
+        "luh-diss-stuhler-2024#136": 1,
+        "luh-diss-stuhler-2024#134": 1
+      },
+      "ranked": [
+        "ko_bearing#2",
+        "ko_ball_bearing#8",
+        "ko_ball_bearing#13",
+        "ko_linear_motion_bearing#0",
+        "ko_lubricant#0",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#3",
+        "ko_seal#1",
+        "ko_ball_bearing#6"
+      ],
+      "scores": [
+        12.615,
+        12.3544,
+        12.0016,
+        11.4188,
+        11.3236,
+        10.8625,
+        10.7488,
+        10.2405,
+        9.714,
+        9.6957
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf034",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-stuhler-2024#99": 2
+      },
+      "ranked": [
+        "en_rolling_element_bearing#5",
+        "en_tapered_roller_bearing#1",
+        "en_needle_roller_bearing#0",
+        "en_tapered_roller_bearing#0",
+        "nasa-tm-2015-218895#18",
+        "nasa-tm-2015-218895#10",
+        "en_bearing_mechanical#1",
+        "nasa-tm-2017-219545#6",
+        "en_ball_bearing#7",
+        "en_tapered_roller_bearing#2"
+      ],
+      "scores": [
+        15.1899,
+        14.6016,
+        12.6222,
+        12.2822,
+        11.9436,
+        11.6826,
+        11.6803,
+        11.5561,
+        11.5489,
+        11.5058
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf035",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-stuhler-2024#45": 2
+      },
+      "ranked": [
+        "luh-diss-stuhler-2024#45",
+        "luh-diss-stuhler-2024#44",
+        "luh-diss-stuhler-2024#69",
+        "luh-diss-stuhler-2024#121",
+        "luh-diss-stuhler-2024#83",
+        "de_gleitlager#0",
+        "luh-diss-stuhler-2024#97",
+        "luh-diss-stuhler-2024#110",
+        "luh-diss-stuhler-2024#68",
+        "luh-diss-stuhler-2024#82"
+      ],
+      "scores": [
+        13.555,
+        12.3734,
+        11.7543,
+        10.1797,
+        9.655,
+        9.0571,
+        8.7834,
+        8.7198,
+        8.6339,
+        8.0711
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf036",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#73": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#6",
+        "luh-diss-pelzer-2022#73",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#1",
+        "luh-diss-pelzer-2022#7",
+        "luh-diss-pelzer-2022#71",
+        "ko_wear#0",
+        "luh-diss-pelzer-2022#70",
+        "luh-diss-pelzer-2022#5",
+        "luh-diss-stuhler-2024#58"
+      ],
+      "scores": [
+        10.6109,
+        9.7872,
+        8.053,
+        7.2512,
+        6.4172,
+        6.3869,
+        6.0089,
+        5.685,
+        5.5116,
+        5.2352
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf037",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#16": 2,
+        "luh-diss-pelzer-2022#1": 1
+      },
+      "ranked": [
+        "en_radial_shaft_seal#1",
+        "en_radial_shaft_seal#0",
+        "luh-diss-pelzer-2022#10",
+        "en_rolling_element_bearing#0",
+        "en_bearing_mechanical#2",
+        "en_rolling_element_bearing#1",
+        "en_seal_mechanical#0",
+        "en_bearing_mechanical#3",
+        "luh-diss-pelzer-2022#101",
+        "en_bearing_mechanical#1"
+      ],
+      "scores": [
+        22.0285,
+        17.7516,
+        15.4396,
+        14.0254,
+        13.527,
+        13.4059,
+        13.2329,
+        12.9799,
+        11.6337,
+        11.6002
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf038",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#70": 2,
+        "luh-diss-pelzer-2022#48": 1
+      },
+      "ranked": [
+        "en_radial_shaft_seal#0",
+        "luh-diss-pelzer-2022#10",
+        "luh-diss-pelzer-2022#97",
+        "en_ball_bearing#12",
+        "en_radial_shaft_seal#1",
+        "en_bearing_mechanical#10",
+        "en_radial_shaft_seal#2",
+        "en_tribology#21",
+        "en_bearing_mechanical#15",
+        "en_bearing_mechanical#11"
+      ],
+      "scores": [
+        15.663,
+        13.5439,
+        12.5109,
+        12.4922,
+        11.8754,
+        11.6198,
+        11.601,
+        11.5322,
+        10.9421,
+        10.4109
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf039",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#71": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#66",
+        "luh-diss-pelzer-2022#71",
+        "luh-diss-pelzer-2022#24",
+        "luh-diss-pelzer-2022#73",
+        "luh-diss-pelzer-2022#60",
+        "luh-diss-pelzer-2022#14",
+        "de_waelzlager#6",
+        "luh-diss-pelzer-2022#41",
+        "de_homokinetisches_gelenk#3",
+        "de_gleitlager#9"
+      ],
+      "scores": [
+        10.6657,
+        10.0869,
+        9.954,
+        9.4801,
+        8.9036,
+        8.8135,
+        8.6097,
+        8.5744,
+        8.5723,
+        8.5701
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "qid": "pdf040",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#84": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#8",
+        "ko_shaft#0",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#17",
+        "ko_ball_bearing#14",
+        "ko_differential#0",
+        "ko_bearing#3",
+        "ko_bearing#4",
+        "ko_ball_bearing#13"
+      ],
+      "scores": [
+        14.0799,
+        13.0262,
+        11.5342,
+        11.2351,
+        10.17,
+        9.1311,
+        9.1023,
+        8.7346,
+        8.6658,
+        8.5976
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf041",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#85": 2,
+        "luh-diss-pelzer-2022#86": 1
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#10",
+        "en_radial_shaft_seal#0",
+        "en_plain_bearing#10",
+        "en_bearing_mechanical#9",
+        "luh-diss-stuhler-2024#4",
+        "en_ball_bearing#10",
+        "en_ball_bearing#12",
+        "en_radial_shaft_seal#1",
+        "luh-diss-stuhler-2024#3",
+        "en_tribology#8"
+      ],
+      "scores": [
+        16.1025,
+        14.6704,
+        14.4442,
+        14.4152,
+        14.3978,
+        13.7648,
+        13.6274,
+        13.28,
+        13.208,
+        13.0711
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf042",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#88": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#88",
+        "luh-diss-pelzer-2022#60",
+        "luh-diss-pelzer-2022#87",
+        "luh-diss-pelzer-2022#68",
+        "luh-diss-pelzer-2022#58",
+        "luh-diss-pelzer-2022#81",
+        "luh-diss-pelzer-2022#4",
+        "luh-diss-pelzer-2022#59",
+        "luh-diss-pelzer-2022#89",
+        "luh-diss-pelzer-2022#76"
+      ],
+      "scores": [
+        21.3597,
+        17.2613,
+        16.5912,
+        15.3379,
+        14.9342,
+        14.9331,
+        14.5457,
+        14.3087,
+        13.9842,
+        13.8551
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf043",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "luh-diss-pelzer-2022#79": 2
+      },
+      "ranked": [
+        "ko_ball_bearing#13",
+        "ko_bearing#2",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#14",
+        "ko_ball_bearing#12",
+        "ko_differential#0",
+        "ko_bearing#3",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#17",
+        "ko_bearing#1"
+      ],
+      "scores": [
+        19.4963,
+        13.8022,
+        13.5747,
+        13.315,
+        12.9072,
+        11.9916,
+        11.7658,
+        10.4294,
+        10.0664,
+        9.9973
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf044",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "luh-diss-pelzer-2022#21": 2
+      },
+      "ranked": [
+        "luh-diss-pelzer-2022#82",
+        "luh-diss-pelzer-2022#19",
+        "luh-diss-pelzer-2022#22",
+        "luh-diss-pelzer-2022#83",
+        "luh-diss-pelzer-2022#6",
+        "luh-diss-pelzer-2022#84",
+        "luh-diss-pelzer-2022#72",
+        "luh-diss-pelzer-2022#21",
+        "luh-diss-pelzer-2022#2",
+        "luh-diss-pelzer-2022#73"
+      ],
+      "scores": [
+        10.183,
+        8.9507,
+        8.696,
+        7.8027,
+        7.2685,
+        6.7172,
+        6.7101,
+        6.5617,
+        6.465,
+        6.2286
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.125,
+        "ndcg@10": 0.31546487678572877
+      }
+    },
+    {
+      "qid": "pdf045",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#6": 2,
+        "innotrac-2020-467#8": 1
+      },
+      "ranked": [
+        "ko_lubrication#0",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#15",
+        "ko_lubricant#2",
+        "ko_ball_bearing#14",
+        "ko_bearing#2",
+        "ko_ball_bearing#18",
+        "ko_bearing#0",
+        "ko_ball_bearing#17",
+        "ko_bearing#4"
+      ],
+      "scores": [
+        8.3139,
+        7.7669,
+        7.4008,
+        6.1569,
+        6.139,
+        5.4377,
+        5.4281,
+        5.4278,
+        5.3509,
+        5.2945
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf046",
+      "group": "en->de",
+      "q_lang": "en",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#7": 2
+      },
+      "ranked": [
+        "en_plain_bearing#6",
+        "en_plain_bearing#5",
+        "en_bearing_mechanical#6",
+        "en_bearing_mechanical#7",
+        "en_wear#9",
+        "en_plain_bearing#7",
+        "en_bearing_mechanical#3",
+        "en_bearing_mechanical#1",
+        "en_bearing_mechanical#13",
+        "en_plain_bearing#1"
+      ],
+      "scores": [
+        10.484,
+        8.7998,
+        8.12,
+        7.8744,
+        7.4489,
+        7.2994,
+        6.993,
+        6.9117,
+        6.8429,
+        6.8038
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "qid": "pdf047",
+      "group": "de->de",
+      "q_lang": "de",
+      "type": "mono",
+      "difficulty": "easy",
+      "gold": {
+        "innotrac-2020-467#4": 2
+      },
+      "ranked": [
+        "innotrac-2020-467#4",
+        "innotrac-2020-467#5",
+        "de_waelzlager#10",
+        "luh-diss-stuhler-2024#65",
+        "innotrac-2020-467#3",
+        "luh-diss-pelzer-2022#86",
+        "innotrac-2020-467#6",
+        "de_waelzlager#9",
+        "luh-diss-pelzer-2022#74",
+        "luh-diss-stuhler-2024#86"
+      ],
+      "scores": [
+        15.204,
+        8.4261,
+        7.192,
+        7.1324,
+        7.0141,
+        6.9775,
+        6.8441,
+        6.4642,
+        6.4606,
+        6.4269
+      ],
+      "metrics": {
+        "recall@5": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "qid": "pdf048",
+      "group": "ko->de",
+      "q_lang": "ko",
+      "type": "cross",
+      "difficulty": "hard",
+      "gold": {
+        "innotrac-2020-467#6": 2
+      },
+      "ranked": [
+        "ko_lubrication#0",
+        "ko_bearing#1",
+        "ko_ball_bearing#15",
+        "ko_ball_bearing#10",
+        "ko_ball_bearing#12",
+        "ko_ball_bearing#11",
+        "ko_ball_bearing#13",
+        "ko_ball_bearing#18",
+        "ko_ball_bearing#16",
+        "ko_ball_bearing#17"
+      ],
+      "scores": [
+        11.476,
+        9.417,
+        6.4166,
+        5.8296,
+        5.7054,
+        5.6661,
+        5.6094,
+        5.6003,
+        5.599,
+        5.5249
+      ],
+      "metrics": {
+        "recall@5": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    }
+  ],
+  "timing": {
+    "index": {
+      "build_seconds": 2.311299023218453,
+      "tokenize_seconds": 2.2431564470753074,
+      "n_chunks": 903,
+      "vocab_size": 21470,
+      "avg_tokens_per_chunk": 207.16832779623476
+    },
+    "query_latency_ms": {
+      "p50": 0.22968347184360027,
+      "p95": 0.797945074737072,
+      "mean": 0.37176895420998335
+    }
+  },
+  "extra": {
+    "retriever": "bm25_kiwi",
+    "n_chunks": 903
+  }
+}
