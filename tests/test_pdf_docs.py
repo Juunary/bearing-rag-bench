@@ -30,6 +30,7 @@ def test_build_doc_rules_and_block_offsets():
         {"page": 0, "kind": "paragraph", "role": "body", "text": "The basic rating   life is L10."},
         {"page": 0, "kind": "table", "cells": [["Type", "C (kN)"], ["6205", "14.8"], ["", ""]], "rows": 3, "cols": 2},
         {"page": 0, "kind": "figure", "labels": ["0", "10"]},
+        {"page": 0, "kind": "paragraph", "role": "body", "text": "Tabelle 3 Versuchsöle . . . . . . . . 55"},
         {"page": 1, "kind": "paragraph", "role": "footer", "text": "2"},
         {"page": 1, "kind": "paragraph", "role": "heading", "text": "5. References"},
         {"page": 1, "kind": "paragraph", "role": "body", "text": "[1] Someone, 2020."},

@@ -7,14 +7,14 @@
   evidence (grade 2): its language decides mono vs cross and the group. Prints a per-language /
   mono-vs-cross coverage table at the end.
 - Exit code 1 if any problem, so it can double as a test later.
-- Usage: uv run python scripts/validate_eval.py [eval/queries.jsonl]
+- Usage: uv run python scripts/validate_eval.py [eval/queries.jsonl] [--corpus=wiki_pdf]
 
 [KO]
 - 역할: 평가셋을 쓰는 동안 돌리는 검사기. 질문마다 필수 필드, gold의 doc_id 존재, anchor가 문서에서
   찾아지는지(정확/공백 무시), 기본 청킹에서 청크 1개 이상에 매핑되는지 확인한다. gold[0]이 주 근거
   (등급 2)이며 그 언어가 단일/교차와 그룹을 결정한다. 끝에 언어별 분포 표를 출력한다.
 - 문제가 하나라도 있으면 종료 코드 1 (나중에 테스트로도 쓸 수 있음).
-- 사용: uv run python scripts/validate_eval.py [eval/queries.jsonl]
+- 사용: uv run python scripts/validate_eval.py [eval/queries.jsonl] [--corpus=wiki_pdf]
 """
 
 from __future__ import annotations
@@ -28,16 +28,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ragbench.chunking import load_chunks  # noqa: E402
 from ragbench.config import ChunkingConfig  # noqa: E402
 from ragbench.evalset import locate_anchor, map_gold_to_chunks  # noqa: E402
-from ragbench.ingest import REPO, load_docs  # noqa: E402
+from ragbench.ingest import REPO, load_corpus  # noqa: E402
 
 REQUIRED = {"qid", "q_lang", "question", "gold", "type"}
 LANGS = {"ko", "en", "de"}
 
 
 def main() -> None:
-    path = Path(sys.argv[1]) if len(sys.argv) > 1 else REPO / "eval" / "queries.jsonl"
-    docs = {d["doc_id"]: d for d in load_docs()}
-    chunks = load_chunks(ChunkingConfig())
+    args = [a for a in sys.argv[1:] if not a.startswith("--corpus=")]
+    corpus = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--corpus=")), "wiki")
+    path = Path(args[0]) if args else REPO / "eval" / "queries.jsonl"
+    docs = {d["doc_id"]: d for d in load_corpus(corpus)}
+    chunks = load_chunks(ChunkingConfig(corpus=corpus))
     problems: list[str] = []
     seen_qids: set[str] = set()
     rows = []

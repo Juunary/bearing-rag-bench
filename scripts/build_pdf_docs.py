@@ -7,7 +7,7 @@
 - Block -> text rules: page headers and footers are dropped (running heads, page numbers); a heading paragraph starts a
   new section (path = [heading]); body, list items, captions, footnotes and other paragraphs are kept, one per line;
   a table becomes one line per row "| cell | cell |" (merged cells keep their text in the top-left cell); figure
-  labels (axis ticks, legends) are dropped. Sections named like the boilerplate list of ingest.py
+  labels (axis ticks, legends) and table-of-contents lines (dot leaders ending in a page number) are dropped. Sections named like the boilerplate list of ingest.py
   (References, Literatur, 참고문헌 ...) are dropped, as for Wikipedia.
 - Extra fields: source_type "pdf", sha256, pages, extractor {tool, pdf_editor_commit}, blocks [{page, kind, role,
   start, end}] with char offsets into `text` (which page an anchor comes from; tables can be found again).
@@ -19,7 +19,7 @@
   읽기 순서 블록을 얻는다.
 - 블록 -> 텍스트 규칙: 머리말·꼬리말(반복 제목, 쪽 번호)은 버린다. 제목 문단은 새 절을 연다(경로 = [제목]). 본문·목록·
   캡션·각주·기타 문단은 한 줄에 하나씩 남긴다. 표는 행마다 한 줄 "| 칸 | 칸 |"(병합 셀 글자는 왼쪽 위 칸). 그림 안 글자
-  (축 눈금, 범례)는 버린다. 참고문헌류 절(ingest.py 목록)은 위키와 같이 버린다.
+  (축 눈금, 범례)와 목차 줄(점선 뒤 쪽 번호)은 버린다. 참고문헌류 절(ingest.py 목록)은 위키와 같이 버린다.
 - 추가 필드: source_type "pdf", sha256, pages, extractor {tool, pdf_editor_commit}, blocks [{page, kind, role,
   start, end}](text 안의 글자 위치. 근거 문장이 몇 쪽인지, 표가 어디인지 다시 찾을 수 있다).
 - 사용: uv run python scripts/build_pdf_docs.py [--pdf-editor /path/to/pdf-editor] [--only id ...]
@@ -46,6 +46,8 @@ RAW = REPO / "data" / "raw" / "pdf"
 OUT = REPO / "data" / "processed" / "docs_pdf.jsonl"
 EXPORTER = REPO / "scripts" / "pdf_layout_export.mjs"
 DROP_ROLES = {"header", "footer"}
+# 목차·그림 목록 줄: 점선(". . . ." 또는 "....") 뒤 쪽 번호로 끝난다
+_TOC_LEADER = re.compile(r"(?:\.\s?){4,}\s*[0-9ivxlc]+\s*$", re.IGNORECASE)
 _NUMBERING = re.compile(r"^\s*(?:[0-9]+(?:\.[0-9]+)*\.?|[IVXLC]+\.|[A-Z]\.)\s+")
 
 
@@ -85,7 +87,7 @@ def build_doc(src: dict[str, Any], rows: list[dict[str, Any]], meta: dict[str, A
         info = {"page": r["page"], "kind": r["kind"], "role": r.get("role")}
         lines = table_lines(r["cells"]) if r["kind"] == "table" else [clean_body(r["text"]).replace("\n", " ")]
         for ln in lines:
-            if ln.strip():
+            if ln.strip() and not (r["kind"] == "paragraph" and _TOC_LEADER.search(ln)):
                 sections[-1]["lines"].append((ln, info))
     sections = [s for s in sections if s["lines"] and not (s["path"] and heading_key(s["path"][-1]) in DROP_SECTIONS)]
 

@@ -1,0 +1,74 @@
+{
+ "version": 1,
+ "description": "PDF corpus: bearing documents with a confirmed open license. PDFs are not committed; scripts/build_pdf_docs.py downloads them from url and checks sha256. No Korean document passed the license policy (2026-11-02 search).",
+ "licensePolicy": "Only public domain (US federal works), CC0, CC BY, CC BY-SA and KOGL Type 1 (공공누리 제1유형); the license must be confirmed on the landing page or repository metadata",
+ "selectionDate": "2026-11-02",
+ "documents": [
+  {
+   "id": "nasa-tp-2013-215305-rev1",
+   "lang": "en",
+   "title": "Rolling Bearing Life Prediction, Theory, and Application (NASA/TP-2013-215305/REV1, Zaretsky, 2016)",
+   "url": "https://ntrs.nasa.gov/api/citations/20160013905/downloads/20160013905.pdf",
+   "landingUrl": "https://ntrs.nasa.gov/citations/20160013905",
+   "license": "Public domain (US Government work)",
+   "licenseEvidence": "NTRS API copyright.determinationType = GOV_PUBLIC_USE_PERMITTED, containsThirdPartyMaterial = false, distribution PUBLIC (checked 2026-11-02)",
+   "pages": 66,
+   "sha256": "41a801ac89554e2fe675f85574dcda360297eda1207ad70b57d0bf15fa02f860"
+  },
+  {
+   "id": "nasa-tm-2017-219545",
+   "lang": "en",
+   "title": "Rolling-Bearing Service Life Based on Probable Cause for Removal: A Tutorial (NASA/TM-2017-219545, Zaretsky & Branzai)",
+   "url": "https://ntrs.nasa.gov/api/citations/20170009563/downloads/20170009563.pdf",
+   "landingUrl": "https://ntrs.nasa.gov/citations/20170009563",
+   "license": "Public domain (US Government work)",
+   "licenseEvidence": "NTRS API copyright.determinationType = PUBLIC_USE_PERMITTED, containsThirdPartyMaterial = false, distribution PUBLIC (checked 2026-11-02)",
+   "pages": 30,
+   "sha256": "896b21091c661bc7d36641b1d0e9d0ac75020d2a46fdc1e150bb23acf99201e5"
+  },
+  {
+   "id": "nasa-tm-2015-218895",
+   "lang": "en",
+   "title": "Effect of Roller Geometry on Roller Bearing Load-Life Relation (NASA/TM-2015-218895, Oswald, Zaretsky, Poplawski)",
+   "url": "https://ntrs.nasa.gov/api/citations/20160000341/downloads/20160000341.pdf",
+   "landingUrl": "https://ntrs.nasa.gov/citations/20160000341",
+   "license": "Public domain (US Government work)",
+   "licenseEvidence": "NTRS API copyright.determinationType = PUBLIC_USE_PERMITTED, containsThirdPartyMaterial = false, distribution PUBLIC (checked 2026-11-02)",
+   "pages": 34,
+   "sha256": "e26a4e6644130720f0974497256260c5ed2a94c96ef688f5ac23442c546abf5f"
+  },
+  {
+   "id": "luh-diss-stuhler-2024",
+   "lang": "de",
+   "title": "Schlupf- und Anschmieruntersuchungen zu vollrolligen, kleinen Zylinderrollenlagern unter radial exzentrischer und axialer Belastung (Dissertation, Stuhler, Leibniz Universität Hannover 2024)",
+   "url": "https://repo.uni-hannover.de/server/api/core/bitstreams/929e6412-fd23-4cba-836d-fc808d17ce4a/content",
+   "landingUrl": "https://doi.org/10.15488/17341",
+   "license": "CC BY 3.0 DE",
+   "licenseEvidence": "LUH repository item metadata dc.rights.license = CC BY 3.0 DE, dc.rights.uri = http://creativecommons.org/licenses/by/3.0/de/ (checked 2026-11-02)",
+   "pages": 143,
+   "sha256": "215209088b14e48bada542c860cbf176f6cf7288efcdfdc6d5613a8f7ae888f4"
+  },
+  {
+   "id": "luh-diss-pelzer-2022",
+   "lang": "de",
+   "title": "Analyse zum Dichtverhalten von rotierenden Radial-Wellendichtringen (Dissertation, Pelzer, Leibniz Universität Hannover 2022)",
+   "url": "https://repo.uni-hannover.de/server/api/core/bitstreams/7f697ba2-210e-4398-9f33-dcd52c2341fa/content",
+   "landingUrl": "https://doi.org/10.15488/11718",
+   "license": "CC BY 3.0 DE",
+   "licenseEvidence": "LUH repository item metadata dc.rights.license = CC BY 3.0 DE, dc.rights.uri = http://creativecommons.org/licenses/by/3.0/de/",
+   "pages": 95,
+   "sha256": "86e4c580984c95ebcfd07f173ec5ce1dadfa984856d0dc991731c55e3e72da7c"
+  },
+  {
+   "id": "innotrac-2020-467",
+   "lang": "de",
+   "title": "Kunststoffgleitlager mit intelligenter Verschleißüberwachung (Katzer, Bankwitz, Hübler; innoTRAC Journal 1 (2020) 140-148)",
+   "url": "https://www.bibliothek.tu-chemnitz.de/ojs/index.php/innoTRAC/article/download/467/195",
+   "landingUrl": "https://www.bibliothek.tu-chemnitz.de/ojs/index.php/innoTRAC/article/view/467",
+   "license": "CC BY 4.0",
+   "licenseEvidence": "Landing page: 'published open access under the license Creative Commons Attribution 4.0 (CC BY 4.0)'; PDF p.1 states CC-BY 4.0 (checked 2026-11-02)",
+   "pages": 9,
+   "sha256": "4e73475320db0346fb488559767891dc284f4af7f474bb30fa94c34d400d06db"
+  }
+ ]
+}
