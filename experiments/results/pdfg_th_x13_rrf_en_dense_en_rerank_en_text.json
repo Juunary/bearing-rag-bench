@@ -85,10 +85,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-11-02T17:10:36+00:00",
+    "timestamp": "2026-11-02T19:13:34+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "11ca3fd0d34510a63cd2c993c50d45bf87a96550",
+    "git_commit": "73c58765f38ddab630e095028edbdba01d6678db",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -105,65 +105,65 @@
   "metrics": {
     "overall": {
       "refused": 0.0,
-      "has_citation": 0.020833333333333332,
-      "citations_valid": 0.020833333333333332,
-      "cites_gold": 0.0,
-      "sentence_coverage": 0.020833333333333332,
+      "has_citation": 1.0,
+      "citations_valid": 0.9375,
+      "cites_gold": 0.9166666666666666,
+      "sentence_coverage": 0.90625,
       "gold_in_context": 0.9375,
       "n": 48
     },
     "by_group": {
       "ko->en": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 0.875,
+        "cites_gold": 0.875,
+        "sentence_coverage": 0.9583333333333334,
         "gold_in_context": 1.0,
         "n": 8
       },
       "en->en": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 0.875,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.8645833333333334,
         "gold_in_context": 1.0,
         "n": 8
       },
       "de->en": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 0.875,
+        "cites_gold": 0.875,
+        "sentence_coverage": 0.96875,
         "gold_in_context": 0.875,
         "n": 8
       },
       "en->de": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.8833333333333333,
         "gold_in_context": 1.0,
         "n": 8
       },
       "ko->de": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.875,
         "gold_in_context": 1.0,
         "n": 8
       },
       "de->de": {
         "refused": 0.0,
-        "has_citation": 0.125,
-        "citations_valid": 0.125,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.125,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 0.75,
+        "sentence_coverage": 0.8875,
         "gold_in_context": 0.75,
         "n": 8
       }
@@ -199,21 +199,23 @@
       "answer": "재료는 AISI M–50, 공정은 VIM–VAR, 최종 값은 12입니다 [nasa-tp-2013-215305-rev1#111].",
       "prompt_tokens": 2154,
       "completion_tokens": 52,
-      "seconds": 2.164,
+      "seconds": 2.019,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#111"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -246,21 +248,23 @@
       "answer": "In the mission profile of the commercial turboprop gearbox, 68.08 percent of the time is spent in cruise, and 1516 kW (2033 hp) of propeller shaft power is delivered in that segment [nasa-tp-2013-215305-rev1#115].",
       "prompt_tokens": 2191,
       "completion_tokens": 77,
-      "seconds": 2.416,
+      "seconds": 2.408,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#115"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -294,21 +298,25 @@
       "answer": "Die Lundberg-Palmgren-Analyse predicts eine L10-Lebensdauer von 774 Stunden für das Getriebe, wobei die rollerbasierten Lager als die am wenigsten lebenden Komponenten identifiziert werden [nasa-tp-2013-215305-rev1#116]. Die berechnete L10-Lebensdauer für das gesamte Getriebe basiert auf einem Lebensdauerfaktor p = 4 für Rollenlager [nasa-tp-2013-215305-rev1#116]. Die Analyse zeigt jedoch, dass die vorhergesagte Lebensdauer unter dem tatsächlichen Wert von 5627 Stunden liegt, was darauf hindeutet, dass die Standardwerte für p zu konservativ sind [nasa-tp-2013-215305-rev1#125]. Die tatsächliche L10-Lebensdauer des Getriebes wurde aus Felddaten auf 5627 Stunden geschätzt, was eine Abweichung von einem",
       "prompt_tokens": 2152,
       "completion_tokens": 256,
-      "seconds": 7.436,
+      "seconds": 7.124,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
+        "cited": [
+          "nasa-tp-2013-215305-rev1#116",
+          "nasa-tp-2013-215305-rev1#116",
+          "nasa-tp-2013-215305-rev1#125"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
         "cites_gold": false,
-        "sentence_coverage": 0.0
+        "sentence_coverage": 0.75
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
         "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "sentence_coverage": 0.75,
         "gold_in_context": 0.0
       }
     },
@@ -340,21 +348,23 @@
       "answer": "와이블 기반 몬테카를로 시뮬레이션에서 깊은 홈 볼베어링의 고장 중 내륜 고장은 70.1%를 차지했습니다 [nasa-tp-2013-215305-rev1#58].",
       "prompt_tokens": 2040,
       "completion_tokens": 69,
-      "seconds": 2.166,
+      "seconds": 2.215,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#58"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -387,21 +397,23 @@
       "answer": "For a medium-series ball bearing, the outer-race to inner-race life ratio Lo/Li is 8.36 for a Hertz stress-life exponent of 9 and 16.96 for a Hertz stress-life exponent of 12 [nasa-tp-2013-215305-rev1#73].",
       "prompt_tokens": 2778,
       "completion_tokens": 79,
-      "seconds": 2.677,
+      "seconds": 2.612,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#73"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -434,21 +446,23 @@
       "answer": "Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff ergaben einen Last-Lebensdauer-Exponenten von 3.6 und einen Spannungs-Lebensdauer-Exponenten von 10.8 [nasa-tp-2013-215305-rev1#86].",
       "prompt_tokens": 2223,
       "completion_tokens": 85,
-      "seconds": 2.801,
+      "seconds": 2.671,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#86"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -480,21 +494,24 @@
       "answer": "피로한도를 두지 않는 Lundberg-Palmgren 모델에서 최대 헤르츠 응력을 1379 MPa에서 2068 MPa로 올리면 상대 수명은 0.026으로 줄어듭니다 [nasa-tp-2013-215305-rev1#49]. 이 값은 최대 헤르츠 응력이 1379 MPa에서 2068 MPa로 증가했을 때, 상대 수명이 정규화된 상태에서의 값입니다 [nasa-tp-2013-215305-rev1#49].",
       "prompt_tokens": 2247,
       "completion_tokens": 163,
-      "seconds": 4.87,
+      "seconds": 4.885,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#49",
+          "nasa-tp-2013-215305-rev1#49"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -526,21 +543,24 @@
       "answer": "AMS 6278 (VIM–VAR M50 NiL) has a compressive residual stress of 0.4 GPa (58 ksi) from heat treatment [nasa-tp-2013-215305-rev1#97]. Its theoretical relative life at a maximum Hertz stress of 1.4 GPa is 280×10⁻², compared with 1 for AISI M–50 [nasa-tp-2013-215305-rev1#97].",
       "prompt_tokens": 2099,
       "completion_tokens": 126,
-      "seconds": 3.881,
+      "seconds": 3.818,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#97",
+          "nasa-tp-2013-215305-rev1#97"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -574,21 +594,23 @@
       "answer": "구름 베어링 크기별 형상·재료 계수 fcm 대표값은 ANSI/ABMA의 9번과 11번 규격에 나오나요 [nasa-tp-2013-215305-rev1#39].",
       "prompt_tokens": 2259,
       "completion_tokens": 66,
-      "seconds": 2.201,
+      "seconds": 2.197,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#39"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -621,21 +643,24 @@
       "answer": "Figure 27(b) shows Wöhler-type stress-cycle curves with an endurance limit [nasa-tp-2013-215305-rev1#127]. This is credited to Wohler's work, as the text states that Wohler was seeking to determine what was later determined as an \"endurance limit\" or \"fatigue limit\" [nasa-tp-2013-215305-rev1#127].",
       "prompt_tokens": 1987,
       "completion_tokens": 108,
-      "seconds": 3.422,
+      "seconds": 3.65,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#127",
+          "nasa-tp-2013-215305-rev1#127"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -668,21 +693,23 @@
       "answer": "Die Schmiegung an Innen- und Außenring liegt den nach Einführungsjahr aufgelisteten fcm-Werten der ANSI/ABMA-Norm 9 für Kugellager zugrunde, nämlich 0,52 [nasa-tp-2013-215305-rev1#40].",
       "prompt_tokens": 2445,
       "completion_tokens": 77,
-      "seconds": 2.677,
+      "seconds": 2.602,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#40"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -714,21 +741,23 @@
       "answer": "Praktisch alle Wälzlager in rotierenden Maschinen arbeiten unter einer maximalen Hertzschen Pressung von 2,1 GPa (300 ksi) [nasa-tp-2013-215305-rev1#89].",
       "prompt_tokens": 2226,
       "completion_tokens": 65,
-      "seconds": 2.224,
+      "seconds": 2.218,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#89"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -762,21 +791,24 @@
       "answer": "Out of the roughly 224,000 airline engine bearings that came back for repair, 1,977 were rejected because of fatigue, but the specific number attributed to spalling fatigue is not provided in the context. [nasa-tm-2017-219545#3] The data indicate that fatigue failures are generally not classified as spalling fatigue, and no subset of the fatigue failures is specified as spalling. [nasa-tm-2017-219545#27] Therefore, the exact number of bearings scrapped due to spalling fatigue cannot be determined from the given information.",
       "prompt_tokens": 1905,
       "completion_tokens": 138,
-      "seconds": 4.306,
+      "seconds": 4.094,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2017-219545#3",
+          "nasa-tm-2017-219545#27"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.6666666666666666
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.6666666666666666,
         "gold_in_context": 1.0
       }
     },
@@ -809,21 +841,24 @@
       "answer": "Cunningham과 Morgan은 1969년, 1971년, 그리고 1977년 동안 각각 80일간의 기간을 설정하여 베어링 폐기 원인 데이터를 모으었습니다 [nasa-tm-2017-219545#19]. 각 표본 기간은 80일이었습니다 [nasa-tm-2017-219545#10].",
       "prompt_tokens": 1951,
       "completion_tokens": 109,
-      "seconds": 3.344,
+      "seconds": 3.375,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2017-219545#19",
+          "nasa-tm-2017-219545#10"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -856,21 +891,25 @@
       "answer": "Laut der auf die Naval Air Rework Facility-Daten gestützten Analyse wären 97 Prozent der Lager bereits ausgebaut, wenn die rechnerische L10-Ermüdungslebensdauer von 5.000 h erreicht ist [nasa-tm-2017-219545#22]. Dies wird in der Analyse explizit genannt, bei der festgestellt wird, dass bei 5.000 h (dem L10-Ermüdungslebensdauer) 97 Prozent der Lager aus dem Betrieb entfernt werden [nasa-tm-2017-219545#23]. Die Angabe ist konsistent in mehreren Quellen, einschließlich der Daten aus dem Naval Air Rework Facility [nasa-tm-2017-219545#34].",
       "prompt_tokens": 1983,
       "completion_tokens": 201,
-      "seconds": 5.983,
+      "seconds": 6.005,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2017-219545#22",
+          "nasa-tm-2017-219545#23",
+          "nasa-tm-2017-219545#34"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -902,21 +941,25 @@
       "answer": "Corrosion pitting gives the shortest bearing life in the service life analysis built on the Naval Air Rework Facility removal data. [nasa-tm-2017-219545#24] This is because \"corrosion pitting\" is identified as the lowest lived failure mode, meaning it occurs at the earliest time compared to other failure modes. [nasa-tm-2017-219545#24] As a result, it dominates bearing failures and serves as a good approximation for the system Weibull properties. [nasa-tm-2017-219545#24]",
       "prompt_tokens": 1955,
       "completion_tokens": 141,
-      "seconds": 4.27,
+      "seconds": 4.204,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2017-219545#24",
+          "nasa-tm-2017-219545#24",
+          "nasa-tm-2017-219545#24"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.75
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.75,
         "gold_in_context": 1.0
       }
     },
@@ -948,21 +991,24 @@
       "answer": "베어링을 새로 사는 대신 재가공(rework)해서 다시 쓰면, 비용이 새 베어링 대비 53%에서 82%까지 절약될 수 있습니다 [nasa-tm-2017-219545#2]. 이 비용 절감은 베어링의 크기, 복잡성, 그리고 재가공의 범위에 따라 달라질 수 있습니다 [nasa-tm-2017-219545#2].",
       "prompt_tokens": 1950,
       "completion_tokens": 123,
-      "seconds": 3.714,
+      "seconds": 3.77,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
+        "cited": [
+          "nasa-tm-2017-219545#2",
+          "nasa-tm-2017-219545#2"
+        ],
+        "has_citation": true,
         "citations_valid": false,
         "cites_gold": false,
-        "sentence_coverage": 0.0
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
+        "has_citation": 1.0,
         "citations_valid": 0.0,
         "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -995,21 +1041,24 @@
       "answer": "Die Hauptwellenlager von Fluggasturbinen waren Anfang der 1950er-Jahre auf eine Lebensdauer von etwa 300 Stunden begrenzt [nasa-tm-2017-219545#9]. Diese Grenze war eng mit der Fatiguelast der Rollkörperelemente verbunden, die die Lebensdauer und Zuverlässigkeit der Motoren bestimmen [nasa-tm-2017-219545#32].",
       "prompt_tokens": 2027,
       "completion_tokens": 119,
-      "seconds": 3.703,
+      "seconds": 3.67,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2017-219545#9",
+          "nasa-tm-2017-219545#32"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1041,21 +1090,23 @@
       "answer": "The life was reduced by approximately 30 percent due to edge loading compared to the effect of stress at the center of the contact area. [nasa-tm-2015-218895#7]",
       "prompt_tokens": 1992,
       "completion_tokens": 48,
-      "seconds": 1.745,
+      "seconds": 1.669,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2015-218895#7"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.5
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.5,
         "gold_in_context": 1.0
       }
     },
@@ -1088,21 +1139,23 @@
       "answer": "에어로스페이스 롤러 프로파일에서 내륜 최대 헤르츠 응력은 2240 MPa (325 ksi)입니다 [nasa-tm-2015-218895#19].",
       "prompt_tokens": 2195,
       "completion_tokens": 63,
-      "seconds": 2.214,
+      "seconds": 2.151,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2015-218895#19"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1134,21 +1187,23 @@
       "answer": "Der Last-Lebensdauer-Exponent p sinkt bei Zylinderrollen mit sehr starker Vollbombierung (R = 100·d) von p = 4 (für unbombierte Rollen) auf p = 3.1 [nasa-tm-2015-218895#20].",
       "prompt_tokens": 1969,
       "completion_tokens": 75,
-      "seconds": 2.43,
+      "seconds": 2.422,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tm-2015-218895#20"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1182,21 +1237,25 @@
       "answer": "For cylindrical roller bearings with an aerospace-type or chamfered end relief, you should use a load-life exponent of p = 4.6 according to the Zaretsky life model [nasa-tm-2015-218895#3]. This is lower than the p = 5.0 exponent for flat (uncrowned) rollers, reflecting the effect of end relief on reducing the load-life exponent [nasa-tm-2015-218895#2]. It is higher than the p = 4.3 exponent for fully crowned rollers, indicating that aerospace or chamfered profiles offer a balance between improved load distribution and reduced life prediction compared to fully crowned rollers [nasa-tm-2015-218895#2].",
       "prompt_tokens": 2072,
       "completion_tokens": 168,
-      "seconds": 5.187,
+      "seconds": 5.044,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
+        "cited": [
+          "nasa-tm-2015-218895#3",
+          "nasa-tm-2015-218895#2",
+          "nasa-tm-2015-218895#2"
+        ],
+        "has_citation": true,
         "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
+        "has_citation": 1.0,
         "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1229,21 +1288,24 @@
       "answer": "Lundberg-Palmgren 방식은 상용 터보프롭 기어박스의 L10 수명을 7.56배나 낮게 예측했습니다. [nasa-tp-2013-215305-rev1#122] 이 데이터는 현장 수명이 5627시간이었고, Lundberg-Palmgren 모델로 예측된 수명은 774시간이었기 때문입니다. [nasa-tm-2015-218895#23] 이는 실제 수명보다 예측된 수명이 훨씬 낮음을 나타냅니다.",
       "prompt_tokens": 2238,
       "completion_tokens": 154,
-      "seconds": 4.752,
+      "seconds": 4.748,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "nasa-tp-2013-215305-rev1#122",
+          "nasa-tm-2015-218895#23"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.6666666666666666
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.6666666666666666,
         "gold_in_context": 1.0
       }
     },
@@ -1275,21 +1337,25 @@
       "answer": "Die Ausfälle der im Feld beobachteten Turboprop-Getriebe gingen etwa 90 Prozent auf die Planetenlager zurück, weniger als 2 Prozent auf die Zahnräder und der Rest auf andere Lager [nasa-tm-2015-218895#2]. Der Anteil der Planetenlager betrug somit etwa 90 Prozent [nasa-tm-2015-218895#25]. Der Anteil der Zahnräder betrug weniger als 2 Prozent [nasa-tm-2015-218895#25].",
       "prompt_tokens": 2173,
       "completion_tokens": 142,
-      "seconds": 4.324,
+      "seconds": 4.27,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
+        "cited": [
+          "nasa-tm-2015-218895#2",
+          "nasa-tm-2015-218895#25",
+          "nasa-tm-2015-218895#25"
+        ],
+        "has_citation": true,
         "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
+        "has_citation": 1.0,
         "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1321,21 +1387,23 @@
       "answer": "The shaft speed was varied over the range of 900 to 2700 min⁻¹ with a step size of 450 min⁻¹ [luh-diss-stuhler-2024#85].",
       "prompt_tokens": 2585,
       "completion_tokens": 52,
-      "seconds": 1.932,
+      "seconds": 1.9,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#85"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1368,21 +1436,24 @@
       "answer": "표준 첨가제 오일의 황(S) 함량은 2975 mg/kg입니다 [luh-diss-stuhler-2024#176]. 저첨가 오일의 황(S) 함량은 489 mg/kg입니다 [luh-diss-stuhler-2024#176].",
       "prompt_tokens": 2381,
       "completion_tokens": 81,
-      "seconds": 2.688,
+      "seconds": 2.663,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#176",
+          "luh-diss-stuhler-2024#176"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1417,21 +1488,23 @@
       "answer": "In der Einzelparametervariation wurde eine Radialkraft von 50 kN als hohe Stufe gefahren, und dabei traten Anschmierungen auf [luh-diss-stuhler-2024#136].",
       "prompt_tokens": 2607,
       "completion_tokens": 58,
-      "seconds": 2.091,
+      "seconds": 2.101,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#136"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1463,21 +1536,23 @@
       "answer": "The three levels of mounted radial clearance used in the central composite test plan for smearing of the full-complement NUP 2208 bearing are 16 µm, 22 µm, and 28 µm [luh-diss-stuhler-2024#145].",
       "prompt_tokens": 2431,
       "completion_tokens": 68,
-      "seconds": 2.342,
+      "seconds": 2.324,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#145"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1510,21 +1585,23 @@
       "answer": "NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용한 유압유의 ISO 점도 등급은 32입니다 [luh-diss-stuhler-2024#122].",
       "prompt_tokens": 2345,
       "completion_tokens": 62,
-      "seconds": 2.176,
+      "seconds": 2.169,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#122"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1557,21 +1634,26 @@
       "answer": "Das vollrollige NUP 2208 schmierte bei 1350 min−1, 35 kN Radial-, 2,3 kN Axialkraft und 70 °C mit einer Schadensklasse 3 trotz reduzierter axialer Luft am Außenring und 60 min Einlauf [luh-diss-stuhler-2024#173]. Dies ist in der Tabelle 11 für Nr. 18 zu finden, wo die Schadensklasse 3 bei diesen Bedingungen aufgeführt ist [luh-diss-stuhler-2024#173]. Die reduzierte axiale Luft wird in Tabelle 13 und Tabelle 16 diskutiert, aber die Schadensklasse bleibt bei 3 [luh-diss-stuhler-2024#170][luh-diss-stuhler-2024#179]. Die Schadensklasse 3 zeigt einen höheren Schadensgrad, was auf eine geringere Anschmierneigung hinweist [luh-diss-stuhler-",
       "prompt_tokens": 2722,
       "completion_tokens": 256,
-      "seconds": 7.548,
+      "seconds": 7.487,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#173",
+          "luh-diss-stuhler-2024#173",
+          "luh-diss-stuhler-2024#170",
+          "luh-diss-stuhler-2024#179"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.6
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.6,
         "gold_in_context": 1.0
       }
     },
@@ -1603,21 +1685,25 @@
       "answer": "In Abbildung 12 (a) und (b) wird die Aufbauweise der Messspule und der mit Magnet präparierten Rolle zur Messung der Rollendrehzahl dargestellt [luh-diss-stuhler-2024#48]. Die Spule ist koaxial zum Wälzkörpersatz angeordnet und wird mit einem diametral geteilten Magnet verwendet [luh-diss-stuhler-2024#189]. Der Wälzkörper ist mit einem durchgehenden Stift versehen, der sowohl den Abstand zwischen Spule und Magneten reduziert als auch die Drehzahlinformation ermöglicht [luh-diss-stuhler-2024#48].",
       "prompt_tokens": 2515,
       "completion_tokens": 168,
-      "seconds": 5.312,
+      "seconds": 5.087,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
+        "cited": [
+          "luh-diss-stuhler-2024#48",
+          "luh-diss-stuhler-2024#189",
+          "luh-diss-stuhler-2024#48"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
         "cites_gold": false,
-        "sentence_coverage": 0.0
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
         "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 0.0
       }
     },
@@ -1652,21 +1738,26 @@
       "answer": "Tabelle 1 collects the energy-based criteria from earlier work for predicting the risk of smearing [luh-diss-stuhler-2024#26]. This table includes parameters such as fresslast, lokale Reibenergie, and spezifische Reibenergie, which are used to assess the risk of smearing [luh-diss-stuhler-2024#26]. The values and units provided in the table are derived from previous studies and are relevant for predicting smearing under specific operating conditions [luh-diss-stuhler-2024#26]. The table is referenced as part of the established energetic criteria for smearing prediction [luh-diss-stuhler-2024#26].",
       "prompt_tokens": 1998,
       "completion_tokens": 163,
-      "seconds": 5.017,
+      "seconds": 4.838,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#26",
+          "luh-diss-stuhler-2024#26",
+          "luh-diss-stuhler-2024#26",
+          "luh-diss-stuhler-2024#26"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1702,21 +1793,25 @@
       "answer": "시작 시 오일 온도를 11°C만 높여도 스미어링이 생기지 않았습니다 [luh-diss-stuhler-2024#135]. 이는 오일 온도가 스미어링 발생에 매우 민감하다는 것을 보여줍니다 [luh-diss-stuhler-2024#193]. 스미어링은 고온에서 발생하지 않으며, 오히려 11°C 높은 온도는 스미어링을 방지합니다 [luh-diss-stuhler-2024#135].",
       "prompt_tokens": 2315,
       "completion_tokens": 143,
-      "seconds": 4.484,
+      "seconds": 4.436,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#135",
+          "luh-diss-stuhler-2024#193",
+          "luh-diss-stuhler-2024#135"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1748,21 +1843,23 @@
       "answer": "The roller mass (mwk) used was 11.2 g, and the roller-set pitch diameter (dws) was 54.5 mm [luh-diss-stuhler-2024#99].",
       "prompt_tokens": 2458,
       "completion_tokens": 51,
-      "seconds": 1.914,
+      "seconds": 1.87,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#99"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1794,21 +1891,23 @@
       "answer": "Das Prüflager NUP 2208 nimmt die vollständige Axialkraft Fax und 67 % der exzentrisch aufgebrachten Radialkraft Frad auf. Die restlichen 33 % der Radialkraft werden vom Gleitlager übernommen [luh-diss-stuhler-2024#45].",
       "prompt_tokens": 2432,
       "completion_tokens": 84,
-      "seconds": 2.87,
+      "seconds": 2.785,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-stuhler-2024#45"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.5
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.5,
         "gold_in_context": 1.0
       }
     },
@@ -1840,21 +1939,23 @@
       "answer": "호칭경 80 mm RWDR 5개의 상온 정적 반경력 측정에서, D3 시료의 스프링 장착 상태 반경력은 32,74 N이었나요 [luh-diss-pelzer-2022#73].",
       "prompt_tokens": 2602,
       "completion_tokens": 71,
-      "seconds": 2.495,
+      "seconds": 2.481,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#73"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1887,21 +1988,23 @@
       "answer": "The example seal mentioned is from the year 1932 [luh-diss-pelzer-2022#16].",
       "prompt_tokens": 2357,
       "completion_tokens": 31,
-      "seconds": 1.322,
+      "seconds": 1.315,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#16"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -1934,21 +2037,24 @@
       "answer": "The oil used for all the experiments with rotating radial shaft seals at IMKT was the mineralistic FVA Reference Oil Nr. 3 without Anglamol1 [luh-diss-pelzer-2022#70]. This oil was chosen because it has a known and stable oil composition, ensuring long-term availability and consistency in future experiments without the need for changes in formulation [luh-diss-pelzer-2022#70].",
       "prompt_tokens": 2048,
       "completion_tokens": 97,
-      "seconds": 3.086,
+      "seconds": 3.043,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#70",
+          "luh-diss-pelzer-2022#70"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.6666666666666666
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.6666666666666666,
         "gold_in_context": 1.0
       }
     },
@@ -1980,7 +2086,7 @@
       "answer": "Die Standard-Prüfdichtungen in den Untersuchungen zu rotierenden Radial-Wellendichtringen bestehen aus FKM, NBR, HNBR und AEM [en_radial_shaft_seal#0]. Sie sind in der Regel mit Feder ausgeführt, da eine Schlauchfeder (Wurmfeder) verwendet wird, um die Dichtlippe radial auf die Welle zu drücken und Verschleiß zu vermeiden [de_wellendichtring#0].",
       "prompt_tokens": 2127,
       "completion_tokens": 111,
-      "seconds": 3.496,
+      "seconds": 3.441,
       "parsed": {
         "refused": false,
         "cited": [
@@ -2029,21 +2135,24 @@
       "answer": "상온에서 호칭경 120 mm 회전 RWDR을 해석 계산했을 때, 가터 스프링이 홈에서 들뜨는 회전수는 대략 2900 1/min입니다 [luh-diss-pelzer-2022#84]. 이 값은 Zentrifugalkraft와 statisch 측정된 Radialkraft의 교차점에서 도출되며, 이 점에서 Drehzahl를 기준으로 kritische Geschwindigkeit을 확인할 수 있습니다 [luh-diss-pelzer-2022#84].",
       "prompt_tokens": 2552,
       "completion_tokens": 139,
-      "seconds": 4.268,
+      "seconds": 4.327,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#84",
+          "luh-diss-pelzer-2022#84"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -2076,21 +2185,26 @@
       "answer": "The analytically computed remaining radial force drops to zero at approximately 1900 1/min when the hydrostatic oil force is not yet included [luh-diss-pelzer-2022#85]. This is indicated by the point where the calculated remaining radial force curve intersects the x-axis in Abbildung 5.21 [luh-diss-pelzer-2022#85]. The calculation shows that this critical speed corresponds to the point where the dynamic radial force is balanced by the centrifugal force [luh-diss-pelzer-2022#85]. The measured ablation of the seal occurs slightly later, at 2400 1/min, indicating a difference of 500 1/min [luh-diss-pelzer-2022#86].",
       "prompt_tokens": 2408,
       "completion_tokens": 181,
-      "seconds": 5.596,
+      "seconds": 5.512,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#85",
+          "luh-diss-pelzer-2022#85",
+          "luh-diss-pelzer-2022#85",
+          "luh-diss-pelzer-2022#86"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -2122,21 +2236,25 @@
       "answer": "Ein höherer Ölfüllgrad der rotierenden Kammer führt zu einem größeren hydrostatischen Druck auf die Dichtlippe, was zu größeren Reibmomenten führt [luh-diss-pelzer-2022#88]. Dieser erhöhte Druck kann das Abheben der Dichtung verursachen, da der hydrostatische Druck bei übermäßiger Füllung zu einer Minderung der Radialkraft führt, was das Kräftegleichgewicht stört [luh-diss-pelzer-2022#88]. Die Reibmomente können dabei stark abfallen, wenn Öl aus der Kammer hinausspritzt, was wiederum die Radialkraft verringert und erst dann ein neues Kräftegleichgewicht entsteht [luh-diss-pelzer-2022#88].",
       "prompt_tokens": 2394,
       "completion_tokens": 207,
-      "seconds": 6.264,
+      "seconds": 6.164,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#88",
+          "luh-diss-pelzer-2022#88",
+          "luh-diss-pelzer-2022#88"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -2168,21 +2286,23 @@
       "answer": "회전 RWDR의 동적 반경력 측정 장치는 시일 홀더를 모터로 최대 7000 rpm까지 돌릴 수 있습니다. [luh-diss-pelzer-2022#79]",
       "prompt_tokens": 2495,
       "completion_tokens": 58,
-      "seconds": 2.041,
+      "seconds": 2.056,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#79"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.5
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.5,
         "gold_in_context": 1.0
       }
     },
@@ -2214,21 +2334,23 @@
       "answer": "Die Radialkraft eines Radial-Wellendichtrings verteilt sich üblicherweise auf die Feder und den Elastomer in einem Verhältnis von etwa 50 % zu 50 % [luh-diss-pelzer-2022#21].",
       "prompt_tokens": 2301,
       "completion_tokens": 65,
-      "seconds": 2.181,
+      "seconds": 2.22,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "luh-diss-pelzer-2022#21"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -2261,21 +2383,24 @@
       "answer": "온도 측정용 센서 소재로 가장 좋게 평가된 전도성 플라스틱은 PA66입니다 [innotrac-2020-467#6]. 이는 온도가 상승할수록 전기 저항이 선형적으로 증가하기 때문에 온도를 정확하게 측정할 수 있기 때문입니다 [innotrac-2020-467#6].",
       "prompt_tokens": 2613,
       "completion_tokens": 106,
-      "seconds": 3.426,
+      "seconds": 3.423,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "innotrac-2020-467#6",
+          "innotrac-2020-467#6"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -2307,21 +2432,24 @@
       "answer": "The provided context does not mention PPS (polyphenylene sulfide) being judged unsuitable as a conductive sensor material. It only states that PPS shows high temperature stability regarding its resistance change and thus is not suitable for the described application [innotrac-2020-467#7]. However, the application in question involves a conductive sensor material for wear and temperature monitoring, and the context does not explicitly link PPS's temperature stability to its unsuitability as a conductive sensor material. Therefore, based on the given information, the reason for PPS being unsuitable cannot be determined. [innotrac-2020-467#7]",
       "prompt_tokens": 2390,
       "completion_tokens": 144,
-      "seconds": 4.366,
+      "seconds": 4.453,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "innotrac-2020-467#7",
+          "innotrac-2020-467#7"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.4
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.4,
         "gold_in_context": 1.0
       }
     },
@@ -2353,21 +2481,23 @@
       "answer": "Die Welle wurde in der numerischen Simulation mit einer Kraft von 60 kN belastet [innotrac-2020-467#4].",
       "prompt_tokens": 2507,
       "completion_tokens": 38,
-      "seconds": 1.523,
+      "seconds": 1.509,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "innotrac-2020-467#4"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 1.0
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 1.0,
         "gold_in_context": 1.0
       }
     },
@@ -2399,30 +2529,32 @@
       "answer": "여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여주는 그림은 Abbildung 9입니다. [innotrac-2020-467#6]",
       "prompt_tokens": 2588,
       "completion_tokens": 57,
-      "seconds": 2.099,
+      "seconds": 2.07,
       "parsed": {
         "refused": false,
-        "cited": [],
-        "has_citation": false,
-        "citations_valid": false,
-        "cites_gold": false,
-        "sentence_coverage": 0.0
+        "cited": [
+          "innotrac-2020-467#6"
+        ],
+        "has_citation": true,
+        "citations_valid": true,
+        "cites_gold": true,
+        "sentence_coverage": 0.5
       },
       "metrics": {
         "refused": 0.0,
-        "has_citation": 0.0,
-        "citations_valid": 0.0,
-        "cites_gold": 0.0,
-        "sentence_coverage": 0.0,
+        "has_citation": 1.0,
+        "citations_valid": 1.0,
+        "cites_gold": 1.0,
+        "sentence_coverage": 0.5,
         "gold_in_context": 1.0
       }
     }
   ],
   "timing": {
     "generation_seconds": {
-      "p50": 2.9777272008359432,
-      "p95": 5.9828693093732,
-      "total": 165.44271332537755
+      "p50": 2.914017900591716,
+      "p95": 6.004905223380774,
+      "total": 163.51554822409526
     },
     "tokens": {
       "prompt_mean": 2278.7916666666665,

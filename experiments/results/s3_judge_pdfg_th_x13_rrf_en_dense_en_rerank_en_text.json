@@ -85,10 +85,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-11-02T18:39:37+00:00",
+    "timestamp": "2026-11-02T19:33:15+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "c9ea83653a2ca07a41db35966f418aad805467ef",
+    "git_commit": "73c58765f38ddab630e095028edbdba01d6678db",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -104,7 +104,7 @@
   },
   "metrics": {
     "overall": {
-      "faithfulness": 0.9565217391304348,
+      "faithfulness": 0.9130434782608695,
       "faithfulness_n": 46,
       "answer_relevance": 0.9782608695652174,
       "answer_relevance_n": 46,
@@ -124,7 +124,7 @@
         "n": 8
       },
       "de->en": {
-        "faithfulness": 0.875,
+        "faithfulness": 0.625,
         "answer_relevance": 1.0,
         "context_relevance": 1.0,
         "correctness": 0.75,
@@ -175,7 +175,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the material as AISI M–50, the process as VIM–VAR, and the resultant life factor as 12, all of which are directly supported by the data in the passage.  \nVERDICT: YES",
+        "faithfulness": "The answer correctly identifies the material as AISI M–50, the process as VIM–VAR, and the resultant life factor as 12, all of which are directly stated in the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides the material (AISI M–50), process (VIM–VAR), and final value (12) as requested in the question.  \nVERDICT: YES",
         "context_relevance": "The passage provides the life factors for VIM–VAR AISI M–50 bearing steel, specifying the material, process, and resultant values.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the material as AISI M–50, the process as VIM–VAR, and the resultant value as 12, which matches the information in the Reference.  \nVERDICT: YES"
@@ -196,7 +196,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly states the percentage of time spent in cruise and the corresponding propeller shaft power based on the data provided in the passages.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states the percentage of time spent in cruise and the corresponding propeller shaft power based on the data provided in Table XIII of the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides specific percentages and power values related to cruise time and propeller shaft power, directly addressing both parts of the question.  \nVERDICT: YES",
         "context_relevance": "The passages contain the specific information about the percentage of time spent in cruise and the corresponding propeller shaft power.  \nVERDICT: YES",
         "correctness": "The Answer correctly states the percentage of time spent in cruise and the propeller shaft power delivered during cruise, as supported by the Reference.  \nVERDICT: YES"
@@ -211,13 +211,13 @@
       "refused": false,
       "gold_in_context": false,
       "labels": {
-        "faithfulness": true,
+        "faithfulness": false,
         "answer_relevance": true,
         "context_relevance": true,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the predicted L10 life of 774 hours from the Lundberg-Palmgren analysis and mentions the discrepancy with field data suggesting a higher actual life, all of which are supported by the Passages.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort erwähnt falsch, dass die Lundberg-Palmgren-Analyse eine L10-Lebensdauer von 774 Stunden vorhersagt, während die Passage klar besagt, dass dies die Lebensdauer des gesamten Getriebes ist, nicht des Propeller-Axialkugellagers. Zudem wird die L10-Lebensdauer des Getriebes mit 5627 Stunden aus Felddaten geschätzt, was nicht mit der Antwort übereinstimmt.\nVERDICT: NO",
         "answer_relevance": "Die Antwort nennt eine L10-Lebensdauer von 774 Stunden, die aus der Lundberg-Palmgren-Analyse stammt, und vergleicht sie mit dem tatsächlichen Wert, was die Frage adressiert.  \nVERDICT: YES",
         "context_relevance": "The passages mention the predicted L10 life of the gearbox using the Lundberg-Palmgren model is 774 hours, and field data suggest the actual L10 life is 5627 hours.  \nVERDICT: YES",
         "correctness": "Die Antwort enthält falsche Angaben zur L10-Lebensdauer und verwechselt die Werte aus der Referenz.  \nVERDICT: NO"
@@ -238,7 +238,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Passage #58 explicitly states that in a Weibull-based Monte Carlo simulation for deep groove ball bearings, inner race failures accounted for 70.1% of the failures.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states the percentage of inner race failures for deep groove ball bearings as reported in the passage.  \nVERDICT: YES",
         "answer_relevance": "Answer는 질문에 대한 답변을 시도하고 있습니다.  \nVERDICT: YES",
         "context_relevance": "Passages mention that in deep-groove ball bearings, inner-race failures accounted for 70.1% of failures according to Weibull-based Monte Carlo results.  \nVERDICT: YES",
         "correctness": "The Answer correctly states the percentage of inner race failures in deep groove ball bearings based on the provided Reference.  \nVERDICT: YES"
@@ -259,7 +259,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly cites the values for the medium-series ball bearing from Table VI in the passages, which directly provide the Lo/Li ratios for Hertz stress-life exponents of 9 and 12.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states the outer-race to inner-race life ratios for a medium-series ball bearing corresponding to the given Hertz stress-life exponents, as found in the provided table.  \nVERDICT: YES",
         "answer_relevance": "The answer provides the outer-race to inner-race life ratio Lo/Li for the specified Hertz stress-life exponents, directly addressing the question.  \nVERDICT: YES",
         "context_relevance": "The passages contain a table (Table VI) that directly provides the outer-race to inner-race life ratio Lo/Li for a medium-series ball bearing for Hertz stress-life exponents of 9 and 12.  \nVERDICT: YES",
         "correctness": "The Answer correctly states the outer-race to inner-race life ratio Lo/Li values for a medium-series ball bearing corresponding to Hertz stress-life exponents of 9 and 12, as provided in the Reference.  \nVERDICT: YES"
@@ -280,7 +280,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort ist korrekt, da die Passage #86 explizit angibt, dass Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff einen Last-Lebensdauer-Exponenten von 3.6 und einen Spannungs-Lebensdauer-Exponenten von 10.8 ergaben.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort ist korrekt, da die Passage explizit angibt, dass Scotts Vierkugelversuche mit EN-31-Stahl und Diester-Schmierstoff einen Last-Lebensdauer-Exponenten von 3.6 und einen Spannungs-Lebensdauer-Exponenten von 10.8 ergaben.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort nennt spezifische Werte für die Last-Lebensdauer- und Spannungs-Lebensdauer-Exponenten, die in der Frage gefragt wurden.  \nVERDICT: YES",
         "context_relevance": "The passage contains a row for Scott (Ref. 55) with EN-31 steel and Diester lubricant, providing the load-life exponent and stress-life exponent.  \nVERDICT: YES",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie die korrekten Werte für den Last-Lebensdauer-Exponenten (3.6) und den Spannungs-Lebensdauer-Exponenten (10.8) angibt.  \nVERDICT: YES"
@@ -301,7 +301,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the relative life value of 0.026 from the provided table, which corresponds to the increase in maximum Hertz stress from 1379 MPa to 2068 MPa in the Lundberg-Palmgren model without a fatigue limit.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states that the relative life decreases to 0.026 when the maximum Hertz stress is increased from 1379 MPa to 2068 MPa in the fatigue limit-free Lundberg-Palmgren model, as indicated in the provided passage.  \nVERDICT: YES",
         "answer_relevance": "Answer는 질문에 대해 시도하여 답변하고 있으며, 상대 수명이 0.026로 줄어든다는 정보를 제공하고 있습니다.  \nVERDICT: YES",
         "context_relevance": "The passage provides a table showing relative life values for different maximum Hertz stresses under the Lundberg-Palmgren model, which is directly relevant to the question.  \nVERDICT: YES",
         "correctness": "Answer는 Reference에 기반하여 상대 수명이 0.026로 줄어든다고 명시하고 있으며, 이는 Reference의 데이터와 일치합니다.  \nVERDICT: YES"
@@ -322,7 +322,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the compressive residual stress of AMS 6278 and its relative life compared to AISI M–50 as stated in the table from the passage.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states the compressive residual stress and relative life values for AMS 6278 as found in the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides both the compressive residual stress of AMS 6278 and its theoretical relative life compared to AISI M-50, directly addressing both parts of the question.  \nVERDICT: YES",
         "context_relevance": "The passage provides the compressive residual stress value for AMS 6278 (VIM-VAR M50 NiL) and the relative life at a maximum Hertz stress of 1.4 GPa compared with AISI M-50.  \nVERDICT: YES",
         "correctness": "The Answer correctly states the compressive residual stress and relative life values from the Reference.  \nVERDICT: YES"
@@ -343,7 +343,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies that the representative values of fcm are found in ANSI/ABMA standards 9 and 11, as stated in the passages.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies that the representative values of fcm are found in ANSI/ABMA standards 9 and 11, as stated in the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a reference to the ANSI/ABMA standards where the information about fcm values can be found.  \nVERDICT: YES",
         "context_relevance": "The passages mention that representative values of fcm are given in Table I from the ANSI/ABMA standards, specifically referencing standards 9 and 11.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies that the representative values of fcm are found in ANSI/ABMA standards 9 and 11, as indicated in the Reference.  \nVERDICT: YES"
@@ -364,7 +364,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies Figure 27(b) as showing Wöhler-type stress-cycle curves with an endurance limit and attributes it to Wohler's work, as supported by the passage.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies Figure 27(b) as showing Wöhler-type curves with an endurance limit and attributes it to Wohler's work, as supported by the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer identifies the figure and credits the source, addressing both parts of the question.  \nVERDICT: YES",
         "context_relevance": "The passages mention Figure 27(b) as the classic Wöhler curve introducing the concept of a fatigue limit and credit it to Wöhler.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies Figure 27(b) as showing Wöhler-type stress-cycle curves with an endurance limit and credits Wohler's work, aligning with the Reference.  \nVERDICT: YES"
@@ -385,7 +385,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt korrekt, dass die Schmiegung an Innen- und Außenring 0,52 beträgt und dass dies den fcm-Werten der ANSI/ABMA-Norm 9 zugrunde liegt, was in den Passagen explizit erwähnt wird.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort erwähnt korrekt, dass die Schmiegung an Innen- und Außenring 0,52 beträgt, was in den Passagen explizit genannt wird.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort nennt eine spezifische Schmiegung und verweist auf eine Quelle, was darauf hindeutet, dass sie versucht, die Frage zu beantworten.  \nVERDICT: YES",
         "context_relevance": "The passages mention that the fcm-values in the ANSI/ABMA standards are normalized to conformities of 0.52 on inner- and outer-races.  \nVERDICT: YES",
         "correctness": "Die Antwort korrekt angibt, dass die Schmiegung an Innen- und Außenring 0,52 beträgt, wie in der Referenz beschrieben.  \nVERDICT: YES"
@@ -406,7 +406,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt korrekt den Wert von 2,1 GPa (300 ksi), der in den Passagen als maximale Hertzsche Pressung für fast alle Wälzlager in rotierenden Maschinen genannt wird.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort ist korrekt, da der Passage ausdrücklich besagt, dass fast alle Wälzlager in rotierenden Maschinen unter einer maximalen Hertzschen Pressung von weniger als 2,1 GPa (300 ksi) arbeiten.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort gibt eine spezifische numerische Antwort auf die Frage, obwohl sie möglicherweise nicht vollständig korrekt ist.  \nVERDICT: YES",
         "context_relevance": "The passages mention that in rotating machinery, nearly all rolling-element bearings operate at a maximum Hertz stress less than 2.1 GPa (300 ksi).  \nVERDICT: YES",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie die korrekte maximale Hertzschen Pressung von 2,1 GPa (300 ksi) angibt, unter der praktisch alle Wälzlager in rotierenden Maschinen arbeiten.  \nVERDICT: YES"
@@ -448,7 +448,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Cunningham과 Morgan은 1969년, 1971년, 1977년 각각 80일간의 표본 기간 동안 데이터를 수집했으며, 이는 Passage에서 명시적으로 언급된 내용과 일치합니다.  \nVERDICT: YES",
+        "faithfulness": "Cunningham과 Morgan은 1969년, 1971년, 1977년 각각 80일간의 표본 기간 동안 데이터를 수집했다는 사실은 Passage에서 명시적으로 언급되어 있다.  \nVERDICT: YES",
         "answer_relevance": "The answer provides the years (1969, 1971, 1977) and the duration (80 days each) of the sampling periods, which directly addresses the question about the sample period and duration.  \nVERDICT: YES",
         "context_relevance": "The passages mention that Cunningham and Morgan collected data from three 80-day periods during 1969, 1971, and 1977, and specify the duration of each sampling period as 80 days.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the years (1969, 1971, 1977) and the duration (80 days) of the sampling periods as stated in the Reference.  \nVERDICT: YES"
@@ -469,7 +469,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt korrekt, dass 97 Prozent der Lager bei Erreichen der L10-Ermüdungslebensdauer von 5.000 Stunden ausgebaut wären, was in den Passagen explizit genannt wird.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort erwähnt korrekt, dass 97 Prozent der Lager bei Erreichen der L10-Ermüdungslebensdauer von 5.000 h ausgebaut wären, was in den Passagen explizit genannt wird.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort gibt eine konkrete Prozentangabe an, die direkt auf die gestellte Frage antwortet, indem sie angibt, wie viel Prozent der Lager ausgebaut wären, wenn die L10-Ermüdungslebensdauer erreicht ist.  \nVERDICT: YES",
         "context_relevance": "The passage explicitly states that at 5,000 h or the bearing L10 fatigue life, 97 percent of the bearings would be removed from service for cause. This directly answers the question.  \nVERDICT: YES",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass 97 Prozent der Lager bei Erreichen der L10-Ermüdungslebensdauer von 5.000 Stunden ausgebaut wären.  \nVERDICT: YES"
@@ -490,7 +490,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies corrosion pitting as the lowest lived failure mode based on the passage, which states it dominates bearing failures and serves as a good approximation for the system Weibull properties.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies \"corrosion pitting\" as the lowest lived failure mode from the Passage, which implies it gives the shortest bearing life.  \nVERDICT: YES",
         "answer_relevance": "The answer directly addresses the question by identifying the cause for removal that gives the shortest bearing life and provides supporting reasoning from the cited source.  \nVERDICT: YES",
         "context_relevance": "The passages mention that \"corrosion pitting\" is the lowest lived failure mode and that other failure modes can result in bearing removal, but they do not explicitly state which cause for removal gives the shortest bearing life.  \nVERDICT: NO",
         "correctness": "The Answer correctly identifies \"corrosion pitting\" as the cause for removal with the shortest bearing life, aligning with the Reference's statement that it is the lowest lived failure mode.  \nVERDICT: YES"
@@ -532,7 +532,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt korrekt, dass die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre auf eine Lebensdauer von etwa 300 Stunden begrenzt waren, was in den Passagen explizit erwähnt wird. Die Verbindung zur Fatiguelast der Rollkörperelemente wird zwar nicht direkt in den Passagen genannt, aber der Zusammenhang zwischen Fatigue und Lebensdauer wird mehrfach thematisiert.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort erwähnt korrekt, dass die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre auf eine Lebensdauer von etwa 300 Stunden begrenzt waren, was in den Passagen explizit erwähnt wird.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort gibt eine konkrete Lebensdauer von 300 Stunden an und bezieht sich auf die Hauptwellenlager von Fluggasturbinen Anfang der 1950er-Jahre, wodurch sie die Frage adäquat adressiert.  \nVERDICT: YES",
         "context_relevance": "The passages explicitly mention that the lives of the main rotor bearings in aircraft turbine engines in the early 1950s were limited to approximately 300 hours.  \nVERDICT: YES",
         "correctness": "Die Antwort gibt die korrekte Lebensdauer von 300 Stunden wieder und erwähnt die Hauptwellenlager, was mit der Referenz übereinstimmt.  \nVERDICT: YES"
@@ -553,7 +553,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly states that Sugiura et al. found a 30 percent reduction in life due to edge loading compared to central contact stress, as explicitly mentioned in the passage.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states that Sugiura et al. found a 30 percent reduction in life due to edge loading compared to central contact stress, as supported by the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific percentage reduction in life due to edge loading, which directly addresses the question about how much shorter the life was compared to central contact stress.  \nVERDICT: YES",
         "context_relevance": "The passage explicitly states that Sugiura et al. found a 30 percent reduction in life due to edge loading compared to central contact stress.  \nVERDICT: YES",
         "correctness": "The Answer correctly states that edge loading resulted in a 30 percent reduction in life compared to central contact stress, as mentioned in the Reference.  \nVERDICT: YES"
@@ -574,7 +574,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer directly quotes a specific value from the passage and correctly identifies the context of the aerospace roller profile.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states the maximum Hertz stress value from the passage for the aerospace roller profile.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific value for the maximum Hertz stress without explaining how it was calculated or relating it to the given parameters in the question.  \nVERDICT: NO",
         "context_relevance": "The passage explicitly states that the reference load produces an inner-ring maximum Hertz stress of 2240 MPa (325 ksi) with the aerospace profile. This directly answers the question.  \nVERDICT: YES",
         "correctness": "The Answer correctly states the maximum Hertz stress value from the Reference.  \nVERDICT: YES"
@@ -595,7 +595,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt, dass der Last-Lebensdauer-Exponent p bei Zylinderrollen mit sehr starker Vollbombierung (R = 100·d) auf p = 3.1 sinkt, was in den Passagen nicht direkt erwähnt wird. In den Passagen wird erwähnt, dass bei R = 100d die Lebensdauer um 17 % reduziert wird, aber der genaue Wert des Exponenten p wird nicht angegeben.  \nVERDICT: NO",
+        "faithfulness": "Die Antwort ist nicht vollständig korrekt, da die Passage keine Angabe für R = 100·d macht, sondern nur für R = 150d und R = 100·d wird nicht explizit erwähnt.  \nVERDICT: NO",
         "answer_relevance": "Die Antwort gibt eine spezifische Antwort auf die Frage, indem sie den Wert des Last-Lebensdauer-Exponenten p bei Zylinderrollen mit sehr starker Vollbombierung im Vergleich zu unbombierten Rollen angibt.  \nVERDICT: YES",
         "context_relevance": "The passages discuss the load-life exponent p for different roller profiles and mention specific values for fully crowned rollers, including the case where R = 100d.  \nVERDICT: YES",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass der Last-Lebensdauer-Exponent p von p = 4 auf p = 3.1 sinkt, was mit der Beschreibung in der Referenz übereinstimmt.  \nVERDICT: YES"
@@ -616,7 +616,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the load-life exponent for aerospace-type or chamfered rollers as p = 4.6 according to the Zaretsky model and accurately compares it to exponents for flat and fully crowned rollers as described in the Passages.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the load-life exponent for aerospace-type or chamfered rollers as p = 4.6 and accurately compares it to the exponents for flat and fully crowned rollers as described in the Passages.  \nVERDICT: YES",
         "answer_relevance": "The answer directly addresses the question by specifying the load exponent for aerospace-type or chamfered end relief rollers and explains how it differs from uncrowned and fully crowned rollers.  \nVERDICT: YES",
         "context_relevance": "The passages provide specific information about the load-life exponents for different roller profiles according to the Zaretsky model, including the differences between aerospace/chamfered, uncrowned, and fully crowned rollers.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the load-life exponent for aerospace-type or chamfered rollers as p = 4.6 and accurately compares it to flat and fully crowned rollers as described in the Reference.  \nVERDICT: YES"
@@ -637,7 +637,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly states that the Lundberg-Palmgren method predicted the L10 life of the gearbox to be 774 hours, while the field data indicated an L10 life of 5627 hours, resulting in a factor of 7.56 difference. This is directly supported by the passages.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly states that the Lundberg-Palmgren method predicted the L10 life of the gearbox to be 7.56 times lower than the field data, which is directly supported by the passages.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific ratio (7.56 times lower) and references data sources to support the claim, directly addressing the question about the Lundberg-Palmgren method's prediction compared to field data.  \nVERDICT: YES",
         "context_relevance": "The passages provide the L10 life values from both field data and the Lundberg-Palmgren method, allowing for the calculation of the underprediction factor.  \nVERDICT: YES",
         "correctness": "The Answer correctly states that the Lundberg-Palmgren method underpredicted the L10 life by a factor of 7.56, which matches the information in the Reference.  \nVERDICT: YES"
@@ -652,13 +652,13 @@
       "refused": false,
       "gold_in_context": true,
       "labels": {
-        "faithfulness": true,
+        "faithfulness": false,
         "answer_relevance": true,
         "context_relevance": true,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "Die Antwort ist korrekt und wird durch die Passage unterstützt, die explizit angibt, dass 90 Prozent der Ausfälle auf Planetenlager, weniger als 2 Prozent auf Zahnräder und der Rest auf andere Lager zurückgehen.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort widerspricht den Angaben in den Passagen, da sie behauptet, der Anteil der Zahnräder betrage \"weniger als 2 Prozent\", während die Passagen explizit sagen, dass weniger als 2 Prozent der Ausfälle auf Zahnräder zurückgingen.  \nVERDICT: NO",
         "answer_relevance": "Die Antwort nennt die Anteile der Planetenlager und Zahnräder an den Ausfällen der Turboprop-Getriebe, wie in der Frage gefragt.  \nVERDICT: YES",
         "context_relevance": "The passages provide specific information about the causes of failures in turboprop gearboxes, stating that approximately 90 percent of failures were due to planetary bearing failures and less than 2 percent from gear failures.  \nVERDICT: YES",
         "correctness": "Die Antwort widerspricht der Referenz, da sie behauptet, dass der Anteil der Planetenlager 90 Prozent betrug, während die Referenz klarstellt, dass die Ausfälle ~90 Prozent auf die Planetenlager zurückgingen, weniger als 2 Prozent auf die Zahnräder und der Rest auf andere Lager.  \nVERDICT: NO"
@@ -700,7 +700,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the sulfur (S) content for both standard and low-additive oils from Table 15 in the passage, which explicitly states the values.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the sulfur content for both standard and low-additive oils as stated in the table from the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides specific values for the sulfur content in both standard additive oil and low additive oil, directly addressing the question.  \nVERDICT: YES",
         "context_relevance": "The passages provide the sulfur (S) content for both low-additive and standard-additive hydraulic oils in mg/kg.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the sulfur content for both standard additive oil and low additive oil as specified in the Reference.  \nVERDICT: YES"
@@ -721,7 +721,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt korrekt, dass eine Radialkraft von 50 kN als hohe Stufe in der Einzelparametervariation gefahren wurde und Anschmierungen auftraten, wie in der Passage [luh-diss-stuhler-2024#136] dargestellt.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort erwähnt korrekt die Radialkraft von 50 kN als hohe Stufe und bestätigt, dass Anschmierungen auftraten, was in den Passagen explizit festgehalten ist.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort nennt eine spezifische Radialkraft und erwähnt Anschmierungen, was die Frage beantwortet.  \nVERDICT: YES",
         "context_relevance": "Die Passage [luh-diss-stuhler-2024#136] enthält explizit die Information, dass bei einer Radialkraft von 50 kN Anschmierungen auftraten.  \nVERDICT: YES",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass eine Radialkraft von 50 kN als hohe Stufe genutzt wurde und Anschmierungen auftraten.  \nVERDICT: YES"
@@ -742,7 +742,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the three levels of radial clearance (16 µm, 22 µm, 28 µm) from Table 10 in the passage, which is explicitly stated as the \"normierte Stufenwerte\" for \"Radiale Luft in µm.\"  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the three levels of radial clearance from the table in the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides the three levels of mounted radial clearance as specified in the question.  \nVERDICT: YES",
         "context_relevance": "The passages mention \"Radiale Luft in µm\" with values 16, 22, and 28, which correspond to the three levels of mounted radial clearance used in the central composite test plan.  \nVERDICT: YES",
         "correctness": "The Answer correctly lists the three levels of mounted radial clearance (16 µm, 22 µm, and 28 µm) as provided in the Reference.  \nVERDICT: YES"
@@ -763,7 +763,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the ISO viscosity grade as 32, which is explicitly stated in the passage.  \nVERDICT: YES",
+        "faithfulness": "The passage explicitly states that the hydraulic oil used in the test has an ISO-VG class of 32, which directly corresponds to the answer.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific ISO viscosity grade (32) in response to the question about the hydraulic oil used in the smearing test for the NUP 2208 tapered roller bearing.  \nVERDICT: YES",
         "context_relevance": "The passage provides the ISO-VG class of the hydraulic oil used in the test, which is 32.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the ISO viscosity grade as 32, which matches the information provided in the Reference.  \nVERDICT: YES"
@@ -784,7 +784,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt fälschlicherweise, dass das Lager mit einer Schadensklasse 3 schmierte, während die Passagen zeigen, dass bei den genannten Bedingungen (1350 min−1, 35 kN Radialkraft, 2,3 kN Axialkraft, 70 °C, 60 min Einlauf) die Schadensklasse 3 in Tabelle 11 (Nr. 18) auftritt, was jedoch nicht als Schmierung, sondern als Schaden interpretiert wird. Zudem wird in den Passagen nicht bestätigt, dass die reduzierte axiale Luft den Schadensgrad beeinflusst.  \nVERDICT: NO",
+        "faithfulness": "Die Antwort erwähnt fälschlicherweise, dass die Schadensklasse 3 eine geringere Anschmierneigung bedeutet, was in den Passagen nicht unterstützt wird.  \nVERDICT: NO",
         "answer_relevance": "Die Antwort nennt explizit die Schadensklasse 3 für das NUP 2208 unter den genannten Bedingungen und bezieht sich auf die genannten Parameter.  \nVERDICT: YES",
         "context_relevance": "Die Passagen enthalten Angaben zu Schadensklassen, Einlaufzeiten, Kräften, Temperaturen und axialer Luft unter verschiedenen Bedingungen, die relevant für die Frage sind.  \nVERDICT: YES",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass das NUP 2208 bei den genannten Bedingungen eine Schadensklasse 3 aufweist, und dies auf die in der Referenz erwähnten Versuche zurückführt.  \nVERDICT: YES"
@@ -805,7 +805,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt Abbildung 12 (a) und (b), die in den Passagen beschrieben werden, und beschreibt korrekt die Messspule und die mit Magnet präparierte Rolle.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort erwähnt korrekt, dass Abbildung 12 (a) und (b) die Messspule und die mit Magnet präparierte Rolle zeigen, und beschreibt die Funktion des Stifts sowie die Anordnung der Spule und des Magneten, wie in den Passagen beschrieben.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort nennt spezifische Abbildungen (12 a und b) und beschreibt den Aufbau der Messspule und der mit Magnet präparierten Rolle, was die Frage adressiert.  \nVERDICT: YES",
         "context_relevance": "Die Passagen erwähnen, dass eine Kupferspule und ein diametral geteilter Magnet zur Drehzahlerfassung des Wälzkörpers verwendet werden, aber keine konkrete Abbildung mit dem Aufbau der Messspule und der mit Magnet präparierten Rolle nennt.  \nVERDICT: NO",
         "correctness": "Die Antwort stimmt mit der Referenz überein, da sie korrekt angibt, dass Abbildung 12 den Aufbau der Messspule und der mit Magnet präparierten Rolle zur Messung der Rollendrehzahl zeigt.  \nVERDICT: YES"
@@ -868,7 +868,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the roller mass and roller-set pitch diameter from the passage, which explicitly states these values.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the roller mass and roller-set pitch diameter from the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides the roller mass and roller-set pitch diameter values requested in the question.  \nVERDICT: YES",
         "context_relevance": "The passage provides the roller-set pitch diameter (dws = 54.5 mm) and roller mass (mwk = 11.2 g) used in the calculation of centrifugal force for the NUP 2208 test bearing.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the roller mass (11.2 g) and roller-set pitch diameter (54.5 mm) from the Reference.  \nVERDICT: YES"
@@ -889,7 +889,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "Die Antwort ist korrekt, da sie die Aufteilung der Last zwischen Prüflager und Gleitlager aus dem Passage [luh-diss-stuhler-2024#45] zitiert.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort ist korrekt, da sie die Aufteilung der Last wie in den Passagen beschrieben wiedergibt.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort beschreibt, wie die Last zwischen Prüflager und Gleitlager aufgeteilt wird, was direkt auf die gestellte Frage antwortet.  \nVERDICT: YES",
         "context_relevance": "Die Passagen beschreiben, wie die Last zwischen Prüflager und Gleitlager aufgeteilt wird, indem sie erwähnen, dass das Prüflager (NUP 2208) die vollständige Axialkraft und 67 % der Radialkraft aufnimmt.  \nVERDICT: YES",
         "correctness": "Die Antwort widerspricht der Referenz, da sie behauptet, das Prüflager würde 67 % der Radialkraft aufnehmen, während die Referenz klarstellt, dass das Gleitlager 67 % der Radialkraft übernimmt.  \nVERDICT: NO"
@@ -910,7 +910,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the value of the radial force for D3 sample with the spring installed from the table in the passage.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the value for D3 with a spring (MF) from the table in the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific numerical value for the spring-mounted radial stiffness of D3 sample, directly addressing the question.  \nVERDICT: YES",
         "context_relevance": "The passage provides a table with radial force measurements for RWDR 80 mm with and without a spring, including the value for D3 with a spring.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the value for D3 sample's spring-mounted radial force from the Reference.  \nVERDICT: YES"
@@ -931,7 +931,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The passage explicitly states \"Abbildung 4.6: Früher Simmerring aus dem Jahr 1932\" which directly indicates the example seal is from 1932.  \nVERDICT: YES",
+        "faithfulness": "The passage explicitly mentions \"Früher Simmerring aus dem Jahr 1932\" which directly states the year the example seal is from.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific year (1932) in response to the question about the year of the example seal, which addresses the query directly.  \nVERDICT: YES",
         "context_relevance": "The passage mentions \"Früher Simmerring aus dem Jahr 1932\" which directly states the year of the early Simmerring example.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the year 1932 as the origin of the example seal mentioned in the Reference.  \nVERDICT: YES"
@@ -952,7 +952,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies the FVA Reference Oil Nr. 3 as the oil used and explains the reason based on the information provided in the passage.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the oil used and the reason for its selection, as stated in the passage.  \nVERDICT: YES",
         "answer_relevance": "The answer provides the specific oil used and mentions the reason for its selection, addressing both parts of the question.  \nVERDICT: YES",
         "context_relevance": "The passage explicitly states that the mineral oil FVA Reference Oil No. 3 was used for all experiments and explains the reason for its selection.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the oil used and the reasons for its selection as stated in the Reference.  \nVERDICT: YES"
@@ -994,7 +994,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer correctly identifies the critical speed at which the gate spring lifts from the groove as approximately 2900 1/min, which is supported by the passage discussing the intersection of centrifugal force and static radial force measurements.  \nVERDICT: YES",
+        "faithfulness": "The answer correctly identifies the critical speed of 2900 1/min from the passage, which is supported by the information provided about the intersection of centrifugal force and static radial force.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a numerical value for the rotational speed at which the gate spring lifts from the groove, directly addressing the question.  \nVERDICT: YES",
         "context_relevance": "The passages mention specific critical rotational speeds where issues like lifting of the spring or leakage occur, including values around 2400 and 2900 1/min.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the rotational speed of approximately 2900 1/min from the Reference, which states that the spring lifts out of the groove at this speed.  \nVERDICT: YES"
@@ -1015,7 +1015,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer correctly identifies the critical speed from the passage where the analytically computed remaining radial force intersects the x-axis at approximately 1900 1/min, and notes the difference with the measured ablation speed at 2400 1/min.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies the critical speed from the passage where the remaining radial force drops to zero at 1900 1/min without considering hydrostatic oil force, and notes the difference with the measured ablation speed at 2400 1/min.  \nVERDICT: YES",
         "answer_relevance": "The answer provides a specific speed (1900 1/min) at which the analytically computed remaining radial force drops to zero, directly addressing the question.  \nVERDICT: YES",
         "context_relevance": "The passages mention that the analytically computed remaining radial force drops to zero at approximately 1900 1/min before the hydrostatic oil force is included.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies the critical speed of approximately 1900 1/min where the analytically computed remaining radial force drops to zero, as indicated in the Reference.  \nVERDICT: YES"
@@ -1036,7 +1036,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "Die Antwort fasst korrekt die Hauptpunkte aus den Passagen zusammen, einschließlich der Beziehung zwischen Ölfüllgrad, hydrostatischem Druck, Reibmoment und Abheben der Dichtlippe.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort fasst die wesentlichen Punkte aus den Passagen zusammen, ohne zusätzliche Informationen hinzuzufügen oder sie falsch zu interpretieren.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort versucht, die Auswirkungen eines höheren Ölfüllgrads auf das Reibmoment und das Abheben der Dichtlippe in einem rotierenden Radial-Wellendichtring zu erklären, indem sie hydrostatische Druckeffekte und Kräftegleichgewichte beschreibt.  \nVERDICT: YES",
         "context_relevance": "Die Passagen beschreiben den Einfluss des Ölfüllgrades auf das Reibmoment und das Abheben der Dichtlippe bei einem rotierenden Radial-Wellendichtring, einschließlich der Beobachtung, dass ein höherer Ölfüllgrad zu größeren Reibmomenten und späterem Abheben führt.  \nVERDICT: YES",
         "correctness": "Die Antwort enthält widersprüchliche Aussagen, insbesondere bezüglich der Auswirkung des Ölfüllgrads auf das Abheben der Dichtung, die nicht mit der Referenz übereinstimmen.  \nVERDICT: NO"
@@ -1057,7 +1057,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Passage [luh-diss-pelzer-2022#79] states that the test stand is driven by a motor up to 7000 1/min, which refers to revolutions per minute (rpm). The answer correctly identifies this as the maximum speed.  \nVERDICT: YES",
+        "faithfulness": "The passage states that the test stand is driven by a motor up to 7,000 1/min, which corresponds to 7,000 rpm.  \nVERDICT: YES",
         "answer_relevance": "Answer는 질문에 대한 직접적인 답변을 제공하고 있으므로 질문을 해결하려고 시도하고 있습니다.  \nVERDICT: YES",
         "context_relevance": "The passages mention a motor-driven test stand capable of rotating up to 7,000 1/min, which corresponds to rpm.  \nVERDICT: YES",
         "correctness": "The Answer correctly states the maximum RPM based on the information provided in the Reference.  \nVERDICT: YES"
@@ -1078,7 +1078,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Antwort erwähnt das 50/50-Verhältnis der Radialkraftanteile zwischen Feder und Elastomer, was in den Passagen explizit erwähnt wird.  \nVERDICT: YES",
+        "faithfulness": "Die Antwort ist korrekt, da die Passage explizit erwähnt, dass die Radialkraftanteile zwischen Federkraft und Elastomerkraft üblicherweise in einem Verhältnis von ca. 50 % zu 50 % verteilt sind.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort versucht, die Verteilung der Radialkraft auf Feder und Elastomer eines Radial-Wellendichtrings zu erklären, indem sie ein Verhältnis angibt.  \nVERDICT: YES",
         "context_relevance": "Die Passagen erklären, dass die Radialkraft eines Radial-Wellendichtrings in der Regel etwa gleichmäßig zwischen Federkraft und Elastomerkraft aufgeteilt ist, was direkt auf die Frage antwortet.  \nVERDICT: YES",
         "correctness": "Die Antwort widerspricht der Referenz, da die Referenz angibt, dass die Radialkraftanteile zwischen Feder und Elastomer in einem Verhältnis von ca. 50 % zu 50 % verteilt sind, während die Antwort ein Verhältnis von \"etwa 50 % zu 50 %\" angibt, was identisch ist.  \nVERDICT: YES"
@@ -1099,7 +1099,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer correctly identifies PA66 as the best-evaluated conductive plastic for temperature measurement and explains that its resistance increases linearly with temperature, which is supported by the passages.  \nVERDICT: YES",
+        "faithfulness": "The Answer correctly identifies PA66 as the best-performing conductive plastic material for temperature measurement and explains that it shows a linear increase in resistance with temperature, which is supported by the Passage.  \nVERDICT: YES",
         "answer_relevance": "Answer는 질문에 대해 시도하여 답변하고 있으며, 전도성 플라스틱으로서 PA66가 온도 측정용 센서 소재로 평가받았다고 언급하고 그 이유를 설명하고 있습니다.  \nVERDICT: YES",
         "context_relevance": "Die Passage erwähnt, dass PA66 als besonders geeignetes Sensorelement für die Temperaturmessung herausgestellt wurde, da es bei einer Temperaturabnahme einen linearen Widerstandanstieg aufweist.  \nVERDICT: YES",
         "correctness": "The Answer correctly identifies PA66 as the conductive plastic evaluated for temperature measurement and explains that its resistance increases linearly with temperature, which aligns with the Reference.  \nVERDICT: YES"
@@ -1141,7 +1141,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "Die Passage erwähnt explizit, dass in der Mitte der Welle eine Kraft von 60 kN appliziert wurde, um den Anwendungsfall zu simulieren.  \nVERDICT: YES",
+        "faithfulness": "Die Passage erwähnt explizit, dass in der Mitte der Welle eine Kraft von 60 kN appliziert wurde, was direkt zur Antwort führt.  \nVERDICT: YES",
         "answer_relevance": "Die Antwort nennt eine spezifische Kraft (60 kN), die in der Simulation auf die Welle einwirkte, und verweist auf eine Quelle.  \nVERDICT: YES",
         "context_relevance": "Die Passage gibt an, dass in der Simulation eine Kraft von 60 kN auf die Welle appliziert wurde.  \nVERDICT: YES",
         "correctness": "Die Antwort entspricht der Angabe in der Referenz, da dort explizit eine Kraft von 60 kN genannt wird.  \nVERDICT: YES"
@@ -1162,7 +1162,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer correctly identifies Abbildung 9 as the figure showing the measurement results of the through-resistance of the conductive modified plastic sensor elements.  \nVERDICT: YES",
+        "faithfulness": "Abbildung 9은 여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여줍니다.  \nVERDICT: YES",
         "answer_relevance": "Answer는 질문에 답하려고 시도하고 있습니다.  \nVERDICT: YES",
         "context_relevance": "Die Passagen erwähnen Abbildung 9, die die Durchgangswiderstands-Messergebnisse der Sensorelemente zeigt, aber keine weiteren Abbildungen mit solchen Ergebnissen.  \nVERDICT: NO",
         "correctness": "Abbildung 9은 여러 전도성 개질 플라스틱 센서 소자의 관통 저항 측정 결과를 보여주는 그림으로, 질문에 대한 정답입니다.  \nVERDICT: YES"
@@ -1187,9 +1187,9 @@
       "over_refusal": 2,
       "generation_failure": 5
     },
-    "judge_calls": 566,
-    "judge_cache_hits": 215,
-    "judge_retries_for_cut_off_verdict": 26,
-    "source_commit": "11ca3fd0d34510a63cd2c993c50d45bf87a96550"
+    "judge_calls": 558,
+    "judge_cache_hits": 468,
+    "judge_retries_for_cut_off_verdict": 18,
+    "source_commit": "73c58765f38ddab630e095028edbdba01d6678db"
   }
 }

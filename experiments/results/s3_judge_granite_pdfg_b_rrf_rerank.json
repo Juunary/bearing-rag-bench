@@ -85,10 +85,10 @@
     }
   },
   "environment": {
-    "timestamp": "2026-11-02T18:49:46+00:00",
+    "timestamp": "2026-11-02T19:35:37+00:00",
     "python": "3.12.8",
     "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
-    "git_commit": "c9ea83653a2ca07a41db35966f418aad805467ef",
+    "git_commit": "73c58765f38ddab630e095028edbdba01d6678db",
     "gpu": "NVIDIA GeForce RTX 3080 Ti",
     "packages": {
       "numpy": "2.5.4",
@@ -124,7 +124,7 @@
         "n": 8
       },
       "de->en": {
-        "faithfulness": 0.75,
+        "faithfulness": 0.875,
         "answer_relevance": 1.0,
         "context_relevance": 0.5,
         "correctness": 0.625,
@@ -145,7 +145,7 @@
         "n": 8
       },
       "ko->de": {
-        "faithfulness": 1.0,
+        "faithfulness": 0.875,
         "answer_relevance": 1.0,
         "context_relevance": 0.375,
         "correctness": 0.75,
@@ -175,7 +175,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer states that the material is AISI M-50, the process is VAR, and the final value is 6, which corresponds to the life factor for VAR AISI M-50 in Table XI of the provided passage.\n\nVERDICT: YES",
+        "faithfulness": "The passage provides data for different bearing materials and processes, including AISI M-50 under VAR and VIM-VAR processes. The VIM-VAR AISI M-50 has a final value of 6 for the Weibull slope. The answer correctly identifies the material as AISI M-50, the process as VIM-VAR, and the final value as 6.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by providing the specific material (AISI M-50), process (VAR), and final value (6), although it lacks context or reference for these numbers.\n\nVERDICT: YES",
         "context_relevance": "The passages provide information on the material (AISI M-50), processing (VIM-VAR), and life factors (from Table XI), but lack specific data on the final lifespan or usage conditions of the bearings.\n\nVERDICT: NO",
         "correctness": "The Answer states that the material is AISI M-50, the process is VAR, and the final value is 6, which matches the information provided in the reference table.\n\nVERDICT: YES"
@@ -196,7 +196,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the data presented in Table XIII of the passage, which outlines the mission profile of the commercial turboprop gearbox, including the percentage of time spent in cruise and the propeller shaft power delivered during that segment.\n\nVERDICT: YES",
+        "faithfulness": "The Answer accurately reflects the data presented in Table XIII of the provided passage, stating that 68.08% of the flight time is spent in cruise with a propeller shaft power of 1516 kW (2033 hp).\n\nVERDICT: YES",
         "answer_relevance": "The answer provides a specific percentage of time spent in cruise and the propeller shaft power delivered during that segment, directly addressing the question.\n\nVERDICT: YES",
         "context_relevance": "The passages detail a mission profile for a commercial turboprop gearbox, specifying the percentage of time spent in each flight segment, including cruise, and the corresponding propeller shaft power.\n\nVERDICT: YES",
         "correctness": "The Answer correctly states that 68.08% of the flight time is spent in cruise and the propeller shaft power delivered during this segment is 1516 kW (2033 hp), which aligns with the information provided in the Reference.\n\nVERDICT: YES"
@@ -211,13 +211,13 @@
       "refused": false,
       "gold_in_context": false,
       "labels": {
-        "faithfulness": false,
+        "faithfulness": true,
         "answer_relevance": true,
         "context_relevance": false,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The answer provides a specific L10-Lebensdauer of 774 hours, which is not directly calculated in the passage but referenced from an external source (nasa-tm-2015-218895#23). The passage does mention the Lundberg-Palmgren-Analyse and the use of a Lebensdauerexponent p = 10/3 for certain types of bearings, which aligns with the answer. However, the discrepancy between the predicted (774 hours) and actual (5627 hours) L10-Lebensdauer from field data is also noted in the passage, indicating a significant underestimation.\n\nVERDICT: NO\n\nThe answer is not entirely faithful to the passage as it cites external information (nasa-tm-2015-218895#23) for the L10-Lebensdauer figure (774 hours) which is not derived or implied within the provided passage. Additionally, while the passage does mention the Lundberg-Pal",
+        "faithfulness": "The Answer accurately cites the L10 life prediction of 774 hours from the Lundberg-Palmgren analysis and acknowledges the discrepancy between predicted and actual L10 life, as stated in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a specific L10-Lebensdauer in hours as predicted by the Lundberg-Palmgren analysis for the axial roller bearing of the commercial turboprop gearbox, which is a direct response to the question.\n\nVERDICT: YES",
         "context_relevance": "The passages provide data on the L10 life of a commercial turboprop gearbox, including field data and predictions from the Lundberg-Palmgren model. However, the specific L10 life for the propeller axial roller bearing is not explicitly stated.\n\nVERDICT: NO",
         "correctness": "The Answer claims a predicted L10-lifetime of 774 hours for the turboprop gearbox, which contradicts the Reference stating a tactical lifetime of 5627 hours from field data, indicating an underestimation by a factor of 7.56.\n\nVERDICT: NO"
@@ -238,7 +238,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer states that inner race failures accounted for 70.1% of deep groove ball bearing failures in a Weibull-based Monte Carlo simulation, which is supported by Table IV in the passage [nasa-tp-2013-215305-rev1#58].\n\nVERDICT: YES",
+        "faithfulness": "The passage provides a table detailing the failure distribution of deep groove and angular contact ball bearings, with the inner race failure percentages for deep groove bearings at 70.1% from Weibull-based Monte Carlo results. The answer accurately reflects this data, stating that inner race failures constituted 70.1% of deep groove bearing failures in the Weibull-based Monte Carlo simulation.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a specific percentage for the proportion of deep home ball strikes that resulted in engine core failures in a WIBL-based Monte Carlo simulation.\n\nVERDICT: YES",
         "context_relevance": "The question asks for the percentage of deep groove ball bearing inner race failures in a Monte Carlo simulation based on a Weibull distribution. The passages provide a table (Table IV) that directly presents the percent failure for inner races of both deep groove and angular contact ball bearings, calculated using a Weibull-based Monte Carlo method.\n\nVERDICT: YES",
         "correctness": "The Answer states that the inner race fault accounted for 70.1% of deep groove ball bearing failures in a Monte Carlo simulation based on Wheeler, which aligns with the Reference provided.\n\nVERDICT: YES"
@@ -259,7 +259,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately extracts the outer-race to inner-race life ratio (Lo/Li) for a medium-series ball bearing, corresponding to Hertz stress-life exponents of 9 and 12, as presented in Table VI of the provided passages.\n\nVERDICT: YES",
+        "faithfulness": "The answer directly references the medium-series ball bearing data from the provided passage and matches the outer-race to inner-race life ratio (Lo/Li) for Hertz stress-life exponents of 9 and 12.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides numerical values for the outer-race to inner-race life ratio Lo/Li for given Hertz stress-life exponents, which directly addresses the question.\n\nVERDICT: YES",
         "context_relevance": "The passages contain a table (Table VI) that provides the outer-to-inner-race life ratio (Lo/Li) for different ball bearing series, including a medium-series, for Hertz stress-life exponents of 9 and 12.\n\nVERDICT: YES",
         "correctness": "The Answer provides the specific values for the outer-race to inner-race life ratio (Lo/Li) for Hertz stress-life exponents of 9 and 12, which match the values in the Reference.\n\nVERDICT: YES"
@@ -280,7 +280,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer is faithful to the passage as it directly cites the specific data point for Scott's four-ball tests with EN-31 steel and diester lubricant, which matches the information provided in the passage.\n\nVERDICT: YES",
+        "faithfulness": "The answer correctly identifies the Last-Lebensdauer-Exponent (3.6) and Spannungs-Lebensdauer-Exponent (10.8) from Scott's four-ball tests using EN-31 steel and Diester lubricant, as presented in the provided passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides numerical values for the fatigue life exponents (last-lebensdauer-exponenten) and stress life exponents (spannungs-lebensdauer-exponenten) obtained from Scott's four-ball tests using EN-31-Stahl and Diester-Schmierstoff.\n\nVERDICT: YES",
         "context_relevance": "The question pertains to the fatigue life exponents obtained from Scott's four-ball tests using EN-31 stee and Diester lubricant, which is not explicitly mentioned in the provided passages.\n\nVERDICT: NO",
         "correctness": "The Answer provided matches the data in the Reference for Scott's four-ball tests with EN-31 steel and diester lubricant, stating the load-life exponent as 3.6 and the stress-life exponent as 10.8.\n\nVERDICT: YES"
@@ -301,7 +301,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the passage's information about the relative fatigue life under the Lundberg-Palmgren model when the maximum Hertz stress increases from 1379 MPa to 2068 MPa.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the passage's information about the reduction in fatigue life according to the Lundberg-Palmgren model when the maximum Hertz stress increases from 1379 MPa to 2068 MPa, with no fatigue limit considered.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a calculation of the relative reduction in fatigue life based on the increase in maximum Hertz stress from 1379 MPa to 2068 MPa, using the Lundberg-Palmgren model.\n\nVERDICT: YES",
         "context_relevance": "The passages provide detailed information about the Lundberg-Palmgren model, including its application to maximum Hertz stress values, and discuss the effect of these stresses on fatigue life. However, they do not directly calculate the reduction in relative life for a specific increase in maximum Hertz stress from 1379 MPa to 2068 MPa.\n\nVERDICT: NO",
         "correctness": "The Answer provides a comparison of the fatigue life reduction based on the increase in maximum Hertz stress from 1379 MPa to 2068 MPa, using the Lundberg-Palmgren model, which aligns with the reference's focus on fatigue life reduction.\n\nVERDICT: YES"
@@ -322,7 +322,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the compressive residual stress and theoretical relative life data for AMS 6278 (VIM–VAR M50 NiL) as presented in the provided table.\n\nVERDICT: YES",
+        "faithfulness": "The Answer accurately states the compressive residual stress and theoretical relative life of AMS 6278 (VIM–VAR M50 NiL) as per the provided passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides specific values for the compressive residual stress and the theoretical relative life of AMS 6278 (VIM-VAR M50 NiL) in comparison to AISI M-50, directly addressing the question.\n\nVERDICT: YES",
         "context_relevance": "The passages contain specific data on compressive residual stresses and theoretical relative life for AMS 6278 (VIM-VAR M50 NiL) compared to AISI M-50, directly answering the question.\n\nVERDICT: YES",
         "correctness": "The Answer agrees with the Reference, stating the correct compressive residual stress and theoretical relative life for AMS 6278 (VIM–VAR M50 NiL) compared to AISI M–50.\n\nVERDICT: YES"
@@ -343,7 +343,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer states that the representative values of the rolling-element bearing geometry and material coefficient fcm for cloud bearings (ball bearings) are given in ANSI/ABMA standards 9 and 11. This information is supported by the passage, specifically in Table I from nasa-tp-2013-215305-rev1#39.\n\nVERDICT: YES",
+        "faithfulness": "The question asks about the presence of specific fcm (material coefficient) values in ANSI/ABMA standards 9 and 11, and the passage provides data from ANSI/ABMA Standard 9 (Ref. 13) with fcm values. The answer accurately reflects this information.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by providing specific ANSI/ABMA standard numbers.\n\nVERDICT: YES",
         "context_relevance": "The passages provide detailed information about the fcm (originally fc) coefficient used in ANSI/ABMA standards for various bearing sizes and years, including thrust ball bearings and roller bearings.\n\nVERDICT: YES",
         "correctness": "The question asks for the ANSI/ABMA standards in which the representative values of fcm for cloud bearings of different sizes are given. The reference indicates that these values are found in ANSI/ABMA standards 9 and 11 (as per Refs. 13 and 14). The answer provided translates the question into the Korean language and then cites the same standards (ANSI/ABMA 9 and 11) as per the reference.\n\nVERDICT: YES"
@@ -364,7 +364,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer accurately identifies Figure 27(b) as depicting Wöhler-type stress-cycle curves with an endurance limit and correctly attributes this concept to Wohler's work, as per the passage.\n\nVERDICT: YES",
+        "faithfulness": "The Answer accurately identifies Figure 27(b) as the Wöhler-type stress-cycle curve with an endurance limit and correctly attributes this concept to Wohler's work, as described in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer directly addresses the question by identifying the specific figure and crediting it to Wohler's work.\n\nVERDICT: YES",
         "context_relevance": "The passages discuss Wöhler-type stress-life curves, including the concept of an endurance limit, and attribute the development of such curves to Wohler. Specifically, Figure 27(b) is described as illustrating the classic Wohler curve with a fatigue limit.\n\nVERDICT: YES",
         "correctness": "The Answer correctly identifies Figure 27(b) as the Wöhler-type stress-life curve with an endurance limit and attributes it to Wohler's work, aligning with the information provided in the Reference.\n\nVERDICT: YES"
@@ -379,13 +379,13 @@
       "refused": false,
       "gold_in_context": false,
       "labels": {
-        "faithfulness": false,
+        "faithfulness": true,
         "answer_relevance": true,
         "context_relevance": false,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The answer correctly identifies that the fcm-values in ANSI/ABMA-Norm 9 for Kugellager are based on lubrication conditions, specifically the presence of a lubricant film reducing friction and wear between contact surfaces. However, the answer introduces additional information not explicitly stated in the passage, such as the role of material and geometric coefficients in describing lubrication performance and the importance of surface conformity and lubrication conditions for optimal lubricant film formation.\n\nVERDICT: NO",
+        "faithfulness": "The answer correctly identifies that the fcm-Werte in ANSI/ABMA Standard 9 for Kugellager are based on lubrication conditions, supported by the description of roll- and slide-bearing friction reduction through a lubricating film in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to explain the basis for the fcm-values listed in ANSI/ABMA-Norm 9 for ball bearings after their introduction year, focusing on the lubrication conditions involving the inner and outer rings and rolling elements.\n\nVERDICT: YES",
         "context_relevance": "The passages do not contain explicit information about the specific fcm-values underlying the inner and outer rings of ANSI/ABMA Standard 9 post-introduction year, as per the question.\n\nVERDICT: NO",
         "correctness": "The Answer provides additional context about the fcm values and their relation to lubrication conditions, but it does not directly address the specific conformity values mentioned in the Reference.\n\nVERDICT: NO"
@@ -406,7 +406,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the passage's statement that \"In rotating machinery nearly all rolling-element bearings operate at a maximum Hertz stress less than 2.1 GPa (300 ksi).\"\n\nVERDICT: YES",
+        "faithfulness": "The answer states that practically all rolling-element bearings in rotating machinery operate under a maximum Hertz stress of 2.1 GPa (300 ksi), which is supported by the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a specific value for the maximum Hertz contact pressure under which practical roller bearings in rotating machinery operate.\n\nVERDICT: YES",
         "context_relevance": "The question asks about the maximum Hertz stress under which practical rolling-element bearings in rotating machinery operate, which is directly addressed in the provided passages.\n\nVERDICT: YES",
         "correctness": "The Answer agrees with the Reference, stating that rolling-element bearings in rotating machinery operate at a maximum Hertz stress less than 2.1 GPa (300 ksi).\n\nVERDICT: YES"
@@ -448,7 +448,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflectes the passage, stating that Cunningham and Morgan collected bearing failure data for 80-day periods in 1969, 1971, and 1977.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the passage, stating that Cunningham and Morgan collected bearing disposal data for three 80-day periods in 1969, 1971, and 1977.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides specific years and durations for the data collection period set by Cunningham and Morgan at the Naval Air Rework Facility for bearing disposal cause data.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the work of Cunningham and Morgan, who collected data on rolling-element bearing rejections at the Naval Air Rework Facility for three 80-day periods in 1969, 1971, and 1977.\n\nVERDICT: YES",
         "correctness": "The Answer correctly identifies the years (1969, 1971, and 1977) and the duration (80 days each) of the engineering samples collected by Cunningham and Morgan for gathering bearing failure data.\n\nVERDICT: YES"
@@ -469,7 +469,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer correctly interprets the passage stating that 97% of the bearings would be removed from service by the time the calculated L10 fatigue life of 5000 hours is reached. This is supported by the passage [nasa-tm-2017-219545#23].\n\nVERDICT: YES",
+        "faithfulness": "The answer correctly interprets the passage stating that 97% of bearings would be removed from service by the time the L10 fatigue life of 5000 hours is reached. This information is directly provided in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by providing a percentage of bearings expected to be replaced by the time the L10 fatigue life of 5000 hours is reached, based on the Naval Air Rework Facility data.\n\nVERDICT: YES",
         "context_relevance": "The passages provide detailed information about bearing service life calculations, including the impact of eliminating fatigue as a failure mode. They also offer specific data points for the percentage of bearings removed from service at various stages of their expected lifespan, including at the L10 fatigue life of 5,000 hours.\n\nVERDICT: YES",
         "correctness": "The Answer correctly states that 97% of the bearings would be removed from service due to fatigue or other causes when the L10 fatigue life of 5,000 hours is reached, which aligns with the Reference.\n\nVERDICT: YES"
@@ -490,7 +490,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The Answer accurately reflects the passage's content, stating that rolling-element fatigue results in the shortest bearing life, as evidenced by the 3% increase in L10 service life when eliminating fatigue as a cause for removal and the low percentage of bearings removed due to fatigue.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately identifies rolling-element fatigue as the cause for the shortest bearing life, supported by the data indicating that eliminating fatigue as a cause for removal increases the L10 service life by approximately 3 percent. This is also corroborated by the fact that 0.88 percent of bearings were removed due to fatigue out of ~224,000 total bearings, and at 5,000 hours, 97 percent of bearings would be removed for cause.\n\nVERDICT: YES",
         "answer_relevance": "The answer directly addresses the question by identifying the cause for removal that gives the shortest bearing life in the service life analysis of the Naval Air Rework Facility removal data.\n\nVERDICT: YES",
         "context_relevance": "The passages detail a methodology for calculating bearing service life, including the impact of fatigue as a cause for removal, but do not explicitly state which cause for removal results in the shortest bearing life.\n\nVERDICT: NO",
         "correctness": "The Answer states that rolling-element fatigue gives the shortest bearing life, while the Reference indicates that corrosion pitting is the lowest lived failure mode. These are contradictory statements.\n\nVERDICT: NO"
@@ -511,7 +511,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the cost savings from bearing rework as stated in the passage, which ranges from 53% to 82% of new bearings, depending on the cost, size, and complexity of the bearing. The answer also correctly mentions that the service life of reworked bearings is reduced compared to new ones, with life factors ranging from 0.87 to 0.99.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the cost savings range (53% to 82%) stated in the passage for bearing rework compared to new bearings, and it also correctly mentions that these savings depend on the bearing's size, complexity, and the extent of the repair.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a range of potential cost savings when reworking a bearing instead of purchasing a new one, referencing specific NASA technical memorandum.\n\nVERDICT: YES",
         "context_relevance": "The passages provide information on bearing rework, its processes, and potential cost savings, as well as data on bearing rework history and fatigue life calculations. However, they do not explicitly state the cost savings in terms of percentage when reworking bearings instead of buying new ones.\n\nVERDICT: NO",
         "correctness": "The Answer agrees with the Reference, stating that rework costs can range from 53% to 82% of the cost of new bearings, depending on the bearing's cost, size, and complexity.\n\nVERDICT: YES"
@@ -532,7 +532,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the information in the provided passages, stating that the main shaft bearings of aircraft gas turbines in the early 1950s had a limited life of approximately 300 hours. This is supported by multiple references in the passages.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the information in the provided passages, stating that the main shaft bearings of aircraft gas turbines in the early 1950s had a limited lifespan of approximately 300 hours. This is supported by the first passage, which explicitly mentions this limit, and the second passage, which compares this lifespan to later improvements.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides a specific number of hours (300) as the lifespan limit for the main bearings of aircraft gas turbines in the early 1950s, which directly addresses the question.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the limitations and improvements of gas turbine engine bearings in aircraft applications, specifically mentioning a 300-hour life limit for main rotor shaft ball and roller bearings in the early 1950s.\n\nVERDICT: YES",
         "correctness": "The Answer states that the main shaft bearings of aircraft turbine engines in the early 1950s had a limited lifespan of approximately 300 hours, which aligns with the information provided in the Reference.\n\nVERDICT: YES"
@@ -553,7 +553,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The passage explicitly states that Sugiura et al. found a 30% reduction in life due to edge loading compared to central contact stress. This statement is directly supported by the provided text.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the information provided in the passage, stating that Sugiura et al. found a 30% reduction in life due to edge loading compared to central contact stress.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides a direct comparison between the life expectancy of fully crowned rollers under edge loading and central contact stress alone, as per the instructions.\n\nVERDICT: YES",
         "context_relevance": "The passage from nasa-tm-2015-218895#7 directly states that Sugiura et al. found a 30% reduction in life due to edge loading compared to central contact stress alone.\n\nVERDICT: YES",
         "correctness": "The Answer correctly states that life was approximately 30 percent shorter due to edge loading compared to central contact stress, aligning with the Reference.\n\nVERDICT: YES"
@@ -574,7 +574,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The passage states that with the aerospace roller profile, the reference load of 29,190 N produces an inner-ring maximum Hertz stress of 2240 MPa (325 ksi). The answer directly provides this value.\n\nVERDICT: YES",
+        "faithfulness": "The passage states that the inner-ring maximum Hertz stress for the aerospace profile under the reference load is 2240 MPa (325 ksi), which aligns with the provided answer.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides a numerical value for the maximum Hertz contact pressure on the tread of an aerospace roller profile, which is in response to the question about the 210 size tapered roller bearing under a load of 29,190 N.\n\nVERDICT: YES",
         "context_relevance": "The passages contain detailed information about the analysis of rolling-element bearings, including the effect of roller profiles on bearing stress and life, and the calculation of maximum Hertz stresses for various loads and profiles. Specifically, it mentions the analysis of 210-size bearings with an aerospace profile under a reference load of 29,190 N, producing an inner-ring maximum Hertz stress of 2240 MPa.\n\nVERDICT: YES",
         "correctness": "The Answer provides the inner-ring maximum Hertz stress for the aerospace roller profile, which matches the information given in the Reference.\n\nVERDICT: YES"
@@ -589,13 +589,13 @@
       "refused": false,
       "gold_in_context": false,
       "labels": {
-        "faithfulness": true,
+        "faithfulness": false,
         "answer_relevance": true,
         "context_relevance": false,
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The Answer accurately reflects the information from the passages regarding the change in the load-life exponent (p) from 4 for unbombierten Rollen to 4.3 for vollbombierte Rollen according to the Zaretsky model. However, it also correctly notes the discrepancy between the Lundberg-Palmgren model's p = 10/3 for crowned rollers and the Zaretsky model's p = 4.3 for fully crowned rollers.\n\nVERDICT: YES",
+        "faithfulness": "The answer correctly identifies the decrease in the load-life exponent p from 5 (for flat rollers) to 4.3 (for fully crowned rollers) according to the Zaretsky model, but it incorrectly applies the Lundberg-Palmgren exponent to fully crowned rollers.\n\nVERDICT: NO",
         "answer_relevance": "The answer attempts to address the question by providing information about the change in the Last-Life-Exponent p for cylindrical rollers with very strong full bombardment, comparing it to unbombardment. However, it acknowledges the discrepancy between the Lundberg-Palmgren and Zaretsky models for the exact value.\n\nVERDICT: YES",
         "context_relevance": "The passages discuss the Lundberg-Palmgren and Zaretsky life models for roller bearings, including the load-life exponent p for different roller profiles. However, they do not directly address the scenario of \"sehr starker Vollbombierung\" (very strong full bombardment) with a Bombierradius R = 100·d.\n\nVERDICT: NO",
         "correctness": "The Answer provides conflicting information regarding the Lundberg-Palmgren exponent for heavily crowned rollers, stating both p = 4.3 and p = 10/3 ≈ 3.33, which contradicts the reference.\n\nVERDICT: NO"
@@ -616,7 +616,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer accurately reflects the load-life exponents for different roller profiles as described in the provided passages.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the load-life exponents for different roller types as stated in the provided passages.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides specific load exponents for different types of rollers in the context of Zaretsky's life equation for cylindrical roller bearings, directly addressing the question.\n\nVERDICT: YES",
         "context_relevance": "The passages provide detailed information on the load-life exponents for different roller bearing profiles, including uncrowned, fully crowned, aerospace, and chamfered rollers, according to both the Lundberg-Palmgren and Zaretsky models.\n\nVERDICT: YES",
         "correctness": "The Answer correctly identifies the load-life exponent for aerospace and chamfered rollers as p = 4.6, and accurately compares it to the exponents for flat and fully crowned rollers.\n\nVERDICT: YES"
@@ -637,7 +637,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the data provided in the passages, stating that the Lundberg-Palmgren method predicted the L10 life of the gearbox to be 7.56 times lower than the actual field data.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the data provided in the passage, stating that the Lundberg-Palmgren method predicted the L10 life of commercial turboprop gearboxes to be 7.56 times lower than the actual field data.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides a direct comparison of the L10 life predicted by the Lundberg-Palmgren method to the actual field life of commercial turbofan gearboxes, addressing the question.\n\nVERDICT: YES",
         "context_relevance": "The passages provide specific data on the L10 life of commercial turboprop gearboxes, both from field data and predictions using the Lundberg-Palmgren method. They explicitly state that the field data suggest the L10 life was underpredicted by a factor of 7.56.\n\nVERDICT: YES",
         "correctness": "The Answer correctly states that the Lundberg-Palmgren method underpredicted the L10 life of the gearbox by a factor of 7.56, which is consistent with the provided references.\n\nVERDICT: YES"
@@ -700,7 +700,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately cites the sulfur content (S) for both standard additive oil and low additive oil from Table 15 in the provided passage.\n\nVERDICT: YES",
+        "faithfulness": "The passage provides a table (Table 15) detailing the additive composition of both standard and low-additive hydraulic oil, including the sulfur content. The sulfur content for standard additive oil is listed as 2975 mg/kg, and for low-additive oil, it is 489 mg/kg. The answer accurately reflects these values.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides specific numerical values for the sulfur content in standard and low-additive oils, which directly addresses the question about the sulfur (S) content in mg/kg for both types of oils.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the composition of two types of hydraulic oil, one standard and one low additive, and include a table (Table 15) comparing their additive content, including sulfur.\n\nVERDICT: YES",
         "correctness": "The Answer provides specific values for the sulfur content in standard additive oil and low additive oil, which are 2975 mg/kg and 489 mg/kg respectively. These values align with the reference data provided for Schwefel (S) in the table.\n\nVERDICT: YES"
@@ -721,7 +721,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The answer accurately identifies the high radial force used in the single-parameter variation experiments as ±30 kN and confirms that anschmierungen (wear) occurred at this level, as supported by the provided passages.\n\nVERDICT: YES",
+        "faithfulness": "The answer correctly identifies the high radial force as ±30 kN and confirms that anschmierungen (wear) occurred at this level, as stated in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a specific value for the high radial force applied in the single-parameter variation trials of the full-roller cylindrical roller bearing, and mentions the occurrence of friction at this force level.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the effects of various parameters, including radial and axial forces, on the occurrence of scuffing in a full-roller cylindrical roller bearing. They discuss the conditions under which scuffing occurs, particularly at high radial forces and low rotational speeds.\n\nVERDICT: YES",
         "correctness": "The Answer claims a radial force of ±30 kN, which contradicts the Reference stating a radial force of \"hoch\" 50 kN. The Answer also incorrectly mentions the occurrence of grease, which the Reference does not specify.\n\nVERDICT: NO"
@@ -757,18 +757,18 @@
       "refused": false,
       "gold_in_context": true,
       "labels": {
-        "faithfulness": true,
+        "faithfulness": false,
         "answer_relevance": true,
         "context_relevance": false,
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer correctly identifies that the ISO viscosity grade for the lubricant used in the NUP 2208 total-impact roller bearing lubricant testing is not explicitly mentioned in the provided passages. It accurately points out that the \"nearly additive-free\" version of the oil was used, but the ISO viscosity grade was not specified.\n\nVERDICT: YES",
+        "faithfulness": "The passage does not mention the ISO viscosity grade of the hydraulic fluid used in the NUP 2208 full complement cylindrical roller bearing lubrication test.\n\nVERDICT: NO",
         "answer_relevance": "The answer attempts to address the question by explaining the absence of the ISO viscosity grade for the hydraulic fluid used in the NUP 2208 full-complement cylindrical roller bearing's smithing test, rather than simply stating that the information is missing.\n\nVERDICT: YES",
         "context_relevance": "The passages do not contain explicit information about the ISO viscosity grade used in the wear test for NUP 2208 full-complement cylindrical roller bearings.\n\nVERDICT: NO",
         "correctness": "The Answer states that the ISO viscosity grade for the hydraulic fluid used in the NUP 2208 total enclosure roller bearing impact test is not mentioned in the provided reference, which aligns with the reference indicating the use of a nearly additive-free oil version without specifying the ISO viscosity grade.\n\nVERDICT: YES"
       },
-      "outcome": "ok"
+      "outcome": "generation_failure"
     },
     {
       "qid": "pdf030",
@@ -784,7 +784,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer accurately reflects the passage information, stating that while no direct Schadensklasse is given for the specific conditions, Versuch 18 showed anschmierungen which were less severe compared to others, and Versuch 21 showed none under similar conditions with reduced axial air.\n\nVERDICT: YES",
+        "faithfulness": "The passage describes experiments with similar conditions but does not provide a direct Schadensklasse (damage class) for the exact conditions mentioned in the question. The answer accurately reflects this by stating that the Schadensklasse is not directly given in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by comparing similar test conditions, but it does not provide the specific Schadensklasse (damage class) for the exact conditions mentioned in the question.\n\nVERDICT: NO",
         "context_relevance": "The passages detail various experiments and conditions affecting the bearing's performance, including radial and axial forces, temperature, and lubrication. However, they do not explicitly provide the damage class for the NUP 2208 under the specified conditions (1350 min^-1, 35 kN radial, 2.3 kN axial, 70 °C, and 60 min run-in).\n\nVERDICT: NO",
         "correctness": "The Answer correctly identifies that the specific Schadensklasse (damage class) for the given conditions is not directly provided in the reference, but it does compare the conditions of Versuch 18 to Versuch 21 to infer that there are milder schmierungen (grease issues) in Versuch 18.\n\nVERDICT: YES"
@@ -805,7 +805,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The passage [luh-diss-stuhler-2024#47] describes the method of using a copper coil and a roller body prepared with a diametral magnet for measuring slip, and figure 12 illustrates this setup. The answer correctly identifies figure 12 as depicting the copper coil and magnet-prepared roller body for measuring roll rotational speed.\n\nVERDICT: YES",
+        "faithfulness": "The passage describes the setup of a measurement spule and a magnetized roller for determining the rolling speed, as shown in Figure 12. The answer correctly identifies Figure 12 as the relevant illustration.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to identify a specific figure in the dissertation that illustrates the setup for measuring the rolling speed of a bearing, which aligns with the question asked.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the experimental methodology and setup for measuring slip in full-complement cylindrical roller bearings, including the use of a copper coil and magnetized roller for inducing and measuring voltage to determine roll rotational speed.\n\nVERDICT: YES",
         "correctness": "The Answer correctly identifies Abbildung 12 as the one showing the setup of the measuring coil and the magnetically prepared roller for measuring the rolling speed, which aligns with the Reference.\n\nVERDICT: YES"
@@ -847,7 +847,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The passage [luh-diss-stuhler-2024#135] states that an increase in oil temperature by 11°C at the start prevents the occurrence of smearings. This statement is also supported by [luh-diss-stuhler-2024#193].\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the information in the provided passages, stating that a 11°C increase in oil temperature at the start prevented the occurrence of smudging.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by providing a specific temperature increase (11°C) at which no smoothening occurred in the single parameter variation smoothening test of NUP 2208 total enclosed ball bearing.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the effects of various parameters on smearing in a rolling element bearing, including oil temperature. They mention that an increase of 11°C in oil temperature at start prevents smearing.\n\nVERDICT: YES",
         "correctness": "The Answer correctly states that increasing the oil temperature by 11°C at start prevents smoothening, which aligns with the reference. The reference explicitly mentions that \"Bereits eine Erhöhung der Öltemperatur beim Start um 11◦C verhindert die Entstehung von Anschmierungen\" and \"Die Variation der Temperatur unterstreicht die ungemeine Sensibilität der Entstehung von Anschmierungen, da bereits eine 11◦C höhere Öltemperatur beim Start die Entstehung von Anschmierungen verhindert.\"\n\nVERDICT: YES"
@@ -889,7 +889,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the information provided in the passage, which states that the NUP 2208 bearing takes up the entire axial force and 67% of the applied radial force. The remaining 33% of the radial force is absorbed by the plain bearing.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the information in the passage, stating that the test bearing NUP 2208 absorbs the entire axial force and 67% of the applied radial force, while the remaining 33% of the radial force is absorbed by the sliding bearing.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to explain the load distribution between the test bearing (NUP 2208) and the sliding bearing in a rolling-element bearing test stand.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the construction and operation of a roller bearing test stand, including the NUP 2208 bearing, and discuss the distribution of loads between the test bearing and the sliding bearing. However, they do not explicitly explain how the applied load is divided between the test bearing and the sliding bearing in a full roller bearing test stand with a fully rolling test bearing.\n\nVERDICT: NO",
         "correctness": "The Answer correctly states that the rolling element bearing NUP 2208 absorbs the entire axial force Fax and 67% of the eccentric radial force Frad, with the remaining 33% of Frad being absorbed by the sliding bearing. This aligns with the information provided in the Reference.\n\nVERDICT: YES"
@@ -910,7 +910,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer states that the radial force for D3 sample with spring attachment at room temperature is 32.74 N, which is directly provided in Table 5.3 of the passage.\n\nVERDICT: YES",
+        "faithfulness": "The answer directly corresponds to the radial force values listed for RWDR D3 in the table provided in the passage, specifically under the 'Feder (MF)' column.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides a numerical value for the static bending stiffness of D3 specimen under spring-attached condition in the 80 mm Hollomen test with 5-point bending at room temperature, which directly addresses the question.\n\nVERDICT: YES",
         "context_relevance": "The passages contain a table (Table 5.3) with radial forces for different RWDR samples, including D3, measured at room temperature. The question asks for the static radial force of D3 sample without spring.\n\nVERDICT: YES",
         "correctness": "The Answer states that the static bending moment for D3 specimen under spring attachment condition was 32.74 N, which matches the information provided in the Reference.\n\nVERDICT: YES"
@@ -952,7 +952,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer is faithful to the passage as it directly cites the specific oil used, FVA Referenzöl Nr. 3, and accurately explains the reason for its selection, which is its known and stable composition ensuring long-term availability and consistency in future experiments.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the passage's statement that the mineralische FVA Referenzöl Nr. 3 without Anglamol1 was used for all experiments due to its known composition and long-term availability.\n\nVERDICT: YES",
         "answer_relevance": "The answer provides specific details about the oil used in the experiments and the reasons for its selection, directly addressing the question.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the use of a mineral oil, specifically FVA Referenzöl Nr. 3, in experiments with rotating radial shaft seals at IMKT. This oil was chosen for its consistent composition and long-term availability.\n\nVERDICT: YES",
         "correctness": "The Answer correctly identifies the oil as mineralische FVA Referenzöl Nr. 3 without Anglamol1 and explains the reason for its choice as its known composition and long-term availability.\n\nVERDICT: YES"
@@ -973,7 +973,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the information in the passages, stating that the standard test seals used in rotating radial-well sealing ring investigations are made of a hardened material, likely Kunstharz, and are not explicitly mentioned to be spring-loaded.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately describes the material of the standard test seals as Kunstharz (casting resin) and explains the method of measuring radial forces with and without the spring, as described in the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by providing information about the material of the standard test seals and their federality in the context of rotating radial lip seal investigations.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the materials used for radial shaft seals (Wellendichtringe) and their applications, but do not explicitly mention whether they are spring-loaded.\n\nVERDICT: NO",
         "correctness": "The Answer contradicts the Reference by stating that the standard test seals are not explicitly executed with a spring, while the Reference explicitly mentions they are.\n\nVERDICT: NO"
@@ -994,7 +994,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The answer is faithful to the passages as it accurately cites the experimental result of approximately 2400 1/min for the rotation speed at which the lip of the garter spring lifts off at room temperature, acknowledging a minor discrepancy with the calculated value. It also correctly references the consideration of fluid pressure and its radial force in refining the calculation.\n\nVERDICT: YES",
+        "faithfulness": "The answer states that the rotational speed at which the garter spring lifts off at room temperature for a 120 mm rotating RWDR is approximately 2400 1/min, based on the calculation and comparison with experimental results. However, the calculation does not fully account for hydrostatic oil force, which, if included, could provide a more accurate prediction.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a calculation for the rotational speed at which the caterpillar spring in a 120 mm rotation RWDR from Shaeffler would fully extend, addressing the question.\n\nVERDICT: YES",
         "context_relevance": "The passages provide detailed information about the behavior of a rotating seal (RWDR) under varying rotational speeds, including measurements and calculations of radial forces and centrifugal forces. However, they do not explicitly state the rotational speed at which the garter spring lifts off at room temperature.\n\nVERDICT: NO",
         "correctness": "The Answer provides a calculated value of approximately 2400 1/min for the rotation speed at which the cable spring in the Shimadzu Hochdruck-Reibahle 120 mm RWDR is released, which contradicts the reference's mention of 2900 1/min for a similar scenario.\n\nVERDICT: NO"
@@ -1015,7 +1015,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately cites the passage (Abbildung 5.21) which indicates that the remaining radial force drops to zero at approximately 1900 min⁻¹.\n\nVERDICT: YES",
+        "faithfulness": "The passage states that the verbleibende Gesamtradialkraft intersects the abscissa at approximately 1900 min⁻¹, which corresponds to the analytically computed remaining radial force dropping to zero. This information is supported in Abbildung 5.21 and its accompanying text.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a specific speed at which the analytically computed remaining radial force drops to zero, excluding the hydrostatic oil force.\n\nVERDICT: YES",
         "context_relevance": "The passages detail experimental results and analytical calculations regarding the behavior of radial shaft seals under varying rotational speeds, including the remaining radial force. However, they do not explicitly provide the speed at which the analytically computed remaining radial force drops to zero without considering the hydrostatic oil force.\n\nVERDICT: NO",
         "correctness": "The analytically computed remaining radial force indeed drops to zero at approximately 1900 min⁻¹ as per the reference, but this is stated to be before the inclusion of the hydrostatic oil force. The answer correctly identifies this condition and speed.\n\nVERDICT: YES"
@@ -1036,7 +1036,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The Answer accurately reflects the information in the passages, stating that a higher oil level in the rotating chamber increases hydrostatic pressure on the sealing lip, leading to greater frictional moments and potentially causing the seal to lift off. This is supported by the findings in [luh-diss-pelzer-2022#88].\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the information in the passage, stating that a higher oil level in the rotating chamber increases hydrostatic pressure on the sealing lip, leading to greater frictional moments and potentially causing the seal to lift. This is supported by the passage's description of experiments showing that a fuller chamber results in greater hydrostatic pressure and frictional moments, which can lead to oil leakage and eventual seal lifting. The answer also correctly explains how the leakage reduces hydrostatic pressure, allowing the seal to lift when the frictional moment is reduced.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by explaining the effects of a higher oil level in the rotating chamber on the frictional moment and the lifting of the sealing lip in a radial shaft seal.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the effects of oil level on the radial-well seal (RWDR) in a rotating system, including changes in frictional moment and lifting of the seal lip. They discuss the influence of hydrostatic pressure, radial force, centrifugal force, and temperature on these factors.\n\nVERDICT: YES",
         "correctness": "The answer aligns with the reference, stating that a higher oil level in the rotating chamber increases hydrostatic pressure on the sealing lip, leading to greater friction moments and potential lifting of the seal.\n\nVERDICT: YES"
@@ -1057,7 +1057,7 @@
         "correctness": false
       },
       "reasons": {
-        "faithfulness": "The passage [luh-diss-pelzer-2022#80] describes a decrease in radial force at holding points due to relaxation, with a noticeable drop at 0 1/min and 1400 1/min. This suggests that the system can handle speeds up to at least 1400 rpm. The answer correctly identifies this limit.\n\nVERDICT: YES",
+        "faithfulness": "The passage mentions a specific rotational speed of 1400 1/min during the holding of a certain rotational speed, which corresponds to the answer's 1400 rpm.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a specific RPM value for the dynamic torque measurement device in the rotary Wood-Mackenzie Drilling Rig (RWDR) system.\n\nVERDICT: YES",
         "context_relevance": "The passages detail experimental setups, measurements, and analyses of radial forces and friction moments in rotating sealing rings, but do not explicitly mention the maximum RPM for a specific device like the 회전 RWDR. \n\nVERDICT: NO",
         "correctness": "The Answer claims the device can rotate the holder up to 1400 rpm, while the Reference states it can handle up to 7000 rpm. The Answer is incorrect as it provides a significantly lower rpm than what the Reference indicates.\n\nVERDICT: NO"
@@ -1078,7 +1078,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The answer accurately reflects the passage's statement that the radial force of a radial-well seal is typically distributed equally between the spring and the elastomer, at approximately 50% each.\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately reflects the information in the passage, which states that the radial force of a radial-well seal ring is typically distributed equally between the spring and the elastomer, with each component accounting for approximately 50%.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to provide a response regarding the distribution of radial force in a radial-lip seal, specifically mentioning a 50/50 ratio between the spring and elastomer components.\n\nVERDICT: YES",
         "context_relevance": "The passages detail the distribution of radial forces in radial-well-sealing rings, including the contributions from the compression spring and the elastomer. They discuss the factors influencing this distribution, such as lip geometry and feder force, and mention methods for measuring these forces.\n\nVERDICT: YES",
         "correctness": "The answer provided aligns with the reference, stating that the radial force of a radial-seal lip-unit is typically distributed equally between the spring force and the elastomer force, at a ratio of 50% to 50%.\n\nVERDICT: YES"
@@ -1099,7 +1099,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The statement in the answer about PA66's linear increase in electrical resistance with temperature is supported by the passage [innotrac-2020-467#6].\n\nVERDICT: YES",
+        "faithfulness": "The answer accurately identifies PA66 as the best material for temperature sensing in conductive plastic sensors due to its linear increase in electrical resistance with temperature rise above 50°C, as supported by the passage.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by identifying a specific type of conductive plastic (PA66) and providing a reason for its suitability as a sensor material for temperature measurement in a research study involving sensors in plastic anti-slip bearings.\n\nVERDICT: YES",
         "context_relevance": "The passages discuss the materials used in a plastic bearing with integrated sensors, including PBT, PEEK, and PPS, and their electrical resistance changes with temperature. However, they do not explicitly state which material is the best for temperature measurement in a sensor application.\n\nVERDICT: NO",
         "correctness": "The Answer agrees with the Reference, stating that PA66 is the best evaluated conductive plastic for temperature measurement sensors due to its linear increase in electrical resistance above 50°C, which allows for accurate temperature change measurement.\n\nVERDICT: YES"
@@ -1162,7 +1162,7 @@
         "correctness": true
       },
       "reasons": {
-        "faithfulness": "The passage [innotrac-2020-467#6] mentions \"Die Messungen zeigten, dass bei einer Temperaturerhöhung auch der elektrische Widerstand der Sensorelemente eine Änderung aufweist. Dieser Zusammenhang ist in Abbildung 9 dargestellt.\" This directly correlates to the question about the figure showing the through-resistance measurement results of multiple conductive plastic sensor elements.\n\nVERDICT: YES",
+        "faithfulness": "The passage mentions a figure (Abbildung 9) that shows the measurement results of the through-resistance of sensor elements made from various electrically modified plastics. The answer correctly identifies this figure.\n\nVERDICT: YES",
         "answer_relevance": "The answer attempts to address the question by providing a specific figure number related to the measurement results of conductive puncture plastic sensor specimens.\n\nVERDICT: YES",
         "context_relevance": "The passages do not contain any specific mention of a figure showing the through-resistance measurement of multiple conductive polymer sensors in a sensor assembly for a friction detection bearing.\n\nVERDICT: NO",
         "correctness": "The Answer correctly identifies Figure 9 as the one showing the measurement results of the through-resistance of multiple conductive modified plastic sensors, which aligns with the Reference.\n\nVERDICT: YES"
@@ -1182,15 +1182,15 @@
     },
     "judge_prompt_version": "judge_v1",
     "outcomes": {
-      "ok": 33,
+      "ok": 32,
       "retrieval_failure": 7,
       "over_refusal": 2,
       "correct_refusal": 5,
-      "generation_failure": 1
+      "generation_failure": 2
     },
-    "judge_calls": 194,
-    "judge_cache_hits": 0,
-    "judge_retries_for_cut_off_verdict": 23,
-    "source_commit": "11ca3fd0d34510a63cd2c993c50d45bf87a96550"
+    "judge_calls": 190,
+    "judge_cache_hits": 143,
+    "judge_retries_for_cut_off_verdict": 19,
+    "source_commit": "73c58765f38ddab630e095028edbdba01d6678db"
   }
 }
