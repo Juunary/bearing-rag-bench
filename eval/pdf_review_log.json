@@ -1,0 +1,344 @@
+[
+ {
+  "qid": "pdf001",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "TABLE XI.—LIFE FACTORS FOR BEARING STEELS AND STEEL PROCESSING [From Ref. 18.]"
+ },
+ {
+  "qid": "pdf001",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "|  | Material | Process | Resultant |"
+ },
+ {
+  "qid": "pdf001",
+  "change": "note",
+  "note": "table_header_split: column headers in the previous chunk; caption and header row added as grade 1"
+ },
+ {
+  "qid": "pdf003",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "| Component description (see Fig. 24) | Predicted life, hr |  | Weibull slope, e |"
+ },
+ {
+  "qid": "pdf003",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "Lundberg and Palmgren (Ref. 9) assumed the value of the Weibull slope e in Equation (17) to be 1.11 for ball bearings (Ref. 9) and 1.125 for roller bearings (Ref. 10)."
+ },
+ {
+  "qid": "pdf003",
+  "change": "question",
+  "old": "Welche L10-Lebensdauer sagt die Lundberg-Palmgren-Analyse für das Propeller-Axialkugellager des Turboprop-Getriebes voraus, und mit welcher Weibull-Steigung wurde gerechnet?",
+  "new": "Welche L10-Lebensdauer in Stunden sagt die Lundberg-Palmgren-Analyse mit Lebensdauerfaktoren für das Propeller-Axialkugellager des kommerziellen Turboprop-Getriebes voraus?",
+  "reason": "A+B: the Weibull slope column has no header in the chunk"
+ },
+ {
+  "qid": "pdf003",
+  "change": "note",
+  "note": "table_header_split"
+ },
+ {
+  "qid": "pdf005",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "Assuming cos  = 1 and fi = fo = 0.52, values of Lo/Li were calculated from Equa-tion (71) for n = 9 and 12 and are summarized in Table VI."
+ },
+ {
+  "qid": "pdf005",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "| Ball bearing series | Bearing envelope size,a d cos β d e | Outer- to inner-race life ratio, X = Lo/Li |  |"
+ },
+ {
+  "qid": "pdf005",
+  "change": "note",
+  "note": "table_header_split"
+ },
+ {
+  "qid": "pdf006",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "| Number from Figure 11 | Reference | Material |  | Lubricant | Load range, kg | Maximum Hertz stress range, GPa, (ksi) | Load-life exponent | Stress-life exponent | Test type |"
+ },
+ {
+  "qid": "pdf006",
+  "change": "note",
+  "note": "table_header_split"
+ },
+ {
+  "qid": "pdf009",
+  "change": "add_gold",
+  "doc_id": "nasa-tp-2013-215305-rev1",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "aStandards 9 and 11 are found in Refs. 13 and 14, respectively."
+ },
+ {
+  "qid": "pdf010",
+  "change": "question",
+  "old": "Which figure of the NASA rolling bearing life prediction report uses S-N curves to illustrate the fatigue limit concept, and which reference is it taken from?",
+  "new": "In the NASA review of rolling-element bearing life prediction, which figure shows Wöhler-type stress-cycle curves with an endurance limit, and which source is it credited to?",
+  "reason": "A+B: copies the caption (B's wording)"
+ },
+ {
+  "qid": "pdf013",
+  "change": "add_gold",
+  "doc_id": "nasa-tm-2017-219545",
+  "grade": 2,
+  "proposed_by": "B",
+  "anchor": "(3) Of the ~224,000 commercial engine bearings removed from service for rework, 1,977 or"
+ },
+ {
+  "qid": "pdf013",
+  "change": "question",
+  "old": "Of the roughly 224,000 commercial aircraft engine bearings sent for rework, how many were rejected because of rolling-element fatigue?",
+  "new": "Out of the roughly 224,000 airline engine bearings that came back for repair, how many had to be scrapped because of spalling fatigue?",
+  "reason": "A+B: copies the anchor (A's wording; B's adds dates not asked by the anchor)"
+ },
+ {
+  "qid": "pdf018",
+  "change": "add_gold",
+  "doc_id": "nasa-tm-2017-219545",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "Primary components limiting the life of gas turbine engines for aircraft application in the early 1950s were the ball and roller bearings used to support the main rotor shaft."
+ },
+ {
+  "qid": "pdf018",
+  "change": "grade",
+  "anchor": "Anecdotally, the life of these early engines, and thus their bearings, were limited to approximately 300 h.",
+  "old": 2,
+  "new": 1
+ },
+ {
+  "qid": "pdf019",
+  "change": "question",
+  "old": "In Sugiura et al.'s rolling contact tests on fully crowned rollers, how much did the higher stresses at the roller edges cut life compared with the stress at the contact center?",
+  "new": "Sugiura et al. ran rolling contact tests on fully crowned rollers with several crown radii. How much shorter was life because of edge loading than the central contact stress alone would suggest?",
+  "reason": "A+B: copies the anchor (B's wording)"
+ },
+ {
+  "qid": "pdf020",
+  "change": "question",
+  "old": "210 사이즈 원통 롤러 베어링에 기준 하중을 걸었을 때, 에어로스페이스(부분 크라우닝) 롤러 프로파일에서 내륜 최대 헤르츠 응력은 얼마인가요?",
+  "new": "210 사이즈 원통 롤러 베어링에 기준 하중 29,190 N을 걸었을 때, 에어로스페이스 롤러 프로파일(평탄부 8 mm + 곡률 반경 크라운)에서 내륜 최대 헤르츠 응력은 얼마인가요?",
+  "reason": "B only: reference load missing, 'partial crowning' ambiguous"
+ },
+ {
+  "qid": "pdf021",
+  "change": "question",
+  "old": "Auf welchen Wert sinkt der Last-Lebensdauer-Exponent p nach Lundberg-Palmgren bei Zylinderrollen mit sehr starker Vollbombierung im Vergleich zu unbombierten Rollen?",
+  "new": "Auf welchen Wert sinkt nach Lundberg-Palmgren der Last-Lebensdauer-Exponent p bei Zylinderrollen mit sehr starker Vollbombierung (Bombierradius R = 100·d) im Vergleich zu unbombierten Rollen?",
+  "reason": "B only: the same document gives 10/3 and p = 3.2 for other crown radii"
+ },
+ {
+  "qid": "pdf022",
+  "change": "add_gold",
+  "doc_id": "nasa-tm-2015-218895",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "With the Zaretsky model, the load-life exponent p = 5.0 for a flat profile."
+ },
+ {
+  "qid": "pdf022",
+  "change": "add_gold",
+  "doc_id": "nasa-tm-2015-218895",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "The full crown reduces the exponent further, to p = 4.3."
+ },
+ {
+  "qid": "pdf022",
+  "change": "add_gold",
+  "doc_id": "nasa-tm-2015-218895",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "For the Zaretsky model with fully crowned rollers p = 4.3."
+ },
+ {
+  "qid": "pdf022",
+  "change": "question",
+  "old": "With the Zaretsky life model, what load-life exponent p do cylindrical roller bearings with aerospace or chamfered roller profiles have, compared with flat and fully crowned rollers?",
+  "new": "If I size a cylindrical roller bearing with Zaretsky's life equation and the rollers have an aerospace-type or chamfered end relief, which load exponent should I use, and how does it differ from uncrowned and fully crowned rollers?",
+  "reason": "A+B: copies conclusion 3 (B's wording)"
+ },
+ {
+  "qid": "pdf024",
+  "change": "note",
+  "note": "conflicting statement in the corpus: tm-2015 and tp-2013 also say there was no breakdown of the cause for removal"
+ },
+ {
+  "qid": "pdf027",
+  "change": "add_gold",
+  "doc_id": "luh-diss-stuhler-2024",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "Anschmierungen entstehen ausschließlich für mittlere bis sehr hohe Radialkräfte."
+ },
+ {
+  "qid": "pdf027",
+  "change": "add_gold",
+  "doc_id": "luh-diss-stuhler-2024",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "| Versuchsbedingungen | Wert | Einheit | Anschmierung |"
+ },
+ {
+  "qid": "pdf027",
+  "change": "note",
+  "note": "table_header_split (row label readable)"
+ },
+ {
+  "qid": "pdf029",
+  "change": "add_gold",
+  "doc_id": "luh-diss-stuhler-2024",
+  "grade": 1,
+  "proposed_by": "B",
+  "anchor": "Für die nachfolgenden Versuche wird die nahezu additivfreie Version des Öls in Tabelle 6 verwendet, um schützende Effekte durch Reaktionsschichten oder ein ver-ändertes Ölverhalten durch abbauende Additivierungen zu verhindern."
+ },
+ {
+  "qid": "pdf029",
+  "change": "question",
+  "old": "NUP 2208 총형 원통롤러베어링의 슬립·스미어링 시험에 사용한 유압유의 ISO 점도 등급은 무엇인가요?",
+  "new": "NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용한 유압유의 ISO 점도 등급은 무엇인가요?",
+  "reason": "A+B: the oil table belongs to the smearing tests only"
+ },
+ {
+  "qid": "pdf030",
+  "change": "question",
+  "old": "Welche Schadensklasse erreichte Versuch 18 des zentral zusammengesetzten Versuchsplans (1350 min−1, 35 kN radial, 2,3 kN axial, 70 °C) mit reduzierter axialer Luft am Außenring, nachdem vorher 60 Minuten eingelaufen wurde?",
+  "new": "Wie stark (Schadensklasse) schmierte das vollrollige NUP 2208 bei 1350 min−1, 35 kN Radial-, 2,3 kN Axialkraft und 70 °C trotz reduzierter axialer Luft am Außenring und 60 min Einlauf an?",
+  "reason": "A+B: document-internal run number (A's wording keeps the conditions a user would give)"
+ },
+ {
+  "qid": "pdf031",
+  "change": "question",
+  "old": "In welcher Abbildung der Arbeit zu Schlupf und Anschmierungen vollrolliger Zylinderrollenlager wird der Aufbau von Spule und präpariertem Wälzkörper für die Schlupfmessung gezeigt?",
+  "new": "In welcher Abbildung der Dissertation zu Schlupf und Anschmierungen in vollrolligen Zylinderrollenlagern sieht man, wie die Messspule und die mit Magnet präparierte Rolle zur Messung der Rollendrehzahl aufgebaut sind?",
+  "reason": "A+B: copies the caption (B's wording)"
+ },
+ {
+  "qid": "pdf032",
+  "change": "add_gold",
+  "doc_id": "luh-diss-stuhler-2024",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "Als Ergebnis sollen geeignete Anschmierkriterien und deren Grenzwerte der in Tabelle 1 vorgestellten tribologischen Fress- und Anschmierkennwerte resultieren."
+ },
+ {
+  "qid": "pdf033",
+  "change": "add_gold",
+  "doc_id": "luh-diss-stuhler-2024",
+  "grade": 1,
+  "proposed_by": "B",
+  "anchor": "Innerhalb der Einzelparametervariation sind die maximale Axialkraft von 2,7 kN sowie die niedrigste Öltemperatur von 20◦C beim Start ausschlaggebend."
+ },
+ {
+  "qid": "pdf034",
+  "change": "anchor",
+  "old": "dem Teilkreisdurchmesser des Wälzkörpersatzes dws = 54,5 mm und der Masse mwk = 11,2 g des Wälzkörpers",
+  "new": "Die Zentrifugalkraft Fzent der Wälzkörper berechnet sich mit Hilfe der Wälzkörpersatzdreh-zahl nach Gleichung 1, dem Teilkreisdurchmesser des Wälzkörpersatzes dws = 54,5 mm und der Masse mwk = 11,2 g des Wälzkörpers zu:"
+ },
+ {
+  "qid": "pdf035",
+  "change": "question",
+  "old": "Welchen Anteil der Axialkraft und der exzentrisch eingeleiteten Radialkraft nimmt das Prüflager NUP 2208 im Wälzlagerprüfstand auf?",
+  "new": "Wie teilt sich im Wälzlagerprüfstand mit dem vollrolligen Prüflager NUP 2208 die aufgebrachte Last zwischen Prüflager und Gleitlager auf?",
+  "reason": "B only: copies the anchor"
+ },
+ {
+  "qid": "pdf036",
+  "change": "note",
+  "note": "uses the document's sample label D3 (A: kept as a lookup question)"
+ },
+ {
+  "qid": "pdf037",
+  "change": "add_gold",
+  "doc_id": "luh-diss-pelzer-2022",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "Abbildung 4.6 Früher Simmerring aus dem Jahr 1932"
+ },
+ {
+  "qid": "pdf037",
+  "change": "question",
+  "old": "The dissertation on rotating radial shaft seals shows a picture of an early Simmerring. From what year is the pictured seal?",
+  "new": "The dissertation on rotating radial shaft seals illustrates an early Simmerring as a historical example. What year is that example seal from (not the year the Simmerring was first developed)?",
+  "reason": "A: remove, B: fix; kept with B's wording to keep the en->de pair at 8"
+ },
+ {
+  "qid": "pdf037",
+  "change": "note",
+  "note": "weak: answer only in a figure caption; Wikipedia gives 1929 for the first Simmerring (a different fact)"
+ },
+ {
+  "qid": "pdf038",
+  "change": "add_gold",
+  "doc_id": "luh-diss-pelzer-2022",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "Tabelle 5.1: Eigenschaften des verwendeten FVA-Versuchsöls Nr.3 [61]"
+ },
+ {
+  "qid": "pdf040",
+  "change": "add_gold",
+  "doc_id": "luh-diss-pelzer-2022",
+  "grade": 1,
+  "proposed_by": "B",
+  "anchor": "Die Elastomerradialkraft ist schon ab etwa 1.200 1/min aufgehoben (siehe Abb. 5.20)."
+ },
+ {
+  "qid": "pdf041",
+  "change": "add_gold",
+  "doc_id": "luh-diss-pelzer-2022",
+  "grade": 1,
+  "proposed_by": "A",
+  "anchor": "Allerdings muss an dieser Stelle ergänzt werden, dass das Kräftegleichgewicht der analytischen Berechnung für dieses Ergebnis noch nicht vollständig ist."
+ },
+ {
+  "qid": "pdf041",
+  "change": "add_gold",
+  "doc_id": "luh-diss-pelzer-2022",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "Gemäß Abbildung 5.15 ist die zusätzlich wirkende Radialkraft als Folge des Fluiddruckes noch nicht eingeflossen."
+ },
+ {
+  "qid": "pdf042",
+  "change": "add_gold",
+  "doc_id": "luh-diss-pelzer-2022",
+  "grade": 1,
+  "proposed_by": "AB",
+  "anchor": "Im hier dargestellten Fall kann das Reibmoment einer einzelnen Dichtung nur wegen der Ölfüllung in einem Gehäuse mehr als das Doppelte betragen."
+ },
+ {
+  "qid": "pdf048",
+  "change": "add_gold",
+  "doc_id": "innotrac-2020-467",
+  "grade": 1,
+  "proposed_by": "A (fix text)",
+  "anchor": "Die Messungen zeigten, dass bei einer Temperaturerhöhung auch der elektrische Widerstand der Sensorelemente eine Änderung aufweist."
+ },
+ {
+  "qid": "pdf048",
+  "change": "remove_gold",
+  "anchor": "Dieser Zusammenhang ist in Abbildung 9 dargestellt"
+ }
+]

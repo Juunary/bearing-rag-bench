@@ -1,0 +1,16 @@
+{
+  "exp_id": "v2pdf_x12_dense_rerank",
+  "stage": "v2pdf",
+  "description": "dense top 30 -> reranker (original text) [corpus: wiki + pdf, eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense_rerank",
+    "embedding_model": "BAAI/bge-m3",
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30
+  },
+  "chunking": {
+    "corpus": "wiki_pdf"
+  }
+}

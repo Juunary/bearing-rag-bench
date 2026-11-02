@@ -1,0 +1,14 @@
+{
+  "exp_id": "pdf_b_dense",
+  "stage": "pdf",
+  "description": "dense bge-m3 + HNSW [corpus: wiki + pdf, eval: 48 PDF questions]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense",
+    "embedding_model": "BAAI/bge-m3"
+  },
+  "chunking": {
+    "corpus": "wiki_pdf"
+  }
+}

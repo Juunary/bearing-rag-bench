@@ -1,0 +1,15 @@
+{
+  "exp_id": "v2pdf_b_bm25_en",
+  "stage": "v2pdf",
+  "description": "English-pivot BM25 (chunk-first translation) [corpus: wiki + pdf, eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "bm25",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true
+  },
+  "chunking": {
+    "corpus": "wiki_pdf"
+  }
+}

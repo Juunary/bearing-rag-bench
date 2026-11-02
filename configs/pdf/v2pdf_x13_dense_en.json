@@ -1,0 +1,15 @@
+{
+  "exp_id": "v2pdf_x13_dense_en",
+  "stage": "v2pdf",
+  "description": "dense over English-translated chunks, English-translated query [corpus: wiki + pdf, eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "dense",
+    "embedding_model": "BAAI/bge-m3",
+    "dense_english_pivot": true
+  },
+  "chunking": {
+    "corpus": "wiki_pdf"
+  }
+}

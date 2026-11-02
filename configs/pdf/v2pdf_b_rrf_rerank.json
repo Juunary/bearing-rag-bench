@@ -1,0 +1,19 @@
+{
+  "exp_id": "v2pdf_b_rrf_rerank",
+  "stage": "v2pdf",
+  "description": "RRF over BM25 kiwi + dense, reranker top 30 [corpus: wiki + pdf, eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "kiwi",
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30
+  },
+  "chunking": {
+    "corpus": "wiki_pdf"
+  }
+}

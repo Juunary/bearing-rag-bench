@@ -42,3 +42,9 @@
   5개가 독립적으로 검수했다(`v2_draft/review_output_*.json`; 사람 검수가 아님). 결과: 통과 36, 수정 제안 54, 삭제 0. 수정은 `scripts/apply_v2_review.py`가
   적용하며 변경 95건이 `v2_review_log.json`에 기록된다(누락 정답 문장 45건을 grade 1로 추가, 정답 근거가 아닌 항목 16건 삭제, 등급 변경 10건, 질문 수정 7건,
   q061은 영어·독일어 문서의 수치가 충돌해 새 문항으로 교체). 쌍별 균형을 위해 `gold[0]`의 문서 언어는 바꾸지 않았다. `queries.jsonl`(45문항)은 변경하지 않았다.
+- 2026-11-02: `queries_pdf.jsonl` 추가(48문항, PDF 문서 6건이 주 근거; 질문 언어 ko·en·de x 문서 언어 en·de 6개 쌍마다 8문항. 한국어 PDF는 라이선스 기준을 통과한 문서가 없어 없다).
+  Claude 에이전트 2개가 PDF 추출 텍스트만 보고 작성했고(`pdf_draft/new_en.jsonl`, `new_de.jsonl`, 실험 결과는 보지 않음), 별도 Claude 검수 에이전트 2개가 48문항 전부를
+  서로 독립적으로 검수했다(`pdf_draft/review_output_A.json`, `_B.json`; 사람 검수가 아님). A: 통과 25, 수정 22, 삭제 1(pdf037), B: 통과 29, 수정 19, 삭제 0.
+  `scripts/apply_pdf_review.py`가 반영하며 변경 48건이 `pdf_review_log.json`에 있다(정답 문장 추가 25, 질문 수정 12, 등급 변경 1, 앵커 교체 1, 정답 삭제 1, 메모 8).
+  추가 필드: `evidence_kind`(text·table·caption), `page`(주 근거의 쪽, 0부터), `answer`(참고 답). 표 행이 정답인데 열 머리글이 다른 청크에 있는 문항은 note에
+  `table_header_split`를 적었다. pdf037은 검수자 A가 삭제를 권했으나 쌍 균형을 위해 B의 수정안으로 남기고 note에 약한 문항으로 적었다.

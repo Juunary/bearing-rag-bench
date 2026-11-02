@@ -1,0 +1,745 @@
+[
+ {
+  "qid": "pdf001",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "Grade 2 row is correct, but chunk #111 starts at '| CVDa AISI 8620' and does not contain the caption or the header row '|  | Material | Process | Resultant |' (both only in chunk #110, which ends right before the row). The row alone gives '2 | 6 | 12' without column meaning. Footnote c (VIM-VAR) is in #111.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "TABLE XI.—LIFE FACTORS FOR BEARING STEELS AND STEEL PROCESSING [From Ref. 18.]",
+    "grade": 1
+   },
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "|  | Material | Process | Resultant |",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add caption and header row as grade 1 (both in chunk #110) so that the column labels are retrievable; otherwise mark the question as chunk-level partial. Question text can stay.",
+  "evidence": "chunk #111 begins: '| CVDa AISI 8620 | 1.5 | 1.5 | 2.25 |\\n| VARb AISI M–50 | 2 | 3 | 6 |\\n| VIM–VARc AISI M–50 | 2 | 6 | 12 |'"
+ },
+ {
+  "qid": "pdf002",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": true,
+  "grade_notes": "Row is the last-but-two line of chunk #115 (which contains the TABLE XIII caption and header) and the first line of #116; both chunks match. Grade 1 text sentence (68 percent, less than half of takeoff power) is correct supporting evidence.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Question reuses caption/header words 'mission profile of commercial turboprop gearbox' and 'propeller shaft power' (mono, labeled easy, acceptable). Header: '| Mission segment | Percent time of segment | Propeller shaft power, kW (hp) |' in #115."
+ },
+ {
+  "qid": "pdf003",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "Chunk #114 starts with the sub-header '|  | L10 | L50 |  |', so L10 = 33 065 h is readable, but the column header 'Weibull slope, e' and the caption (Lundberg-Palmgren analysis) are only in chunk #113. The value 1.11 is unlabeled in the anchor chunk.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "| Component description (see Fig. 24) | Predicted life, hr |  | Weibull slope, e |",
+    "grade": 1
+   },
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "Lundberg and Palmgren (Ref. 9) assumed the value of the Weibull slope e in Equation (17) to be 1.11 for ball bearings (Ref. 9) and 1.125 for roller bearings (Ref. 10).",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Either drop the Weibull-slope part: 'Welche L10-Lebensdauer sagt die Lundberg-Palmgren-Analyse für das Propeller-Axialkugellager des Turboprop-Getriebes voraus?' (answer 33 065 h), or keep it and add the header row and the 1.11 text sentence as grade 1.",
+  "evidence": "chunk #114 begins: '|  | L10 | L50 |  |\\n| Rolling-element bearings |...'; header row with 'Weibull slope, e' precedes it."
+ },
+ {
+  "qid": "pdf004",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Grade 2 correct. TABLE IV caption and the two-line header (Weibull-based Monte Carlo results / Results from Equations (64a) to (64c)) are in chunk #58 with the row.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'| Deep groove | Inner race | 70.1 | 69.9 |' under header '|  |  | Monte Carlo results | Equations (64a) to (64c) |' in #58. Question omits '50-mm-bore', still unique."
+ },
+ {
+  "qid": "pdf005",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "Chunk #73 starts at '| Extra light | .18 |...'; caption (Lo/Li, n = 9 and 12) and header rows are in the previous chunk only. The row 'Medium | .25 | 8.36 | 16.96' is not interpretable in its chunk.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "Assuming cos  = 1 and fi = fo = 0.52, values of Lo/Li were calculated from Equa-tion (71) for n = 9 and 12 and are summarized in Table VI.",
+    "grade": 1
+   },
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "| Ball bearing series | Bearing envelope size,a d cos β d e | Outer- to inner-race life ratio, X = Lo/Li |  |",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the text sentence and header row as grade 1 (they carry the column meaning). Question text OK.",
+  "evidence": "chunk #73 begins: '| Extra light | .18 | 4.39 | 7.18 |\\n| Light | .23 | 6.61 | 12.40 |\\n| Medium | .25 | 8.36 | 16.96 |'"
+ },
+ {
+  "qid": "pdf006",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "Chunk #86 starts at row 3 (Butler and Carter); the header with 'Load-life exponent | Stress-life exponent' is only in chunk #85. Row 5 has two unlabeled numbers 3.6 and 10.8. Row is unique (Barwell and Scott row 1 is a different study: mineral oil, 2.8/8.4).",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "| Number from Figure 11 | Reference | Material |  | Lubricant | Load range, kg | Maximum Hertz stress range, GPa, (ksi) | Load-life exponent | Stress-life exponent | Test type |",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add header row as grade 1 (or caption 'TABLE VIII.—PUBLISHED BENCH-TYPE RIG ROLLING-ELEMENT FATIGUE DATA RELATED TO STRESS-LIFE EFFECTS [From Ref. 47.]').",
+  "evidence": "chunk #86 begins: '| 3 | Butler and Carter (Ref. 53) | MV–1 (AISI M–50) |...'"
+ },
+ {
+  "qid": "pdf007",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Chunk #49 contains the stress sub-header (1379 | 1724 | 2068) and footnote c 'Normalized to life at maximum Hertz stress of 1379 MPa ... with no fatigue limit'; only the caption/'Relative life' header is in the previous chunk, interpretation is still possible.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'|  | 1379 | 1724 | 2068 |' ... '| 0 (0), Lundberg-Palmgren (Ref. 9) | 1 | 0.134 | 0.026 |' in #49."
+ },
+ {
+  "qid": "pdf008",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": true,
+  "grade_notes": "Grade 2 correct; caption, header and footnote a are in chunk #97 with the row.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "Question repeats 'AMS 6278 (VIM-VAR M50 NiL)', 'compressive residual stress', 'heat treatment', 'relative life', '1.4 GPa' from caption/header (mono easy, acceptable)."
+ },
+ {
+  "qid": "pdf009",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 caption gives 'STANDARDSa 9 AND 11'. Grade 1 text sentence only says 'ANSI/ABMA standards (Refs. 13 and 14)' without the numbers 9/11; it is weak but acceptable as grade 1. The table footnote states the mapping explicitly and is missing.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "aStandards 9 and 11 are found in Refs. 13 and 14, respectively.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add footnote as grade 1. Note: TABLE II (ball bearings by year) cites only Standard 9; the question says 'rolling bearing sizes' so 9 and 11 is correct.",
+  "evidence": "'TABLE I.—... fcm IN ANSI/ABMA STANDARDSa 9 AND 11 FOR REPRESENTATIVE ROLLING-ELEMENT BEARING SIZES [From Ref. 18.]'"
+ },
+ {
+  "qid": "pdf010",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grades correct. Figure/reference-number question: the answer 'Ref. 102' is a document-internal citation number.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Question nearly copies the caption ('S-N curves ... fatigue limit concept'). Paraphrase, e.g. 'In NASA's rolling bearing life prediction report, which figure contrasts a stress-life line without an endurance limit against the classic Wöhler curve with one?' and set difficulty accordingly.",
+  "evidence": "Caption: 'Figure 27.—Stress-life (S-N) curves illustrating concept of fatigue limit (Ref. 102).'"
+ },
+ {
+  "qid": "pdf011",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 anchor is a fragment starting mid-caption ('fcm IN ANSI/ABMA STANDARD 9 ...'); the real caption begins 'TABLE II.—REPRESENTATIVE VALUES ...'. Grade 1 sentence ('normalize their values of fcm to conformities ... of 0.52') answers the question on its own and could be grade 2.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Replace grade 2 anchor with the full caption: 'TABLE II.—REPRESENTATIVE VALUES OF ROLLING-ELEMENT BEARING GEOMETRY AND MATERIAL COEFFICIENT fcm IN ANSI/ABMA STANDARD 9 (REF. 13) FOR REPRESENTATIVE BALL BEARING SIZES BY YEAR INTRODUCED (REF. 31) [Inner- and outer-race conformities are equal to 0.52.]'. Optionally raise the 'The standards and the bearing manufactur-ers’ catalogs ...' sentence to grade 2.",
+  "evidence": "Anchor at pos 49117 begins inside 'TABLE II.—REPRESENTATIVE VALUES OF ROLLING-ELEMENT BEARING GEOMETRY AND MATERIAL COEFFICIENT fcm IN ...'"
+ },
+ {
+  "qid": "pdf012",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct. No other Hertz-stress bound in PDFs or Wikipedia (no MPa/GPa values in Wikipedia docs).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'In rotating machinery nearly all rolling-element bearings operate at a maximum Hertz stress less than 2.1 GPa (300 ksi).'"
+ },
+ {
+  "qid": "pdf013",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Both grade 2 anchors correct (body p14 and abstract p4). The conclusions section repeats the statement (with a line break) and is missing.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tm-2017-219545",
+    "anchor": "Of the ~224,000 commercial engine bearings removed from service for rework, 1,977 or\n0.88 percent were rejected because of fatigue.",
+    "grade": 2
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add conclusions sentence as grade 2 (contains '\\n'). Question copies '224,000 ... rework ... rejected because of ... fatigue'; paraphrase, e.g. 'Out of the roughly 224,000 airline engine bearings that came back for repair, how many had to be scrapped because of spalling fatigue?'",
+  "evidence": "Conclusions item (3): 'Of the ~224,000 commercial engine bearings removed from service for rework, 1,977 or\\n0.88 percent were rejected because of fatigue.'"
+ },
+ {
+  "qid": "pdf014",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Both grade 2 anchors correct and sufficient.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Their data were derived from three 80-day engineering samples taken during 1969, 1971, and 1977.'"
+ },
+ {
+  "qid": "pdf015",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Both grade 2 anchors correct (results list p12 and conclusions p16).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'At 5,000 h or the bearing L10 fatigue life, 97 percent of the bearings would be removed from service.'"
+ },
+ {
+  "qid": "pdf016",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct. Table III itself is not extracted, so the text sentence is the only evidence.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'From Table III, “corrosion pitting” is the lowest lived failure mode.'"
+ },
+ {
+  "qid": "pdf017",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct; no other cost-saving figure in corpus.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'... the potential cost savings from bearing rework varies from 53 to 82 percent that of new bearings ...'"
+ },
+ {
+  "qid": "pdf018",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "First grade 2 anchor starts 'At that time, the lives of these bearings ...' and does not itself mention the early 1950s or main-shaft bearings; the preceding sentence (same chunk #9) supplies the condition and should be added as grade 1.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tm-2017-219545",
+    "anchor": "Primary components limiting the life of gas turbine engines for aircraft application in the early 1950s were the ball and roller bearings used to support the main rotor shaft.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the preceding sentence as grade 1.",
+  "evidence": "'Primary components limiting the life of gas turbine engines for aircraft application in the early 1950s were the ball and roller bearings ...' / 'At that time, the lives of these bearings were limited to approximately 300 h ...'"
+ },
+ {
+  "qid": "pdf019",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct (subject 'They' = Sugiura et al. from the previous sentence, same chunk).",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Mono question labeled hard but copies 'higher edge stresses', 'compared', 'stress at the center of the contact'. Paraphrase, e.g. 'Sugiura et al. tested fully crowned rollers: by roughly what percentage did edge loading shorten fatigue life?' or relabel difficulty easy.",
+  "evidence": "'They found that the effect of higher edge stresses resulted in an approximate 30 percent reduction in life when compared to the effect of the stress at the center of the contact area.'"
+ },
+ {
+  "qid": "pdf020",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct; 2240 MPa occurs only once. TM-2015 tables (Table 3 loads/stresses) are not extracted, so no conflicting table values.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'The reference load produces an inner-ring maximum Hertz stress of 2240 MPa (325 ksi) with the aerospace profile.'"
+ },
+ {
+  "qid": "pdf021",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct. Note nearby values: moderate full crown R = 150d gives p = 3.2, and conclusion 4 says ~10/3 for fully crowned rollers; 'sehr starker' (R = 100d) pins 3.1.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'... reduced from p = 4 for flat rollers to p = 3.1 with severe crowning.' / 'For the more moderate full crown, where R = 150d, the load-life exponent p = 3.2.'"
+ },
+ {
+  "qid": "pdf022",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 (conclusion 3) correct. The two grade 1 anchors give only 4.6; sentences with the 5.0 and 4.3 comparison values are missing.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tm-2015-218895",
+    "anchor": "With the Zaretsky model, the load-life exponent p = 5.0 for a flat profile.",
+    "grade": 1
+   },
+   {
+    "doc_id": "nasa-tm-2015-218895",
+    "anchor": "The full crown reduces the exponent further, to p = 4.3.",
+    "grade": 1
+   },
+   {
+    "doc_id": "nasa-tm-2015-218895",
+    "anchor": "For the Zaretsky model with fully crowned rollers p = 4.3.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add missing grade 1 sentences. Question copies conclusion 3 almost word for word ('Using the Zaretsky life model, the load-life exponent p ... aerospace or chamfered ... flat ... fully crowned'); acceptable only because labeled easy.",
+  "evidence": "'3. Using the Zaretsky life model, the load-life exponent p is reduced from 5.0 for flat rollers to 4.6 for either aerospace or chamfered rollers and to 4.3 for fully-crowned rollers.'"
+ },
+ {
+  "qid": "pdf023",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Both grade 2 anchors correct (TM-2015 and TP state the same factor).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'The field data suggest that the L10 life of the gearbox was under predicted by a factor of 7.56 (Ref. 22).'"
+ },
+ {
+  "qid": "pdf024",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct. Caution: TM-2015 and TP both also say 'For these data, there was no breakdown of the cause for removal or the percent of each component that had failed.', which contradicts the ~90 % breakdown; the breakdown sentence is still the only numeric statement.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'These failures were ~90 percent the result of planetary bearing failures, less than 2 percent from gear failures and the balance from other bearing failures (Ref. 22).'"
+ },
+ {
+  "qid": "pdf025",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Grade 2 correct; Tabelle 5 caption and header are in chunk #85.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'| Parameter | Untersuchungsintervall | Schrittweite | Schrittanzahl |' ... '| Wellendrehzahl n | 900 bis 2700 min−1 | 450 min−1 | 5 |'"
+ },
+ {
+  "qid": "pdf026",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Row is in chunk #175 (with Tabelle 15 caption and header) and #176 (without header); both match, #175 is interpretable.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'| Additiv | geringe Additivierung in mg/kg | Standard-Additivierung in mg/kg |' ... '| Schwefel | 489 | 2975 |'"
+ },
+ {
+  "qid": "pdf027",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": false,
+  "grade_notes": "Chunk #136 starts at '| Axialkraft: Mittel ...'; header '| Versuchsbedingungen | Wert | Einheit | Anschmierung |' and caption are in the previous chunk, so the 'x' (smearing yes) is unlabeled. The sentence after the table (in #136) states smearing occurs only at medium to very high radial force and is missing. Existing grade 1 (summary p128 'Noch einmal höher gewählte Kräfte ...') is valid supporting evidence.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-stuhler-2024",
+    "anchor": "Anschmierungen entstehen ausschließlich für mittlere bis sehr hohe Radialkräfte.",
+    "grade": 1
+   },
+   {
+    "doc_id": "luh-diss-stuhler-2024",
+    "anchor": "| Versuchsbedingungen | Wert | Einheit | Anschmierung |",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add both as grade 1. Question copies 'Einzelparametervariation' and 'Radialkraft ... hoch' from the caption/row; paraphrase, e.g. 'Bei welcher erhöhten Radialkraft wurde im Einzelversuch am NUP 2208 noch Anschmierung beobachtet?'",
+  "evidence": "chunk #136 begins: '| Axialkraft: Mittel | 1,8 | kN |  |\\n| Radialkraft: Niedrig | 5 | kN |  |\\n| Radialkraft: Hoch | 50 | kN | x |'"
+ },
+ {
+  "qid": "pdf028",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "Chunk #145 starts at '|  | Axialkraft in kN ...'; the caption and '-1 | 0 | 1' header are in the previous chunk, but the row label 'Radiale Luft in µm' is self-explanatory and #145 contains 'zentral zusammengesetzte Versuchsplan'. 16/28 µm also appear for the slip-test bearings, but the question pins the central composite plan.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'|  | Radiale Luft in µm | 16 | 22 | 28 |'"
+ },
+ {
+  "qid": "pdf029",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Grade 2 row is in chunk #122 with 'Tabelle 6: Öldaten' and '| Schmierstoff | Hydrauliköl |'. But Tabelle 6 is introduced in the smearing chapter ('Für die nachfolgenden Versuche wird die nahezu additivfreie Version des Öls in Tabelle 6 verwendet'); no passage states the oil for the slip measurements.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Restrict the question to smearing tests: 'NUP 2208 총형 원통롤러베어링 스미어링(Anschmier) 시험에 사용한 유압유의 ISO 점도 등급은 무엇인가요?'",
+  "evidence": "'| Schmierstoff | Hydrauliköl |\\n| ISO-VG-Klasse | 32 |' (p89, smearing chapter)"
+ },
+ {
+  "qid": "pdf030",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": true,
+  "table_header_in_chunk": true,
+  "grade_notes": "Grade 2 row is correct and interpretable (Tabelle 14 header in chunk #173). Grade 1 sentence ('derselben Ausprägung wie in den Versuchen in Tabelle 11 und 13') is valid. Versuch 18 is class 3 also in Tabelle 11 and 13 (without run-in), so retrieving those rows gives the same number for a different condition.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "'Versuch 18' is a document-internal run number and the question copies the row values verbatim. Rewrite: 'Wie stark (Schadensklasse) schmierte das vollrollige NUP 2208 bei 1350 min−1, 35 kN Radial-, 2,3 kN Axialkraft und 70 °C trotz reduzierter axialer Luft am Außenring und 60 min Einlauf an?'",
+  "evidence": "'| 18 | 60 | 3 | 1350 | 35 | 2,3 | 70 | 18 |' under '| Nr. in Tabelle 11 | Einlauf in min | Schadens-klasse | ...'"
+ },
+ {
+  "qid": "pdf031",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 caption correct; unique (no list-of-figures duplicate found for this caption).",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Mono question copies the caption ('Aufbau von Spule und ... Wälzkörper für die Schlupfmessung'). Paraphrase, e.g. 'Welche Abbildung zeigt, wie Messspule und markierte Rolle für die Drehzahlmessung der Wälzkörper aufgebaut sind?'",
+  "evidence": "'Abb. 12: Aufbau von Spule und Wälzkörper für Schlupfmessung'"
+ },
+ {
+  "qid": "pdf032",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Both grade 2 anchors correct.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-stuhler-2024",
+    "anchor": "Als Ergebnis sollen geeignete Anschmierkriterien und deren Grenzwerte der in Tabelle 1 vorgestellten tribologischen Fress- und Anschmierkennwerte resultieren.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the later reference to Tabelle 1 as grade 1.",
+  "evidence": "'Im Rahmen der bisherigen Anschmieruntersuchungen wurden die in Tabelle 1 zusammen-gefassten, energetischen Kennwerte zur Vorhersage einer Anschmiergefährdung entwickelt.'"
+ },
+ {
+  "qid": "pdf033",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Three grade 2 sentences and the grade 1 table row (31 °C, empty smearing column) are correct.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Bereits eine Erhöhung der Öltemperatur beim Start um 11◦C verhindert die Entstehung von Anschmierungen.'"
+ },
+ {
+  "qid": "pdf034",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 anchor is a sentence fragment (starts with 'dem Teilkreisdurchmesser'), cut from a sentence that ends before equation (11).",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Replace the anchor with the full sentence: 'Die Zentrifugalkraft Fzent der Wälzkörper berechnet sich mit Hilfe der Wälzkörpersatzdreh-zahl nach Gleichung 1, dem Teilkreisdurchmesser des Wälzkörpersatzes dws = 54,5 mm und der Masse mwk = 11,2 g des Wälzkörpers zu:'",
+  "evidence": "Full sentence starts 'Die Zentrifugalkraft Fzent der Wälzkörper berechnet sich mit Hilfe der Wälzkörpersatzdreh-zahl nach Gleichung 1, ...'"
+ },
+ {
+  "qid": "pdf035",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct; subject 'Letzteres' (= Prüflager) resolved by the previous sentence in the same chunk.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Letzteres nimmt vollständig die Axialkraft Fax und 67 % der exzentrisch aufgebrachten Radialkraft Frad auf.' Question reuses 'Axialkraft', 'exzentrisch ... Radialkraft' (mono easy, acceptable)."
+ },
+ {
+  "qid": "pdf036",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Grade 2 row correct and interpretable (Tabelle 5.3 caption, 'Raumtemperatur' line and header in chunk #73). 70 °C values for D3 (26,47 N) exist but the question pins room temperature.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "'D3' is a document-internal sample label a real user cannot know. Rewrite to a property of the whole table, e.g. '호칭경 80 mm RWDR 5개를 상온에서 측정했을 때 스프링을 끼운 상태의 반경력은 어느 범위였나요?' (answer 30.69–32.74 N), keeping the same row as grade 2 and adding the other rows as grade 1, or accept as a lookup question.",
+  "evidence": "'| Benennung | ohne Feder (OF) in N | Feder (MF) in N | Differenz in N |' ... '| RWDR D3 | 13,58 | 32,74 | 19,16 |'"
+ },
+ {
+  "qid": "pdf037",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 caption gives 1932. The list of figures repeats the caption (missing gold). Wikipedia (en_radial_shaft_seal, de_wellendichtring) states the first Simmerring development in 1929, so a question about an 'early Simmerring' risks the answer 1929 from Wikipedia; the 1932 fact exists only as a figure caption.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Abbildung 4.6 Früher Simmerring aus dem Jahr 1932",
+    "grade": 2
+   }
+  ],
+  "verdict": "remove",
+  "fix": "The question depends on 'the pictured seal' in the dissertation (not self-contained) and competes with the 1929 date in Wikipedia; there is no textual fact behind the caption. Replace with a different question.",
+  "evidence": "en_radial_shaft_seal: 'The first development 1929 in Kufstein Tirol Austria consisted of leather and metal.' vs caption 'Abbildung 4.6: Früher Simmerring aus dem Jahr 1932'"
+ },
+ {
+  "qid": "pdf038",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct (oil and reason). Grade 1 (test rig run with FVA3 oil) correct.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Tabelle 5.1: Eigenschaften des verwendeten FVA-Versuchsöls Nr.3 [61]",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add Tabelle 5.1 caption as grade 1.",
+  "evidence": "'Bei allen Untersuchungen wurde das mineralische FVA Referenzöl Nr. 3 ohne Anglamol1 verwendet, um auch in Zukunft Untersuchungen mit bekannter Öl-zusammensetzung und langer Verfügbarkeitsgarantie ...'"
+ },
+ {
+  "qid": "pdf039",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct; only FKM statement for the test seals.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Die verwendeten Prüfdichtungen sind, sofern nicht explizit erwähnt, Standard-RWDR aus FKM, mit Feder und Außengummierung.' Question reuses 'Standard-', 'Prüfdichtungen', 'mit Feder' (mono easy)."
+ },
+ {
+  "qid": "pdf040",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct; it is the only spring lift-off speed in the corpus. The anchor chunk #84 does not contain '120 mm' or 'Raumtemperatur' (the Abbildung 5.19 caption is just before the chunk), so the question's conditions are not visible in the retrieved chunk.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Somit ergibt sich beispielsweise für das Abheben der Feder aus der Nut eine Drehzahl von ca. 2900 1/min.'"
+ },
+ {
+  "qid": "pdf041",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 anchor starts in the middle of the sentence 'Außerdem ist die\\nverbleibende Gesamtradialkraft ...' (line break); acceptable but noisy. The condition 'hydrostatic oil force not yet included' is stated in the following sentences, which are missing as support. Grade 1 (measurement 2400 1/min) correct.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Allerdings muss an dieser Stelle ergänzt werden, dass das Kräftegleichgewicht der analytischen Berechnung für dieses Ergebnis noch nicht vollständig ist.",
+    "grade": 1
+   },
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Gemäß Abbildung 5.15 ist die zusätzlich wirkende Radialkraft als Folge des Fluiddruckes noch nicht eingeflossen.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the two condition sentences as grade 1. Optionally replace the anchor with the full sentence including the leading 'Außerdem ist die\\n'.",
+  "evidence": "'... verbleibende Gesamtradialkraft mit aufgeführt, die bei ca. 1900 1/min die Abszisse schneidet ...' / 'Gemäß Abbildung 5.15 ist die zusätzlich wirkende Radialkraft als Folge des Fluiddruckes noch nicht eingeflossen.'"
+ },
+ {
+  "qid": "pdf042",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Im hier dargestellten Fall kann das Reibmoment einer einzelnen Dichtung nur wegen der Ölfüllung in einem Gehäuse mehr als das Doppelte betragen.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "Add the friction-doubling sentence as grade 1.",
+  "evidence": "'... je voller die Kammer, desto größer ist auch der hydrostatische Druck auf die Dichtlippe, was zu größeren Reibmomenten und späterem Abheben der Dichtung führt.'"
+ },
+ {
+  "qid": "pdf043",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 anchor is the clean first part of a sentence whose remainder is garbled ('Ä\", in der die Prüfdichtung \"Bßitzt'); acceptable.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Dieser Prüfstand verfügt über eine durch einen Motor bis zu 7.000 1/min ange-triebene Dichtringaufnahme'"
+ },
+ {
+  "qid": "pdf044",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct. Measured values in Tabelle 5.3 (~19 N spring vs ~13 N elastomer) differ from 50/50 but do not contradict a 'usual' rule.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Unabhängig vom Hersteller ist eine Differenzierung der Radialkraftanteile zwischen Federkraft und Elastomerkraft von ca. 50 % zu 50 % üblich.'"
+ },
+ {
+  "qid": "pdf045",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 (PA66 + linear resistance above 50 °C) and grade 1 (summary) correct.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Besonders positiv ist dabei das Verhalten des Materials PA66 hervorzuheben, da es eine lineare Erhöhung des Widerstands bei einer Temperatur ab 50 °C aufweist.'"
+ },
+ {
+  "qid": "pdf046",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'Der Werkstoff PPS zeigt hingegen eine hohe Temperaturstabilität hinsichtlich seiner Widerstandsänderung und eignet sich damit nicht ...'"
+ },
+ {
+  "qid": "pdf047",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 correct; 60 kN occurs once.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "'In der Mitte der Welle wurde eine Kraft von 60 kN appliziert, welche beispielhaft dem Anwendungsfall entspricht.'"
+ },
+ {
+  "qid": "pdf048",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "Grade 2 caption correct. Grade 1 anchor 'Dieser Zusammenhang ist in Abbildung 9 dargestellt' is a 50-character fragment of a sentence split by the figure captions; it names the figure but not what it shows, low value and noisy.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "Drop the grade 1 fragment or replace with the full preceding sentence 'Die Messungen zeigten, dass bei einer Temperaturerhöhung auch der elektrische Widerstand der Sensorelemente eine Änderung aufweist.' (grade 1).",
+  "evidence": "Text: 'Dieser Zusammenhang ist in Abbildung 9 dargestellt und liefert die Grundlage, um später in\\nAbbildung 8: Versuchsaufbau mit Klimakammer\\nAbbildung 9: ...'"
+ }
+]

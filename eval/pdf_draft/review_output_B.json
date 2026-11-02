@@ -1,0 +1,697 @@
+[
+ {
+  "qid": "pdf001",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "표 헤더 분리: 앵커 행이 든 청크에 캡션·열 머리글이 없음(청크 #111은 \"| CVDa AISI 8620 |\" 행부터 시작, TABLE XI 캡션과 \"Material | Process | Resultant\" 머리글은 #110). 행 \"2 | 6 | 12\"만으로는 재료/공정/합성 계수 구분 불가. 각주 c(VIM–VAR 정의)는 같은 청크에 있음. 등급 2 자체는 타당. 코퍼스 내 다른 VIM–VAR M-50 수명계수 진술 없음.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "gold·질문 유지. note에 \"table_header_split(#110)\" 표시 후 생성 단계 평가에서 별도 집계. 근본 대책은 청커에서 표 캡션·머리글을 분할 청크마다 반복하는 것(평가셋 수정 아님).",
+  "evidence": "#111 starts \"| CVDa AISI 8620 | 1.5 | 1.5 | 2.25 |\"; header \"| Material and process | Life factor |\" only in #110"
+ },
+ {
+  "qid": "pdf002",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "앵커 행이 청크 #115(캡션·머리글 포함)와 #116(머리글 없음) 두 곳에 있음. #115 기준 해석 가능. 등급 1 문장(68 percent, 이륙 출력의 절반 미만)은 비율만 주므로 등급 1 적절.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "#115 contains \"TABLE XIII.—MISSION PROFILE OF COMMERCIAL TURBOPROP GEARBOX\" + \"| Mission segment | Percent time of segment | Propeller shaft power, kW (hp) |\""
+ },
+ {
+  "qid": "pdf003",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "표 헤더 분리: 앵커 행이 든 청크에 캡션·열 머리글이 없음(청크 #114는 2단 머리글 \"|  | L10 | L50 |  |\"부터 시작; 캡션 \"LUNDBERG-PALMGREN ANALYSIS\"와 \"Predicted life, hr\", \"Weibull slope, e\" 열 이름은 이전 청크). L10/L50 열은 식별되나 1.11이 와이블 기울기라는 근거와 단위(hr)가 청크에 없음.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문에서 와이블 기울기 부분 삭제: \"Welche L10-Lebensdauer in Stunden sagt die Lundberg-Palmgren-Analyse mit Lebensdauerfaktoren für das Propeller-Axialkugellager des kommerziellen Turboprop-Getriebes voraus?\" answer는 \"L10 = 33 065 h (L50 = 180 484 h)\"로 축소. note에 table_header_split 표시.",
+  "evidence": "#114 starts \"|  | L10 | L50 |  |\"; caption TABLE XII and \"Weibull slope, e\" header precede the chunk"
+ },
+ {
+  "qid": "pdf004",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "캡션(TABLE IV)·머리글(Weibull-based Monte Carlo results / Equations (64a) to (64c))·행이 같은 청크 #58. 답 70.1% 정확. 본문 다른 퍼센트(44.4% 등)는 실험 데이터라 조건으로 구분됨.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"| Deep groove | Inner race | 70.1 | 69.9 |\" with header \"Monte Carlo results\" in #58"
+ },
+ {
+  "qid": "pdf005",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "표 헤더 분리: 앵커 행이 든 청크에 캡션·열 머리글이 없음(청크 #73은 \"| Extra light |\" 행부터 시작; TABLE VI 캡션, \"Bearing envelope size\", \"X = Lo/Li\", \"n = 9 | 12\" 머리글은 이전 청크). 행 \"Medium | .25 | 8.36 | 16.96\"만으로는 어떤 값이 n=9/12인지 해석 불가. 질문은 캡션 어휘(Lo/Li, Hertz stress-life exponent)를 그대로 사용하나 앵커 행 자체를 베끼지는 않음.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "gold·질문 유지, note에 table_header_split 표시. 생성 단계에서 해석 불가 위험.",
+  "evidence": "#73 starts \"| Extra light | .18 | 4.39 | 7.18 |\"; \"|  |  | 9 | 12 |\" is in the previous chunk"
+ },
+ {
+  "qid": "pdf006",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "표 헤더 분리: 앵커 행이 든 청크에 캡션·열 머리글이 없음(청크 #86은 3번 행부터 시작; \"Load-life exponent | Stress-life exponent\" 머리글과 TABLE VIII 캡션은 이전 청크). 행에서 3.6과 10.8이 어떤 지수인지 청크만으로 판별 불가. 조건(EN-31, Diester, Four ball)으로 행은 유일.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "gold·질문 유지, note에 table_header_split 표시.",
+  "evidence": "#86 starts \"| 3 | Butler and Carter (Ref. 53) |\"; header row with \"Load-life exponent | Stress-life exponent\" precedes it"
+ },
+ {
+  "qid": "pdf007",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "청크 #49에 응력 하위 머리글(1379 | 1724 | 2068)과 각주 c(\"Normalized to life at maximum Hertz stress of 1379 MPa ... with no fatigue limit\")가 있어 해석 가능. TABLE III 캡션과 \"Fatigue limit / Relative life\" 상위 머리글은 이전 청크(부분 분리). 답 0.026 정확.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "#49: \"|  | 1379 | 1724 | 2068 |\" ... \"| 0 (0), Lundberg-Palmgren (Ref. 9) | 1 | 0.134 | 0.026 |\""
+ },
+ {
+  "qid": "pdf008",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "앵커는 실제 행의 앞부분만 자른 것(전체 행: \"| AMS 6278 (VIM–VAR M50 NiL) | 0.4 (58) | 381 | 28010–2 | ...\"). 나머지 셀에 사설 영역 문자(U+F0B4, ×)가 섞여 있어 자른 것이 오히려 안전하며 부분 문자열이므로 매핑 문제 없음. 캡션·머리글 같은 청크 #97. 질문은 캡션·행 라벨 어휘를 많이 사용(easy 표기와 일치).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "#97 contains TABLE IX caption, \"| 1.4 | 1.9 | 2.4 | 4.8 |\" and footnote \"aRelative life normalized to AISI M–50 at ... 1.4 GPa\""
+ },
+ {
+  "qid": "pdf009",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "TABLE I 캡션이 \"STANDARDSa 9 AND 11\"을 직접 제시, 등급 2 타당. 등급 1 문장은 규격 번호 대신 Ref. 번호만 주므로 등급 1 적절. Table I 각주가 규격 번호를 재진술하므로 등급 1로 추가 권장.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tp-2013-215305-rev1",
+    "anchor": "aStandards 9 and 11 are found in Refs. 13 and 14, respectively.",
+    "grade": 1
+   }
+  ],
+  "verdict": "ok",
+  "fix": "누락 정답 1건 추가(등급 1).",
+  "evidence": "\"TABLE I.—... fcm IN ANSI/ABMA STANDARDSa 9 AND 11 ...\""
+ },
+ {
+  "qid": "pdf010",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 캡션, 등급 1 본문(Figure 27(b)) 타당. 질문이 캡션 문구(\"S-N curves\", \"illustrate the fatigue limit concept\")를 거의 그대로 사용하고, 그림 번호를 묻는 문서 탐색형 질문이라 실제 사용자 질문으로 부자연스러움.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"In the NASA review of rolling-element bearing life prediction, which figure shows Wöhler-type stress-cycle curves with an endurance limit, and which source is it credited to?\"",
+  "evidence": "anchor \"Figure 27.—Stress-life (S-N) curves illustrating concept of fatigue limit (Ref. 102).\" vs question \"uses S-N curves to illustrate the fatigue limit concept\""
+ },
+ {
+  "qid": "pdf011",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "앵커는 TABLE II 캡션(253자)의 뒷부분 조각. 전체 캡션은 청크 #39/#40에 126자씩 정확히 반분되어 어느 청크도 50%를 넘지 못하므로, 현재 조각(#40에 79%)이 매핑에는 더 안전함. 조각 유지 권장. 등급 1 문장(\"normalize ... fcm to conformities ... 0.52\")은 Table II에 한정되지 않은 일반 진술이라 등급 1 적절(2로 올려도 무방).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "full caption 49024–49277; chunk #39 ends 49150, #40 starts 49151"
+ },
+ {
+  "qid": "pdf012",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "단일 문장 등급 2 타당. 2.1 GPa(300 ksi)가 같은 문서에 한 번 더 나오나(\"data at stresses significantly below 2.1 GPa\") 다른 진술이며 충돌 없음. 위키 문서에 접촉응력 수치 없음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"In rotating machinery nearly all rolling-element bearings operate at a maximum Hertz stress less than 2.1 GPa (300 ksi).\""
+ },
+ {
+  "qid": "pdf013",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 두 건 타당(본문, 초록). 결론부 (3)항도 같은 사실을 진술하나 줄바꿈(\"1,977 or\\n0.88 percent\")으로 끊겨 있어 앞부분을 등급 2로 추가 가능. 질문이 초록 문장을 거의 그대로 옮김(\"Of the ... ~224,000 commercial ... bearings ... for rework ... rejected because of ... fatigue\").",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tm-2017-219545",
+    "anchor": "(3) Of the ~224,000 commercial engine bearings removed from service for rework, 1,977 or",
+    "grade": 2
+   }
+  ],
+  "verdict": "fix",
+  "fix": "질문 교체: \"Among the jet engine bearings that went through overhaul and repair at a bearing repair shop between 2007 and 2013, how many were scrapped for fatigue and what fraction of the total was that?\" 누락 정답 1건 추가.",
+  "evidence": "question \"Of the roughly 224,000 commercial aircraft engine bearings sent for rework\" vs anchor \"Of the ~224,000 commercial engine bearings removed from service for rework\""
+ },
+ {
+  "qid": "pdf014",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 두 건(서론·본문) 모두 연도와 80일을 진술, 타당. 다른 연도 진술 없음(위키의 1969/1977은 무관한 항공 사고).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"three 80-day periods during 1969, 1971, and 1977\""
+ },
+ {
+  "qid": "pdf015",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 두 건(본문 (4)항, 결론) 타당. 서로 다른 문자열이라 이중 매핑 문제 없음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"At 5,000 h or the bearing L10 fatigue life, 97 percent of the bearings would be removed from service.\""
+ },
+ {
+  "qid": "pdf016",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. Table III은 추출되지 않아 표 행 근거 없음. 보조 근거로 부식 기준 L10 계산 문장이 있으나 줄바꿈된 수식 조각이라 추가 비권장.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"From Table III, “corrosion pitting” is the lowest lived failure mode.\""
+ },
+ {
+  "qid": "pdf017",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 코퍼스 내 다른 재가공 비용 절감 수치 없음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"the potential cost savings from bearing rework varies from 53 to 82 percent that of new bearings\""
+ },
+ {
+  "qid": "pdf018",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "첫 앵커(\"At that time, ... approximately 300 h\")는 등급 2 타당(시점은 앞 문장). 둘째 앵커(\"Anecdotally, the life of these early engines ... 300 h\")는 \"early engines\"(문맥상 pre-1960)만 언급하고 1950년대 초·주축 베어링 조건이 없어 등급 1로 낮추는 것이 맞음. 시점 조건을 주는 앞 문장을 등급 1로 추가 권장.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tm-2017-219545",
+    "anchor": "Primary components limiting the life of gas turbine engines for aircraft application in the early 1950s were the ball and roller bearings used to support the main rotor shaft.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "gold[1](Anecdotally ...) 등급 2→1. 누락 정답 1건 추가(등급 1).",
+  "evidence": "\"Anecdotally, the life of these early engines, and thus their bearings, were limited to approximately 300 h.\""
+ },
+ {
+  "qid": "pdf019",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 질문이 앵커 구조를 그대로 따름(\"higher stresses at the roller edges ... compared with the stress at the contact center\" ↔ \"higher edge stresses ... compared to the effect of the stress at the center of the contact area\"). hard 표기와 맞지 않음.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"Sugiura et al. ran rolling contact tests on fully crowned rollers with several crown radii. How much shorter was life because of edge loading than the central contact stress alone would suggest?\"",
+  "evidence": "anchor \"the effect of higher edge stresses resulted in an approximate 30 percent reduction in life when compared to the effect of the stress at the center of the contact area\""
+ },
+ {
+  "qid": "pdf020",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. \"기준 하중\"이 무엇인지 질문에 없음(문서상 29,190 N). 또 문서는 \"chamfered (partially crowned) profile\"을 부분 크라우닝으로 부르고 aerospace profile은 평탄부+곡률 크라운으로 정의하므로 \"(부분 크라우닝)\" 괄호는 다른 프로파일과 혼동 유발.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"210 사이즈 원통 롤러 베어링에 기준 하중 29,190 N을 걸었을 때, 에어로스페이스 롤러 프로파일(평탄부 8 mm + 곡률 반경 크라운)에서 내륜 최대 헤르츠 응력은 얼마인가요?\"",
+  "evidence": "\"The chamfered (partially crowned) profile is similar to the aerospace profile.\""
+ },
+ {
+  "qid": "pdf021",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 같은 문서 결론 4항은 L-P 기준 \"approximately 10/3 for fully-crowned rollers\", 본문은 R=150d 완만한 풀크라운 p=3.2를 제시하여 \"Vollbombierung\"만으로는 3.1/3.2/10/3이 혼동될 수 있음. \"sehr stark\"를 R=100d로 고정하면 유일해짐.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"Auf welchen Wert sinkt nach Lundberg-Palmgren der Last-Lebensdauer-Exponent p bei Zylinderrollen mit sehr starker Vollbombierung (Bombierradius R = 100·d) im Vergleich zu unbombierten Rollen?\"",
+  "evidence": "conclusion: \"Using the Lundberg-Palmgren life theory, the load-life exponent is reduced from a value of 4 for flat rollers to approximately 10/3 for fully-crowned rollers.\""
+ },
+ {
+  "qid": "pdf022",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2(결론 3항) 타당, 등급 1 두 건 타당. 질문이 결론 문장을 재배열한 수준(\"Zaretsky life model\", \"load-life exponent p\", \"aerospace or chamfered\", \"flat and fully crowned rollers\"). 초록·본문의 풀크라운·평탄 롤러 값 문장도 등급 1로 추가 가능.",
+  "missing_gold": [
+   {
+    "doc_id": "nasa-tm-2015-218895",
+    "anchor": "For the Zaretsky model with fully crowned rollers p = 4.3.",
+    "grade": 1
+   },
+   {
+    "doc_id": "nasa-tm-2015-218895",
+    "anchor": "With the Zaretsky model, the load-life exponent p = 5.0 for a flat profile.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "질문 교체: \"If I size a cylindrical roller bearing with Zaretsky's life equation and the rollers have an aerospace-type or chamfered end relief, which load exponent should I use, and how does it differ from uncrowned and fully crowned rollers?\" 누락 정답 2건 추가(등급 1).",
+  "evidence": "anchor \"Using the Zaretsky life model, the load-life exponent p is reduced from 5.0 for flat rollers to 4.6 for either aerospace or chamfered rollers and to 4.3 for fully-crowned rollers.\""
+ },
+ {
+  "qid": "pdf023",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "두 문서(tm-2015, tp-2013)의 등급 2 앵커 모두 타당. 다른 배수 진술 없음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"underpredicted by a factor of 7.56\""
+ },
+ {
+  "qid": "pdf024",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 단, 같은 문서(및 tp-2013)에 \"For these data, there was no breakdown of the cause for removal or the percent of each component that had failed.\"라는 상반된 진술이 있어 생성·판정 단계에서 혼란 가능. 다른 수치는 없으므로 유일성은 유지.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "gold·질문 유지. note에 \"문서 내부 상충 진술 존재(no breakdown of the cause for removal)\" 기록.",
+  "evidence": "tm-2015: \"These failures were ~90 percent the result of planetary bearing failures\" vs \"there was no breakdown of the cause for removal or the percent of each component\""
+ },
+ {
+  "qid": "pdf025",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "캡션(Tabelle 5)·머리글(Untersuchungsintervall | Schrittweite | Schrittanzahl)·행이 같은 청크 #85. 답 정확.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "#85: \"| Wellendrehzahl n | 900 bis 2700 min−1 | 450 min−1 | 5 |\""
+ },
+ {
+  "qid": "pdf026",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "행이 청크 #175(캡션·머리글 포함)와 #176(머리글 없음)에 있음. #175 기준 해석 가능, 열 순서(geringe | Standard) 답과 일치.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "#175: \"| Additiv | geringe Additivierung in mg/kg | Standard-Additivierung in mg/kg |\" ... \"| Schwefel | 489 | 2975 |\""
+ },
+ {
+  "qid": "pdf027",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "표 헤더 분리: 앵커 행이 든 청크에 캡션·열 머리글이 없음(청크 #136에 Tabelle 7 캡션과 \"Anschmierung\" 열 머리글 없음 → \"x\"의 의미 불명). 다만 같은 청크의 후속 문장 \"Anschmierungen entstehen ausschließlich für mittlere bis sehr hohe Radialkräfte.\"가 해석을 보완하므로 등급 1로 추가 권장. 기존 등급 1 문장(요약부)은 50 kN 수치는 없으나 높은 하중에서 스미어링을 진술, 등급 1 적절.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-stuhler-2024",
+    "anchor": "Anschmierungen entstehen ausschließlich für mittlere bis sehr hohe Radialkräfte.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "누락 정답 1건 추가(등급 1). note에 table_header_split 표시.",
+  "evidence": "#136 starts \"| Axialkraft: Mittel | 1,8 | kN |  |\"; header \"| Versuchsbedingungen | Wert | Einheit | Anschmierung |\" in #135"
+ },
+ {
+  "qid": "pdf028",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": false,
+  "grade_notes": "청크 #145에 캡션 둘째 줄(\"Versuchsplan\")만 있고 \"-1 | 0 | 1\" 머리글 행은 없음. 그러나 행 라벨 \"Radiale Luft in µm\"이 자기설명적이라 세 수준 해석 가능. 앵커는 실제 행(\"|  | Radiale Luft in µm | 16 | 22 | 28 |\")의 부분 문자열로 매핑에는 문제 없음. 문서는 srad를 \"Maß nach Einbau\"로 정의하므로 \"mounted\" 표현 타당.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Nachfolgend ist die radiale Luft srad als das Maß nach Einbau ... zu verstehen.\""
+ },
+ {
+  "qid": "pdf029",
+  "answerable": "partial",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "Tabelle 6(Öldaten)은 스미어링 시험 장(6.4) 도입부에만 있고, 슬립 측정 장에는 사용 오일 진술이 없음. 질문의 \"슬립·스미어링 시험\"은 슬립 시험 부분이 근거 없음. 캡션·머리글 같은 청크 #122. 오일 사용 범위를 진술하는 문장을 등급 1로 추가 권장.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-stuhler-2024",
+    "anchor": "Für die nachfolgenden Versuche wird die nahezu additivfreie Version des Öls in Tabelle 6 verwendet, um schützende Effekte durch Reaktionsschichten oder ein ver-ändertes Ölverhalten durch abbauende Additivierungen zu verhindern.",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "질문 교체: \"NUP 2208 총형 원통롤러베어링의 스미어링 시험에 사용한 유압유의 ISO 점도 등급은 무엇인가요?\" 누락 정답 1건 추가(등급 1).",
+  "evidence": "\"Für die nachfolgenden Versuche wird die nahezu additivfreie Version des Öls in Tabelle 6 verwendet\" (page 89, smearing chapter only)"
+ },
+ {
+  "qid": "pdf030",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": true,
+  "grade_notes": "캡션(Tabelle 14: reduzierte axiale Luft, Einlauf)·머리글·행이 같은 청크 #173. 조건(축방향 간극 감소+60분 런인)으로 Tabelle 11/13의 Versuch 18과 구분되어 유일. 질문이 행 수치(1350, 35, 2,3, 70)를 그대로 나열해 숫자 매칭이 쉬움(mono hard와 불일치). 등급 1 문장은 클래스 번호를 주지 않으므로 등급 1 적절.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"Welche Schadensklasse zeigte Versuchspunkt 18 des zentral zusammengesetzten Anschmier-Versuchsplans, als er mit reduzierter axialer Luft am Außenring und einem 60-minütigen Einlauf wiederholt wurde?\"",
+  "evidence": "\"| 18 | 60 | 3 | 1350 | 35 | 2,3 | 70 | 18 |\" under \"Tabelle 14: Zusatzversuche ... reduzierte axiale Luft am Außenring\""
+ },
+ {
+  "qid": "pdf031",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 캡션 타당, 그림 목록 중복 없음. 질문이 캡션 문구(\"Aufbau von Spule und ... Wälzkörper für die Schlupfmessung\")를 거의 그대로 사용. 그림 번호 질문.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"In welcher Abbildung der Dissertation zu Schlupf und Anschmierungen in vollrolligen Zylinderrollenlagern sieht man, wie die Messspule und die mit Magnet präparierte Rolle zur Messung der Rollendrehzahl aufgebaut sind?\"",
+  "evidence": "anchor \"Abb. 12: Aufbau von Spule und Wälzkörper für Schlupfmessung\" vs question \"der Aufbau von Spule und präpariertem Wälzkörper für die Schlupfmessung\""
+ },
+ {
+  "qid": "pdf032",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "캡션과 본문 문장 모두 등급 2 타당. 질문은 본문 문장의 영어 번역에 가까우나 교차 언어 질문이므로 허용 범위.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Im Rahmen der bisherigen Anschmieruntersuchungen wurden die in Tabelle 1 zusammen-gefassten, energetischen Kennwerte ...\""
+ },
+ {
+  "qid": "pdf033",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 세 건(본문 p98, 요약 p128, 초록 p132) 모두 11 °C를 진술, 타당. 등급 1 표 행은 머리글 없는 청크 #136에 있으나 보조 근거라 무방. 20 °C 기준을 진술하는 앞 문장을 등급 1로 추가 가능.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-stuhler-2024",
+    "anchor": "Innerhalb der Einzelparametervariation sind die maximale Axialkraft von 2,7 kN sowie die niedrigste Öltemperatur von 20◦C beim Start ausschlaggebend.",
+    "grade": 1
+   }
+  ],
+  "verdict": "ok",
+  "fix": "누락 정답 1건 추가(등급 1, 선택).",
+  "evidence": "\"Bereits eine Erhöhung der Öltemperatur beim Start um 11◦C verhindert die Entstehung von Anschmierungen.\""
+ },
+ {
+  "qid": "pdf034",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "앵커가 문장 중간 조각(\"dem Teilkreisdurchmesser ... des Wälzkörpers\")으로 주어·용도(원심력 계산)가 빠짐. 전체 문장이 한 청크(#99)에 들어가므로 전체 문장으로 교체 권장.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "gold[0].anchor를 전체 문장으로 교체: \"Die Zentrifugalkraft Fzent der Wälzkörper berechnet sich mit Hilfe der Wälzkörpersatzdreh-zahl nach Gleichung 1, dem Teilkreisdurchmesser des Wälzkörpersatzes dws = 54,5 mm und der Masse mwk = 11,2 g des Wälzkörpers zu:\"",
+  "evidence": "current anchor starts mid-sentence: \"dem Teilkreisdurchmesser des Wälzkörpersatzes dws = 54,5 mm ...\""
+ },
+ {
+  "qid": "pdf035",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": true,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당(주어 \"Letzteres\"는 앞 문장의 시험 베어링, 같은 청크). 질문이 앵커 구문(\"Anteil der Axialkraft und der exzentrisch ... Radialkraft ... aufnimmt\")을 거의 그대로 사용.",
+  "missing_gold": [],
+  "verdict": "fix",
+  "fix": "질문 교체: \"Wie teilt sich im Wälzlagerprüfstand mit dem vollrolligen Prüflager NUP 2208 die aufgebrachte Last zwischen Prüflager und Gleitlager auf?\"",
+  "evidence": "anchor \"Letzteres nimmt vollständig die Axialkraft Fax und 67 % der exzentrisch aufgebrachten Radialkraft Frad auf.\" vs question \"Anteil der Axialkraft und der exzentrisch eingeleiteten Radialkraft\""
+ },
+ {
+  "qid": "pdf036",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": true,
+  "grade_notes": "캡션(Tabelle 5.3, Raumtemperatur, Messdorn ∅79,95 mm)·머리글·행이 같은 청크 #73. 같은 청크의 70 °C 값(26,47 N)은 질문의 \"상온\" 조건으로 배제. 답 정확.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"| RWDR D3 | 13,58 | 32,74 | 19,16 |\" under \"Radialkräfte bei Raumtemperatur nach 60 min\""
+ },
+ {
+  "qid": "pdf037",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": false,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 캡션 타당. 그림 목록(p6)에 같은 캡션이 있어 등급 1로 추가 권장. 위키(en_radial_shaft_seal, de_wellendichtring)는 Simmerring 최초 개발을 1929년으로 진술 → 질문이 \"그림 속 실링의 연도\"임을 명확히 하지 않으면 1929가 오답 유인. 현재 질문은 \"pictured seal\"로 한정하나 문서 그림을 전제하는 탐색형 질문.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Abbildung 4.6 Früher Simmerring aus dem Jahr 1932",
+    "grade": 1
+   }
+  ],
+  "verdict": "fix",
+  "fix": "질문 교체: \"The dissertation on rotating radial shaft seals illustrates an early Simmerring as a historical example. What year is that example seal from (not the year the Simmerring was first developed)?\" note에 위키 1929 진술(다른 사실) 기록. 누락 정답 1건 추가(등급 1).",
+  "evidence": "en_radial_shaft_seal: \"The first development 1929 in Kufstein Tirol Austria consisted of leather and metal.\""
+ },
+ {
+  "qid": "pdf038",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 등급 1(2-Kammer-Prüfstand에서 FVA3-Öl 사용)도 같은 오일을 지시, 적절.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Bei allen Untersuchungen wurde das mineralische FVA Referenzöl Nr. 3 ohne Anglamol1 verwendet\""
+ },
+ {
+  "qid": "pdf039",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 키워드(Prüfdichtungen, Standard, Feder) 중복은 있으나 구문 복사 수준은 아님(mono easy).",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Standard-RWDR aus FKM, mit Feder und Außengummierung\""
+ },
+ {
+  "qid": "pdf040",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 120 mm·상온 조건은 앵커가 아니라 그림 5.19 캡션(줄바꿈 \"mi\\nt120 mm\")에 있음. 엘라스토머 반경력 1200 rpm 문장을 등급 1로 추가 가능.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Die Elastomerradialkraft ist schon ab etwa 1.200 1/min aufgehoben (siehe Abb. 5.20).",
+    "grade": 1
+   }
+  ],
+  "verdict": "ok",
+  "fix": "누락 정답 1건 추가(등급 1, 선택).",
+  "evidence": "\"Somit ergibt sich beispielsweise für das Abheben der Feder aus der Nut eine Drehzahl von ca. 2900 1/min.\""
+ },
+ {
+  "qid": "pdf041",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 앵커는 문장 중간(\"Außerdem ist die\\n\" 뒤)에서 시작하는 조각이나 줄바꿈 때문에 불가피, 수치·의미는 충분. \"유압(정수압) 오일력 미포함\" 조건을 진술하는 문장을 등급 1로 추가 권장.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Gemäß Abbildung 5.15 ist die zusätzlich wirkende Radialkraft als Folge des Fluiddruckes noch nicht eingeflossen.",
+    "grade": 1
+   }
+  ],
+  "verdict": "ok",
+  "fix": "누락 정답 1건 추가(등급 1).",
+  "evidence": "\"verbleibende Gesamtradialkraft mit aufgeführt, die bei ca. 1900 1/min die Abszisse schneidet\""
+ },
+ {
+  "qid": "pdf042",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당(하이픈 \"Haupterkennt-nis\"는 원문 그대로). 오일 충전에 따른 마찰토크 증가 규모 문장을 등급 1로 추가 권장.",
+  "missing_gold": [
+   {
+    "doc_id": "luh-diss-pelzer-2022",
+    "anchor": "Im hier dargestellten Fall kann das Reibmoment einer einzelnen Dichtung nur wegen der Ölfüllung in einem Gehäuse mehr als das Doppelte betragen.",
+    "grade": 1
+   }
+  ],
+  "verdict": "ok",
+  "fix": "누락 정답 1건 추가(등급 1).",
+  "evidence": "\"je voller die Kammer, desto größer ist auch der hydrostatische Druck auf die Dichtlippe\""
+ },
+ {
+  "qid": "pdf043",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "앵커는 문장 앞부분 조각(뒤는 추출 깨짐: \"Ä\", in der die Prüfdichtung \"Bßitzt\")이나 깨진 부분을 피한 선택으로 타당.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Dieser Prüfstand verfügt über eine durch einen Motor bis zu 7.000 1/min ange-triebene Dichtringaufnahme\""
+ },
+ {
+  "qid": "pdf044",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. Tabelle 5.3 실측값(스프링 약 19 N, 엘라스토머 약 13 N)은 \"약 50:50 관행\"과 다른 개별 측정이며 상충 진술은 아님. 위키에 비율 진술 없음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Differenzierung der Radialkraftanteile zwischen Federkraft und Elastomerkraft von ca. 50 % zu 50 % üblich\""
+ },
+ {
+  "qid": "pdf045",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2(이유 포함)와 등급 1(결론) 타당. PBT·PEEK 평가 문장은 \"가장 좋게\"와 충돌하지 않음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Besonders positiv ist dabei das Verhalten des Materials PA66 hervorzuheben, da es eine lineare Erhöhung des Widerstands bei einer Temperatur ab 50 °C aufweist.\""
+ },
+ {
+  "qid": "pdf046",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 단일 진술.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Der Werkstoff PPS zeigt hingegen eine hohe Temperaturstabilität hinsichtlich seiner Widerstandsänderung\""
+ },
+ {
+  "qid": "pdf047",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 타당. 질문 어휘는 앵커 앞 문장·제목에서 온 것으로 앵커 복사 아님.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"In der Mitte der Welle wurde eine Kraft von 60 kN appliziert\""
+ },
+ {
+  "qid": "pdf048",
+  "answerable": "yes",
+  "unique": true,
+  "self_contained": true,
+  "copies_anchor": false,
+  "table_header_in_chunk": null,
+  "grade_notes": "등급 2 캡션 타당. 등급 1 \"Dieser Zusammenhang ist in Abbildung 9 dargestellt\"는 문장 조각(뒤가 그림 캡션으로 끊김)이나 그림 번호 근거로 유효. 그림 번호 탐색형 질문이라 자연성은 낮음.",
+  "missing_gold": [],
+  "verdict": "ok",
+  "fix": "",
+  "evidence": "\"Abbildung 9: Messergebnisse des Durchgangswiderstand der Sensorelemente für verschiedene elektrisch modifizierte Kunststoffe\""
+ }
+]
