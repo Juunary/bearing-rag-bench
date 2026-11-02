@@ -48,7 +48,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from ragbench.cache import LLMCache  # noqa: E402
 from ragbench.chunking import load_chunks  # noqa: E402
-from ragbench.config import ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
+from ragbench.config import ChunkingConfig, ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
 from ragbench.evalset import load_queries  # noqa: E402
 from ragbench.ingest import REPO  # noqa: E402
 from ragbench.judge import JUDGE_PROMPT_VERSION, Judge, build_judge_messages, parse_verdict, select_passages  # noqa: E402
@@ -78,9 +78,6 @@ def main() -> None:
     cfg = ExperimentConfig.load(args.config)
     set_seed(cfg.seed)
 
-    chunks = load_chunks(cfg.chunking)
-    by_id = {c["chunk_id"]: c for c in chunks}
-    queries = {q["qid"]: q for q in load_queries(REPO / cfg.eval_path)}
     cache = LLMCache(REPO / "logs" / "judge_cache.sqlite")
     judge = Judge(cfg.generation.model, cache=cache)
     n_calls = n_cached = n_retries = 0
@@ -90,6 +87,9 @@ def main() -> None:
         per_query = []
         # 평가셋은 생성 결과에 기록된 경로를 쓴다 (판정 설정의 기본값은 45문항 평가셋이라 v2 결과가 KeyError가 난다)
         queries = {q["qid"]: q for q in load_queries(REPO / src["config"].get("eval_path", cfg.eval_path))}
+        # 청크도 생성 결과에 기록된 청킹 설정으로 읽는다 (PDF 코퍼스·표 머리글 반복 청크는 판정 설정의 기본 청크 세트에 없다)
+        chunk_cfg = ChunkingConfig(**src["config"]["chunking"]) if "chunking" in src["config"] else cfg.chunking
+        by_id = {c["chunk_id"]: c for c in load_chunks(chunk_cfg)}
         for p in src["per_query"]:
             q = queries[p["qid"]]
             ctx_ids, answer = p["context_ids"], p["answer"]
