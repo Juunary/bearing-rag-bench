@@ -88,6 +88,10 @@ uv run python run_autorag.py && uv run python collect_autorag.py && cd ..
 uv run python experiments/run_generation.py configs/cmp/v2g_cmp_ar.json   # li, hs도 같은 방식 (이후 run_judge.py)
 uv run python experiments/analyze_comparison.py
 
+# PDF 코퍼스 (pdf-editor 체크아웃에서 pnpm build 필요)
+uv run python scripts/build_pdf_docs.py --pdf-editor /path/to/pdf-editor
+uv run python -m ragbench.chunking --corpus wiki_pdf   # 위키 + PDF 청크
+
 uv run pytest -q
 ```
 
@@ -99,6 +103,7 @@ uv run pytest -q
 - 청크 346개(영어 179, 독일어 124, 한국어 43).
 - 평가셋 `eval/queries.jsonl`: 질문 45개(ko·en·de 각 15개). 정답은 문서 ID, 근거 문장, 등급(핵심 2 / 보조 1)으로 적었고 평가 시 청크로 매핑합니다. 형식은 `eval/README.md`에 있습니다.
 - 평가셋 v2 `eval/queries_v2.jsonl`: 질문 90개(질문 언어 x 주 근거 언어 9개 쌍마다 10개). 변경 이력은 `eval/README.md`, 수정 기록은 `eval/v2_review_log.json`에 있습니다.
+- PDF 문서 6건(`data/pdf_sources.json`): 영어 NASA 기술보고서 3건(퍼블릭 도메인), 독일어 하노버대 학위논문 2건(CC BY 3.0 DE)과 innoTRAC 논문 1건(CC BY 4.0). 라이선스는 퍼블릭 도메인, CC0, CC BY, CC BY-SA, 공공누리 제1유형만 허용했고 이 기준을 통과한 한국어 문서는 없었습니다. PDF 원본은 커밋하지 않고(내려받기 + sha256 확인), pdf-editor(https://github.com/Juunary/pdf-editor)의 레이아웃 복원으로 추출한 텍스트를 `data/processed/docs_pdf.jsonl`에 둡니다. 머리말·꼬리말·그림 안 글자·목차 줄은 빼고, 표는 행마다 한 줄 `| 칸 | 칸 |`로 적습니다. 위키 + PDF 청크는 903개(`chunking.corpus = "wiki_pdf"`)입니다.
 
 ## 결과
 
@@ -184,6 +189,12 @@ HNSW (346벡터, 전수검색 대비 recall@10, 전수검색 p50 0.040 ms)
 | 영어 RRF + 리랭커(영어 청크·영어 질의 입력) | 0.892 | 0.933 | 0.895 | 0.903 | 0.891 | 0.60 s |
 | 3중 RRF(영어 BM25 + kiwi BM25 + dense) | 0.391 | 0.465 | 0.455 | 0.812 | 0.276 | 0.60 s |
 | 3중 RRF + 리랭커 | 0.658 | 0.684 | 0.639 | 0.869 | 0.524 | 0.60 s |
+| dense 후보 30개 + 리랭커 (BM25·RRF 없음) | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 | - |
+| dense 후보 30개 + 리랭커(영어 입력) | 0.784 | 0.829 | 0.778 | 0.894 | 0.720 | 0.60 s |
+| 영어 dense (번역 청크 임베딩, 영어 질의) | 0.782 | 0.766 | 0.738 | 0.689 | 0.763 | 0.60 s |
+| 영어 dense + 리랭커(영어 입력) | 0.897 | 0.934 | 0.891 | 0.891 | 0.892 | 0.60 s |
+| RRF(영어 BM25 + 영어 dense) | 0.813 | 0.789 | 0.782 | 0.704 | 0.821 | 0.60 s |
+| RRF(영어 BM25 + 영어 dense) + 리랭커(영어 입력) | 0.897 | 0.934 | 0.893 | 0.891 | 0.894 | 0.60 s |
 
 번역·확장 시간은 캐시에 저장된 원래 생성 시간의 중앙값입니다. 질의 번역을 건너뛰는 설정(영어로 보이는 질문)은 nDCG 0.756입니다.
 
@@ -210,6 +221,8 @@ HNSW (346벡터, 전수검색 대비 recall@10, 전수검색 p50 0.040 ms)
 | RRF + 리랭커 | 0.591 | 0.586 | 0.568 | 0.565 |
 
 리랭커 후보 수(30 / 50 / 100): 영어 RRF + 리랭커 nDCG@10 0.656 / 0.652 / 0.652. 후보 30개 안에 정답 청크가 있는 질문은 영어 RRF 90/90, 원문 RRF 73/90이고, 리랭커 후 상위 5에 정답이 남은 질문은 각각 75/90, 69/90입니다.
+
+dense 후보와 번역 청크 임베딩(nDCG@10 차이, 문서 군집 95% 구간; 이 비교 쌍은 앞의 결과를 본 뒤 추가): dense 후보 30개 + 리랭커 - RRF + 리랭커 +0.056(+0.025 .. +0.094), 후보 30개 안에 정답이 있는 질문은 dense 81/90, 원문 RRF 73/90입니다. 영어 dense - dense +0.252(+0.164 .. +0.336), RRF(영어 BM25 + 영어 dense) - 영어 RRF +0.144(+0.059 .. +0.230), 영어 dense + 리랭커(영어 입력) - 영어 RRF + 리랭커(영어 입력) -0.003(-0.019 .. +0.014), RRF(영어 BM25 + 영어 dense) + 리랭커(영어 입력) - 같은 기준 -0.002(-0.015 .. +0.013).
 
 풀링 재채점(`experiments/results/v2_pooled.md`): 25개 설정의 상위 3개 중 gold가 아닌 청크 1,054개에 라벨을 붙여 정답 청크 97개를 45개 질문에 추가했고, 원래 gold와 풀링 gold의 시스템 순서 상관은 Kendall tau 0.973입니다. 라벨 대조군은 정답 청크 15/16개가 1 이상, 무관한 청크 16/16개가 0이었습니다.
 
@@ -293,7 +306,7 @@ LlamaIndex 0.14.25, Haystack 3.4.1, AutoRAG 0.3.27을 `comparison/`의 별도 �
 | AutoRAG: 탐색 최고 파이프라인(밀집 후보 30개 + 리랭커) | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 |
 | 이 저장소: 영어 RRF + 리랭커(리랭커 영어 입력) | 0.892 | 0.933 | 0.895 | 0.903 | 0.891 |
 
-AutoRAG 탐색(`comparison/autorag_retrieval.yaml`)은 BM25 토크나이저 3종, 하이브리드 4종(RRF, convex combination 정규화 3종), 리랭커 3종을 돌렸고, 하이브리드 단계에서 AutoRAG 자체 지표로 고른 모듈은 convex combination(mm)에 가중치 1.0이어서 밀집 결과와 같습니다. 모듈별 전체 결과와 언어쌍별 표는 `experiments/results/cmp_analysis.md`에 있습니다.
+AutoRAG 탐색(`comparison/autorag_retrieval.yaml`)은 BM25 토크나이저 3종, 하이브리드 4종(RRF, convex combination 정규화 3종), 리랭커 3종을 돌렸고, 하이브리드 단계에서 AutoRAG 자체 지표로 고른 모듈은 convex combination(mm)에 가중치 1.0이어서 밀집 결과와 같습니다. 모듈별 전체 결과와 언어쌍별 표는 `experiments/results/cmp_analysis.md`에 있습니다. 같은 구조(dense 후보 30개 + 리랭커)를 이 저장소 코드로 돌린 결과는 nDCG@10 0.642로 AutoRAG와 같고, 질문별 상위 10 순서가 같은 질문은 78/90입니다.
 
 nDCG@10 쌍체 비교(A - B, 문서 군집 95% 구간): LlamaIndex 하이브리드 + 리랭커 - 이 저장소 RRF + 리랭커 +0.005(-0.001 .. +0.018), Haystack +0.004(-0.015 .. +0.027), AutoRAG 최고 파이프라인 +0.056(+0.025 .. +0.094). 이 저장소 영어 RRF + 리랭커(리랭커 영어 입력) - AutoRAG 최고 파이프라인 +0.253(+0.169 .. +0.333), - LlamaIndex +0.303(+0.214 .. +0.385), - Haystack +0.304(+0.217 .. +0.387).
 
@@ -319,6 +332,7 @@ nDCG@10 쌍체 비교(A - B, 문서 군집 95% 구간): LlamaIndex 하이브리�
 - 영어 피벗은 같은 모델이 청크와 질의를 번역합니다. 청크 크기·맥락 접두사 실험은 원문 텍스트 파이프라인만 대상이고, 청크 크기 변형은 풀링에서 제외했습니다.
 - 프레임워크 비교는 이 저장소의 청크 346개를 모든 시스템에 같게 넣은 결과이며, 각 프레임워크의 문서 로더·청커와 번역(피벗) 기능은 비교하지 않았습니다. 프레임워크 행에는 영어 피벗이 없습니다.
 - LlamaIndex·Haystack는 하이브리드 + 리랭커 구성 1개씩이고 파라미터 탐색을 하지 않았습니다. AutoRAG 탐색은 검색·리랭킹 노드의 모듈 11개로 한정했고 질의 확장, 프롬프트, 생성 노드는 탐색하지 않았습니다. 생성 비교는 시스템마다 최고 구성 1개, 판정 모델 1종입니다.
+- PDF 코퍼스는 한국어 문서가 없고, PDF 근거 평가 질문은 아직 없습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
@@ -338,6 +352,8 @@ eval/v2_draft/  평가셋 v2 초안, 검수 입력·출력
 data/sft_v2*/   v2 기준 학습 데이터(일반, 교차 언어 전용), data/glossary.json 용어집
 comparison/     외부 프레임워크 비교(별도 환경): prepare_data, run_frameworks, run_autorag, collect_autorag
 configs/cmp/    프레임워크 검색 결과를 받는 생성 설정
+data/pdf_sources.json, data/processed/docs_pdf.jsonl   PDF 출처(라이선스 근거, sha256)와 추출 텍스트
+scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF 내려받기·레이아웃 추출·문서 생성
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
 ```
@@ -345,4 +361,6 @@ logs/           요청 로그와 캐시 (git 제외)
 ## 라이선스와 출처
 
 - 문서: 위키백과, CC BY-SA 4.0.
+- PDF 문서: NASA NTRS 기술보고서 TP-2013-215305/REV1, TM-2017-219545, TM-2015-218895(미국 정부 저작물, 퍼블릭 도메인); Stuhler(2024)·Pelzer(2022), Leibniz Universität Hannover 학위논문(CC BY 3.0 DE, doi:10.15488/17341, doi:10.15488/11718); Katzer·Bankwitz·Hübler, innoTRAC Journal 1(2020) 140-148(CC BY 4.0). 추출 텍스트는 원문의 라이선스를 따릅니다.
+- PDF 레이아웃 추출: pdf-editor(AGPL-3.0). 코드는 이 저장소에 복사하지 않고 실행 시점에 불러옵니다.
 - 모델: BAAI/bge-m3(MIT), BAAI/bge-reranker-v2-m3(Apache 2.0), Qwen3-4B-Instruct-2507과 Qwen3-8B(Apache 2.0).

@@ -88,6 +88,10 @@ uv run python run_autorag.py && uv run python collect_autorag.py && cd ..
 uv run python experiments/run_generation.py configs/cmp/v2g_cmp_ar.json   # li and hs likewise (then run_judge.py)
 uv run python experiments/analyze_comparison.py
 
+# PDF corpus (needs a pdf-editor checkout with pnpm build)
+uv run python scripts/build_pdf_docs.py --pdf-editor /path/to/pdf-editor
+uv run python -m ragbench.chunking --corpus wiki_pdf   # Wikipedia + PDF chunks
+
 uv run pytest -q
 ```
 
@@ -99,6 +103,7 @@ Each result JSON records the full config, package versions, git commit, model re
 - 346 chunks (179 English, 124 German, 43 Korean).
 - Eval set `eval/queries.jsonl`: 45 questions (15 each in ko, en, de). Gold evidence is written as document ID, evidence sentence and grade (core 2 / supporting 1) and mapped to chunks at evaluation time. The format is described in `eval/README.md` (in Korean).
 - Eval set v2 `eval/queries_v2.jsonl`: 90 questions (10 per question-language x primary-language pair). Change history in `eval/README.md`, edit log in `eval/v2_review_log.json`.
+- 6 PDF documents (`data/pdf_sources.json`): 3 English NASA technical reports (public domain), 2 German Leibniz Universität Hannover dissertations (CC BY 3.0 DE) and 1 innoTRAC article (CC BY 4.0). Only public domain, CC0, CC BY, CC BY-SA and KOGL Type 1 were allowed; no Korean document passed. The PDFs are not committed (downloaded and checked by sha256); the text extracted with the layout reconstruction of pdf-editor (https://github.com/Juunary/pdf-editor) is in `data/processed/docs_pdf.jsonl`. Page headers and footers, text inside figures and table-of-contents lines are dropped, and a table becomes one line per row `| cell | cell |`. Wikipedia + PDF gives 903 chunks (`chunking.corpus = "wiki_pdf"`).
 
 ## Results
 
@@ -184,6 +189,12 @@ The task is citation completeness: every sentence of the answer carries a valid 
 | English RRF + reranker (English chunks and English query as reranker input) | 0.892 | 0.933 | 0.895 | 0.903 | 0.891 | 0.60 s |
 | 3-way RRF (English BM25 + kiwi BM25 + dense) | 0.391 | 0.465 | 0.455 | 0.812 | 0.276 | 0.60 s |
 | 3-way RRF + reranker | 0.658 | 0.684 | 0.639 | 0.869 | 0.524 | 0.60 s |
+| dense top 30 + reranker (no BM25, no RRF) | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 | - |
+| dense top 30 + reranker (English input) | 0.784 | 0.829 | 0.778 | 0.894 | 0.720 | 0.60 s |
+| English dense (translated chunks embedded, English query) | 0.782 | 0.766 | 0.738 | 0.689 | 0.763 | 0.60 s |
+| English dense + reranker (English input) | 0.897 | 0.934 | 0.891 | 0.891 | 0.892 | 0.60 s |
+| RRF (English BM25 + English dense) | 0.813 | 0.789 | 0.782 | 0.704 | 0.821 | 0.60 s |
+| RRF (English BM25 + English dense) + reranker (English input) | 0.897 | 0.934 | 0.893 | 0.891 | 0.894 | 0.60 s |
 
 Translate/expand time is the median of the original generation seconds stored in the cache. With translation skipped for queries that look English, nDCG is 0.756.
 
@@ -210,6 +221,8 @@ Chunk size (256 / 384 / 512, overlap 48) and contextual prefix on the original-t
 | RRF + reranker | 0.591 | 0.586 | 0.568 | 0.565 |
 
 Reranker candidates (30 / 50 / 100): English RRF + reranker nDCG@10 0.656 / 0.652 / 0.652. The gold chunk is inside the 30 candidates for 90/90 questions with English RRF and 73/90 with original RRF; after reranking it is in the top 5 for 75/90 and 69/90.
+
+Dense candidates and embeddings of the translated chunks (nDCG@10 difference, document-cluster 95% interval; these pairs were added after the results above were known): dense top 30 + reranker - RRF + reranker +0.056 (+0.025 .. +0.094); the gold chunk is inside the 30 candidates for 81/90 questions with dense and 73/90 with original RRF. English dense - dense +0.252 (+0.164 .. +0.336), RRF (English BM25 + English dense) - English RRF +0.144 (+0.059 .. +0.230), English dense + reranker (English input) - English RRF + reranker (English input) -0.003 (-0.019 .. +0.014), RRF (English BM25 + English dense) + reranker (English input) - same baseline -0.002 (-0.015 .. +0.013).
 
 Pooled re-scoring (`experiments/results/v2_pooled.md`): the top 3 of 25 configurations, minus gold chunks, gave 1,054 chunks that were labelled; 97 relevant chunks were added to 45 questions. Rank correlation of the systems under original vs pooled gold: Kendall tau 0.973. Judge controls: 15/16 known gold chunks labelled >= 1, 16/16 unrelated chunks labelled 0.
 
@@ -293,7 +306,7 @@ LlamaIndex 0.14.25, Haystack 3.4.1 and AutoRAG 0.3.27 ran in a separate environm
 | AutoRAG: best pipeline of its search (30 dense candidates + reranker) | 0.660 | 0.689 | 0.642 | 0.873 | 0.527 |
 | This repo: English RRF + reranker (reranker reads English) | 0.892 | 0.933 | 0.895 | 0.903 | 0.891 |
 
-The AutoRAG search (`comparison/autorag_retrieval.yaml`) ran 3 BM25 tokenizers, 4 hybrid modules (RRF and three convex-combination normalizations) and 3 rerankers. In the hybrid node, the module chosen by AutoRAG's own metrics is convex combination (mm) with weight 1.0, which equals the dense result. Per-module results and the per-language-pair table are in `experiments/results/cmp_analysis.md`.
+The AutoRAG search (`comparison/autorag_retrieval.yaml`) ran 3 BM25 tokenizers, 4 hybrid modules (RRF and three convex-combination normalizations) and 3 rerankers. In the hybrid node, the module chosen by AutoRAG's own metrics is convex combination (mm) with weight 1.0, which equals the dense result. Per-module results and the per-language-pair table are in `experiments/results/cmp_analysis.md`. The same structure (dense top 30 + reranker) run with this repository's code gives nDCG@10 0.642, equal to AutoRAG; the top-10 order is identical for 78/90 questions.
 
 Paired nDCG@10 differences (A - B, document-cluster 95% interval): LlamaIndex hybrid + reranker - this repo RRF + reranker +0.005 (-0.001 .. +0.018), Haystack +0.004 (-0.015 .. +0.027), AutoRAG best pipeline +0.056 (+0.025 .. +0.094). This repo English RRF + reranker (reranker reads English) - AutoRAG best pipeline +0.253 (+0.169 .. +0.333), - LlamaIndex +0.303 (+0.214 .. +0.385), - Haystack +0.304 (+0.217 .. +0.387).
 
@@ -319,6 +332,7 @@ This repo English RRF + reranker (reranker reads English) - AutoRAG best pipelin
 - The English pivot uses the same model for chunks and queries. The chunk-size and contextual-prefix experiments cover the original-text pipelines only, and the chunk-size variants are excluded from pooling.
 - The framework comparison feeds this repository's 346 chunks to every system; each framework's document loader, chunker and any translation (pivot) feature are not compared. The framework rows have no English pivot.
 - LlamaIndex and Haystack have one hybrid + reranker configuration each, without parameter search. The AutoRAG search is limited to 11 modules of the retrieval and reranking nodes; query expansion, prompt and generation nodes were not searched. The generation comparison uses the best configuration of each system and one judge model.
+- The PDF corpus has no Korean document, and there are no PDF-grounded evaluation questions yet. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
@@ -338,6 +352,8 @@ eval/v2_draft/  eval set v2 drafts, review inputs and outputs
 data/sft_v2*/   training data rebuilt for v2 (general, cross-language-only), data/glossary.json glossary
 comparison/     external framework comparison (separate environment): prepare_data, run_frameworks, run_autorag, collect_autorag
 configs/cmp/    generation configs that take the frameworks' retrieval results
+data/pdf_sources.json, data/processed/docs_pdf.jsonl   PDF sources (license evidence, sha256) and extracted text
+scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF download, layout export and document building
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```
@@ -345,4 +361,6 @@ logs/           request logs and caches (git-ignored)
 ## Licenses and sources
 
 - Documents: Wikipedia, CC BY-SA 4.0.
+- PDF documents: NASA NTRS technical reports TP-2013-215305/REV1, TM-2017-219545, TM-2015-218895 (US Government works, public domain); Stuhler (2024) and Pelzer (2022), dissertations, Leibniz Universität Hannover (CC BY 3.0 DE, doi:10.15488/17341, doi:10.15488/11718); Katzer, Bankwitz, Hübler, innoTRAC Journal 1 (2020) 140-148 (CC BY 4.0). The extracted text keeps the license of its source.
+- PDF layout extraction: pdf-editor (AGPL-3.0); its code is not copied into this repository but imported at run time.
 - Models: BAAI/bge-m3 (MIT), BAAI/bge-reranker-v2-m3 (Apache 2.0), Qwen3-4B-Instruct-2507 and Qwen3-8B (Apache 2.0).
