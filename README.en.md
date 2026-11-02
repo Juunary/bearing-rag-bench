@@ -91,6 +91,14 @@ uv run python experiments/analyze_comparison.py
 # PDF corpus (needs a pdf-editor checkout with pnpm build)
 uv run python scripts/build_pdf_docs.py --pdf-editor /path/to/pdf-editor
 uv run python -m ragbench.chunking --corpus wiki_pdf   # Wikipedia + PDF chunks
+uv run python experiments/build_english_chunks.py --corpus wiki_pdf
+uv run python scripts/apply_pdf_review.py && uv run python scripts/validate_eval.py eval/queries_pdf.jsonl --corpus=wiki_pdf
+uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*.json'
+uv run python experiments/analyze_pdf.py
+
+# Judge of another model family (Granite 3.3 8B)
+uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
+uv run python experiments/analyze_judge_agreement.py
 
 uv run pytest -q
 ```
@@ -104,6 +112,7 @@ Each result JSON records the full config, package versions, git commit, model re
 - Eval set `eval/queries.jsonl`: 45 questions (15 each in ko, en, de). Gold evidence is written as document ID, evidence sentence and grade (core 2 / supporting 1) and mapped to chunks at evaluation time. The format is described in `eval/README.md` (in Korean).
 - Eval set v2 `eval/queries_v2.jsonl`: 90 questions (10 per question-language x primary-language pair). Change history in `eval/README.md`, edit log in `eval/v2_review_log.json`.
 - 6 PDF documents (`data/pdf_sources.json`): 3 English NASA technical reports (public domain), 2 German Leibniz Universität Hannover dissertations (CC BY 3.0 DE) and 1 innoTRAC article (CC BY 4.0). Only public domain, CC0, CC BY, CC BY-SA and KOGL Type 1 were allowed; no Korean document passed. The PDFs are not committed (downloaded and checked by sha256); the text extracted with the layout reconstruction of pdf-editor (https://github.com/Juunary/pdf-editor) is in `data/processed/docs_pdf.jsonl`. Page headers and footers, text inside figures and table-of-contents lines are dropped, and a table becomes one line per row `| cell | cell |`. Wikipedia + PDF gives 903 chunks (`chunking.corpus = "wiki_pdf"`).
+- PDF eval set `eval/queries_pdf.jsonl`: 48 questions (8 per question language ko/en/de x document language en/de pair; evidence: 26 body text, 15 table, 7 caption). Writing and review in `eval/README.md`, edit log in `eval/pdf_review_log.json`.
 
 ## Results
 
@@ -251,6 +260,17 @@ Base bf16 model with contexts from different retrieval results:
 
 Difference to RRF + reranker (95 % interval by document cluster), English reranker input: gold chunk in context +0.222 (+0.120 .. +0.320), cites gold chunk +0.211 (+0.125 .. +0.292), correctness +0.105 (+0.013 .. +0.208), faithfulness +0.066 (-0.022 .. +0.151).
 
+Judge comparison (`experiments/results/judge_agreement.md`): Granite 3.3 8B Instruct (IBM, Apache 2.0) judged the same 10 answer sets with the same prompts. Granite's YES rate is higher than Qwen3-8B's on every set (correctness +0.06 .. +0.14); agreement between the judges is 0.82 .. 0.90 on correctness, Cohen's kappa 0.24 .. 0.48. Against the 8 human-graded answers: correctness Qwen 7/7, Granite 6/7; faithfulness 5/7 for both.
+
+| Comparison (correctness, document-cluster 95% interval) | Qwen3-8B judge | Granite judge |
+|---|---|---|
+| English RRF + reranker (English input) - RRF + reranker | +0.105 (+0.013 .. +0.208) | +0.066 (+0.000 .. +0.137) |
+| English RRF + reranker - RRF + reranker | +0.052 (+0.000 .. +0.114) | +0.000 (-0.037 .. +0.039) |
+| English RRF + reranker (English input) - AutoRAG best pipeline | +0.086 (+0.012 .. +0.162) | +0.049 (+0.011 .. +0.104) |
+| LoRA (seed 42) - base bf16 | +0.013 (-0.043 .. +0.076) | +0.013 (+0.000 .. +0.045) |
+| QLoRA (seed 42) - base 4-bit | +0.013 (-0.045 .. +0.068) | +0.013 (-0.044 .. +0.071) |
+| AutoRAG - LlamaIndex | +0.025 (-0.035 .. +0.089) | -0.013 (-0.056 .. +0.028) |
+
 ### Service performance (real models)
 
 30 questions taken evenly from eval set v2 were asked one after another. The cold pass starts with empty translation and LLM caches; the warm pass asks the same questions again and is answered from the caches. Values are in ms as `p50 / p95`. The service handles one request at a time. Configs: `configs/s35_pipeline.json` (original retrieval) and `configs/s6_pipeline_en.json` (English pivot + English reranker input).
@@ -322,17 +342,36 @@ Top 5 of each system's retrieval fed to the same base bf16 model:
 
 This repo English RRF + reranker (reranker reads English) - AutoRAG best pipeline (document-cluster 95% interval): gold chunk in context +0.178 (+0.077 .. +0.277), cites gold chunk +0.189 (+0.106 .. +0.267), faithfulness +0.049 (-0.025 .. +0.127), correctness +0.086 (+0.012 .. +0.162). AutoRAG - LlamaIndex and AutoRAG - Haystack include 0 in all four metrics (gold chunk in context has a lower bound of +0.000).
 
+### PDF documents (Wikipedia + PDF, 903 chunks, 48 PDF questions)
+
+| Method | R@5 | MRR@10 | nDCG@10 | mono | cross | text (26) | table (15) | caption (7) |
+|---|---|---|---|---|---|---|---|---|
+| BM25 kiwi | 0.300 | 0.352 | 0.308 | 0.693 | 0.116 | 0.299 | 0.377 | 0.197 |
+| dense | 0.592 | 0.532 | 0.526 | 0.555 | 0.511 | 0.655 | 0.396 | 0.325 |
+| RRF + reranker | 0.649 | 0.654 | 0.632 | 0.735 | 0.580 | 0.721 | 0.552 | 0.473 |
+| dense top 30 + reranker | 0.664 | 0.666 | 0.632 | 0.730 | 0.582 | 0.731 | 0.521 | 0.500 |
+| English BM25 | 0.667 | 0.712 | 0.668 | 0.681 | 0.661 | 0.710 | 0.649 | 0.550 |
+| English dense | 0.685 | 0.601 | 0.596 | 0.585 | 0.602 | 0.687 | 0.521 | 0.418 |
+| English RRF + reranker | 0.705 | 0.683 | 0.670 | 0.730 | 0.640 | 0.748 | 0.595 | 0.540 |
+| English RRF + reranker (English input) | 0.841 | 0.781 | 0.755 | 0.763 | 0.750 | 0.835 | 0.657 | 0.664 |
+| English dense + reranker (English input) | 0.795 | 0.733 | 0.708 | 0.742 | 0.692 | 0.799 | 0.578 | 0.650 |
+| RRF (English BM25 + English dense) + reranker (English input) | 0.856 | 0.785 | 0.774 | 0.763 | 0.780 | 0.835 | 0.680 | 0.748 |
+
+For the 5 questions whose answer is a table row with the column headers in another chunk, nDCG@10 is 0.155 .. 0.433 depending on the setting. Question-level 95% intervals (only 6 primary documents, so the document-cluster intervals are only in `experiments/results/pdf_analysis.md`): English RRF + reranker (English input) - RRF + reranker +0.123 (+0.034 .. +0.218), English BM25 - BM25 kiwi +0.359 (+0.240 .. +0.482), English dense - dense +0.070 (+0.012 .. +0.131), English dense + reranker (English input) - English RRF + reranker (English input) -0.046 (-0.100 .. +0.001), dense top 30 + reranker - RRF + reranker -0.000 (-0.023 .. +0.021). The per-language-pair table is in `pdf_analysis.md`.
+
+Searching the 90 v2 questions again on the corpus with the 557 PDF chunks changes nDCG@10 by -0.013 .. -0.040 depending on the setting (English RRF + reranker (English input) 0.895 → 0.865, document-cluster interval -0.065 .. -0.003), and 28 .. 37 questions get a PDF chunk in their top 5. The v2 gold has no PDF chunk, so a relevant PDF chunk counts as a miss.
+
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair). The corpus is Wikipedia only.
-- Human grading covers 8 answers by one grader. Judge results are approximate.
+- Human grading covers 8 answers by one grader. Judge results are approximate. The second judge (Granite) says YES more often and the two judges agree with low kappa (correctness 0.24 .. 0.48). Granite's verdict line was cut off by the 80-token limit for about 30 answers per result set; those were asked again once with three times the limit.
 - Training answers were selected by `sentence_coverage = 1`, so the sentence-level citation rate is the same metric as the selection criterion. Fine-tuning used 66 to 125 training examples and one rank (16); hyperparameters were not tuned.
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
 - Service performance uses 30 questions, and each concurrent request pattern was measured once. The server handles one request at a time.
 - The English pivot uses the same model for chunks and queries. The chunk-size and contextual-prefix experiments cover the original-text pipelines only, and the chunk-size variants are excluded from pooling.
 - The framework comparison feeds this repository's 346 chunks to every system; each framework's document loader, chunker and any translation (pivot) feature are not compared. The framework rows have no English pivot.
 - LlamaIndex and Haystack have one hybrid + reranker configuration each, without parameter search. The AutoRAG search is limited to 11 modules of the retrieval and reranking nodes; query expansion, prompt and generation nodes were not searched. The generation comparison uses the best configuration of each system and one judge model.
-- The PDF corpus has no Korean document, and there are no PDF-grounded evaluation questions yet. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
+- The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by a Claude agent and reviewed by two other agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
@@ -354,6 +393,8 @@ comparison/     external framework comparison (separate environment): prepare_da
 configs/cmp/    generation configs that take the frameworks' retrieval results
 data/pdf_sources.json, data/processed/docs_pdf.jsonl   PDF sources (license evidence, sha256) and extracted text
 scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF download, layout export and document building
+eval/queries_pdf.jsonl, eval/pdf_draft/   PDF eval set, drafts and review inputs/outputs
+configs/pdf/    retrieval configs on the Wikipedia + PDF corpus (written by scripts/make_pdf_configs.py)
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```
@@ -363,4 +404,4 @@ logs/           request logs and caches (git-ignored)
 - Documents: Wikipedia, CC BY-SA 4.0.
 - PDF documents: NASA NTRS technical reports TP-2013-215305/REV1, TM-2017-219545, TM-2015-218895 (US Government works, public domain); Stuhler (2024) and Pelzer (2022), dissertations, Leibniz Universität Hannover (CC BY 3.0 DE, doi:10.15488/17341, doi:10.15488/11718); Katzer, Bankwitz, Hübler, innoTRAC Journal 1 (2020) 140-148 (CC BY 4.0). The extracted text keeps the license of its source.
 - PDF layout extraction: pdf-editor (AGPL-3.0); its code is not copied into this repository but imported at run time.
-- Models: BAAI/bge-m3 (MIT), BAAI/bge-reranker-v2-m3 (Apache 2.0), Qwen3-4B-Instruct-2507 and Qwen3-8B (Apache 2.0).
+- Models: BAAI/bge-m3 (MIT), BAAI/bge-reranker-v2-m3 (Apache 2.0), Qwen3-4B-Instruct-2507 and Qwen3-8B (Apache 2.0), ibm-granite/granite-3.3-8b-instruct (Apache 2.0).

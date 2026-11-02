@@ -91,6 +91,14 @@ uv run python experiments/analyze_comparison.py
 # PDF 코퍼스 (pdf-editor 체크아웃에서 pnpm build 필요)
 uv run python scripts/build_pdf_docs.py --pdf-editor /path/to/pdf-editor
 uv run python -m ragbench.chunking --corpus wiki_pdf   # 위키 + PDF 청크
+uv run python experiments/build_english_chunks.py --corpus wiki_pdf
+uv run python scripts/apply_pdf_review.py && uv run python scripts/validate_eval.py eval/queries_pdf.jsonl --corpus=wiki_pdf
+uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*.json'
+uv run python experiments/analyze_pdf.py
+
+# 다른 계열 판정 모델 (Granite 3.3 8B)
+uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
+uv run python experiments/analyze_judge_agreement.py
 
 uv run pytest -q
 ```
@@ -104,6 +112,7 @@ uv run pytest -q
 - 평가셋 `eval/queries.jsonl`: 질문 45개(ko·en·de 각 15개). 정답은 문서 ID, 근거 문장, 등급(핵심 2 / 보조 1)으로 적었고 평가 시 청크로 매핑합니다. 형식은 `eval/README.md`에 있습니다.
 - 평가셋 v2 `eval/queries_v2.jsonl`: 질문 90개(질문 언어 x 주 근거 언어 9개 쌍마다 10개). 변경 이력은 `eval/README.md`, 수정 기록은 `eval/v2_review_log.json`에 있습니다.
 - PDF 문서 6건(`data/pdf_sources.json`): 영어 NASA 기술보고서 3건(퍼블릭 도메인), 독일어 하노버대 학위논문 2건(CC BY 3.0 DE)과 innoTRAC 논문 1건(CC BY 4.0). 라이선스는 퍼블릭 도메인, CC0, CC BY, CC BY-SA, 공공누리 제1유형만 허용했고 이 기준을 통과한 한국어 문서는 없었습니다. PDF 원본은 커밋하지 않고(내려받기 + sha256 확인), pdf-editor(https://github.com/Juunary/pdf-editor)의 레이아웃 복원으로 추출한 텍스트를 `data/processed/docs_pdf.jsonl`에 둡니다. 머리말·꼬리말·그림 안 글자·목차 줄은 빼고, 표는 행마다 한 줄 `| 칸 | 칸 |`로 적습니다. 위키 + PDF 청크는 903개(`chunking.corpus = "wiki_pdf"`)입니다.
+- PDF 평가셋 `eval/queries_pdf.jsonl`: 질문 48개(질문 언어 ko·en·de x 문서 언어 en·de 6개 쌍마다 8개, 근거 종류 본문 26·표 15·캡션 7). 작성·검수 과정은 `eval/README.md`, 수정 기록은 `eval/pdf_review_log.json`에 있습니다.
 
 ## 결과
 
@@ -251,6 +260,17 @@ dense 후보와 번역 청크 임베딩(nDCG@10 차이, 문서 군집 95% 구간
 
 RRF + 리랭커 대비 차이(문서 군집 95% 구간), 리랭커 영어 입력: 정답 청크가 컨텍스트에 있음 +0.222(+0.120 .. +0.320), 정답 청크 인용 +0.211(+0.125 .. +0.292), 정확성 +0.105(+0.013 .. +0.208), 충실도 +0.066(-0.022 .. +0.151).
 
+판정 모델 비교(`experiments/results/judge_agreement.md`): 같은 프롬프트로 Granite 3.3 8B Instruct(IBM, Apache 2.0)가 같은 답변 10세트를 다시 판정했습니다. Granite의 YES 비율은 모든 세트에서 Qwen3-8B보다 높고(정확성 +0.06 .. +0.14), 두 판정의 일치율은 정확성 0.82 .. 0.90, Cohen's kappa 0.24 .. 0.48입니다. 사람 채점 8개와의 일치는 정확성 Qwen 7/7, Granite 6/7, 충실도 둘 다 5/7입니다.
+
+| 비교 (정확성, 문서 군집 95% 구간) | Qwen3-8B 판정 | Granite 판정 |
+|---|---|---|
+| 영어 RRF + 리랭커(영어 입력) - RRF + 리랭커 | +0.105 (+0.013 .. +0.208) | +0.066 (+0.000 .. +0.137) |
+| 영어 RRF + 리랭커 - RRF + 리랭커 | +0.052 (+0.000 .. +0.114) | +0.000 (-0.037 .. +0.039) |
+| 영어 RRF + 리랭커(영어 입력) - AutoRAG 최고 파이프라인 | +0.086 (+0.012 .. +0.162) | +0.049 (+0.011 .. +0.104) |
+| LoRA(시드 42) - 기반 bf16 | +0.013 (-0.043 .. +0.076) | +0.013 (+0.000 .. +0.045) |
+| QLoRA(시드 42) - 기반 4비트 | +0.013 (-0.045 .. +0.068) | +0.013 (-0.044 .. +0.071) |
+| AutoRAG - LlamaIndex | +0.025 (-0.035 .. +0.089) | -0.013 (-0.056 .. +0.028) |
+
 ### 서비스 성능 (실제 모델)
 
 평가셋 v2에서 고르게 뽑은 질문 30개를 하나씩 물었습니다. 차가운 회차는 번역 캐시와 LLM 캐시가 빈 상태이고, 따뜻한 회차는 같은 질문을 캐시로 응답합니다. 단위는 ms이며 `p50 / p95`로 적었습니다. 서비스는 한 번에 요청 하나를 처리합니다. 설정은 `configs/s35_pipeline.json`(원문 검색)과 `configs/s6_pipeline_en.json`(영어 피벗 + 리랭커 영어 입력)입니다.
@@ -322,17 +342,36 @@ nDCG@10 쌍체 비교(A - B, 문서 군집 95% 구간): LlamaIndex 하이브리�
 
 이 저장소 영어 RRF + 리랭커(리랭커 영어 입력) - AutoRAG 최고 파이프라인(문서 군집 95% 구간): 정답 청크가 컨텍스트에 있음 +0.178(+0.077 .. +0.277), 정답 청크 인용 +0.189(+0.106 .. +0.267), 충실도 +0.049(-0.025 .. +0.127), 정확성 +0.086(+0.012 .. +0.162). AutoRAG - LlamaIndex, AutoRAG - Haystack은 네 지표 모두 구간이 0을 포함합니다(정답 청크가 컨텍스트에 있음은 하한 +0.000).
 
+### PDF 문서 (위키 + PDF 903 청크, PDF 질문 48개)
+
+| 방식 | R@5 | MRR@10 | nDCG@10 | 단일 언어 | 교차 언어 | 본문 (26) | 표 (15) | 캡션 (7) |
+|---|---|---|---|---|---|---|---|---|
+| BM25 kiwi | 0.300 | 0.352 | 0.308 | 0.693 | 0.116 | 0.299 | 0.377 | 0.197 |
+| dense | 0.592 | 0.532 | 0.526 | 0.555 | 0.511 | 0.655 | 0.396 | 0.325 |
+| RRF + 리랭커 | 0.649 | 0.654 | 0.632 | 0.735 | 0.580 | 0.721 | 0.552 | 0.473 |
+| dense 후보 30개 + 리랭커 | 0.664 | 0.666 | 0.632 | 0.730 | 0.582 | 0.731 | 0.521 | 0.500 |
+| 영어 BM25 | 0.667 | 0.712 | 0.668 | 0.681 | 0.661 | 0.710 | 0.649 | 0.550 |
+| 영어 dense | 0.685 | 0.601 | 0.596 | 0.585 | 0.602 | 0.687 | 0.521 | 0.418 |
+| 영어 RRF + 리랭커 | 0.705 | 0.683 | 0.670 | 0.730 | 0.640 | 0.748 | 0.595 | 0.540 |
+| 영어 RRF + 리랭커(영어 입력) | 0.841 | 0.781 | 0.755 | 0.763 | 0.750 | 0.835 | 0.657 | 0.664 |
+| 영어 dense + 리랭커(영어 입력) | 0.795 | 0.733 | 0.708 | 0.742 | 0.692 | 0.799 | 0.578 | 0.650 |
+| RRF(영어 BM25 + 영어 dense) + 리랭커(영어 입력) | 0.856 | 0.785 | 0.774 | 0.763 | 0.780 | 0.835 | 0.680 | 0.748 |
+
+표 행이 정답이고 열 머리글이 다른 청크에 있는 5문항의 nDCG@10은 설정별 0.155 .. 0.433입니다. 질문 단위 95% 구간(주 근거 문서가 6개뿐이라 문서 군집 구간은 `experiments/results/pdf_analysis.md`에만 적음): 영어 RRF + 리랭커(영어 입력) - RRF + 리랭커 +0.123(+0.034 .. +0.218), 영어 BM25 - BM25 kiwi +0.359(+0.240 .. +0.482), 영어 dense - dense +0.070(+0.012 .. +0.131), 영어 dense + 리랭커(영어 입력) - 영어 RRF + 리랭커(영어 입력) -0.046(-0.100 .. +0.001), dense 후보 30개 + 리랭커 - RRF + 리랭커 -0.000(-0.023 .. +0.021). 언어쌍별 표는 `pdf_analysis.md`에 있습니다.
+
+v2 질문 90개를 PDF 청크 557개가 추가된 코퍼스에서 다시 검색하면 nDCG@10이 설정별 -0.013 .. -0.040 바뀌고(영어 RRF + 리랭커(영어 입력) 0.895 → 0.865, 문서 군집 구간 -0.065 .. -0.003), 상위 5에 PDF 청크가 들어간 질문은 28 .. 37개입니다. v2 정답에는 PDF 청크가 없어서 관련 있는 PDF 청크도 오답으로 셉니다.
+
 ## 한계
 
 - 평가 질문은 45개(언어쌍별 2~9개)와 90개(언어쌍별 10개)입니다. 코퍼스는 위키백과 문서만 사용했습니다.
-- 사람 채점은 답변 8개, 채점자 1명입니다. 판정 모델의 결과는 근사치입니다.
+- 사람 채점은 답변 8개, 채점자 1명입니다. 판정 모델의 결과는 근사치입니다. 두 번째 판정 모델(Granite)은 YES를 더 많이 주며 두 판정의 kappa가 낮습니다(정확성 0.24 .. 0.48). Granite는 판정 줄이 80토큰을 넘겨 잘린 경우가 결과 세트마다 약 30건이고, 3배 한도로 한 번 더 물었습니다.
 - 학습 답변은 `sentence_coverage = 1`로 골랐으므로 문장 단위 인용률은 선택 기준과 같은 지표입니다. 파인튜닝은 학습 예시 66~125개, rank 16 하나이며 하이퍼파라미터를 튜닝하지 않았습니다.
 - 4단계의 학습·검증 데이터 138개 중 34개가 v2 정답 청크를 출처로 썼기 때문에, 그 어댑터는 v2 평가에 쓰지 않았고 v2 기준으로 데이터를 다시 만들어 학습했습니다.
 - 서비스 성능은 질문 30개, 동시 요청은 요청 방식마다 1회 측정입니다. 서버는 한 번에 요청 하나를 처리합니다.
 - 영어 피벗은 같은 모델이 청크와 질의를 번역합니다. 청크 크기·맥락 접두사 실험은 원문 텍스트 파이프라인만 대상이고, 청크 크기 변형은 풀링에서 제외했습니다.
 - 프레임워크 비교는 이 저장소의 청크 346개를 모든 시스템에 같게 넣은 결과이며, 각 프레임워크의 문서 로더·청커와 번역(피벗) 기능은 비교하지 않았습니다. 프레임워크 행에는 영어 피벗이 없습니다.
 - LlamaIndex·Haystack는 하이브리드 + 리랭커 구성 1개씩이고 파라미터 탐색을 하지 않았습니다. AutoRAG 탐색은 검색·리랭킹 노드의 모듈 11개로 한정했고 질의 확장, 프롬프트, 생성 노드는 탐색하지 않았습니다. 생성 비교는 시스템마다 최고 구성 1개, 판정 모델 1종입니다.
-- PDF 코퍼스는 한국어 문서가 없고, PDF 근거 평가 질문은 아직 없습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
+- PDF 코퍼스는 한국어 문서가 없고(한국어는 질문 언어로만 씀), 문서 6건·질문 48개(언어쌍별 8개)입니다. PDF 질문은 Claude 에이전트가 쓰고 다른 에이전트 2개가 검수했으며 사람이 검수하지 않았습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
@@ -354,6 +393,8 @@ comparison/     외부 프레임워크 비교(별도 환경): prepare_data, run_
 configs/cmp/    프레임워크 검색 결과를 받는 생성 설정
 data/pdf_sources.json, data/processed/docs_pdf.jsonl   PDF 출처(라이선스 근거, sha256)와 추출 텍스트
 scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF 내려받기·레이아웃 추출·문서 생성
+eval/queries_pdf.jsonl, eval/pdf_draft/   PDF 평가셋, 초안·검수 입력과 출력
+configs/pdf/    위키 + PDF 코퍼스 검색 설정 (scripts/make_pdf_configs.py가 생성)
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
 ```
@@ -363,4 +404,4 @@ logs/           요청 로그와 캐시 (git 제외)
 - 문서: 위키백과, CC BY-SA 4.0.
 - PDF 문서: NASA NTRS 기술보고서 TP-2013-215305/REV1, TM-2017-219545, TM-2015-218895(미국 정부 저작물, 퍼블릭 도메인); Stuhler(2024)·Pelzer(2022), Leibniz Universität Hannover 학위논문(CC BY 3.0 DE, doi:10.15488/17341, doi:10.15488/11718); Katzer·Bankwitz·Hübler, innoTRAC Journal 1(2020) 140-148(CC BY 4.0). 추출 텍스트는 원문의 라이선스를 따릅니다.
 - PDF 레이아웃 추출: pdf-editor(AGPL-3.0). 코드는 이 저장소에 복사하지 않고 실행 시점에 불러옵니다.
-- 모델: BAAI/bge-m3(MIT), BAAI/bge-reranker-v2-m3(Apache 2.0), Qwen3-4B-Instruct-2507과 Qwen3-8B(Apache 2.0).
+- 모델: BAAI/bge-m3(MIT), BAAI/bge-reranker-v2-m3(Apache 2.0), Qwen3-4B-Instruct-2507과 Qwen3-8B(Apache 2.0), ibm-granite/granite-3.3-8b-instruct(Apache 2.0).
