@@ -39,7 +39,7 @@ from ragbench.chunking import load_chunks  # noqa: E402
 from ragbench.config import ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
 from ragbench.evalset import load_queries, map_gold_to_chunks, primary_group  # noqa: E402
 from ragbench.generation import Generator, build_messages, parse_answer  # noqa: E402
-from ragbench.ingest import REPO, load_docs  # noqa: E402
+from ragbench.ingest import REPO, load_corpus  # noqa: E402
 from ragbench.metrics import aggregate  # noqa: E402
 
 
@@ -61,7 +61,7 @@ def main() -> None:
     cfg = ExperimentConfig.load(args.config)
     g = cfg.generation
     set_seed(cfg.seed)
-    docs = {d["doc_id"]: d for d in load_docs()}
+    docs = {d["doc_id"]: d for d in load_corpus(cfg.chunking.corpus)}
     chunks = load_chunks(cfg.chunking)
     by_id = {c["chunk_id"]: c for c in chunks}
 

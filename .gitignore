@@ -13,6 +13,7 @@ wheels/
 data/raw/*
 data/processed/*
 !data/processed/docs.jsonl
+!data/processed/docs_pdf.jsonl
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 

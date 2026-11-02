@@ -46,7 +46,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ragbench.config import ChunkingConfig
-from ragbench.ingest import DOCS_PATH, REPO, load_docs
+from ragbench.ingest import REPO, load_corpus
 
 PROCESSED = REPO / "data" / "processed"
 
@@ -66,7 +66,9 @@ class Span:
 
 
 def chunk_set_id(cfg: ChunkingConfig) -> str:
-    return f"{cfg.strategy}_{'tok' if cfg.unit == 'token' else 'chr'}{cfg.size}_ov{cfg.overlap}"
+    # 위키 코퍼스는 예전 ID 그대로 (청크 파일·임베딩·번역 캐시가 계속 맞는다), PDF를 넣으면 "_pdf"가 붙는다
+    base = f"{cfg.strategy}_{'tok' if cfg.unit == 'token' else 'chr'}{cfg.size}_ov{cfg.overlap}"
+    return base if cfg.corpus == "wiki" else f"{base}_{cfg.corpus.removeprefix('wiki_')}"
 
 
 def get_token_counter(cfg: ChunkingConfig):
@@ -175,7 +177,7 @@ def chunks_path(cfg: ChunkingConfig) -> Path:
 
 
 def build_chunks(cfg: ChunkingConfig, docs: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
-    docs = docs or load_docs(DOCS_PATH)
+    docs = docs or load_corpus(cfg.corpus)
     count, hard_cut = get_token_counter(cfg)
     chunks = []
     for d in docs:
@@ -206,8 +208,9 @@ def main() -> None:
     ap.add_argument("--unit", default="token")
     ap.add_argument("--size", type=int, default=384)
     ap.add_argument("--overlap", type=int, default=48)
+    ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf")
     args = ap.parse_args()
-    cfg = ChunkingConfig(strategy=args.strategy, unit=args.unit, size=args.size, overlap=args.overlap)
+    cfg = ChunkingConfig(strategy=args.strategy, unit=args.unit, size=args.size, overlap=args.overlap, corpus=args.corpus)
     chunks = build_chunks(cfg)
     path = chunks_path(cfg)
     save_chunks(chunks, path)

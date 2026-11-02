@@ -65,6 +65,7 @@ class ChunkingConfig:
     size: int = 384
     overlap: int = 48
     tokenizer: str = "BAAI/bge-m3"  # tokenizer used to count tokens when unit == "token"
+    corpus: str = "wiki"           # "wiki" | "wiki_pdf" ([KO] 위키 문서 + data/processed/docs_pdf.jsonl의 PDF 문서)
 
 
 @dataclass

@@ -38,7 +38,7 @@ from ragbench.chunking import load_chunks  # noqa: E402
 from ragbench.config import ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
 from ragbench.evalset import load_queries, map_gold_to_chunks, primary_group  # noqa: E402
 from ragbench.generation import Generator  # noqa: E402
-from ragbench.ingest import REPO, load_docs  # noqa: E402
+from ragbench.ingest import REPO, load_corpus  # noqa: E402
 from ragbench.metrics import aggregate  # noqa: E402
 from ragbench.pipeline import RAGPipeline  # noqa: E402
 from ragbench.requestlog import RequestLogger  # noqa: E402
@@ -58,7 +58,7 @@ def main() -> None:
     g = cfg.generation
     set_seed(cfg.seed)
 
-    docs = {d["doc_id"]: d for d in load_docs()}
+    docs = {d["doc_id"]: d for d in load_corpus(cfg.chunking.corpus)}
     chunks = load_chunks(cfg.chunking)
     queries = load_queries(REPO / cfg.eval_path)
     stage3 = {p["qid"]: p for p in json.loads((REPO / "experiments" / "results" / f"{args.stage3_result}.json").read_text(encoding="utf-8"))["per_query"]}

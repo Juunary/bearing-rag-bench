@@ -35,7 +35,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ragbench.chunking import load_chunks  # noqa: E402
 from ragbench.config import ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
 from ragbench.evalset import load_queries, map_gold_to_chunks, primary_group  # noqa: E402
-from ragbench.ingest import REPO, load_docs  # noqa: E402
+from ragbench.ingest import REPO, load_corpus  # noqa: E402
 from ragbench.retrieval.factory import build_retriever  # noqa: E402
 
 SAMPLE_QUERIES = [
@@ -66,7 +66,7 @@ def main() -> None:
 
     cfg = ExperimentConfig.load(args.config)
     set_seed(cfg.seed)
-    docs = load_docs()
+    docs = load_corpus(cfg.chunking.corpus)
     docs_by_id = {d["doc_id"]: d for d in docs}
     chunks = load_chunks(cfg.chunking)
     chunk_text = {c["chunk_id"]: c for c in chunks}

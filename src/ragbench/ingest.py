@@ -34,6 +34,8 @@ from typing import Any
 REPO = Path(__file__).resolve().parents[2]
 RAW_WIKI = REPO / "data" / "raw" / "wiki"
 DOCS_PATH = REPO / "data" / "processed" / "docs.jsonl"
+PDF_DOCS_PATH = REPO / "data" / "processed" / "docs_pdf.jsonl"     # scripts/build_pdf_docs.py
+CORPORA = ("wiki", "wiki_pdf")
 
 HEADING_RE = re.compile(r"^(={2,6})\s*(.+?)\s*\1\s*$")
 
@@ -101,6 +103,16 @@ def build_doc(raw: dict[str, Any]) -> dict[str, Any]:
 def load_docs(path: Path = DOCS_PATH) -> list[dict[str, Any]]:
     with open(path, encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
+
+
+def load_corpus(corpus: str = "wiki") -> list[dict[str, Any]]:
+    """Documents of a corpus: "wiki" = docs.jsonl, "wiki_pdf" = docs.jsonl + docs_pdf.jsonl (PDF documents)."""
+    if corpus not in CORPORA:
+        raise ValueError(f"unknown corpus {corpus!r}, expected one of {CORPORA}")
+    docs = load_docs(DOCS_PATH)
+    if corpus == "wiki_pdf":
+        docs += load_docs(PDF_DOCS_PATH)
+    return docs
 
 
 def main() -> None:
