@@ -95,6 +95,9 @@ uv run python experiments/build_english_chunks.py --corpus wiki_pdf
 uv run python scripts/apply_pdf_review.py && uv run python scripts/validate_eval.py eval/queries_pdf.jsonl --corpus=wiki_pdf
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*.json'
 uv run python experiments/analyze_pdf.py
+uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # chunks with repeated table caption and header rows (configs/pdf/pdfth_*)
+uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # answers to the PDF questions (then run_judge.py)
+uv run python experiments/analyze_pdf_generation.py
 
 # Judge of another model family (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -359,6 +362,27 @@ This repo English RRF + reranker (reranker reads English) - AutoRAG best pipelin
 
 For the 5 questions whose answer is a table row with the column headers in another chunk, nDCG@10 is 0.155 .. 0.433 depending on the setting. Question-level 95% intervals (only 6 primary documents, so the document-cluster intervals are only in `experiments/results/pdf_analysis.md`): English RRF + reranker (English input) - RRF + reranker +0.123 (+0.034 .. +0.218), English BM25 - BM25 kiwi +0.359 (+0.240 .. +0.482), English dense - dense +0.070 (+0.012 .. +0.131), English dense + reranker (English input) - English RRF + reranker (English input) -0.046 (-0.100 .. +0.001), dense top 30 + reranker - RRF + reranker -0.000 (-0.023 .. +0.021). The per-language-pair table is in `pdf_analysis.md`.
 
+Repeated table caption and header rows (`chunking.table_header`): a chunk that starts inside a table gets that table's caption and header row (the second row too when the first has empty cells) in front (41 of 903 chunks). Gold mapping keeps the original offsets.
+
+| Method | nDCG@10 | headers repeated | diff (question-level 95% CI) | table (15) | headers repeated | header in another chunk (5) | headers repeated |
+|---|---|---|---|---|---|---|---|
+| RRF + reranker | 0.632 | 0.661 | +0.029 (+0.008 .. +0.055) | 0.552 | 0.642 | 0.420 | 0.551 |
+| dense | 0.526 | 0.585 | +0.059 (+0.022 .. +0.105) | 0.396 | 0.562 | 0.155 | 0.557 |
+| English RRF + reranker (English input) | 0.755 | 0.819 | +0.065 (+0.022 .. +0.118) | 0.657 | 0.864 | 0.316 | 0.706 |
+| RRF (English BM25 + English dense) + reranker (English input) | 0.774 | 0.831 | +0.057 (+0.020 .. +0.103) | 0.680 | 0.864 | 0.360 | 0.706 |
+
+All 10 settings are in section 5 of `pdf_analysis.md`. Only table questions change rank (9 in the best setting).
+
+Answers to the PDF questions (base bf16 Qwen3-4B, cite_v1, top 5; judges Qwen3-8B / Granite 3.3 8B, refusals not judged):
+
+| Context source | gold chunk in context | cites gold chunk | faithfulness | correctness | answer relevance |
+|---|---|---|---|---|---|
+| RRF + reranker | 0.750 | 0.708 | 0.829 / 0.951 | 0.732 / 0.805 | 0.951 / 0.976 |
+| RRF (English BM25 + English dense) + reranker (English input) | 0.917 | 0.875 | 0.978 / 0.978 | 0.889 / 0.956 | 0.978 / 0.978 |
+| same retrieval + repeated table headers | 0.938 | 0.917 | 0.913 / 0.978 | 0.891 / 0.978 | 0.978 / 1.000 |
+
+Best retrieval - RRF + reranker (question-level 95% interval): cites gold chunk +0.167 (+0.042 .. +0.312), correctness Qwen +0.150 (+0.025 .. +0.275), Granite +0.150 (+0.025 .. +0.300), faithfulness Qwen +0.150 (+0.050 .. +0.275), Granite +0.025 (-0.050 .. +0.100). Repeated table headers - best retrieval: cites gold chunk +0.042 (+0.000 .. +0.104), correctness Qwen +0.000 (-0.067 .. +0.067), Granite +0.022 (-0.044 .. +0.111), faithfulness Qwen -0.067 (-0.156 .. +0.000). Correctness by evidence kind is in `experiments/results/pdf_generation_analysis.md`.
+
 Searching the 90 v2 questions again on the corpus with the 557 PDF chunks changes nDCG@10 by -0.013 .. -0.040 depending on the setting (English RRF + reranker (English input) 0.895 → 0.865, document-cluster interval -0.065 .. -0.003), and 28 .. 37 questions get a PDF chunk in their top 5. The v2 gold has no PDF chunk, so a relevant PDF chunk counts as a miss.
 
 ## Limitations
@@ -371,6 +395,7 @@ Searching the 90 v2 questions again on the corpus with the 557 PDF chunks change
 - The English pivot uses the same model for chunks and queries. The chunk-size and contextual-prefix experiments cover the original-text pipelines only, and the chunk-size variants are excluded from pooling.
 - The framework comparison feeds this repository's 346 chunks to every system; each framework's document loader, chunker and any translation (pivot) feature are not compared. The framework rows have no English pivot.
 - LlamaIndex and Haystack have one hybrid + reranker configuration each, without parameter search. The AutoRAG search is limited to 11 modules of the retrieval and reranking nodes; query expansion, prompt and generation nodes were not searched. The generation comparison uses the best configuration of each system and one judge model.
+- Table-header repetition treats the first table row (and the second when the first has empty cells) as the header, and uses as caption only one of the 1-2 paragraphs before the table that starts with TABLE/Table/Tabelle. Where an equation was detected as a table, its lines are repeated as a header too. Chunks with a header reach up to 508 tokens.
 - The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by a Claude agent and reviewed by two other agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
@@ -395,6 +420,7 @@ data/pdf_sources.json, data/processed/docs_pdf.jsonl   PDF sources (license evid
 scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF download, layout export and document building
 eval/queries_pdf.jsonl, eval/pdf_draft/   PDF eval set, drafts and review inputs/outputs
 configs/pdf/    retrieval configs on the Wikipedia + PDF corpus (written by scripts/make_pdf_configs.py)
+configs/pdfgen/ generation configs for the PDF questions
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```

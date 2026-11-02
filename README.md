@@ -95,6 +95,9 @@ uv run python experiments/build_english_chunks.py --corpus wiki_pdf
 uv run python scripts/apply_pdf_review.py && uv run python scripts/validate_eval.py eval/queries_pdf.jsonl --corpus=wiki_pdf
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*.json'
 uv run python experiments/analyze_pdf.py
+uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # 표 캡션·머리글 반복 청크 (configs/pdf/pdfth_*)
+uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # PDF 질문 답변 (이후 run_judge.py)
+uv run python experiments/analyze_pdf_generation.py
 
 # 다른 계열 판정 모델 (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -359,6 +362,27 @@ nDCG@10 쌍체 비교(A - B, 문서 군집 95% 구간): LlamaIndex 하이브리�
 
 표 행이 정답이고 열 머리글이 다른 청크에 있는 5문항의 nDCG@10은 설정별 0.155 .. 0.433입니다. 질문 단위 95% 구간(주 근거 문서가 6개뿐이라 문서 군집 구간은 `experiments/results/pdf_analysis.md`에만 적음): 영어 RRF + 리랭커(영어 입력) - RRF + 리랭커 +0.123(+0.034 .. +0.218), 영어 BM25 - BM25 kiwi +0.359(+0.240 .. +0.482), 영어 dense - dense +0.070(+0.012 .. +0.131), 영어 dense + 리랭커(영어 입력) - 영어 RRF + 리랭커(영어 입력) -0.046(-0.100 .. +0.001), dense 후보 30개 + 리랭커 - RRF + 리랭커 -0.000(-0.023 .. +0.021). 언어쌍별 표는 `pdf_analysis.md`에 있습니다.
 
+표 캡션·머리글 반복(`chunking.table_header`): 표 중간에서 시작하는 청크 앞에 그 표의 캡션과 머리글 행(첫 행에 빈 칸이 있으면 둘째 행까지)을 붙였습니다(903개 중 41개 청크). 정답 매핑은 원문 위치 그대로입니다.
+
+| 방식 | nDCG@10 | 머리글 반복 | 차이 (질문 단위 95% 구간) | 표 (15) | 머리글 반복 | 머리글이 다른 청크 (5) | 머리글 반복 |
+|---|---|---|---|---|---|---|---|
+| RRF + 리랭커 | 0.632 | 0.661 | +0.029 (+0.008 .. +0.055) | 0.552 | 0.642 | 0.420 | 0.551 |
+| dense | 0.526 | 0.585 | +0.059 (+0.022 .. +0.105) | 0.396 | 0.562 | 0.155 | 0.557 |
+| 영어 RRF + 리랭커(영어 입력) | 0.755 | 0.819 | +0.065 (+0.022 .. +0.118) | 0.657 | 0.864 | 0.316 | 0.706 |
+| RRF(영어 BM25 + 영어 dense) + 리랭커(영어 입력) | 0.774 | 0.831 | +0.057 (+0.020 .. +0.103) | 0.680 | 0.864 | 0.360 | 0.706 |
+
+10개 설정 전체는 `pdf_analysis.md` 5절에 있습니다. 순위가 바뀐 질문은 표 질문뿐입니다(최고 설정에서 9개).
+
+PDF 질문 답변(기반 bf16 Qwen3-4B, cite_v1, 상위 5개; 판정 Qwen3-8B / Granite 3.3 8B, 거절 답변은 판정 제외):
+
+| 컨텍스트 출처 | 정답 청크가 컨텍스트에 있음 | 정답 청크 인용 | 충실도 | 정확성 | 답변 관련성 |
+|---|---|---|---|---|---|
+| RRF + 리랭커 | 0.750 | 0.708 | 0.829 / 0.951 | 0.732 / 0.805 | 0.951 / 0.976 |
+| RRF(영어 BM25 + 영어 dense) + 리랭커(영어 입력) | 0.917 | 0.875 | 0.978 / 0.978 | 0.889 / 0.956 | 0.978 / 0.978 |
+| 같은 검색 + 표 머리글 반복 | 0.938 | 0.917 | 0.913 / 0.978 | 0.891 / 0.978 | 0.978 / 1.000 |
+
+최고 검색 - RRF + 리랭커(질문 단위 95% 구간): 정답 청크 인용 +0.167(+0.042 .. +0.312), 정확성 Qwen +0.150(+0.025 .. +0.275), Granite +0.150(+0.025 .. +0.300), 충실도 Qwen +0.150(+0.050 .. +0.275), Granite +0.025(-0.050 .. +0.100). 표 머리글 반복 - 최고 검색: 정답 청크 인용 +0.042(+0.000 .. +0.104), 정확성 Qwen +0.000(-0.067 .. +0.067), Granite +0.022(-0.044 .. +0.111), 충실도 Qwen -0.067(-0.156 .. +0.000). 근거 종류별 정확성은 `experiments/results/pdf_generation_analysis.md`에 있습니다.
+
 v2 질문 90개를 PDF 청크 557개가 추가된 코퍼스에서 다시 검색하면 nDCG@10이 설정별 -0.013 .. -0.040 바뀌고(영어 RRF + 리랭커(영어 입력) 0.895 → 0.865, 문서 군집 구간 -0.065 .. -0.003), 상위 5에 PDF 청크가 들어간 질문은 28 .. 37개입니다. v2 정답에는 PDF 청크가 없어서 관련 있는 PDF 청크도 오답으로 셉니다.
 
 ## 한계
@@ -371,6 +395,7 @@ v2 질문 90개를 PDF 청크 557개가 추가된 코퍼스에서 다시 검색�
 - 영어 피벗은 같은 모델이 청크와 질의를 번역합니다. 청크 크기·맥락 접두사 실험은 원문 텍스트 파이프라인만 대상이고, 청크 크기 변형은 풀링에서 제외했습니다.
 - 프레임워크 비교는 이 저장소의 청크 346개를 모든 시스템에 같게 넣은 결과이며, 각 프레임워크의 문서 로더·청커와 번역(피벗) 기능은 비교하지 않았습니다. 프레임워크 행에는 영어 피벗이 없습니다.
 - LlamaIndex·Haystack는 하이브리드 + 리랭커 구성 1개씩이고 파라미터 탐색을 하지 않았습니다. AutoRAG 탐색은 검색·리랭킹 노드의 모듈 11개로 한정했고 질의 확장, 프롬프트, 생성 노드는 탐색하지 않았습니다. 생성 비교는 시스템마다 최고 구성 1개, 판정 모델 1종입니다.
+- 표 머리글 반복은 표의 첫 행(빈 칸이 있으면 둘째 행까지)을 머리글로 보고, 표 앞 1~2개 문단 중 TABLE/Table/Tabelle로 시작하는 것만 캡션으로 씁니다. 수식이 표로 검출된 경우 그 줄도 머리글로 붙습니다. 머리글을 붙인 청크는 최대 508토큰입니다.
 - PDF 코퍼스는 한국어 문서가 없고(한국어는 질문 언어로만 씀), 문서 6건·질문 48개(언어쌍별 8개)입니다. PDF 질문은 Claude 에이전트가 쓰고 다른 에이전트 2개가 검수했으며 사람이 검수하지 않았습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
@@ -395,6 +420,7 @@ data/pdf_sources.json, data/processed/docs_pdf.jsonl   PDF 출처(라이선스 �
 scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF 내려받기·레이아웃 추출·문서 생성
 eval/queries_pdf.jsonl, eval/pdf_draft/   PDF 평가셋, 초안·검수 입력과 출력
 configs/pdf/    위키 + PDF 코퍼스 검색 설정 (scripts/make_pdf_configs.py가 생성)
+configs/pdfgen/ PDF 질문 답변 생성 설정
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
 ```
