@@ -124,7 +124,17 @@ function bind() {
     run(STATE.revealed, false);
   };
   $("#p-next").onclick = () => { cancel(); if (STATE.revealed < STAGES.length) run(STATE.revealed, true); };
-  $("#p-all").onclick = () => { cancel(); for (let i = STATE.revealed; i < STAGES.length; i++) revealNow(i); syncPlayer(); };
+  $("#p-all").onclick = () => showAll();
+  // 재생 중 사용자가 직접 스크롤하면(휠·터치·스크롤 키·스크롤바) 바로 멈추고 전체 보기로 바꾼다.
+  // 단계 전환 때 페이지가 하는 scrollIntoView는 이 이벤트들을 만들지 않으므로 구분된다.
+  const interrupt = () => { if (STATE.playing) showAll(); };
+  addEventListener("wheel", interrupt, { passive: true });
+  addEventListener("touchmove", interrupt, { passive: true });
+  addEventListener("keydown", (e) => {
+    if (e.target.matches("select, input, textarea") || (e.key === " " && e.target.matches("button, summary"))) return;   // 입력 칸 조작, 버튼 누르기는 제외
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(e.key)) interrupt();
+  });
+  addEventListener("mousedown", (e) => { if (e.clientX >= document.documentElement.clientWidth) interrupt(); });
   $("#p-restart").onclick = () => restart();
   $("#p-speed").onchange = (e) => { STATE.speed = Number(e.target.value); };
   document.addEventListener("click", (e) => { const b = e.target.closest("[data-cid]"); if (b) openChunk(b.dataset.cid); });
@@ -407,6 +417,12 @@ function cancel() {
   // 애니메이션 도중이던 카드는 최종 모습으로 되돌린다
   document.querySelectorAll(".stage.anim").forEach(restore);
   if (document.querySelector(".node")) mark(Math.max(0, STATE.revealed - 1), false);
+  syncPlayer();
+}
+
+function showAll() {
+  cancel();
+  for (let i = STATE.revealed; i < STAGES.length; i++) revealNow(i);
   syncPlayer();
 }
 
