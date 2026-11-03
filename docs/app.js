@@ -7,7 +7,7 @@ let RUN = 0;                                  // 재생 세대 번호: 바뀌면
 const T = {
   ko: {
     title: "RAG 파이프라인 추적", subtitle: "질문 하나가 검색·생성·검증을 지나는 과정을 실제 실행 기록으로 보여줍니다.",
-    pair: "언어쌍", show: "보기", question: "질문", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
+    pair: "언어쌍", show: "보기", question: "질문", wheel_hint: "휠 ↓ 짧게: 다음 단계 · 길게 또는 ↑: 전체 보기", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
     set_v2: "위키백과 질문", set_v2_s: "90개 · 청크 346개", set_pdf: "PDF 질문", set_pdf_s: "48개 · 청크 903개",
     set_user: "사람이 쓴 질문", set_user_s: "10개 · 청크 903개",
     k_all: "전체", k_missing: "정답 청크가 컨텍스트에 없음", k_blocked: "차단·거절된 답변",
@@ -41,7 +41,7 @@ const T = {
   },
   en: {
     title: "RAG Pipeline Trace", subtitle: "One question at a time through retrieval, generation and validation, from real run records.",
-    pair: "Language pair", show: "Show", question: "Question", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
+    pair: "Language pair", show: "Show", question: "Question", wheel_hint: "Wheel ↓ short: next stage · long or ↑: show all", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
     set_v2: "Wikipedia questions", set_v2_s: "90 · 346 chunks", set_pdf: "PDF questions", set_pdf_s: "48 · 903 chunks",
     set_user: "Human-written questions", set_user_s: "10 · 903 chunks",
     k_all: "All", k_missing: "Gold chunk not in the context", k_blocked: "Blocked or refused",
@@ -125,10 +125,10 @@ function bind() {
   };
   $("#p-next").onclick = () => { cancel(); if (STATE.revealed < STAGES.length) run(STATE.revealed, true); };
   $("#p-all").onclick = () => showAll();
-  // 재생 중 사용자가 직접 스크롤하면(휠·터치·스크롤 키·스크롤바) 바로 멈추고 전체 보기로 바꾼다.
+  // 재생 중 사용자가 직접 스크롤하면(터치·스크롤 키·스크롤바) 바로 멈추고 전체 보기로 바꾼다.
   // 단계 전환 때 페이지가 하는 scrollIntoView는 이 이벤트들을 만들지 않으므로 구분된다.
   const interrupt = () => { if (STATE.playing) showAll(); };
-  addEventListener("wheel", interrupt, { passive: true });
+  addEventListener("wheel", onWheel, { passive: false });
   addEventListener("touchmove", interrupt, { passive: true });
   addEventListener("keydown", (e) => {
     if (e.target.matches("select, input, textarea") || (e.key === " " && e.target.matches("button, summary"))) return;   // 입력 칸 조작, 버튼 누르기는 제외
@@ -376,6 +376,7 @@ function syncPlayer() {
   $("#p-next").textContent = t("next_stage");
   $("#p-all").textContent = t("show_all");
   $("#p-speed-l").textContent = t("speed");
+  $("#p-hint").textContent = STATE.playing ? t("wheel_hint") : "";
   $("#p-next").disabled = done; $("#p-all").disabled = done;
   const curStage = Math.max(0, Math.min(n, STAGES.length) - 1);
   $("#p-progress").textContent = n ? (STATE.lang === "ko" ? `${n} / ${STAGES.length} ${t("stage_of")} · ${t("s_" + STAGES[curStage])}` : `${t("stage_of")} ${n} / ${STAGES.length} · ${t("s_" + STAGES[curStage])}`) : "";
@@ -418,6 +419,31 @@ function cancel() {
   document.querySelectorAll(".stage.anim").forEach(restore);
   if (document.querySelector(".node")) mark(Math.max(0, STATE.revealed - 1), false);
   syncPlayer();
+}
+
+// 재생 중 휠: 아래로 짧게 = 다음 단계(재생 계속), 아래로 길게 또는 위로 = 전체 보기.
+// 휠 이벤트 묶음(제스처) 하나를 한 번의 조작으로 보고, 마지막 이벤트 뒤 WHEEL_IDLE ms가 지나면 제스처가 끝난 것으로 본다.
+const WHEEL_LONG = 300, WHEEL_IDLE = 250;
+let wheelSum = 0, wheelTimer = null;
+function onWheel(e) {
+  if (!STATE.playing) { wheelSum = 0; return; }
+  const dy = e.deltaY * (e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? innerHeight : 1);   // 줄·페이지 단위를 픽셀로
+  if (!dy) return;
+  clearTimeout(wheelTimer);
+  if (dy < 0) { wheelSum = 0; showAll(); return; }
+  e.preventDefault();                                   // 재생 중에는 짧은 휠이 페이지를 움직이지 않고 단계만 넘긴다
+  const first = wheelSum === 0;
+  wheelSum += dy;
+  if (wheelSum > WHEEL_LONG) { wheelSum = 0; showAll(); return; }
+  if (first) skipToNext();
+  wheelTimer = setTimeout(() => { wheelSum = 0; }, WHEEL_IDLE);
+}
+
+function skipToNext() {
+  // 지금 단계를 완성된 모습으로 두고 다음 단계부터 재생을 이어 간다
+  const next = STATE.revealed;
+  cancel();
+  if (next < STAGES.length) run(next, false);
 }
 
 function showAll() {
