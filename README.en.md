@@ -387,7 +387,7 @@ Searching the 90 v2 questions again on the corpus with the 557 PDF chunks change
 
 ## Limitations
 
-- The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair). The corpus is Wikipedia only.
+- The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
 - Human grading covers 8 answers by one grader. Judge results are approximate. The second judge (Granite) says YES more often and the two judges agree with low kappa (correctness 0.24 .. 0.48). Granite's verdict line was cut off by the 80-token limit for about 30 answers per result set; those were asked again once with three times the limit.
 - Training answers were selected by `sentence_coverage = 1`, so the sentence-level citation rate is the same metric as the selection criterion. Fine-tuning used 66 to 125 training examples and one rank (16); hyperparameters were not tuned.
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
@@ -396,7 +396,7 @@ Searching the 90 v2 questions again on the corpus with the 557 PDF chunks change
 - The framework comparison feeds this repository's 346 chunks to every system; each framework's document loader, chunker and any translation (pivot) feature are not compared. The framework rows have no English pivot.
 - LlamaIndex and Haystack have one hybrid + reranker configuration each, without parameter search. The AutoRAG search is limited to 11 modules of the retrieval and reranking nodes; query expansion, prompt and generation nodes were not searched. The generation comparison uses the best configuration of each system and one judge model.
 - Table-header repetition treats the first table row (and the second when the first has empty cells) as the header, and uses as caption only one of the 1-2 paragraphs before the table that starts with TABLE/Table/Tabelle. Where an equation was detected as a table, its lines are repeated as a header too. Chunks with a header reach up to 508 tokens.
-- The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by a Claude agent and reviewed by two other agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
+- The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by an AI agent and reviewed by two other AI agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
