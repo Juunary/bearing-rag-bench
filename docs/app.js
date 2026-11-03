@@ -1,13 +1,13 @@
 "use strict";
 // 데이터: scripts/export_site_data.py가 만든 docs/data/*.json (실제 실행 기록)
 const SETS = ["v2", "pdf", "user"];
-const STATE = { lang: "ko", set: "v2", rows: {}, meta: null, chunks: null, idx: 0, list: [], playing: false, revealed: 0, speed: 1, cardHTML: {} };
+const STATE = { lang: "ko", set: "v2", rows: {}, meta: null, chunks: null, idx: 0, list: [], playing: false, revealed: 0, speed: 1, cardHTML: {}, waiting: true };   // waiting: 첫 재생 전 대기 (3초 무조작 또는 아래로 스크롤하면 시작)
 let RUN = 0;                                  // 재생 세대 번호: 바뀌면 진행 중인 애니메이션을 멈춘다
 
 const T = {
   ko: {
     title: "RAG 파이프라인 추적", subtitle: "질문 하나가 검색·생성·검증을 지나는 과정을 실제 실행 기록으로 보여줍니다.",
-    pair: "언어쌍", show: "보기", question: "질문", wheel_hint: "휠 ↓ 짧게: 다음 단계 · 길게 또는 ↑: 전체 보기", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
+    pair: "언어쌍", show: "보기", question: "질문", wheel_hint: "휠 ↓ 짧게: 다음 단계 · 길게 또는 ↑: 전체 보기", wait_hint: "3초 뒤 또는 아래로 스크롤하면 재생을 시작합니다", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
     set_v2: "위키백과 질문", set_v2_s: "90개 · 청크 346개", set_pdf: "PDF 질문", set_pdf_s: "48개 · 청크 903개",
     set_user: "사람이 쓴 질문", set_user_s: "10개 · 청크 903개",
     k_all: "전체", k_missing: "정답 청크가 컨텍스트에 없음", k_blocked: "차단·거절된 답변",
@@ -41,7 +41,7 @@ const T = {
   },
   en: {
     title: "RAG Pipeline Trace", subtitle: "One question at a time through retrieval, generation and validation, from real run records.",
-    pair: "Language pair", show: "Show", question: "Question", wheel_hint: "Wheel ↓ short: next stage · long or ↑: show all", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
+    pair: "Language pair", show: "Show", question: "Question", wheel_hint: "Wheel ↓ short: next stage · long or ↑: show all", wait_hint: "Playback starts in 3 seconds or when you scroll down", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
     set_v2: "Wikipedia questions", set_v2_s: "90 · 346 chunks", set_pdf: "PDF questions", set_pdf_s: "48 · 903 chunks",
     set_user: "Human-written questions", set_user_s: "10 · 903 chunks",
     k_all: "All", k_missing: "Gold chunk not in the context", k_blocked: "Blocked or refused",
@@ -128,13 +128,19 @@ function bind() {
   // 재생 중 사용자가 직접 스크롤하면(터치·스크롤 키·스크롤바) 바로 멈추고 전체 보기로 바꾼다.
   // 단계 전환 때 페이지가 하는 scrollIntoView는 이 이벤트들을 만들지 않으므로 구분된다.
   const interrupt = () => { if (STATE.playing) showAll(); };
+  const scrollDown = () => { if (STATE.waiting) startFromWait(); else interrupt(); };
+  // 대기 중 클릭·키 입력·선택 변경은 3초를 처음부터 다시 센다
+  addEventListener("pointerdown", () => { if (STATE.waiting) armWait(); });
+  addEventListener("change", () => { if (STATE.waiting) armWait(); });
   addEventListener("wheel", onWheel, { passive: false });
-  addEventListener("touchmove", interrupt, { passive: true });
+  addEventListener("touchmove", scrollDown, { passive: true });
   addEventListener("keydown", (e) => {
     if (e.target.matches("select, input, textarea") || (e.key === " " && e.target.matches("button, summary"))) return;   // 입력 칸 조작, 버튼 누르기는 제외
-    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(e.key)) interrupt();
+    if (["ArrowDown", "PageDown", "End", " "].includes(e.key)) scrollDown();
+    else if (["ArrowUp", "PageUp", "Home"].includes(e.key)) interrupt();
+    else if (STATE.waiting) armWait();
   });
-  addEventListener("mousedown", (e) => { if (e.clientX >= document.documentElement.clientWidth) interrupt(); });
+  addEventListener("mousedown", (e) => { if (e.clientX >= document.documentElement.clientWidth) scrollDown(); });
   $("#p-restart").onclick = () => restart();
   $("#p-speed").onchange = (e) => { STATE.speed = Number(e.target.value); };
   document.addEventListener("click", (e) => { const b = e.target.closest("[data-cid]"); if (b) openChunk(b.dataset.cid); });
@@ -199,6 +205,7 @@ const cur = () => STATE.list[STATE.idx];
 function step(d) { if (!STATE.list.length) return; STATE.idx = (STATE.idx + d + STATE.list.length) % STATE.list.length; $("#f-q").value = String(STATE.idx); show(); }
 
 function show() {
+  const wasWaiting = STATE.waiting;   // 아직 한 번도 재생하지 않았으면 새 질문도 대기부터 시작한다
   cancel();
   const r = cur();
   if (!r) { $("#question-card").innerHTML = `<p class="empty">-</p>`; $("#flow").innerHTML = ""; $("#stages").innerHTML = ""; return; }
@@ -208,8 +215,10 @@ function show() {
   renderStages(r);
   STATE.revealed = 0;
   syncPlayer();
-  // 움직임 줄이기 설정이면 바로 전부 보여 주고, 아니면 처음 단계부터 자동 재생한다
-  if (reduced()) { for (let i = 0; i < STAGES.length; i++) revealNow(i); syncPlayer(); } else run(0, false);
+  // 움직임 줄이기 설정이면 바로 전부 보여 준다. 첫 재생 전에는 대기하고, 그 뒤로는 질문을 바꾸면 바로 재생한다
+  if (reduced()) { STATE.waiting = false; for (let i = 0; i < STAGES.length; i++) revealNow(i); syncPlayer(); }
+  else if (wasWaiting) armWait();
+  else run(0, false);
 }
 
 const isGold = (r, cid) => Object.prototype.hasOwnProperty.call(r.gold, cid);
@@ -376,7 +385,8 @@ function syncPlayer() {
   $("#p-next").textContent = t("next_stage");
   $("#p-all").textContent = t("show_all");
   $("#p-speed-l").textContent = t("speed");
-  $("#p-hint").textContent = STATE.playing ? t("wheel_hint") : "";
+  $("#p-hint").textContent = STATE.waiting ? t("wait_hint") : STATE.playing ? t("wheel_hint") : "";
+  $("#p-hint").classList.toggle("wait", STATE.waiting);
   $("#p-next").disabled = done; $("#p-all").disabled = done;
   const curStage = Math.max(0, Math.min(n, STAGES.length) - 1);
   $("#p-progress").textContent = n ? (STATE.lang === "ko" ? `${n} / ${STAGES.length} ${t("stage_of")} · ${t("s_" + STAGES[curStage])}` : `${t("stage_of")} ${n} / ${STAGES.length} · ${t("s_" + STAGES[curStage])}`) : "";
@@ -412,9 +422,27 @@ function revealNow(i) {
   mark(Math.min(STATE.revealed, STAGES.length) - 1, false);
 }
 
+// 첫 재생 전 대기: WAIT_MS 동안 조작이 없으면 재생을 시작한다
+const WAIT_MS = 3000;
+let waitTimer = null;
+function armWait() {
+  STATE.waiting = true;
+  clearTimeout(waitTimer);
+  waitTimer = setTimeout(startFromWait, WAIT_MS);
+  syncPlayer();
+}
+function startFromWait() {
+  if (!STATE.waiting) return;
+  clearTimeout(waitTimer);
+  STATE.waiting = false;
+  run(STATE.revealed, false);
+}
+
 function cancel() {
   RUN += 1;
   STATE.playing = false;
+  STATE.waiting = false;              // 버튼·노드로 직접 조작하면 대기도 끝난다 (show()는 호출 전에 대기 여부를 따로 기억한다)
+  clearTimeout(waitTimer);
   // 애니메이션 도중이던 카드는 최종 모습으로 되돌린다
   document.querySelectorAll(".stage.anim").forEach(restore);
   if (document.querySelector(".node")) mark(Math.max(0, STATE.revealed - 1), false);
@@ -425,9 +453,20 @@ function cancel() {
 // 휠 이벤트 묶음(제스처) 하나를 한 번의 조작으로 보고, 마지막 이벤트 뒤 WHEEL_IDLE ms가 지나면 제스처가 끝난 것으로 본다.
 const WHEEL_LONG = 300, WHEEL_IDLE = 250;
 let wheelSum = 0, wheelTimer = null;
+let wheelSwallow = false;                        // 대기 중 스크롤로 재생을 시작한 그 휠 동작은 끝날 때까지 단계 조작으로 쓰지 않는다
 function onWheel(e) {
-  if (!STATE.playing) { wheelSum = 0; return; }
   const dy = e.deltaY * (e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? innerHeight : 1);   // 줄·페이지 단위를 픽셀로
+  if (STATE.waiting && dy > 0) {
+    startFromWait();
+    wheelSwallow = true;
+  }
+  if (wheelSwallow) {
+    if (STATE.playing) e.preventDefault();
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelSwallow = false; wheelSum = 0; }, WHEEL_IDLE);
+    return;
+  }
+  if (!STATE.playing) { wheelSum = 0; return; }
   if (!dy) return;
   clearTimeout(wheelTimer);
   if (dy < 0) { wheelSum = 0; showAll(); return; }
@@ -461,6 +500,8 @@ function restart() {
 }
 
 async function run(from, single) {
+  STATE.waiting = false;
+  clearTimeout(waitTimer);
   const id = ++RUN;
   STATE.playing = !single;
   syncPlayer();
