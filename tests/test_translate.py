@@ -177,3 +177,47 @@ def test_glossary_hint_only_for_terms_in_the_text_and_most_specific_form():
     assert glossary_hint("What is grease?", entries) == ""
     assert "Required term translations" in translation_messages("케이지?", "query", "케이지 = cage")[-1]["content"]
     assert "Required term" not in translation_messages("케이지?", "query")[-1]["content"]                  # 힌트가 없으면 예전 메시지 그대로
+
+
+# 가짜 생성기: Generator와 같은 속성을 갖고 호출 횟수를 센다 (모델 로드 없음)
+class FakeGenerator:
+    def __init__(self, model_name, quantize_4bit=False, adapter=None):
+        self.model_name, self.quantize_4bit, self.adapter = model_name, quantize_4bit, adapter
+        self.device, self.revision, self.calls = "cuda:1", "rev1", 0
+
+    def generate(self, messages, max_new_tokens=256):
+        self.calls += 1
+        return {"text": "What is bearing life?", "completion_tokens": 5, "seconds": 0.1}
+
+
+# 번역기는 같은 모델(bf16, 어댑터 없음)인 생성기만 공유하고, 공유하면 그 생성기로 번역한다
+def test_translator_shares_only_the_same_plain_model(tmp_path):
+    from ragbench.translate import MODEL, Translator
+
+    tr = Translator(tmp_path / "c.sqlite")
+    assert not tr.use_generator(FakeGenerator("other/model"))
+    assert not tr.use_generator(FakeGenerator(MODEL, quantize_4bit=True))
+    assert not tr.use_generator(FakeGenerator(MODEL, adapter="adapters/x"))
+    gen = FakeGenerator(MODEL)
+    assert tr.use_generator(gen) and tr.device == "cuda:1"
+    assert tr.translate("베어링 수명이란?", "query")["text"] == "What is bearing life?" and gen.calls == 1
+    assert tr.translate("베어링 수명이란?", "query")["from_cache"] and gen.calls == 1
+
+
+# share_translator_model은 검색기 안의 번역기(같은 객체는 한 번)를 모두 찾아 생성기를 공유시킨다
+def test_share_translator_model_finds_every_translator(tmp_path):
+    from ragbench.retrieval.bm25_en import EnglishPivotRetriever
+    from ragbench.retrieval.factory import share_translator_model
+    from ragbench.translate import MODEL, Translator
+
+    class Fusion:
+        name = "fusion"
+
+        def __init__(self, retrievers):
+            self.retrievers = retrievers
+
+    p = _write(tmp_path, [{"chunk_id": "ko_a#0", "text": "Bearing life.", "translated": True, "truncated": False}])
+    tr = Translator(tmp_path / "c.sqlite")
+    tree = Fusion([EnglishBM25Retriever(tr, p), EnglishPivotRetriever(tr, p, Fusion([]))])
+    gen = FakeGenerator(MODEL)
+    assert share_translator_model(tree, gen) == 1 and tr._gen is gen

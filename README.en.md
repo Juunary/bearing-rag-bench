@@ -292,6 +292,8 @@ Judge comparison (`experiments/results/judge_agreement.md`): Granite 3.3 8B Inst
 | GPU memory (nvidia-smi, cuda:0 / cuda:1) | 2881 / 8798 MiB | 10647 / 8942 MiB |
 | Retrieval model load + indexing / generator load | 18.3 s / 3.0 s | 15.3 s / 3.1 s |
 
+The chat server (`experiments/serve_chat.py`) lets the query translator use the generator's model, so Qwen3-4B is loaded once. For s6 the GPU memory after three queries is 2730 MiB on cuda:0 and 8782 MiB on cuda:1, and the translations of 30 v2 queries were identical to the stored cache. The table above and the one below were measured before this sharing (translator as a separate copy on cuda:0).
+
 Concurrent HTTP requests (every question different, no cache hit, translation and LLM caches empty at server start). Queue wait = client latency - server processing time.
 
 | Requests | Config | Wall time | Requests/min | Client latency p50 / max | Queue wait p50 |

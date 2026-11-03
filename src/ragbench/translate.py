@@ -148,6 +148,14 @@ class Translator:
             self._revision = self._gen.revision
         return self._gen
 
+    def use_generator(self, generator) -> bool:
+        """Translate with an already loaded Generator of the same model (bf16, no adapter) instead of a second copy."""
+        if self._gen is not None or generator.model_name != self.model_name or generator.quantize_4bit or generator.adapter:
+            return False
+        # 같은 모델·리비전·greedy라 번역 결과와 캐시 키는 그대로이고 GPU 메모리만 한 벌 줄어든다
+        self._gen, self._revision, self.device = generator, generator.revision, generator.device
+        return True
+
     def _revision_for_key(self) -> str | None:
         # 캐시 키에 모델 리비전이 들어가야 모델이 바뀌면 캐시가 무효화된다
         if self._revision is None:

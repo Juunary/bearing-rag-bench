@@ -118,8 +118,23 @@ def translators_of(retriever) -> list:
             if t is not None and all(t is not f for f in found):
                 found.append(t)
         stack.extend(getattr(r, "retrievers", []))
-        stack.extend(x for x in (getattr(r, "base", None), getattr(r, "en", None)) if x is not None)
+        stack.extend(x for x in (getattr(r, "base", None), getattr(r, "en", None), getattr(r, "inner", None)) if x is not None)
     return found
+
+
+def share_translator_model(retriever, generator) -> int:
+    """Let every translator use the generator's model when it is the same model, then load any that remain.
+
+    Serving: the translator otherwise loads its own copy on the first uncached query; loading here makes an
+    out-of-memory error show up at start-up instead of on a user request. Returns the number of translators sharing.
+    """
+    shared = 0
+    for t in translators_of(retriever):
+        if t.use_generator(generator):
+            shared += 1
+        else:
+            t._generator()
+    return shared
 
 
 def use_cold_translation_cache(retriever) -> int:
