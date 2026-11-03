@@ -167,6 +167,7 @@ select {
 .node .n-name { font-size: 13px; font-weight: 600; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .node .n-val { font-size: 12px; color: var(--text-2); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
 .node.todo { opacity: .5; }
+.node.todo .n-val { visibility: hidden; }   /* 아직 오지 않은 단계의 결과는 미리 보이지 않게 */
 .node.active { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); animation: pulse 1.4s ease-out infinite; }
 .node.done { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
 .node.done .n-step::after { content: " ✓"; color: var(--accent); }
@@ -251,6 +252,8 @@ select {
   background: var(--surface-2); border-radius: 10px; padding: 12px 14px; font-size: 15px; overflow-wrap: anywhere;
 }
 .answer.blocked { border-left: 3px solid var(--bad); }
+.answer.final { font-size: 16px; line-height: 1.7; padding: 16px 18px; background: var(--accent-soft); }
+.answer.final.blocked { background: var(--surface-2); }
 .cite {
   font-family: var(--mono); font-size: 11px; border: 1px solid var(--border); background: var(--surface); border-radius: 6px;
   padding: 0 5px; cursor: pointer; color: var(--accent); vertical-align: 1px;
