@@ -7,6 +7,9 @@
   left out. The sample over-represents answers where the judges disagree, so besides the raw agreement
   the agreement is reweighted to the whole pool with the stratum sizes (pool count / sampled count).
 - Faithfulness and answer relevance: agreement on the items the human graded.
+- Part D (the grader's own questions): correctness of the answered ones and whether each refusal was
+  appropriate. For refusals graded inappropriate, RELATED lists chunks with related statements found by an
+  AI agent in the English chunk texts, and the table shows whether they were among the retrieved candidates.
 - Usage: uv run python experiments/analyze_human_round2.py
 
 [KO]
@@ -15,6 +18,8 @@
   프롬프트는 사실을 빠뜨리거나 바꾸면 incorrect) / 빼기. 표본이 판정 불일치 답변을 많이 뽑았으므로 그대로의 일치율과
   함께 층 크기(풀 개수 / 표본 개수)로 전체 풀에 맞춰 가중한 일치율을 낸다.
 - 충실도·답변 관련성: 사람이 채점한 항목의 일치.
+- D(채점자가 직접 쓴 질문): 답한 질문의 정확성과 거절이 적절했는지. 거절이 부적절로 채점된 질문은 AI 에이전트가
+  영어 번역 청크에서 찾은 관련 문장 청크(RELATED)가 검색 후보에 들었는지 함께 표시한다.
 - 사용: uv run python experiments/analyze_human_round2.py
 """
 
@@ -34,6 +39,13 @@ from ragbench.ingest import REPO  # noqa: E402
 DIR = REPO / "eval" / "human_round2"
 OUT = REPO / "experiments" / "results" / "human_round2.md"
 JUDGES = {"Qwen3-8B": "judge_qwen", "Granite": "judge_granite"}
+# 거절이 부적절로 채점된 질문: 코퍼스(chunks_en_fixed_tok384_ov48_pdf_th)에서 관련 문장이 있는 청크
+RELATED = {
+    "D05": ["de_wellendichtring#0",          # 축 표면 다듬질 요구, 테이퍼 없이 연삭
+            "luh-diss-pelzer-2022#19",       # 립이 상대면의 런아웃·편심을 따라감
+            "luh-diss-pelzer-2022#40"],      # 상대면의 표면 다듬질·거칠기와 형상 공차
+    "D10": ["en_ball_bearing#15"],           # 축·하우징 끼워맞춤 공차가 맞아야 최대 하중 (헐거울 때의 결과는 없음)
+}
 
 
 def kappa(a: list[bool], b: list[bool]) -> float:
@@ -118,9 +130,29 @@ def main() -> None:
         f = f"{lb['faithfulness']} / {yn(b['judge_qwen']['faithfulness'])} / {yn(b['judge_granite']['faithfulness'])}" if "faithfulness" in lb else ""
         out.append(f"| {b['item']} | {b['qid']} | {b['stratum']} | {', '.join(b['conditions'])} | {lb['correctness']} | "
                    f"{yn(b['judge_qwen']['correctness'])} | {yn(b['judge_granite']['correctness'])} | {f} |")
+    out += part_d()
     text = "\n".join(out) + "\n"
     OUT.write_text(text, encoding="utf-8")
     print(text)
+
+
+def part_d() -> list[str]:
+    qs = json.loads((DIR / "labels.json").read_text(encoding="utf-8"))["user_questions"]
+    rows = {r["qid"]: r for r in json.loads((DIR / "user_questions_answers.json").read_text(encoding="utf-8"))["rows"]}
+    ans = [q for q in qs if "correctness" in q]
+    ref = [q for q in qs if "refusal" in q]
+    fmt = lambda c: ", ".join(f"{k} {v}" for k, v in sorted(c.items()))  # noqa: E731
+    out = ["", "## D. The grader's own questions", "",
+           f"Answered {len(ans)}: {fmt(Counter(q['correctness'] for q in ans))}. "
+           f"Refused {len(ref)}: {fmt(Counter(q['refusal'] for q in ref))}.", "",
+           "| qid | outcome | human | related chunks (in top 5 / in candidates) | note |", "|---|---|---|---|---|"]
+    for q in qs:
+        r = rows[q["qid"]]
+        rel = "; ".join(f"{c} ({'yes' if c in r['best_top5'] else 'no'} / {'yes' if c in r['pool'] else 'no'})"
+                        for c in RELATED.get(q["qid"], []))
+        outcome, grade = ("refused", q["refusal"]) if r["blocked"] else ("answered", q["correctness"])
+        out.append(f"| {q['qid']} | {outcome} | {grade} | {rel} | {q['note']} |")
+    return out
 
 
 if __name__ == "__main__":

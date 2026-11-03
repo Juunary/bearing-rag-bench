@@ -78,3 +78,20 @@ By stratum (partial as NO):
 | B25 | q057 | both_no | v2g_ret_x2_rerank_en_text | 맞음 | NO | NO | 예 / YES / YES |
 | B26 | pdf023 | both_yes | pdfg_th_x13_rrf_en_dense_en_rerank_en_text | 맞음 | YES | YES |  |
 | B27 | q055 | both_yes | v2g_ret_x2_rerank_en_text | 맞음 | YES | YES |  |
+
+## D. The grader's own questions
+
+Answered 5: 맞음 4, 부분 1. Refused 5: 부적절 2, 적절 3.
+
+| qid | outcome | human | related chunks (in top 5 / in candidates) | note |
+|---|---|---|---|---|
+| D01 | answered | 맞음 |  | 앵귤러 콘택트 베어링의 고속 회전 및 복합 하중(축/반경) 지지 특성을 실무 지식에 맞게 잘 설명했습니다. |
+| D02 | refused | 적절 |  | 비틀림 진동을 잡기 위한 댐퍼나 듀얼 매스 플라이휠 등의 장치는 기계/자동차 NVH 전문 영역이라 일반적인 구동축 개요 문서에는 없을 수 있습니다. |
+| D03 | answered | 부분 |  | 고체 윤활제(그래파이트 등)를 언급한 부분은 맞지만, EP(극압) 그리스는 고하중/충격용이지 그 자체로 200도 이상의 고온 내성을 의미하지는 않으므로 설명이 부정확합니다(고온용은 우레아계, 불소계 등을 사용). |
+| D04 | answered | 맞음 |  | 윤활유 내 철분 분석(Ferrography) 및 입자 분석은 대표적인 엔진 베어링 비분해 상태 진단법입니다. |
+| D05 | refused | 부적절 | de_wellendichtring#0 (no / no); luh-diss-pelzer-2022#19 (no / no); luh-diss-pelzer-2022#40 (no / no) | 오일 씰(Radial shaft seal)의 누유 원인으로 샤프트 표면의 조도, 스크래치, 런아웃, 마모 궤적(Wear track) 등은 씰링 메커니즘을 다루는 문서나 학위논문에 반드시 등장하는 기초 지식입니다. |
+| D06 | answered | 맞음 |  |  |
+| D07 | answered | 맞음 |  | 구름 베어링의 점/선 접촉으로 인한 브리넬링 취약성과 플레인 베어링의 면 접촉 하중 분산 특성을 정확히 짚었습니다. |
+| D08 | refused | 적절 |  | 전기차 감속기의 초고속 회전 대응 및 전식(Electrical erosion) 방지 기술은 최신 실무/연구 트렌드이므로, 고전적인 베어링 문헌이나 일반 문서에서는 찾기 어렵습니다. |
+| D09 | refused | 적절 |  | 코너링 시 하중 이동에 따른 소음 변화 확인 등은 정비소 현장의 실무 노하우에 가까워 학술 논문이나 백과사전에서 다루기 어렵습니다. |
+| D10 | refused | 부적절 | en_ball_bearing#15 (yes / yes) | 하우징 공차가 헐거울 때 발생하는 외륜의 헛돔(크리프, Creep 현상)과 프레팅 마모는 베어링 끼워맞춤 및 고장 원인을 다루는 기초 문헌에 필수적으로 언급되는 내용입니다. |

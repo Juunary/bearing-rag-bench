@@ -277,7 +277,14 @@ Human review round 2 (`experiments/results/human_round2.md`, sample and grades i
 | faithfulness, 10 answers | Qwen 8/10, Granite 6/10 agree |
 | answer relevance, 27 answers | both 27/27 agree |
 
-Of 10 questions the grader wrote without looking at the documents (`eval/human_round2/labels.json`), 5 are refused as unanswered by the best PDF-corpus retrieval (table headers repeated) with cite_refuse_v1 (`eval/human_round2/user_questions_answers.json`).
+Of 10 questions the grader wrote without looking at the documents (`eval/human_round2/labels.json`), 5 are refused as unanswered by the best PDF-corpus retrieval (table headers repeated) with cite_refuse_v1 (`eval/human_round2/user_questions_answers.json`). The same grader graded them from practical knowledge:
+
+| item | result |
+|---|---|
+| correctness of the 5 answers | correct 4, partial 1 (D03: describes EP grease as a lubricant for above 200 °C) |
+| 5 refusals | appropriate 3 (drive-shaft torsional damping, EV reducer bearings, telling wheel-bearing noise from tyre noise), inappropriate 2 |
+| inappropriate D05 (shaft-side causes of oil-seal leakage) | 3 chunks with statements on shaft surface finish and runout are not among the 9 retrieved candidates |
+| inappropriate D10 (loose housing fit) | a chunk on fit tolerances is in the top 5, but a keyword search (creep, fretting, loose fit, ...) finds no chunk on the effects of a loose fit such as creep or fretting |
 
 | Comparison (correctness, document-cluster 95% interval) | Qwen3-8B judge | Granite judge |
 |---|---|---|
@@ -404,6 +411,7 @@ Searching the 90 v2 questions again on the corpus with the 557 PDF chunks change
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
+- Of 10 practical questions the grader wrote without looking at the documents, 5 were refused (grader: appropriate 3, inappropriate 2); the corpus (Wikipedia, NASA reports, theses) has little on maintenance, diagnosis and design practice. These 10 answers were not graded by the judges.
 - Human grading covers 35 answers (8 in round 1, 27 in round 2) by one grader; round 2 covers Korean and English items only. In round 2 the judges' correct rate is higher than the human grade (weighted difference Qwen +0.17, Granite +0.24) and their kappa with the human is below 0.1. Judge results are approximate, and differences between conditions were not checked against human grades. The second judge (Granite) says YES more often and the two judges agree with low kappa (correctness 0.24 .. 0.48). Granite's verdict line was cut off by the 80-token limit for about 30 answers per result set; those were asked again once with three times the limit.
 - Training answers were selected by `sentence_coverage = 1`, so the sentence-level citation rate is the same metric as the selection criterion. Fine-tuning used 66 to 125 training examples and one rank (16); hyperparameters were not tuned.
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
