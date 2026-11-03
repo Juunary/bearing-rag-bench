@@ -1,0 +1,1071 @@
+{
+ "seed": 20261103,
+ "readable_languages": [
+  "en",
+  "ko"
+ ],
+ "part_a": [
+  {
+   "item": "A01",
+   "evalset": "v2",
+   "qid": "q003",
+   "pair": "ko->ko",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A02",
+   "evalset": "v2",
+   "qid": "q056",
+   "pair": "ko->ko",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A03",
+   "evalset": "v2",
+   "qid": "q055",
+   "pair": "ko->ko",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A04",
+   "evalset": "v2",
+   "qid": "q052",
+   "pair": "ko->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A05",
+   "evalset": "v2",
+   "qid": "q005",
+   "pair": "ko->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A06",
+   "evalset": "v2",
+   "qid": "q030",
+   "pair": "en->ko",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A07",
+   "evalset": "v2",
+   "qid": "q023",
+   "pair": "en->ko",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A08",
+   "evalset": "v2",
+   "qid": "q072",
+   "pair": "en->ko",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A09",
+   "evalset": "v2",
+   "qid": "q025",
+   "pair": "en->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A10",
+   "evalset": "v2",
+   "qid": "q018",
+   "pair": "en->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A11",
+   "evalset": "v2",
+   "qid": "q019",
+   "pair": "en->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A12",
+   "evalset": "pdf",
+   "qid": "pdf023",
+   "pair": "ko->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A13",
+   "evalset": "pdf",
+   "qid": "pdf007",
+   "pair": "ko->en",
+   "evidence_kind": "table"
+  },
+  {
+   "item": "A14",
+   "evalset": "pdf",
+   "qid": "pdf009",
+   "pair": "ko->en",
+   "evidence_kind": "caption"
+  },
+  {
+   "item": "A15",
+   "evalset": "pdf",
+   "qid": "pdf020",
+   "pair": "ko->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A16",
+   "evalset": "pdf",
+   "qid": "pdf001",
+   "pair": "ko->en",
+   "evidence_kind": "table"
+  },
+  {
+   "item": "A17",
+   "evalset": "pdf",
+   "qid": "pdf017",
+   "pair": "ko->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A18",
+   "evalset": "pdf",
+   "qid": "pdf013",
+   "pair": "en->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A19",
+   "evalset": "pdf",
+   "qid": "pdf005",
+   "pair": "en->en",
+   "evidence_kind": "table"
+  },
+  {
+   "item": "A20",
+   "evalset": "pdf",
+   "qid": "pdf010",
+   "pair": "en->en",
+   "evidence_kind": "caption"
+  },
+  {
+   "item": "A21",
+   "evalset": "pdf",
+   "qid": "pdf019",
+   "pair": "en->en",
+   "evidence_kind": "text"
+  },
+  {
+   "item": "A22",
+   "evalset": "pdf",
+   "qid": "pdf008",
+   "pair": "en->en",
+   "evidence_kind": "table"
+  },
+  {
+   "item": "A23",
+   "evalset": "pdf",
+   "qid": "pdf022",
+   "pair": "en->en",
+   "evidence_kind": "text"
+  }
+ ],
+ "part_b": [
+  {
+   "item": "B01",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q067",
+   "stratum": "both_yes",
+   "answer": "Integral plain bearings became less common after the 19th century because bushings were easier to accommodate and could be replaced if necessary, whereas integral bearings could not be replaced and were more prone to failure when worn out [en_plain_bearing#1]. As interchangeable manufacture became popular, the ability to replace components became more important, leading to a shift away from integral bearings [en_plain_bearing#1].",
+   "context_ids": [
+    "en_plain_bearing#1",
+    "en_tapered_roller_bearing#1",
+    "en_bearing_mechanical#0",
+    "en_rolling_element_bearing#1",
+    "en_rolling_element_bearing#13"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_bf16",
+    "v2g_cmp_hs",
+    "v2g_cmp_li",
+    "v2g_ret_b_rrf_en_rerank"
+   ]
+  },
+  {
+   "item": "B02",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q003",
+   "stratum": "disagree",
+   "answer": "볼 베어링에 케이지를 달지 않으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장 날 수 있다 [ko_ball_bearing#4]. 또한 케이지가 없으면 접선 위치는 두 개의 볼록한 표면이 서로 미끄러지면서 안정화되며, 이는 볼에 흠집이 생기고 마찰이 증가할 수 있다 [ko_ball_bearing#8].",
+   "context_ids": [
+    "ko_ball_bearing#4",
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#13",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#7"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_bf16",
+    "v2g_cmp_hs",
+    "v2g_cmp_li"
+   ]
+  },
+  {
+   "item": "B03",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q057",
+   "stratum": "both_yes",
+   "answer": "마모량은 하중과 미끄럼 거리에 각각 비례하고, 경도에 반비례한다 [ko_wear#0]. 하중을 두 배로 하고 거리를 절반으로 줄이면 마모량은 2 × (1/2) = 1배로 유지된다 [ko_wear#0].",
+   "context_ids": [
+    "ko_wear#0",
+    "ko_wear#1",
+    "ko_ball_bearing#10",
+    "ko_ball_bearing#2",
+    "en_tribology#25"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_lora_s42"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_wear#0",
+     "text": "기계공학에서 마모(磨耗)는 2개의 고체가 서로 접촉하면서 이동하고 있을 때, 그들 미끄럼 면에서부터 마찰에 의해서 물질이 이탈하고, 대체로 표면에 대하여 바람직하지 못한 영향을 주는 현상이다. 따라서 그 다뤄지는 범위는 매우 넓어지고, 다음과 같은 것이 있다.\n\n재봉틀기름 등을 사용하며, 보통으로 생기는 정상마모(正常磨耗), 샌드페이퍼·모래 등에 의한 거칫거림마모, 고속·고하중하(高荷重下)에서 생기는 융착마모(融著磨耗), 장시간의 이용에 의해서 표면이 피로하여 생기는 얼룩마모, 물 등의 부식작용에 의한 부식마모, 이동거리가 0.5mm 정도인 미소이동 때 생기는 미동마모, 미끄럼면이 산화되어 있는 상태인 산화마모 등이 있다.\n마모의 진행 과정에 대하여 가장 단순한 고체간 미끄럼인 경우에 마모량는 하중 및 거리에 각각 비례하고 굳기 에 반비례한다고 하며, 다음과 같은 관계식으로 된다.\n는 비례정수이다. 는 미끄럼 조건에 따라서 정해지는 것이며, 동일한 마모기구가 성립하는 범위 내에서 유효하다. 가령 하중을 바꿈으로써, 정상마모로부터 산화마모로 바뀌면, 그에 상응하는 가 정해진다."
+    }
+   ]
+  },
+  {
+   "item": "B04",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q019",
+   "stratum": "both_yes",
+   "answer": "When a grease is called shear-thinning, it means that its viscosity decreases under the application of shear stress [en_grease#0]. This reduction in viscosity allows the grease to behave like a liquid lubricant with a viscosity similar to the base oil when subjected to mechanical force [en_grease#1]. The property is characteristic of true greases, which are typically pseudo-plastic fluids [en_grease#0].",
+   "context_ids": [
+    "en_grease#0",
+    "en_grease#1",
+    "ko_lubrication#0",
+    "en_grease#2",
+    "en_grease#3"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_qlora_s42"
+   ]
+  },
+  {
+   "item": "B05",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q023",
+   "stratum": "disagree",
+   "answer": "The advantage of a sleeve bearing over a ball bearing in case fans is that it has lower noise [ko_bearing#3]. At high rotation speed, the sleeve bearing experiences high friction and heat generation, which causes its life to be drastically shortened [ko_bearing#3].",
+   "context_ids": [
+    "ko_bearing#3",
+    "ko_bearing#2",
+    "ko_bearing#4",
+    "en_ball_bearing#9",
+    "en_ball_bearing#0"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_cmp_ar",
+    "v2g_ret_x2_rerank_en_text"
+   ]
+  },
+  {
+   "item": "B06",
+   "faithfulness_item": false,
+   "evalset": "pdf",
+   "qid": "pdf009",
+   "stratum": "disagree",
+   "answer": "구름 베어링 크기별 형상·재료 계수 fcm 대표값은 ANSI/ABMA의 9번 및 11번 규격에 나오나요 [nasa-tp-2013-215305-rev1#38].",
+   "context_ids": [
+    "nasa-tp-2013-215305-rev1#42",
+    "nasa-tp-2013-215305-rev1#39",
+    "nasa-tp-2013-215305-rev1#38",
+    "nasa-tp-2013-215305-rev1#40",
+    "nasa-tp-2013-215305-rev1#36"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "pdfg_x13_rrf_en_dense_en_rerank_en_text"
+   ]
+  },
+  {
+   "item": "B07",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q070",
+   "stratum": "disagree",
+   "answer": "Approximately 23% of the world's total energy expenditure is caused by tribological contacts, of which 20% is due to friction and 3% to remanufacturing worn parts and spare equipment due to wear [en_tribology#3]. This includes the transport, manufacturing, power generation, and residential sectors [en_tribology#0]. The fraction attributed specifically to friction is 20% of global energy consumption [en_tribology#0]. Therefore, friction alone accounts for about 20% of the world's energy consumption in these sectors [en_tribology#0].",
+   "context_ids": [
+    "en_tribology#3",
+    "en_tribology#0",
+    "en_tribology#2",
+    "de_tribologie#1",
+    "en_wear#0"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_4bit"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "en_tribology#3",
+     "text": "Despite considerable research since the Jost Report, the global impact of friction and wear on energy consumption, economic expenditure, and carbon dioxide emissions are still considerable. In 2017, Kenneth Holmberg and Ali Erdemir attempted to quantify their impact worldwide. They considered the four main energy consuming sectors: transport, manufacturing, power generation, and residential. The following were concluded:\n\nIn total, ~23% of the world's energy consumption originates from tribological contacts. Of that, 20% is to overcome friction and 3% to remanufacture worn parts and spare equipment due to wear and wear-related.\nBy friction reduction and wear protection, energy losses in machinery could lower total energy consumption.\nThe largest short term energy savings are envisioned in transport (25%) and in power generation (20%) while the potential savings in the manufacturing and residential sectors are estimated to be ~10%. In the longer term, savings would be 55%, 40%, 25%, and 20%, respectively.\nImplementing advanced tribological technologies can also reduce global carbon dioxide emissions by as much as 1460 million tons of carbon dioxide equivalent (MtCO2) and result in 450000 million euros cost savings in the short term. In the long term, the reduction could be as large as 3140 MtCO2 and the cost savings 970000 million euros.\nClassical tribology covering such applications as ball bearings, gear drives, clutches, brakes, etc. was developed in the context of mechanical engineering. It also embrace micro- and nanotechnology as well as aspects of biology and medicine."
+    },
+    {
+     "chunk_id": "en_tribology#0",
+     "text": "Tribology is the science and engineering of understanding friction, lubrication and wear phenomena for interacting surfaces in relative motion. It is highly interdisciplinary, drawing on many academic fields, including physics, chemistry, materials science, mathematics, biology and engineering. The fundamental objects of study in tribology are tribosystems, which are physical systems of contacting surfaces. Subfields of tribology include biotribology, nanotribology and space tribology. It is also related to other areas such as the coupling of corrosion and tribology in tribocorrosion and the contact mechanics of how surfaces in contact deform.\nApproximately 20% of the world's energy (2012) is consumed by friction and wear in the transportation, manufacturing, power generation, and residential sectors.\n\nThe word tribology derives from the Greek root τριβ- of the verb τρίβω, tribo, \"I rub\" in classic Greek, and the suffix -logy from -λογία, -logia \"study of\", \"knowledge of\". Peter Jost coined the word in 1966, in the eponymous report which highlighted the cost of friction, wear and corrosion to the UK economy.\n\nDespite the relatively recent naming of the field of tribology, quantitative studies of friction can be traced as far back as 1493, when Leonardo da Vinci first noted the two fundamental 'laws' of friction. According to Leonardo, frictional resistance was the same for two different objects of the same weight but making contact over different widths and lengths. He also observed that the force needed to overcome friction doubles as weight doubles."
+    }
+   ]
+  },
+  {
+   "item": "B08",
+   "faithfulness_item": true,
+   "evalset": "pdf",
+   "qid": "pdf016",
+   "stratum": "both_no",
+   "answer": "Rolling-element fatigue gives the shortest bearing life in the service life analysis built on the Naval Air Rework Facility removal data. This is because eliminating rolling-element fatigue as a cause for removal increases the L10 service life by approximately 3 percent, indicating that fatigue-related failures occur earlier and reduce the overall service life. The data show that 0.88 percent of bearings were removed due to fatigue out of ~224,000 total bearings, and at 5,000 hours, 97 percent of bearings would be removed for cause, suggesting a significant impact on life. [nasa-tm-2017-219545#3] [nasa-tm-2017-219545#34]",
+   "context_ids": [
+    "nasa-tm-2017-219545#3",
+    "nasa-tm-2017-219545#18",
+    "nasa-tm-2017-219545#34",
+    "nasa-tm-2017-219545#31",
+    "nasa-tm-2017-219545#9"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": false,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "pdfg_b_rrf_rerank"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "nasa-tm-2017-219545#3",
+     "text": "Today, bearing fatigue probably accounts for less than 5 percent of bearings removed from service for cause. A bearing service life prediction methodology and tutorial indexed to eight probable causes for bearing removal, including fatigue, are presented, which incorporate strict series reliability; Weibull statistical analysis; available published field data from the Naval Air Rework Facility; and ~224,000 rolling-element bearings removed for rework from commercial aircraft engines. Bearing service\nlife, Lserv, can be benchmarked and calculated to the bearing fatigue life, L10, as follows: L serv = X 1 m L 10 , where X is the number of bearings removed from service because of fatigue divided by the total of all bearings removed from service regardless of cause and m is the Weibull modulus of the bearings removed from service. The most conservative bearing L10 service life calculation is obtained assuming an exponential distribution where m = 1.1. Of the ~224,000 commercial engine bearings removed from service for rework, 1,977 or 0.88 percent were rejected because of fatigue. From the Naval Air Rework Facility bearing data, eliminating rolling-element fatigue as a cause for removal, the L10 service life of these bearings would increase by approximately 3 percent.\n\nIn the first edition of his book, Ball and Roller Bearing Engineering, Palmgren (Ref. 1) defines “The Term (Bearing) LIFE” as follows:\n“No bearing gives an unlimited length of service. If a ball or roller bearing is exposed to moisture or dirt, it may be rendered unserviceable due to rust (corrosion) or wear, after a period of service which obviously cannot be predicted."
+    },
+    {
+     "chunk_id": "nasa-tm-2017-219545#34",
+     "text": "The following results were obtained:\n(1) Bearing service life, Lserv, can be benchmarked and calculated to the bearing L10 fatigue life as follows:\nL = X 1 m L\nserv\n10\nwhere Lserv is the service life at a 90 percent reliability or a 10 percent probability for bearing removal; X is a fractional percent calculated by taking the number of bearings removed from service because of fatigue divided by the number of all bearings removed from service regardless of cause; m is the Weibull modulus of all the bearings removed from service; and L10 is the bearing calculated life based on rolling-element fatigue at a 90 percent reliability or a 10 percent probability of a fatigue failure.\n(2) The most conservative bearing L10 service life calculation is obtained assuming an exponential distribution where m = 1.1.\n(3) Of the ~224,000 commercial engine bearings removed from service for rework, 1,977 or\n0.88 percent were rejected because of fatigue.\n(4) From the Naval Air Rework Facility bearing data, eliminating rolling-element fatigue as a cause for removal, the L10 service life of these bearings would increase by approximately 3 percent. At 5,000 h or the bearing L10 fatigue life, 97 percent of the bearings would be removed from service for cause."
+    }
+   ]
+  },
+  {
+   "item": "B09",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q054",
+   "stratum": "both_yes",
+   "answer": "앵귤러 콘택트 볼 베어링에서 접촉각이 클수록 지지되는 축 하중은 높지만 반경 하중은 낮아진다 [ko_ball_bearing#2]. 따라서 접촉각을 키우면 축 방향 하중을 더 잘 견디게 된다 [ko_ball_bearing#2].",
+   "context_ids": [
+    "ko_ball_bearing#1",
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#3",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#7"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_bf16",
+    "v2g_cmp_ar",
+    "v2g_cmp_hs",
+    "v2g_cmp_li",
+    "v2g_ret_b_rrf_en_rerank"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_ball_bearing#2",
+     "text": "접촉각이 클수록(일반적으로 10~45도 범위) 지지되는 축 하중은 높지만 반경 하중은 낮아진다. 터빈, 제트 엔진 및 치과 장비와 같은 고속 응용 분야에서는 볼에 의해 생성되는 원심력이 내륜 및 외륜의 접촉각을 변경한다. 질화 규소와 같은 세라믹은 낮은 밀도(강철의 40%) 때문에 이러한 응용 분야에서 정기적으로 사용된다. 이러한 재료는 원심력을 크게 줄이고 고온 환경에서도 잘 작동한다. 또한 유리나 도자기처럼 균열되거나 부서지지 않고 베어링 강과 유사한 방식으로 마모되는 경향이 있다. 대부분의 자전거는 헤드셋에 앵귤러 콘택트 베어링을 사용하는데, 이는 이러한 베어링에 가해지는 힘이 반경 방향과 축 방향 모두에 있기 때문이다.\n\n축방향 또는 스러스트 볼 베어링은 나란히 놓인 레이스를 사용한다. 축방향 하중은 베어링을 통해 직접 전달되는 반면, 반경 방향 하중은 잘 지지되지 않고 레이스를 분리시키는 경향이 있어 더 큰 반경 방향 하중은 베어링을 손상시킬 가능성이 높다.\n\n딥 그루브 레이디얼 베어링에서 레이스 치수는 그 안에 들어 있는 볼의 치수와 가깝다. 딥 그루브 베어링은 얕은 그루브보다 더 높은 하중을 지지한다."
+    }
+   ]
+  },
+  {
+   "item": "B10",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q069",
+   "stratum": "both_yes",
+   "answer": "The grease in a 100 mm bearing should be changed every 500 working hours, while for a 40 mm bearing it should be changed every 5000 working hours. [en_ball_bearing#13] This means the grease replacement interval for a 100 mm bearing is 10 times shorter than for a 40 mm bearing. [ko_ball_bearing#15] The time between grease replacements decreases very strongly with the diameter of the bearing. [en_grease#14]",
+   "context_ids": [
+    "en_ball_bearing#13",
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#14",
+    "en_grease#0",
+    "en_bearing_mechanical#15"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_cmp_ar"
+   ]
+  },
+  {
+   "item": "B11",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q069",
+   "stratum": "both_yes",
+   "answer": "The grease in a 100 mm bearing should be changed every 500 working hours, while for a 40 mm bearing it should be changed every 5000 working hours. [en_ball_bearing#13] This means the grease replacement interval for a 100 mm bearing is 10 times shorter than for a 40 mm bearing. [ko_ball_bearing#15] The time between grease replacements decreases very strongly with the diameter of the bearing. [en_ball_bearing#13]",
+   "context_ids": [
+    "en_ball_bearing#13",
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#14",
+    "en_rolling_element_bearing#15",
+    "en_grease#0"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_bf16",
+    "v2g_cmp_hs",
+    "v2g_cmp_li"
+   ]
+  },
+  {
+   "item": "B12",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q003",
+   "stratum": "disagree",
+   "answer": "볼 베어링에 케이지를 달지 않으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장 날 수 있다 [ko_ball_bearing#4]. 또한, 접선 위치는 두 개의 볼록한 표면이 서로 미끄러지면서 안정화되며, 이는 볼에 흠집이 생기는 것을 방지하고 마찰이 적다는 장점이 없다 [ko_ball_bearing#8]. 케이지가 없으면 볼의 위치가 불안정해지고, 하중 지지력이 저하된다 [ko_ball_bearing#7].",
+   "context_ids": [
+    "ko_ball_bearing#4",
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#13",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#7"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_lora_s42"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_ball_bearing#4",
+     "text": "페어링 메커니즘은 단순히 베어링을 직접 마주보게 하거나, 심, 부싱 또는 샤프트 특징으로 분리할 수 있다.\n\n콘래드\n콘래드 스타일 볼 베어링은 1903년 영국 특허 12,206호와 1906년 미국 특허 822,723호를 받은 발명가 로버트 콘래드의 이름을 따서 명명되었다. 이 베어링은 내륜을 외륜에 대해 편심 위치에 배치하고, 두 링이 한 점에서 접촉하게 하여 접촉점 반대편에 큰 틈을 만든 다음 볼을 틈을 통해 삽입하고 베어링 어셈블리 주위에 균등하게 분배하여 링이 동심원이 되도록 조립한다. 조립은 볼의 상대적 위치를 유지하기 위해 볼에 케이지를 장착함으로써 완료된다. 케이지가 없으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장 날 수 있다. 케이지는 하중을 받지 않으며 볼의 위치를 유지하는 역할만 한다. 콘래드 베어링은 반경 방향 및 축 방향 하중을 모두 견딜 수 있다는 장점이 있지만, 베어링 어셈블리에 로드할 수 있는 볼의 수가 제한되어 하중 용량이 낮다는 단점이 있다. 아마도 가장 잘 알려진 산업용 볼 베어링은 딥 그루브 콘래드 스타일일 것이다. 이 베어링은 대부분의 기계 산업에서 사용된다.\n슬롯 필"
+    },
+    {
+     "chunk_id": "ko_ball_bearing#8",
+     "text": "스냅 링은 플랜지 기능을 담당한다.\n케이지형\n케이지는 일반적으로 콘래드 스타일 볼 베어링에서 볼을 고정하는 데 사용된다. 다른 구조 유형에서는 특정 케이지 모양에 따라 볼의 수가 줄어들어 하중 지지력이 감소할 수 있다. 케이지가 없으면 접선 위치는 두 개의 볼록한 표면이 서로 미끄러지면서 안정화된다. 케이지가 있으면 접선 위치는 볼록한 표면이 일치하는 오목한 표면에서 미끄러지면서 안정화되는데, 이는 볼에 흠집이 생기는 것을 방지하고 마찰이 적다. 케이지형 롤러 베어링은 존 해리슨이 18세기 중반 크로노그래프 작업의 일환으로 발명했다.\n세라믹 볼을 사용한 하이브리드 볼 베어링\n세라믹 베어링 볼은 크기와 재료에 따라 강철 볼보다 최대 40% 가볍다. 이는 원심 하중과 미끄러짐을 줄여주므로 하이브리드 세라믹 베어링은 기존 베어링보다 20%에서 40% 더 빠르게 작동할 수 있다. 이는 베어링이 회전할 때 외륜 홈이 볼에 가하는 안쪽 방향 힘이 줄어든다는 것을 의미한다. 이러한 힘의 감소는 마찰과 마찰력#구름 마찰력을 줄인다. 가벼운 볼은 베어링을 더 빠르게 회전시키고, 속도를 유지하는 데 더 적은 전력을 사용한다. 세라믹 볼은 일반적으로 레이스보다 단단하다. 마모로 인해 시간이 지남에 따라 레이스에 홈이 생길 것이다."
+    },
+    {
+     "chunk_id": "ko_ball_bearing#7",
+     "text": "3선, 선형 및 기타 와이어 레이스 베어링도 있다.\n열\n단열 베어링과 복열 베어링의 두 가지 열 설계가 있다. 대부분의 볼 베어링은 단열 설계로, 베어링 볼이 한 줄로 되어 있음을 의미한다. 이 설계는 반경 방향 및 스러스트 하중에 작용한다. 복열 설계는 베어링 볼이 두 줄로 되어 있다. 단열 베어링에 비해 복열 베어링의 장점은 양방향으로 반경 방향 및 축 방향 하중을 지지할 수 있다는 것이다. 복열 앵귤러 콘택트 볼 베어링은 기울기 효과도 지지할 수 있는 가파른 장착을 특징으로 한다. 복열 베어링의 다른 장점은 강성과 소형성이다. 단점은 단열 베어링보다 더 나은 정렬이 필요하다는 것이다.\n플랜지형\n외륜에 플랜지가 있는 베어링은 축 방향 위치 지정을 단순화한다. 이러한 베어링용 하우징은 균일한 직경의 관통 구멍으로 구성될 수 있지만, 하우징의 입구 면(외면 또는 내면)은 구멍 축에 대해 실제로 수직으로 가공되어야 한다. 그러나 이러한 플랜지는 제조 비용이 매우 많이 든다. 유사한 이점을 가진 베어링 외륜의 보다 비용 효율적인 배열은 외경의 양쪽 끝 또는 한쪽 끝에 스냅 링 홈을 만드는 것이다. 스냅 링은 플랜지 기능을 담당한다.\n케이지형\n케이지는 일반적으로 콘래드 스타일 볼 베어링에서 볼을 고정하는 데 사용된다."
+    }
+   ]
+  },
+  {
+   "item": "B13",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q005",
+   "stratum": "disagree",
+   "answer": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 금속 피로, 윤활 조건, 그리고 하중에 대한 요소입니다 [ko_ball_bearing#11]. 금속 피로는 수명을 제한하며, 수명 분포는 베이불 분포로 설명됩니다 [ko_ball_bearing#11][en_ball_bearing#10]. 윤활 조건은 점도가 너무 높거나 낮을 경우 수명에 영향을 미치며, 특히 점도가 낮을 경우 일반 오일에서는 수명이 점도의 제곱에 비례하여 감소합니다 [ko_ball_bearing#14]. 하중은 베어링의 수명과 직접적인 관계를 가지며, 현대 재료는 룬드베르크와 팔름그렌이 결정한 하중과 수명 관계와는 다른 관계를 보여줍니다 [ko_ball_bearing#11][en_ball_bearing#10].",
+   "context_ids": [
+    "ko_ball_bearing#11",
+    "ko_ball_bearing#14",
+    "en_ball_bearing#10",
+    "ko_ball_bearing#10",
+    "ko_bearing#4"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_lora_s42"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_ball_bearing#11",
+     "text": "베어링의 공칭 최대 하중은 100만 회전의 수명에 대한 것이며, 50 Hz(즉, 3000 RPM)에서는 5.5 작동 시간의 수명에 해당한다. 해당 유형 베어링의 90%는 최소한 그 수명을 가지며, 50%의 베어링은 최소 5배 더 긴 수명을 가진다.\n업계 표준 수명 계산은 1947년에 룬드베르크(Lundberg)와 팔름그렌(Palmgren)이 수행한 작업을 기반으로 한다. 이 공식은 수명이 금속 피로에 의해 제한되며, 수명 분포는 베이불 분포로 설명될 수 있다고 가정한다. 재료 특성, 윤활 및 하중에 대한 요소를 포함하는 다양한 변형 공식이 존재한다. 하중에 대한 요소는 현대 재료가 룬드베르크와 팔름그렌이 결정한 것과는 다른 하중과 수명 간의 관계를 보여준다는 암묵적인 인정으로 볼 수 있다.\n\n베어링이 회전하지 않으면 최대 하중은 요소 또는 레이스웨이의 소성 변형을 유발하는 힘에 의해 결정된다. 요소에 의해 발생하는 함몰은 응력을 집중시키고 구성 요소에 균열을 발생시킬 수 있다. 회전하지 않거나 매우 느리게 회전하는 베어링의 최대 하중을 \"정적\" 최대 하중이라고 한다.\n또한 베어링이 회전하지 않는 경우, 베어링에 가해지는 진동력은 베어링 레이스 또는 구름 요소에 충격 손상을 일으킬 수 있으며, 이를 브리넬링이라고 한다."
+    },
+    {
+     "chunk_id": "en_ball_bearing#10",
+     "text": "The formula assumes the life to be limited by metal fatigue and that the life distribution can be described by a Weibull distribution. Many variations of the formula exist that include factors for material properties, lubrication, and loading. Factoring for loading may be viewed as a tacit admission that modern materials demonstrate a different relationship between load and life than Lundberg and Palmgren determined .\n\nIf a bearing is not rotating, maximum load is determined by force that causes plastic deformation of elements or raceways. The indentations caused by the elements can concentrate stresses and generate cracks at the components. Maximum load for not or very slowly rotating bearings is called \"static\" maximum load.\nAlso, if a bearing is not rotating, oscillating forces on the bearing can cause impact damage to the bearing race or the rolling elements, known as brinelling. A second lesser form called false brinelling occurs if the bearing only rotates across a short arc and pushes lubricant out away from the rolling elements.\nFor a rotating bearing, the dynamic load capacity indicates the load to which the bearing endures 1,000,000 cycles.\nIf a bearing is rotating, but experiences heavy load that lasts shorter than one revolution, static max load must be used in computations, since the bearing does not rotate during the maximum load.\nIf a sideways torque is applied to a deep groove radial bearing, an uneven force in the shape of an ellipse is applied on the outer ring by the rolling elements, concentrating in two regions on opposite sides of the outer ring."
+    },
+    {
+     "chunk_id": "ko_ball_bearing#14",
+     "text": "베어링 외경과 차축 구멍 직경의 평균이 50 mm이고 3000 RPM으로 회전하는 베어링의 권장 동적 점도는 12 mm2/s이다.\n오일의 동적 점도는 온도에 따라 크게 달라진다는 점에 유의해야 한다. 50–70 °C의 온도 상승은 점도를 10배 감소시킨다.\n윤활유의 점도가 권장보다 높으면 베어링의 수명이 증가하며, 대략 점도의 제곱근에 비례한다. 윤활유의 점도가 권장보다 낮으면 베어링의 수명은 감소하며, 얼마나 감소하는지는 사용되는 오일의 종류에 따라 달라진다. EP('극한 압력') 첨가제가 포함된 오일의 경우 수명은 동적 점도의 제곱근에 비례하며, 이는 점도가 너무 높은 경우와 마찬가지이다. 반면 일반 오일의 경우 권장보다 낮은 점도를 사용하면 수명은 점도의 제곱에 비례한다.\n윤활은 그리스로 할 수 있는데, 그리스는 일반적으로 베어링 내에 보관되어 볼에 의해 압축될 때 윤활유를 방출하는 장점이 있다. 이는 베어링 금속에 환경으로부터 보호 장벽을 제공하지만, 이 그리스를 주기적으로 교체해야 하고 베어링의 최대 하중이 감소한다는 단점이 있다(베어링이 너무 뜨거워지면 그리스가 녹아 베어링 밖으로 흘러나오기 때문). 그리스 교체 주기는 베어링의 직경에 따라 매우 강하게 감소한다. 40 mm 베어링의 경우 그리스는 5000 작동 시간마다 교체해야 하는 반면, 100 mm 베어링의 경우 500 작동 시간마다 교체해야 한다."
+    }
+   ]
+  },
+  {
+   "item": "B14",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q005",
+   "stratum": "disagree",
+   "answer": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 금속 피로, 윤활 상태, 그리고 하중의 종류와 크기입니다. 수명은 금속 피로에 의해 제한되며, 이는 베이불 분포로 설명될 수 있습니다 [ko_ball_bearing#11]. 윤활은 하중과 수명 간의 관계에 영향을 미치며, 점도가 너무 낮거나 높으면 수명이 감소하거나 증가할 수 있습니다 [ko_ball_bearing#14]. 하중은 베어링의 수명에 직접적인 영향을 미치며, 특히 정적 하중이나 짧은 시간 동안 발생하는 중간 하중은 수명을 감소시킬 수 있습니다 [ko_ball_bearing#10].",
+   "context_ids": [
+    "ko_ball_bearing#11",
+    "ko_ball_bearing#14",
+    "en_ball_bearing#10",
+    "ko_ball_bearing#10",
+    "ko_bearing#4"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": false,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_bf16",
+    "v2g_cmp_hs",
+    "v2g_cmp_li"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_ball_bearing#11",
+     "text": "베어링의 공칭 최대 하중은 100만 회전의 수명에 대한 것이며, 50 Hz(즉, 3000 RPM)에서는 5.5 작동 시간의 수명에 해당한다. 해당 유형 베어링의 90%는 최소한 그 수명을 가지며, 50%의 베어링은 최소 5배 더 긴 수명을 가진다.\n업계 표준 수명 계산은 1947년에 룬드베르크(Lundberg)와 팔름그렌(Palmgren)이 수행한 작업을 기반으로 한다. 이 공식은 수명이 금속 피로에 의해 제한되며, 수명 분포는 베이불 분포로 설명될 수 있다고 가정한다. 재료 특성, 윤활 및 하중에 대한 요소를 포함하는 다양한 변형 공식이 존재한다. 하중에 대한 요소는 현대 재료가 룬드베르크와 팔름그렌이 결정한 것과는 다른 하중과 수명 간의 관계를 보여준다는 암묵적인 인정으로 볼 수 있다.\n\n베어링이 회전하지 않으면 최대 하중은 요소 또는 레이스웨이의 소성 변형을 유발하는 힘에 의해 결정된다. 요소에 의해 발생하는 함몰은 응력을 집중시키고 구성 요소에 균열을 발생시킬 수 있다. 회전하지 않거나 매우 느리게 회전하는 베어링의 최대 하중을 \"정적\" 최대 하중이라고 한다.\n또한 베어링이 회전하지 않는 경우, 베어링에 가해지는 진동력은 베어링 레이스 또는 구름 요소에 충격 손상을 일으킬 수 있으며, 이를 브리넬링이라고 한다."
+    },
+    {
+     "chunk_id": "ko_ball_bearing#14",
+     "text": "베어링 외경과 차축 구멍 직경의 평균이 50 mm이고 3000 RPM으로 회전하는 베어링의 권장 동적 점도는 12 mm2/s이다.\n오일의 동적 점도는 온도에 따라 크게 달라진다는 점에 유의해야 한다. 50–70 °C의 온도 상승은 점도를 10배 감소시킨다.\n윤활유의 점도가 권장보다 높으면 베어링의 수명이 증가하며, 대략 점도의 제곱근에 비례한다. 윤활유의 점도가 권장보다 낮으면 베어링의 수명은 감소하며, 얼마나 감소하는지는 사용되는 오일의 종류에 따라 달라진다. EP('극한 압력') 첨가제가 포함된 오일의 경우 수명은 동적 점도의 제곱근에 비례하며, 이는 점도가 너무 높은 경우와 마찬가지이다. 반면 일반 오일의 경우 권장보다 낮은 점도를 사용하면 수명은 점도의 제곱에 비례한다.\n윤활은 그리스로 할 수 있는데, 그리스는 일반적으로 베어링 내에 보관되어 볼에 의해 압축될 때 윤활유를 방출하는 장점이 있다. 이는 베어링 금속에 환경으로부터 보호 장벽을 제공하지만, 이 그리스를 주기적으로 교체해야 하고 베어링의 최대 하중이 감소한다는 단점이 있다(베어링이 너무 뜨거워지면 그리스가 녹아 베어링 밖으로 흘러나오기 때문). 그리스 교체 주기는 베어링의 직경에 따라 매우 강하게 감소한다. 40 mm 베어링의 경우 그리스는 5000 작동 시간마다 교체해야 하는 반면, 100 mm 베어링의 경우 500 작동 시간마다 교체해야 한다."
+    },
+    {
+     "chunk_id": "ko_ball_bearing#10",
+     "text": "볼과 레이스 모두 비슷한 경도를 가지기 때문에 마모는 고속에서 볼과 레이스 모두에 파편을 유발할 수 있으며, 이는 스파크를 유발할 수 있다.\n자동 조심 베어링\n그림에 표시된 빙크비스트 베어링과 같은 자동 조심 볼 베어링은 구형 레이스웨이를 가진 외륜 내에 내륜과 볼 어셈블리가 포함되도록 구성된다. 이 구조는 샤프트 또는 하우징 변형 또는 부적절한 장착으로 인한 작은 각도 오정렬을 베어링이 허용할 수 있게 한다. 이 베어링은 주로 섬유 공장의 변속기 샤프트와 같이 매우 긴 샤프트를 가진 베어링 배열에 사용되었다. 자동 조심 볼 베어링의 한 가지 단점은 제한된 하중 등급인데, 외륜 레이스웨이가 매우 낮은 오스큘레이션(반경이 볼 반경보다 훨씬 크다)을 가지기 때문이다. 이는 유사한 디자인을 가졌지만 볼 대신 롤러를 사용하는 구면 롤러 베어링의 발명으로 이어졌다. 구면 스러스트 롤러 베어링은 빙크비스트의 발견에서 파생된 또 다른 발명이다.\n\n베어링의 계산된 수명은 베어링이 지지하는 하중과 작동 속도에 따라 달라진다. 업계 표준 가용 베어링 수명은 베어링 하중의 세제곱에 반비례한다. 베어링의 공칭 최대 하중은 100만 회전의 수명에 대한 것이며, 50 Hz(즉, 3000 RPM)에서는 5.5 작동 시간의 수명에 해당한다."
+    }
+   ]
+  },
+  {
+   "item": "B15",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q019",
+   "stratum": "both_yes",
+   "answer": "When a grease is called shear-thinning, it means that its viscosity decreases under the application of shear stress [en_grease#0]. This reduction in viscosity allows the grease to flow more easily when force is applied, such as when it is pumped into a bearing using a grease gun [en_grease#1]. After sufficient shear is applied, the viscosity drops and approaches that of the base lubricant, such as mineral oil [en_grease#1]. This behavior is characteristic of pseudo-plastic fluids and is a key property of true greases [en_grease#0].",
+   "context_ids": [
+    "en_grease#0",
+    "en_grease#1",
+    "de_schmierfett#0",
+    "ko_wear#1",
+    "de_schmierfett#10"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_ret_x2_rerank_en_text"
+   ]
+  },
+  {
+   "item": "B16",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q005",
+   "stratum": "disagree",
+   "answer": "베어링의 수명이나 하중 용량을 제한하는 세 가지 대표 원인은 금속 피로, 윤활 상태, 그리고 하중 조건입니다 [ko_ball_bearing#11]. 금속 피로는 수명을 제한하며, 이는 룬드베르크와 팔름그렌의 공식에서 가정된 바 있습니다 [ko_ball_bearing#11]. 윤활 상태는 점도가 너무 높거나 낮을 경우 수명에 영향을 미치며, 점도는 수명에 제곱근 또는 제곱에 비례하여 영향을 줍니다 [ko_ball_bearing#14]. 하중 조건은 하중의 크기와 지속 시간에 따라 수명이 달라지며, 정적 하중이나 동적 하중에 따라 최대 하중이 결정됩니다 [ko_ball_bearing#10].",
+   "context_ids": [
+    "ko_ball_bearing#11",
+    "ko_ball_bearing#14",
+    "en_ball_bearing#10",
+    "ko_ball_bearing#10",
+    "ko_bearing#4"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_qlora_s42"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_ball_bearing#11",
+     "text": "베어링의 공칭 최대 하중은 100만 회전의 수명에 대한 것이며, 50 Hz(즉, 3000 RPM)에서는 5.5 작동 시간의 수명에 해당한다. 해당 유형 베어링의 90%는 최소한 그 수명을 가지며, 50%의 베어링은 최소 5배 더 긴 수명을 가진다.\n업계 표준 수명 계산은 1947년에 룬드베르크(Lundberg)와 팔름그렌(Palmgren)이 수행한 작업을 기반으로 한다. 이 공식은 수명이 금속 피로에 의해 제한되며, 수명 분포는 베이불 분포로 설명될 수 있다고 가정한다. 재료 특성, 윤활 및 하중에 대한 요소를 포함하는 다양한 변형 공식이 존재한다. 하중에 대한 요소는 현대 재료가 룬드베르크와 팔름그렌이 결정한 것과는 다른 하중과 수명 간의 관계를 보여준다는 암묵적인 인정으로 볼 수 있다.\n\n베어링이 회전하지 않으면 최대 하중은 요소 또는 레이스웨이의 소성 변형을 유발하는 힘에 의해 결정된다. 요소에 의해 발생하는 함몰은 응력을 집중시키고 구성 요소에 균열을 발생시킬 수 있다. 회전하지 않거나 매우 느리게 회전하는 베어링의 최대 하중을 \"정적\" 최대 하중이라고 한다.\n또한 베어링이 회전하지 않는 경우, 베어링에 가해지는 진동력은 베어링 레이스 또는 구름 요소에 충격 손상을 일으킬 수 있으며, 이를 브리넬링이라고 한다."
+    },
+    {
+     "chunk_id": "ko_ball_bearing#14",
+     "text": "베어링 외경과 차축 구멍 직경의 평균이 50 mm이고 3000 RPM으로 회전하는 베어링의 권장 동적 점도는 12 mm2/s이다.\n오일의 동적 점도는 온도에 따라 크게 달라진다는 점에 유의해야 한다. 50–70 °C의 온도 상승은 점도를 10배 감소시킨다.\n윤활유의 점도가 권장보다 높으면 베어링의 수명이 증가하며, 대략 점도의 제곱근에 비례한다. 윤활유의 점도가 권장보다 낮으면 베어링의 수명은 감소하며, 얼마나 감소하는지는 사용되는 오일의 종류에 따라 달라진다. EP('극한 압력') 첨가제가 포함된 오일의 경우 수명은 동적 점도의 제곱근에 비례하며, 이는 점도가 너무 높은 경우와 마찬가지이다. 반면 일반 오일의 경우 권장보다 낮은 점도를 사용하면 수명은 점도의 제곱에 비례한다.\n윤활은 그리스로 할 수 있는데, 그리스는 일반적으로 베어링 내에 보관되어 볼에 의해 압축될 때 윤활유를 방출하는 장점이 있다. 이는 베어링 금속에 환경으로부터 보호 장벽을 제공하지만, 이 그리스를 주기적으로 교체해야 하고 베어링의 최대 하중이 감소한다는 단점이 있다(베어링이 너무 뜨거워지면 그리스가 녹아 베어링 밖으로 흘러나오기 때문). 그리스 교체 주기는 베어링의 직경에 따라 매우 강하게 감소한다. 40 mm 베어링의 경우 그리스는 5000 작동 시간마다 교체해야 하는 반면, 100 mm 베어링의 경우 500 작동 시간마다 교체해야 한다."
+    },
+    {
+     "chunk_id": "ko_ball_bearing#10",
+     "text": "볼과 레이스 모두 비슷한 경도를 가지기 때문에 마모는 고속에서 볼과 레이스 모두에 파편을 유발할 수 있으며, 이는 스파크를 유발할 수 있다.\n자동 조심 베어링\n그림에 표시된 빙크비스트 베어링과 같은 자동 조심 볼 베어링은 구형 레이스웨이를 가진 외륜 내에 내륜과 볼 어셈블리가 포함되도록 구성된다. 이 구조는 샤프트 또는 하우징 변형 또는 부적절한 장착으로 인한 작은 각도 오정렬을 베어링이 허용할 수 있게 한다. 이 베어링은 주로 섬유 공장의 변속기 샤프트와 같이 매우 긴 샤프트를 가진 베어링 배열에 사용되었다. 자동 조심 볼 베어링의 한 가지 단점은 제한된 하중 등급인데, 외륜 레이스웨이가 매우 낮은 오스큘레이션(반경이 볼 반경보다 훨씬 크다)을 가지기 때문이다. 이는 유사한 디자인을 가졌지만 볼 대신 롤러를 사용하는 구면 롤러 베어링의 발명으로 이어졌다. 구면 스러스트 롤러 베어링은 빙크비스트의 발견에서 파생된 또 다른 발명이다.\n\n베어링의 계산된 수명은 베어링이 지지하는 하중과 작동 속도에 따라 달라진다. 업계 표준 가용 베어링 수명은 베어링 하중의 세제곱에 반비례한다. 베어링의 공칭 최대 하중은 100만 회전의 수명에 대한 것이며, 50 Hz(즉, 3000 RPM)에서는 5.5 작동 시간의 수명에 해당한다."
+    }
+   ]
+  },
+  {
+   "item": "B17",
+   "faithfulness_item": false,
+   "evalset": "pdf",
+   "qid": "pdf007",
+   "stratum": "both_yes",
+   "answer": "피로한도를 두지 않는 Lundberg-Palmgren 모델에서 최대 헤르츠 응력을 1379 MPa에서 2068 MPa로 올리면, 수명은 약 1/4258로 줄어듭니다. [nasa-tp-2013-215305-rev1#49]  \n이 값은 ISO 281:2007 기준에서 2068 MPa에서의 수명이 4258×10⁶ 사이클임을 나타냅니다. [nasa-tp-2013-215305-rev1#49]  \n1379 MPa에서의 수명은 무한대로 간주되며, 2068 MPa에서는 유한한 수명이 됩니다. [nasa-tp-2013-215305-rev1#49]",
+   "context_ids": [
+    "nasa-tp-2013-215305-rev1#49",
+    "nasa-tp-2013-215305-rev1#51",
+    "nasa-tm-2015-218895#19",
+    "nasa-tp-2013-215305-rev1#100",
+    "nasa-tp-2013-215305-rev1#50"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "pdfg_b_rrf_rerank"
+   ]
+  },
+  {
+   "item": "B18",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q070",
+   "stratum": "both_no",
+   "answer": "Approximately 23% of the world's total energy expenditure is caused by tribological contacts, of which 20% is due to friction and 3% to remanufacturing worn parts and spare equipment due to wear [en_tribology#3]. This includes the transport, manufacturing, power generation, and residential sectors [en_tribology#0]. The fraction attributed to friction alone is 20% of global energy consumption [en_tribology#0].",
+   "context_ids": [
+    "en_tribology#3",
+    "en_tribology#0",
+    "en_tribology#2",
+    "de_tribologie#1",
+    "en_wear#0"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_qlora_s42"
+   ]
+  },
+  {
+   "item": "B19",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q069",
+   "stratum": "both_yes",
+   "answer": "The grease in a 100 mm bearing should be replaced every 500 working hours, while for a 40 mm bearing it should be replaced every 5000 working hours [en_ball_bearing#13][ko_ball_bearing#15][ko_ball_bearing#14]. Therefore, the grease replacement interval is 100 times shorter for a 100 mm bearing compared to a 40 mm bearing [en_ball_bearing#13][ko_ball_bearing#15][ko_ball_bearing#14].",
+   "context_ids": [
+    "en_ball_bearing#13",
+    "ko_ball_bearing#15",
+    "ko_ball_bearing#14",
+    "en_rolling_element_bearing#15",
+    "en_grease#0"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_qlora_s42"
+   ]
+  },
+  {
+   "item": "B20",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q003",
+   "stratum": "disagree",
+   "answer": "볼 베어링에 케이지를 달지 않으면 볼은 작동 중에 결국 제자리를 벗어나 베어링이 고장 날 수 있습니다 [ko_ball_bearing#4]. 케이지가 없으면 접선 위치는 두 개의 볼록한 표면이 서로 미끄러지면서 안정화되며, 이는 볼에 흠집이 생기고 마찰이 증가시킬 수 있습니다 [ko_ball_bearing#8].",
+   "context_ids": [
+    "ko_ball_bearing#4",
+    "ko_ball_bearing#8",
+    "en_ball_bearing#4",
+    "ko_ball_bearing#13",
+    "ko_ball_bearing#0"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_cmp_ar"
+   ]
+  },
+  {
+   "item": "B21",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q057",
+   "stratum": "both_no",
+   "answer": "마모량은 하중과 미끄럼 거리에 각각 비례하고, 경도에 반비례한다 [ko_wear#0][en_tribology#25]. 하중을 두 배로 하고 거리를 절반으로 줄이면 마모량은 1배가 된다. 이는 하중이 두 배이고 거리가 반으로 줄어들었기 때문에, 두 배 × 반 = 1배이기 때문이다. 마모량은 하중과 거리의 곱에 비례하므로, 이 조건에서는 마모량이 변하지 않는다 [en_tribology#25].",
+   "context_ids": [
+    "ko_wear#0",
+    "ko_wear#1",
+    "ko_tribology#0",
+    "ko_ball_bearing#2",
+    "en_tribology#25"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_cmp_ar"
+   ]
+  },
+  {
+   "item": "B22",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q060",
+   "stratum": "disagree",
+   "answer": "구동축을 설계할 때 강도를 확보하면서도 추가 중량을 피해야 하는 이유는 구동축이 입력 토크와 부하 간 차이와 동등한 비틀림과 전단 응력을 받기 때문입니다. 이러한 비틀림 응력은 축의 강도를 초과하면 관성 증가로 이어져 파손이나 손상이 발생할 수 있기 때문입니다. 따라서 축의 강도를 충분히 확보하면서도 중량을 추가로 주면 관성 증가로 인해 응력이 증가하여 설계 안정성과 수명에 부정적인 영향을 줄 수 있기 때문입니다. [ko_drive_shaft#0]",
+   "context_ids": [
+    "ko_drive_shaft#0",
+    "ko_shaft#0",
+    "en_rolling_element_bearing#13",
+    "en_bearing_mechanical#8",
+    "en_bearing_mechanical#12"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_4bit"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_drive_shaft#0",
+     "text": "구동축(drive shaft)은 기계적 일률과 돌림힘, 회전을 전달하는 부품이다. 거리 때문에, 또는 상대적인 움직임을 허용할 필요가 있어서 직접 연결이 불가능한 드라이브트레인의 기타 부품들을 연결하기 위해 보통 사용한다.\n구동축은 입력 토크와 부하 간 차이와 동등한 비틀림과 전단 응력에 종속된다. 그러므로 스트레스를 견딜만큼 충분히 강해야 하며 관성 증가로 이어질 수 있으므로 하중을 추가로 너무 많이 주는 것은 피해야 한다.\n\n구동축의 영단어 드라이브샤프트(driveshaft)라는 단어는 19세기 중순에 등장했다. 스토버의 1861년 특허에서 이 용어는 기기가 구동되는 벨트 구동축을 의미했다. 이 용어는 최초 특허에는 사용되지 않는다. 다른 초기 용례로는 왓킨스와 브라이슨의 말에 의해 움직이는 예취기의 1861년 특허이다. 여기서 이 용어는 기기의 바퀴로부터 기어 트레인까지 힘을 전달하는 샤프트를 의미했다.\n1890년대에 이 용어는 현대적 의미에 더 가까운 방식으로 사용되기 시작했다."
+    }
+   ]
+  },
+  {
+   "item": "B23",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q070",
+   "stratum": "disagree",
+   "answer": "Approximately 23% of the world's energy consumption originates from tribological contacts, of which 20% is due to friction and 3% to remanufacturing worn parts [en_tribology#3]. Thus, the fraction of the world's total energy expenditure caused by friction and wear in these sectors is 20% [en_tribology#0].",
+   "context_ids": [
+    "en_tribology#3",
+    "en_tribology#0",
+    "en_tribology#2",
+    "de_tribologie#1",
+    "en_wear#0"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_base_bf16",
+    "v2g_cmp_hs",
+    "v2g_cmp_li"
+   ]
+  },
+  {
+   "item": "B24",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q059",
+   "stratum": "both_yes",
+   "answer": "칼슘계 그리스는 내수성(물에 강함)이 장점으로 분류됩니다 [ko_grease#0][ko_lubrication#0][de_schmierfett#4]. 섬유(나트륨)계 그리스는 윤활제의 혼합물에 의해 좋은 분산성(에멀전성)을 가지며, 주로 변형이 많은 기계 부품에 사용되며, 특히 전동기의 유동 그리스에 적합합니다 [de_schmierfett#4].",
+   "context_ids": [
+    "ko_grease#0",
+    "ko_lubrication#0",
+    "de_schmierfett#4",
+    "en_grease#2",
+    "en_grease#3"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_ret_x2_rerank_en_text"
+   ]
+  },
+  {
+   "item": "B25",
+   "faithfulness_item": true,
+   "evalset": "v2",
+   "qid": "q057",
+   "stratum": "both_no",
+   "answer": "마모량은 하중과 미끄럼 거리에 각각 비례하고, 경도에 반비례합니다 [ko_wear#0][en_tribology#25][en_tribology#24]. 하중을 두 배로 하고 거리를 절반으로 줄이면 마모량은 두 배로 되며, 거리가 절반으로 줄어들면 전체 마모량은 1배로 유지되므로, 최종적으로 마모량은 동일하게 유지됩니다 [en_tribology#25][en_tribology#24].",
+   "context_ids": [
+    "ko_wear#0",
+    "en_tribology#25",
+    "en_tribology#24",
+    "en_wear#2",
+    "en_wear#4"
+   ],
+   "judge_qwen": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": false,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_ret_x2_rerank_en_text"
+   ],
+   "cited_passages": [
+    {
+     "chunk_id": "ko_wear#0",
+     "text": "기계공학에서 마모(磨耗)는 2개의 고체가 서로 접촉하면서 이동하고 있을 때, 그들 미끄럼 면에서부터 마찰에 의해서 물질이 이탈하고, 대체로 표면에 대하여 바람직하지 못한 영향을 주는 현상이다. 따라서 그 다뤄지는 범위는 매우 넓어지고, 다음과 같은 것이 있다.\n\n재봉틀기름 등을 사용하며, 보통으로 생기는 정상마모(正常磨耗), 샌드페이퍼·모래 등에 의한 거칫거림마모, 고속·고하중하(高荷重下)에서 생기는 융착마모(融著磨耗), 장시간의 이용에 의해서 표면이 피로하여 생기는 얼룩마모, 물 등의 부식작용에 의한 부식마모, 이동거리가 0.5mm 정도인 미소이동 때 생기는 미동마모, 미끄럼면이 산화되어 있는 상태인 산화마모 등이 있다.\n마모의 진행 과정에 대하여 가장 단순한 고체간 미끄럼인 경우에 마모량는 하중 및 거리에 각각 비례하고 굳기 에 반비례한다고 하며, 다음과 같은 관계식으로 된다.\n는 비례정수이다. 는 미끄럼 조건에 따라서 정해지는 것이며, 동일한 마모기구가 성립하는 범위 내에서 유효하다. 가령 하중을 바꿈으로써, 정상마모로부터 산화마모로 바뀌면, 그에 상응하는 가 정해진다."
+    },
+    {
+     "chunk_id": "en_tribology#25",
+     "text": "The mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces.\nLaw 2 – Load\nThe mass involved in wear is proportional to the applied load.\nLaw 3 – Hardness\nThe mass involved in wear is inversely proportional to the hardness of the less hard material.\nAn important aspect of wear is emission of wear particles into the environment which increasingly threatens human health and ecology. The first researcher who investigated this topic was Ernest Rabinowicz.\n\nThe abrasive wear consists of the cutting effort of hard surfaces that act on softer surfaces and can be caused either by the roughness that as tips cut off the material against which they rub (two-body abrasive wear), or from particles of hard material that interpose between two surfaces in relative motion (three-body abrasive wear). At application levels, the two-body wear is easily eliminated by means of an adequate surface finish, while the three-body wear can bring serious problems and must therefore be removed as much as possible by means of suitable filters, even before of a weighted machine design.\n\nThe fatigue wear is a type of wear that is caused by alternative loads, which cause local contact forces repeated over time, which in turn lead to deterioration of the materials involved. The most immediate example of this type of wear is that of a comb. If you slide a finger over the teeth of the comb over and over again, it is observed that at some point one or more teeth of the comb come off. This phenomenon can lead to the breaking of the surfaces due to mechanical or thermal causes. The first case is that described above in which a repeated load causes high contact stresses."
+    },
+    {
+     "chunk_id": "en_tribology#24",
+     "text": "Erroneously we tend to imagine wear in a direct correlation with friction, in reality these two phenomena can not be easily connected. There may be conditions such that low friction can result in significant wear and vice versa. In order for this phenomenon to occur, certain implementation times are required, which may change depending on some variables, such as load, speed, lubrication and environmental conditions, and there are different wear mechanisms, which may occur simultaneously or even combined with each other:\n\nAdhesive wear;\nAbrasive wear;\nFatigue wear;\nCorrosive wear;\nRubbing wear or fretting;\nErosion wear;\nOther minor wear phenomena (wear by impact, cavitation, wear-fusion, wear-spreading).\n\nAs known, the contact between two surfaces occurs through the interaction between asperities. If a shearing force is applied in the contact area, it may be possible to detach a small part of the weaker material, due to its adhesion to the harder surface. What is described is precisely the mechanism of the adhesive wear represented in the figure. This type of wear is very problematic, since it involves high wear speeds, but at the same time it is possible to reduce adhesion by increasing surface roughness and hardness of the surfaces involved, or by inserting layers of contaminants such as oxygen, oxides, water, or oils. In conclusion, the behavior of the adhesive wear volume can be described by means of three main laws\n\nLaw 1 – Distance\nThe mass involved in wear is proportional to the distance traveled in the rubbing between the surfaces.\nLaw 2 – Load\nThe mass involved in wear is proportional to the applied load.\nLaw 3 – Hardness"
+    }
+   ]
+  },
+  {
+   "item": "B26",
+   "faithfulness_item": false,
+   "evalset": "pdf",
+   "qid": "pdf023",
+   "stratum": "both_yes",
+   "answer": "Lundberg-Palmgren 방식은 상용 터보프롭 기어박스의 L10 수명을 7.56배나 낮게 예측했습니다. [nasa-tp-2013-215305-rev1#122] 이 데이터는 현장 수명이 5627시간이었고, Lundberg-Palmgren 모델로 예측된 수명은 774시간이었기 때문입니다. [nasa-tm-2015-218895#23] 이는 실제 수명보다 예측된 수명이 훨씬 낮음을 나타냅니다.",
+   "context_ids": [
+    "nasa-tp-2013-215305-rev1#122",
+    "nasa-tm-2015-218895#23",
+    "nasa-tp-2013-215305-rev1#121",
+    "nasa-tp-2013-215305-rev1#116",
+    "nasa-tp-2013-215305-rev1#115"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "pdfg_th_x13_rrf_en_dense_en_rerank_en_text"
+   ]
+  },
+  {
+   "item": "B27",
+   "faithfulness_item": false,
+   "evalset": "v2",
+   "qid": "q055",
+   "stratum": "both_yes",
+   "answer": "세라믹 볼은 강철의 40% 정도의 밀도를 가집니다 [en_ball_bearing#2]. 이는 원심력을 크게 줄이고 고속 회전에서 더 효율적으로 작동하게 합니다 [en_ball_bearing#7].",
+   "context_ids": [
+    "en_ball_bearing#2",
+    "ko_ball_bearing#2",
+    "en_ball_bearing#7",
+    "en_ball_bearing#8",
+    "ko_ball_bearing#8"
+   ],
+   "judge_qwen": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "judge_granite": {
+    "correctness": true,
+    "faithfulness": true,
+    "answer_relevance": true
+   },
+   "conditions": [
+    "v2g_ret_x2_rerank_en_text"
+   ]
+  }
+ ],
+ "b_pool_strata": {
+  "disagree": 14,
+  "both_yes": 155,
+  "both_no": 4
+ },
+ "b_pool_by_condition": {
+  "pdfg_b_rrf_rerank": 15,
+  "pdfg_th_x13_rrf_en_dense_en_rerank_en_text": 15,
+  "pdfg_x13_rrf_en_dense_en_rerank_en_text": 15,
+  "v2g_base_4bit": 27,
+  "v2g_base_bf16": 27,
+  "v2g_cmp_ar": 28,
+  "v2g_cmp_hs": 28,
+  "v2g_cmp_li": 27,
+  "v2g_lora_s42": 27,
+  "v2g_qlora_s42": 27,
+  "v2g_ret_b_rrf_en_rerank": 28,
+  "v2g_ret_x2_rerank_en_text": 27
+ }
+}

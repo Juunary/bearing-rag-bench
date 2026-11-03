@@ -13,7 +13,7 @@ No RAG framework (LangChain, LlamaIndex) is used. Chunking, BM25, embeddings, HN
 | Retrieval | BM25 (bm25s; whitespace, kiwipiepy morphemes, subword tokenizers), dense (BAAI/bge-m3 + hnswlib), RRF (k=60), reranker (BAAI/bge-reranker-v2-m3) |
 | Metrics | Recall@5, MRR@10, nDCG@10 (graded), aggregated by language pair; a repeated chunk id scores only at its first occurrence (`src/ragbench/metrics.py`); document-cluster bootstrap and sign test (`src/ragbench/stats.py`) |
 | Generation | Qwen3-4B-Instruct-2507 run locally, greedy decoding, top-5 chunks, two prompts (cite_v1, cite_refuse_v1) |
-| Evaluation | LLM judge (Qwen3-8B) for faithfulness, answer relevance, context relevance and correctness, compared with 8 human-graded answers |
+| Evaluation | LLM judge (Qwen3-8B) for faithfulness, answer relevance, context relevance and correctness, compared with human grades (8 in round 1, 27 in round 2) |
 | Operations | Request logging (JSONL), LLM cache (SQLite), input/output validation, baseline-comparison regression check |
 | Fine-tuning | LoRA and QLoRA (rank 16, hand-written training loop) |
 | English pivot | Chunks and queries translated to English with Qwen3-4B-Instruct-2507, then English BM25 (chunk-first and document-first translation), glossary hints, stemming, query expansion (multi, HyDE), English reranker input |
@@ -265,6 +265,20 @@ Difference to RRF + reranker (95 % interval by document cluster), English rerank
 
 Judge comparison (`experiments/results/judge_agreement.md`): Granite 3.3 8B Instruct (IBM, Apache 2.0) judged the same 10 answer sets with the same prompts. Granite's YES rate is higher than Qwen3-8B's on every set (correctness +0.06 .. +0.14); agreement between the judges is 0.82 .. 0.90 on correctness, Cohen's kappa 0.24 .. 0.48. Against the 8 human-graded answers: correctness Qwen 7/7, Granite 6/7; faithfulness 5/7 for both.
 
+Human review round 2 (`experiments/results/human_round2.md`, sample and grades in `eval/human_round2/`): one grader checked 23 questions and 27 answers among items whose question and gold sentences are in Korean or English. The answers were drawn by the correctness verdicts of the two judges: 11 where they disagree, 12 where both say YES, 4 where both say NO (out of 173 distinct answers, identical answers to the same question merged); weighted values use these stratum sizes.
+
+| item | result |
+|---|---|
+| 23 questions | answerable from the gold sentences 23, wording copied from the gold sentence 0, realism high 18 / medium 3 / low 2 |
+| human correctness | correct 18, partial 4, wrong 5 |
+| agreement with the human (partial = wrong) | Qwen 14/27 (kappa 0.05, weighted 0.707), Granite 17/27 (kappa 0.06, weighted 0.729) |
+| weighted correct rate | human 0.733 (95% CI 0.502 .. 0.949), Qwen 0.903, Granite 0.970 |
+| judge correct rate - human (95% CI) | Qwen -0.041 .. +0.403, Granite +0.021 .. +0.467 |
+| faithfulness, 10 answers | Qwen 8/10, Granite 6/10 agree |
+| answer relevance, 27 answers | both 27/27 agree |
+
+Of 10 questions the grader wrote without looking at the documents (`eval/human_round2/labels.json`), 5 are refused as unanswered by the best PDF-corpus retrieval (table headers repeated) with cite_refuse_v1 (`eval/human_round2/user_questions_answers.json`).
+
 | Comparison (correctness, document-cluster 95% interval) | Qwen3-8B judge | Granite judge |
 |---|---|---|
 | English RRF + reranker (English input) - RRF + reranker | +0.105 (+0.013 .. +0.208) | +0.066 (+0.000 .. +0.137) |
@@ -390,7 +404,7 @@ Searching the 90 v2 questions again on the corpus with the 557 PDF chunks change
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
-- Human grading covers 8 answers by one grader. Judge results are approximate. The second judge (Granite) says YES more often and the two judges agree with low kappa (correctness 0.24 .. 0.48). Granite's verdict line was cut off by the 80-token limit for about 30 answers per result set; those were asked again once with three times the limit.
+- Human grading covers 35 answers (8 in round 1, 27 in round 2) by one grader; round 2 covers Korean and English items only. In round 2 the judges' correct rate is higher than the human grade (weighted difference Qwen +0.17, Granite +0.24) and their kappa with the human is below 0.1. Judge results are approximate, and differences between conditions were not checked against human grades. The second judge (Granite) says YES more often and the two judges agree with low kappa (correctness 0.24 .. 0.48). Granite's verdict line was cut off by the 80-token limit for about 30 answers per result set; those were asked again once with three times the limit.
 - Training answers were selected by `sentence_coverage = 1`, so the sentence-level citation rate is the same metric as the selection criterion. Fine-tuning used 66 to 125 training examples and one rank (16); hyperparameters were not tuned.
 - 34 of the 138 stage-4 training and validation examples used a v2 gold chunk as source, so those adapters were not used on v2; the data was rebuilt for v2 and retrained.
 - Service performance uses 30 questions, and each concurrent request pattern was measured once. The server handles one request at a time.
@@ -423,6 +437,7 @@ scripts/build_pdf_docs.py, scripts/pdf_layout_export.mjs   PDF download, layout 
 eval/queries_pdf.jsonl, eval/pdf_draft/   PDF eval set, drafts and review inputs/outputs
 configs/pdf/    retrieval configs on the Wikipedia + PDF corpus (written by scripts/make_pdf_configs.py)
 configs/pdfgen/ generation configs for the PDF questions
+eval/human_round2/   human review round 2: sample, sheet, grades, answers to the grader's own questions (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```

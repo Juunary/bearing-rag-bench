@@ -1,0 +1,326 @@
+{
+ "best_config": "pdfth_x13_rrf_en_dense_en_rerank_en_text.json",
+ "baseline_config": "pdfth_b_rrf_rerank.json",
+ "prompt_version": "cite_refuse_v1",
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "chunk_set": "wiki_pdf_th",
+ "rows": [
+  {
+   "qid": "D01",
+   "question": "고속 회전하는 모터에서 볼 베어링 대신 앵귤러 콘택트 베어링을 적용할 때 얻을 수 있는 설계상 이점은 무엇인가요?",
+   "answer": "고속 회전하는 모터에서 앵귤러 콘택트 베어링을 적용할 때 얻을 수 있는 설계상 이점은 결합 하중(반경 및 축 방향)을 효과적으로 지지할 수 있다는 것입니다. 고속 응용 분야에서는 볼에 의해 생성되는 원심력이 내륜 및 외륜의 접촉각을 변경하므로, 앵귤러 콘택트 베어링은 이러한 조건에서 더 안정적인 성능을 제공합니다. 또한, 접촉각이 클수록 축 하중을 더 잘 지지하지만, 반경 하중은 감소하므로 하중 조건에 따라 적절히 설계되어야 합니다 [en_ball_bearing#1][en_ball_bearing#3][ko_ball_bearing#2]. 복열 앵귤러 콘택트 베어링은 기울기 효과도 지지할 수 있어, 고속 회전 시의 정밀한 위치 유지에 유리합니다 [ko_ball_bearing#7][en_ball_bearing#6].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_ball_bearing#1",
+    "en_ball_bearing#3",
+    "ko_ball_bearing#7",
+    "en_ball_bearing#6",
+    "ko_ball_bearing#2"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#7",
+    "ko_ball_bearing#3",
+    "ko_ball_bearing#1",
+    "ko_bearing#0"
+   ],
+   "pool": [
+    "en_ball_bearing#1",
+    "en_ball_bearing#3",
+    "ko_ball_bearing#7",
+    "en_ball_bearing#6",
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#3",
+    "ko_ball_bearing#1",
+    "ko_bearing#0"
+   ]
+  },
+  {
+   "qid": "D02",
+   "question": "구동축(Drive shaft)에서 발생하는 비틀림 진동을 줄이기 위해 보통 어떤 댐핑 방식을 사용하나요?",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "ko_drive_shaft#0",
+    "de_homokinetisches_gelenk#4",
+    "de_waelzlager#10",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#6"
+   ],
+   "baseline_top5": [
+    "ko_drive_shaft#0",
+    "ko_shaft#0",
+    "en_cv_joint#6",
+    "en_cv_joint#5",
+    "en_needle_roller_bearing#0"
+   ],
+   "pool": [
+    "ko_drive_shaft#0",
+    "de_homokinetisches_gelenk#4",
+    "de_waelzlager#10",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#6",
+    "ko_shaft#0",
+    "en_cv_joint#5",
+    "en_needle_roller_bearing#0"
+   ]
+  },
+  {
+   "qid": "D03",
+   "question": "고온 환경(200도 이상)에서 작동하는 설비에 일반 리튬 그리스 대신 어떤 윤활제를 적용해야 하나요?",
+   "answer": "고온 환경(200도 이상)에서 작동하는 설비에 일반 리튬 그리스 대신 EP 그리스를 적용해야 합니다. EP 그리스는 고압 또는 충격 하중에서 발생하는 마찰과 마모를 방지하기 위해 특수한 성질을 가지고 있으며, 고온에서도 안정성을 유지합니다. 또한, 고온에서의 성능을 위해 그래피트, 몰리브덴 디스уль파이드, 또는 육각 보론 질화물(hBN)과 같은 고체 윤활제를 포함할 수 있습니다. [en_grease#2][ko_grease#0]",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_grease#2",
+    "ko_grease#0",
+    "de_schmierfett#4",
+    "ko_lubrication#0",
+    "de_schmierfett#14"
+   ],
+   "baseline_top5": [
+    "ko_grease#0",
+    "ko_lubrication#0",
+    "en_grease#2",
+    "ko_ball_bearing#14",
+    "ko_ball_bearing#13"
+   ],
+   "pool": [
+    "en_grease#2",
+    "ko_grease#0",
+    "de_schmierfett#4",
+    "ko_lubrication#0",
+    "de_schmierfett#14",
+    "ko_ball_bearing#14",
+    "ko_ball_bearing#13"
+   ]
+  },
+  {
+   "qid": "D04",
+   "question": "엔진 크랭크샤프트 메인 베어링의 마모 상태를 분해하지 않고 예측할 수 있는 진단 방법이 있나요?",
+   "answer": "예, 엔진 크랭크샤프트 메인 베어링의 마모 상태를 분해하지 않고 예측할 수 있는 진단 방법이 있습니다. 이미지 기반 분류, 철분 분석, 그리고 마모 입자 특성에 대한 기계 학습 기반 인식 방법이 이러한 목적을 위해 사용됩니다 [en_tribology#30]. 이러한 방법들은 컴퓨터 통합 표면 이미지 처리와 인공지능 기법을 활용하여 복잡한 서비스 조건 하에서 마모 제품을 식별함으로써 마모 상태를 예측할 수 있습니다 [en_tribology#30].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "innotrac-2020-467#0",
+    "nasa-tm-2017-219545#27",
+    "nasa-tm-2017-219545#28",
+    "en_tribology#30",
+    "nasa-tm-2017-219545#3"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#17",
+    "ko_wear#0",
+    "luh-diss-stuhler-2024#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#2"
+   ],
+   "pool": [
+    "innotrac-2020-467#0",
+    "nasa-tm-2017-219545#27",
+    "nasa-tm-2017-219545#28",
+    "en_tribology#30",
+    "nasa-tm-2017-219545#3",
+    "ko_ball_bearing#17",
+    "ko_wear#0",
+    "luh-diss-stuhler-2024#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#2"
+   ]
+  },
+  {
+   "qid": "D05",
+   "question": "오일 씰(Oil seal)에서 누유가 지속적으로 발생할 때, 립(Lip) 마모 외에 점검해야 할 샤프트 측 결함 요소는 무엇인가요?",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#45",
+    "en_radial_shaft_seal#1",
+    "de_wellendichtring#1",
+    "luh-diss-pelzer-2022#78"
+   ],
+   "baseline_top5": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#97",
+    "luh-diss-pelzer-2022#103",
+    "ko_seal#0",
+    "luh-diss-pelzer-2022#102"
+   ],
+   "pool": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#45",
+    "en_radial_shaft_seal#1",
+    "de_wellendichtring#1",
+    "luh-diss-pelzer-2022#78",
+    "luh-diss-pelzer-2022#97",
+    "luh-diss-pelzer-2022#103",
+    "ko_seal#0",
+    "luh-diss-pelzer-2022#102"
+   ]
+  },
+  {
+   "qid": "D06",
+   "question": "CV 조인트(등속조인트) 부트가 파손되어 내부에 물과 모래가 유입되면 조인트 수명에 어떤 치명적인 영향을 미치나요?",
+   "answer": "CV 조인트 부트가 파손되어 내부에 물과 모래가 유입되면 조인트는 빠르게 마모되거나 완전히 고장날 수 있습니다 [en_cv_joint#7]. 이는 외부 오염물질이 류브리케이션을 방해하고, 조인트의 운동을 불안정하게 만들기 때문입니다. 이러한 마모는 조인트의 성능 저하와 고장 위험을 증가시킵니다. 조인트의 수명은 크게 감소합니다 [en_cv_joint#7].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_cv_joint#0",
+    "en_cv_joint#7",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#8",
+    "en_cv_joint#6"
+   ],
+   "baseline_top5": [
+    "en_cv_joint#7",
+    "en_cv_joint#8",
+    "en_cv_joint#0",
+    "luh-diss-stuhler-2024#130",
+    "ko_ball_bearing#13"
+   ],
+   "pool": [
+    "en_cv_joint#0",
+    "en_cv_joint#7",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#8",
+    "en_cv_joint#6",
+    "luh-diss-stuhler-2024#130",
+    "ko_ball_bearing#13"
+   ]
+  },
+  {
+   "qid": "D07",
+   "question": "하중이 매우 큰 건설 기계의 피벗 핀에 구름 베어링 대신 플레인 베어링(부싱)을 주로 사용하는 이유는 무엇인가요?",
+   "answer": "하중이 매우 큰 건설 기계의 피벗 핀에 구름 베어링 대신 플레인 베어링(부싱)을 주로 사용하는 이유는 구름 베어링이 높은 충격 하중, 횡 하중 또는 진동 조건에서 쉽게 브린엘링(브린잉)을 일으키기 때문입니다. 플레인 베어링(부싱)은 하중을 매우 넓은 표면에 분산시켜 브린엘링의 위험을 줄이고, 이로 인해 성능 저하와 회전력 증가를 방지할 수 있기 때문입니다 [en_brinelling#1]. 또한 플레인 베어링은 비용이 낮고, 고하중 환경에서의 신뢰성과 내구성이 우수하기 때문에 이러한 응용에 적합합니다 [en_plain_bearing#0].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_plain_bearing#0",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#3",
+    "en_plain_bearing#1",
+    "en_brinelling#1"
+   ],
+   "baseline_top5": [
+    "en_plain_bearing#3",
+    "ko_bearing#0",
+    "ko_lubrication#0",
+    "ko_bearing#2",
+    "ko_ball_bearing#3"
+   ],
+   "pool": [
+    "en_plain_bearing#0",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#3",
+    "en_plain_bearing#1",
+    "en_brinelling#1",
+    "ko_bearing#0",
+    "ko_lubrication#0",
+    "ko_bearing#2",
+    "ko_ball_bearing#3"
+   ]
+  },
+  {
+   "qid": "D08",
+   "question": "전기차 감속기 베어링 설계 시, 일반 내연기관 차량용 베어링보다 더 높은 스펙이 요구되는 주요 원인은 무엇인가요?",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_bearing_mechanical#11",
+    "de_hydrodynamisches_gleitlager#5",
+    "ko_shaft#0",
+    "nasa-tm-2017-219545#28",
+    "en_rolling_element_bearing#4"
+   ],
+   "baseline_top5": [
+    "ko_bearing#0",
+    "en_rolling_element_bearing#13",
+    "ko_ball_bearing#14",
+    "ko_bearing#3",
+    "ko_ball_bearing#18"
+   ],
+   "pool": [
+    "en_bearing_mechanical#11",
+    "de_hydrodynamisches_gleitlager#5",
+    "ko_shaft#0",
+    "nasa-tm-2017-219545#28",
+    "en_rolling_element_bearing#4",
+    "ko_bearing#0",
+    "en_rolling_element_bearing#13",
+    "ko_ball_bearing#14",
+    "ko_bearing#3",
+    "ko_ball_bearing#18"
+   ]
+  },
+  {
+   "qid": "D09",
+   "question": "휠 베어링(Wheel bearing)에서 소음이 발생할 때, 타이어 편마모로 인한 소음과 현장에서 어떻게 구분할 수 있나요?",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "de_waelzlager#8",
+    "luh-diss-stuhler-2024#5",
+    "ko_bearing#3",
+    "luh-diss-stuhler-2024#57",
+    "en_bearing_mechanical#0"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#9",
+    "ko_bearing#0",
+    "ko_bearing#3",
+    "ko_wear#0",
+    "ko_bearing#2"
+   ],
+   "pool": [
+    "de_waelzlager#8",
+    "luh-diss-stuhler-2024#5",
+    "ko_bearing#3",
+    "luh-diss-stuhler-2024#57",
+    "en_bearing_mechanical#0",
+    "ko_ball_bearing#9",
+    "ko_bearing#0",
+    "ko_wear#0",
+    "ko_bearing#2"
+   ]
+  },
+  {
+   "qid": "D10",
+   "question": "베어링 하우징의 끼워맞춤 공차가 규격보다 헐거울 경우, 베어링 수명과 시스템 진동에 미치는 영향은 무엇인가요?",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_ball_bearing#15",
+    "ko_ball_bearing#17",
+    "en_bearing_mechanical#12",
+    "en_ball_bearing#9",
+    "en_ball_bearing#16"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#17",
+    "ko_ball_bearing#11",
+    "nasa-tm-2017-219545#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#10"
+   ],
+   "pool": [
+    "en_ball_bearing#15",
+    "ko_ball_bearing#17",
+    "en_bearing_mechanical#12",
+    "en_ball_bearing#9",
+    "en_ball_bearing#16",
+    "ko_ball_bearing#11",
+    "nasa-tm-2017-219545#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#10"
+   ]
+  }
+ ]
+}

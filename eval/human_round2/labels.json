@@ -1,0 +1,300 @@
+{
+ "sample": "eval/human_round2/sample.json",
+ "graded_by": "user",
+ "graded_on": "2026-11-03",
+ "labels": {
+  "A01": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A02": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "낮음",
+   "note": "실무보다는 역사적 사실을 묻는 퀴즈에 가깝습니다."
+  },
+  "A03": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A04": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A05": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음",
+   "note": "번역투 느낌이 있으나 직역 형태라 자연스러운 범주로 볼 수 있습니다."
+  },
+  "A06": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "보통",
+   "note": "설명문 일부를 발췌해 묻는 스무고개/퀴즈 형태에 가깝습니다."
+  },
+  "A07": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A08": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음",
+   "note": "설계 기초 지식 확인용으로 적합합니다."
+  },
+  "A09": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A10": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A11": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A12": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A13": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A14": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "보통",
+   "note": "특정 규격 번호를 묻는 질문으로 실무 활용도는 높으나 단편적입니다."
+  },
+  "A15": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A16": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A17": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음",
+   "note": "비용 절감(Rework)과 관련된 현실적인 실무 질문입니다."
+  },
+  "A18": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "보통"
+  },
+  "A19": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A20": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "낮음",
+   "note": "문서 내 특정 그림 번호(Figure 27)와 출처를 묻는 형태로 독해 테스트에 가깝습니다."
+  },
+  "A21": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A22": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "A23": {
+   "evidence": "충분",
+   "wording": "자연",
+   "realism": "높음"
+  },
+  "B01": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B02": {
+   "correctness": "부분",
+   "answer_relevance": "예",
+   "note": "기준 문장에 없는 내용(\"두 개의 볼록한 표면이 서로 미끄러지면서\")이 추가되었습니다."
+  },
+  "B03": {
+   "correctness": "맞음",
+   "answer_relevance": "예",
+   "faithfulness": "예",
+   "note": "청크의 비례 관계를 수학적으로 정확하게 적용한 충실한 연산 결과입니다."
+  },
+  "B04": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B05": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B06": {
+   "correctness": "부분",
+   "answer_relevance": "예",
+   "note": "답변이 평서문이 아닌 의문문 형태(\"~나오나요\")로 끝나 어색합니다."
+  },
+  "B07": {
+   "correctness": "맞음",
+   "answer_relevance": "예",
+   "faithfulness": "예"
+  },
+  "B08": {
+   "correctness": "틀림",
+   "answer_relevance": "예",
+   "faithfulness": "아니오",
+   "note": "청크에는 가장 짧은 수명 원인이 \"corrosion pitting\"으로 명시되어 있으나 답변은 \"Rolling-element fatigue\"라고 사실을 왜곡했습니다."
+  },
+  "B09": {
+   "correctness": "맞음",
+   "answer_relevance": "예",
+   "faithfulness": "예"
+  },
+  "B10": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B11": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B12": {
+   "correctness": "맞음",
+   "answer_relevance": "예",
+   "faithfulness": "예",
+   "note": "제공된 3개의 청크 내용을 왜곡 없이 적절히 종합하여 답변했습니다."
+  },
+  "B13": {
+   "correctness": "틀림",
+   "answer_relevance": "예",
+   "faithfulness": "아니오",
+   "note": "기준 문장이 제시한 3가지 원인(마모, 피로, 압력 유도 용접) 대신 청크 내의 다른 변수(윤활, 하중 등)를 대표 원인으로 임의 조합하여 답변했습니다."
+  },
+  "B14": {
+   "correctness": "틀림",
+   "answer_relevance": "예",
+   "faithfulness": "아니오",
+   "note": "B13과 동일한 오류입니다."
+  },
+  "B15": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B16": {
+   "correctness": "틀림",
+   "answer_relevance": "예",
+   "faithfulness": "아니오",
+   "note": "B13, B14와 동일한 오류입니다."
+  },
+  "B17": {
+   "correctness": "틀림",
+   "answer_relevance": "예",
+   "note": "0.026을 반영하지 못하고 \"1/4258로 줄어듭니다\"라는 완전히 엉뚱한 수학적 연산 오류를 범했습니다."
+  },
+  "B18": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B19": {
+   "correctness": "부분",
+   "answer_relevance": "예",
+   "note": "5000시간과 500시간의 차이를 10배가 아닌 100배(100 times shorter)로 잘못 계산했습니다."
+  },
+  "B20": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B21": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B22": {
+   "correctness": "맞음",
+   "answer_relevance": "예",
+   "faithfulness": "예"
+  },
+  "B23": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B24": {
+   "correctness": "부분",
+   "answer_relevance": "예",
+   "note": "기준 문장의 나트륨(섬유)계 그리스 장점인 '내열성'을 누락하고 분산성(에멀전)이라는 다른 내용을 서술했습니다."
+  },
+  "B25": {
+   "correctness": "맞음",
+   "answer_relevance": "예",
+   "faithfulness": "예"
+  },
+  "B26": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  },
+  "B27": {
+   "correctness": "맞음",
+   "answer_relevance": "예"
+  }
+ },
+ "user_questions": [
+  {
+   "qid": "D01",
+   "question": "고속 회전하는 모터에서 볼 베어링 대신 앵귤러 콘택트 베어링을 적용할 때 얻을 수 있는 설계상 이점은 무엇인가요?"
+  },
+  {
+   "qid": "D02",
+   "question": "구동축(Drive shaft)에서 발생하는 비틀림 진동을 줄이기 위해 보통 어떤 댐핑 방식을 사용하나요?"
+  },
+  {
+   "qid": "D03",
+   "question": "고온 환경(200도 이상)에서 작동하는 설비에 일반 리튬 그리스 대신 어떤 윤활제를 적용해야 하나요?"
+  },
+  {
+   "qid": "D04",
+   "question": "엔진 크랭크샤프트 메인 베어링의 마모 상태를 분해하지 않고 예측할 수 있는 진단 방법이 있나요?"
+  },
+  {
+   "qid": "D05",
+   "question": "오일 씰(Oil seal)에서 누유가 지속적으로 발생할 때, 립(Lip) 마모 외에 점검해야 할 샤프트 측 결함 요소는 무엇인가요?"
+  },
+  {
+   "qid": "D06",
+   "question": "CV 조인트(등속조인트) 부트가 파손되어 내부에 물과 모래가 유입되면 조인트 수명에 어떤 치명적인 영향을 미치나요?"
+  },
+  {
+   "qid": "D07",
+   "question": "하중이 매우 큰 건설 기계의 피벗 핀에 구름 베어링 대신 플레인 베어링(부싱)을 주로 사용하는 이유는 무엇인가요?"
+  },
+  {
+   "qid": "D08",
+   "question": "전기차 감속기 베어링 설계 시, 일반 내연기관 차량용 베어링보다 더 높은 스펙이 요구되는 주요 원인은 무엇인가요?"
+  },
+  {
+   "qid": "D09",
+   "question": "휠 베어링(Wheel bearing)에서 소음이 발생할 때, 타이어 편마모로 인한 소음과 현장에서 어떻게 구분할 수 있나요?"
+  },
+  {
+   "qid": "D10",
+   "question": "베어링 하우징의 끼워맞춤 공차가 규격보다 헐거울 경우, 베어링 수명과 시스템 진동에 미치는 영향은 무엇인가요?"
+  }
+ ]
+}
