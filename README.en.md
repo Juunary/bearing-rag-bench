@@ -406,15 +406,18 @@ Repeated table caption and header rows (`chunking.table_header`): a chunk that s
 
 All 10 settings are in section 5 of `pdf_analysis.md`. Only table questions change rank (9 in the best setting).
 
-Answers to the PDF questions (base bf16 Qwen3-4B, cite_v1, top 5; judges Qwen3-8B / Granite 3.3 8B, refusals not judged):
+Answers to the PDF questions (base bf16 Qwen3-4B, cite_v1, top 5, top 10 in the last row; judges Qwen3-8B / Granite 3.3 8B, refusals not judged):
 
 | Context source | gold chunk in context | cites gold chunk | faithfulness | correctness | answer relevance |
 |---|---|---|---|---|---|
 | RRF + reranker | 0.750 | 0.708 | 0.829 / 0.951 | 0.732 / 0.805 | 0.951 / 0.976 |
 | RRF (English BM25 + English dense) + reranker (English input) | 0.917 | 0.875 | 0.978 / 0.978 | 0.889 / 0.956 | 0.978 / 0.978 |
 | same retrieval + repeated table headers | 0.938 | 0.917 | 0.913 / 0.978 | 0.891 / 0.978 | 0.978 / 1.000 |
+| same retrieval + repeated table headers, top 10 | 0.979 | 0.938 | 0.936 / 0.957 | 0.957 / 0.957 | 0.957 / 1.000 |
 
 Best retrieval - RRF + reranker (question-level 95% interval): cites gold chunk +0.167 (+0.042 .. +0.312), correctness Qwen +0.150 (+0.025 .. +0.275), Granite +0.150 (+0.025 .. +0.300), faithfulness Qwen +0.150 (+0.050 .. +0.275), Granite +0.025 (-0.050 .. +0.100). Repeated table headers - best retrieval: cites gold chunk +0.042 (+0.000 .. +0.104), correctness Qwen +0.000 (-0.067 .. +0.067), Granite +0.022 (-0.044 .. +0.111), faithfulness Qwen -0.067 (-0.156 .. +0.000). Correctness by evidence kind is in `experiments/results/pdf_generation_analysis.md`.
+
+Top 10 - top 5 (repeated table headers, question-level 95% interval): gold chunk in context +0.042 (+0.000 .. +0.104), correctness Qwen +0.067 (-0.044 .. +0.178), Granite -0.022 (-0.111 .. +0.044), faithfulness Qwen +0.022 (-0.067 .. +0.111), Granite -0.022 (-0.067 .. +0.000), sentence coverage -0.161 (-0.239 .. -0.083). The median prompt grows from 2253 to 4395 tokens. With the serving prompt (cite_refuse_v1, not judged) the same comparison gives 1 refusal instead of 3 out of 48, 1 instead of 2 refusals with a gold chunk in the prompt, and sentence coverage 0.686 instead of 0.816 (-0.131, -0.233 .. -0.023). Answering the grader's own 10 questions with the top 10 (`eval/human_round2/user_questions_answers_k10.json`, same first 5 chunks): D05 is answered citing luh-diss-pelzer-2022#19, and D07, graded correct with the top 5, is refused, so there are still 5 refusals. The top-10 answers were not graded by a person.
 
 Searching the 90 v2 questions again on the corpus with the 557 PDF chunks changes nDCG@10 by -0.013 .. -0.040 depending on the setting (English RRF + reranker (English input) 0.895 → 0.865, document-cluster interval -0.065 .. -0.003), and 28 .. 37 questions get a PDF chunk in their top 5. The v2 gold has no PDF chunk, so a relevant PDF chunk counts as a miss.
 

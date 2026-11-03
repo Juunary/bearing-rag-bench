@@ -1,0 +1,32 @@
+{
+  "exp_id": "pdfg_th_x13_rrf_en_dense_en_rerank_en_text_refuse",
+  "stage": "pdfg",
+  "description": "Generation, base bf16 model, serving prompt cite_refuse_v1, top 5 chunks in the prompt, contexts from pdfth_x13_rrf_en_dense_en_rerank_en_text [corpus: wiki + pdf, eval: 48 PDF questions]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "dense_english_pivot": true
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  },
+  "generation": {
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "prompt_version": "cite_refuse_v1",
+    "max_new_tokens": 256,
+    "temperature": 0.0,
+    "context_k": 5,
+    "retrieval_result": "pdfth_x13_rrf_en_dense_en_rerank_en_text",
+    "device": "cuda:1"
+  }
+}
