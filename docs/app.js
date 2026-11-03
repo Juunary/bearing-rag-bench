@@ -1,12 +1,13 @@
 "use strict";
 // 데이터: scripts/export_site_data.py가 만든 docs/data/*.json (실제 실행 기록)
 const SETS = ["v2", "pdf", "user"];
-const STATE = { lang: "ko", set: "v2", rows: {}, meta: null, chunks: null, idx: 0, list: [], playing: false, timer: null };
+const STATE = { lang: "ko", set: "v2", rows: {}, meta: null, chunks: null, idx: 0, list: [], playing: false, revealed: 0, speed: 1, cardHTML: {} };
+let RUN = 0;                                  // 재생 세대 번호: 바뀌면 진행 중인 애니메이션을 멈춘다
 
 const T = {
   ko: {
     title: "RAG 파이프라인 추적", subtitle: "질문 하나가 검색·생성·검증을 지나는 과정을 실제 실행 기록으로 보여줍니다.",
-    pair: "언어쌍", show: "보기", question: "질문", play: "단계별 재생", stop: "정지", all: "전체",
+    pair: "언어쌍", show: "보기", question: "질문", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
     set_v2: "위키백과 질문", set_v2_s: "90개 · 청크 346개", set_pdf: "PDF 질문", set_pdf_s: "48개 · 청크 903개",
     set_user: "사람이 쓴 질문", set_user_s: "10개 · 청크 903개",
     k_all: "전체", k_missing: "정답 청크가 컨텍스트에 없음", k_blocked: "차단·거절된 답변", k_human: "사람이 채점한 답변", k_disagree: "두 판정 모델이 엇갈림",
@@ -44,7 +45,7 @@ const T = {
   },
   en: {
     title: "RAG Pipeline Trace", subtitle: "One question at a time through retrieval, generation and validation, from real run records.",
-    pair: "Language pair", show: "Show", question: "Question", play: "Play stages", stop: "Stop", all: "All",
+    pair: "Language pair", show: "Show", question: "Question", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
     set_v2: "Wikipedia questions", set_v2_s: "90 · 346 chunks", set_pdf: "PDF questions", set_pdf_s: "48 · 903 chunks",
     set_user: "Human-written questions", set_user_s: "10 · 903 chunks",
     k_all: "All", k_missing: "Gold chunk not in the context", k_blocked: "Blocked or refused", k_human: "Graded by a person", k_disagree: "The two judges disagree",
@@ -127,7 +128,15 @@ function bind() {
   $("#f-q").onchange = (e) => { STATE.idx = Number(e.target.value); show(); };
   $("#prev").onclick = () => step(-1);
   $("#next").onclick = () => step(1);
-  $("#play").onclick = () => (STATE.playing ? stopPlay() : startPlay());
+  $("#p-play").onclick = () => {
+    if (STATE.playing) return cancel();
+    if (STATE.revealed >= STAGES.length) return restart();
+    run(STATE.revealed, false);
+  };
+  $("#p-next").onclick = () => { cancel(); if (STATE.revealed < STAGES.length) run(STATE.revealed, true); };
+  $("#p-all").onclick = () => { cancel(); for (let i = STATE.revealed; i < STAGES.length; i++) revealNow(i); syncPlayer(); };
+  $("#p-restart").onclick = () => restart();
+  $("#p-speed").onchange = (e) => { STATE.speed = Number(e.target.value); };
   document.addEventListener("click", (e) => { const b = e.target.closest("[data-cid]"); if (b) openChunk(b.dataset.cid); });
   // 공유 링크(#set=..&q=..)로 들어오거나 주소창의 해시만 바뀐 경우
   window.addEventListener("hashchange", () => {
@@ -149,6 +158,7 @@ function renderStatic() {
   document.title = t("title");
   $("#lang-btn").textContent = STATE.lang === "ko" ? "EN" : "KO";
   applyTheme(STATE.theme);
+  if (STATE.list.length) syncPlayer();
   $("#set-tabs").innerHTML = SETS.map((s) => `<button class="tab" role="tab" aria-selected="${s === STATE.set}" data-set="${s}">${esc(t("set_" + s))}<small>${esc(t("set_" + s + "_s"))}</small></button>`).join("");
   document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => { STATE.set = b.dataset.set; $("#f-pair").value = ""; $("#f-kind").value = "all"; renderStatic(); buildList(); }));
   $("#set-note").textContent = t("note_" + STATE.set);
@@ -191,13 +201,17 @@ const cur = () => STATE.list[STATE.idx];
 function step(d) { if (!STATE.list.length) return; STATE.idx = (STATE.idx + d + STATE.list.length) % STATE.list.length; $("#f-q").value = String(STATE.idx); show(); }
 
 function show() {
-  stopPlay(true);
+  cancel();
   const r = cur();
   if (!r) { $("#question-card").innerHTML = `<p class="empty">-</p>`; $("#flow").innerHTML = ""; $("#stages").innerHTML = ""; return; }
   history.replaceState(null, "", `#set=${STATE.set}&q=${encodeURIComponent(r.qid)}`);
   renderQuestion(r);
   renderFlow(r);
   renderStages(r);
+  STATE.revealed = 0;
+  syncPlayer();
+  // 움직임 줄이기 설정이면 바로 전부 보여 주고, 아니면 처음 단계부터 자동 재생한다
+  if (reduced()) { for (let i = 0; i < STAGES.length; i++) revealNow(i); syncPlayer(); } else run(0, false);
 }
 
 const isGold = (r, cid) => Object.prototype.hasOwnProperty.call(r.gold, cid);
@@ -234,18 +248,16 @@ function renderFlow(r) {
     const blocked = (s === "output" && !r.output.ok) || (s === "input" && !r.stages.input.ok);
     return `<button class="node${blocked ? " blocked" : ""}" data-stage="${s}" type="button"><span class="n-step">${i + 1}</span><span class="n-name">${esc(t("s_" + s))}</span><span class="n-val">${esc(nodeVal(r, s))}</span></button>`;
   }).join("");
-  document.querySelectorAll(".node").forEach((n) => (n.onclick = () => { stopPlay(); focusStage(n.dataset.stage, true); }));
-}
-
-function focusStage(s, scroll) {
-  document.querySelectorAll(".node").forEach((n) => n.classList.toggle("active", n.dataset.stage === s));
-  document.querySelectorAll(".stage").forEach((c) => c.classList.toggle("active", c.dataset.stage === s));
-  const el = document.querySelector(`.stage[data-stage="${s}"]`);
-  if (scroll && el) el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  // 노드를 누르면 그 단계까지 바로 펼치고 그 단계로 이동한다
+  document.querySelectorAll(".node").forEach((n, i) => (n.onclick = () => {
+    cancel();
+    for (let k = STATE.revealed; k <= i; k++) revealNow(k);
+    mark(STATE.revealed - 1, false); syncPlayer(); scrollToStage(i, true);
+  }));
 }
 
 function card(s, i, timing, body) {
-  return `<article class="stage" data-stage="${s}" id="stage-${s}"><div class="stage-head"><h2><span class="num">${i + 1}</span>${esc(t("s_" + s))}</h2>${timing ? `<span class="timing">${timing}</span>` : ""}</div><p class="what">${esc(t("w_" + s))}</p>${body}</article>`;
+  return `<article class="stage" data-stage="${s}" id="stage-${s}" hidden><div class="stage-head"><h2><span class="num">${i + 1}</span>${esc(t("s_" + s))}</h2>${timing ? `<span class="timing">${timing}</span>` : ""}</div><p class="what">${esc(t("w_" + s))}</p>${body}</article>`;
 }
 
 function scoreRows(r, hits, color, opts = {}) {
@@ -310,6 +322,9 @@ function renderStages(r) {
   // 8. 평가
   out.push(card("eval", 7, "", renderEval(r)));
   $("#stages").innerHTML = out.join("");
+  // 애니메이션은 DOM을 바꾸므로, 멈추거나 건너뛸 때 되돌릴 최종 모습을 단계별로 저장해 둔다
+  STATE.cardHTML = {};
+  document.querySelectorAll(".stage").forEach((c) => { STATE.cardHTML[c.dataset.stage] = c.innerHTML; });
 }
 
 function renderAnswer(r) {
@@ -326,7 +341,7 @@ function renderChecks(r) {
   }).join("");
   const verdict = r.output.ok ? `<span class="pill good">✓ ${esc(t("pass"))}</span>` : `<span class="pill bad">✕ ${esc(t("blocked"))} · ${esc(t("r_" + r.output.reason))}</span>`;
   const cited = r.output.cited.length ? `<div class="gold-line">${esc(t("cited_ids"))}: ${r.output.cited.map((c) => cidBtn(r, c)).join(", ")}</div>` : "";
-  return `<ul class="checks">${items}</ul><div style="margin-top:10px">${verdict}</div>${cited}`;
+  return `<ul class="checks">${items}</ul><div class="reveal" style="margin-top:10px">${verdict}</div>${cited}`;
 }
 
 function yn(v) {
@@ -370,32 +385,233 @@ function openChunk(cid) {
   $("#chunk-dialog").showModal();
 }
 
-function startPlay() {
-  STATE.playing = true;
-  $("#play").setAttribute("aria-pressed", "true");
-  $("#play").innerHTML = `<span class="play-icon" aria-hidden="true">■</span> ${esc(t("stop"))}`;
-  document.querySelectorAll(".stage").forEach((c) => c.classList.add("hidden"));
-  document.querySelectorAll(".node").forEach((n) => n.classList.remove("done", "active"));
-  let i = 0;
-  const tick = () => {
-    if (i > 0) document.querySelector(`.node[data-stage="${STAGES[i - 1]}"]`)?.classList.add("done");
-    if (i >= STAGES.length) { stopPlay(); return; }
-    const s = STAGES[i];
-    document.querySelector(`.stage[data-stage="${s}"]`)?.classList.remove("hidden");
-    focusStage(s, true);
-    i += 1;
-    STATE.timer = setTimeout(tick, 1600);
-  };
-  tick();
+// ---------- 재생: 단계를 하나씩 펼치고 단계 안의 움직임을 순서대로 보여 준다 ----------
+const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms / STATE.speed));
+const stageEl = (i) => document.querySelector(`.stage[data-stage="${STAGES[i]}"]`);
+
+function syncPlayer() {
+  const n = STATE.revealed, done = n >= STAGES.length;
+  $("#p-play").innerHTML = STATE.playing ? `❚❚ ${esc(t("pause"))}` : done ? `↺ ${esc(t("replay"))}` : `▶ ${esc(t("play"))}`;
+  $("#p-play").setAttribute("aria-pressed", String(STATE.playing));
+  $("#p-next").textContent = t("next_stage");
+  $("#p-all").textContent = t("show_all");
+  $("#p-speed-l").textContent = t("speed");
+  $("#p-next").disabled = done; $("#p-all").disabled = done;
+  const curStage = Math.max(0, Math.min(n, STAGES.length) - 1);
+  $("#p-progress").textContent = n ? (STATE.lang === "ko" ? `${n} / ${STAGES.length} ${t("stage_of")} · ${t("s_" + STAGES[curStage])}` : `${t("stage_of")} ${n} / ${STAGES.length} · ${t("s_" + STAGES[curStage])}`) : "";
 }
 
-function stopPlay(silent) {
-  clearTimeout(STATE.timer);
-  STATE.playing = false;
-  const b = $("#play");
-  if (b) { b.setAttribute("aria-pressed", "false"); b.innerHTML = `<span class="play-icon" aria-hidden="true">▶</span> <span data-i18n="play">${esc(t("play"))}</span>`; }
-  document.querySelectorAll(".stage").forEach((c) => c.classList.remove("hidden"));
-  if (silent) document.querySelectorAll(".node").forEach((n) => n.classList.remove("done", "active"));
+function mark(i, running) {
+  document.querySelectorAll(".node").forEach((nd, k) => {
+    nd.classList.toggle("done", k < i || (k === i && !running));
+    nd.classList.toggle("active", k === i && running);
+    nd.classList.toggle("todo", k > i);
+  });
+  document.querySelectorAll(".stage").forEach((c, k) => c.classList.toggle("active", k === i));
 }
+
+function scrollToStage(i, always) {
+  const el = stageEl(i);
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  if (always || r.top > innerHeight * 0.55 || r.top < 0) el.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+}
+
+function restore(el) {
+  el.innerHTML = STATE.cardHTML[el.dataset.stage];
+  el.classList.remove("anim", "enter", "no-tr");
+}
+
+function revealNow(i) {
+  const el = stageEl(i);
+  if (!el) return;
+  restore(el);
+  el.hidden = false;
+  STATE.revealed = Math.max(STATE.revealed, i + 1);
+  mark(Math.min(STATE.revealed, STAGES.length) - 1, false);
+}
+
+function cancel() {
+  RUN += 1;
+  STATE.playing = false;
+  // 애니메이션 도중이던 카드는 최종 모습으로 되돌린다
+  document.querySelectorAll(".stage.anim").forEach(restore);
+  if (document.querySelector(".node")) mark(Math.max(0, STATE.revealed - 1), false);
+  syncPlayer();
+}
+
+function restart() {
+  cancel();
+  document.querySelectorAll(".stage").forEach((c) => { restore(c); c.hidden = true; });
+  STATE.revealed = 0;
+  scrollTo({ top: $("#question-card").offsetTop - 8, behavior: reduced() ? "auto" : "smooth" });
+  run(0, false);
+}
+
+async function run(from, single) {
+  const id = ++RUN;
+  STATE.playing = !single;
+  syncPlayer();
+  for (let i = from; i < STAGES.length; i++) {
+    const el = stageEl(i);
+    restore(el);
+    el.hidden = false;
+    STATE.revealed = i + 1;
+    mark(i, true);
+    syncPlayer();
+    el.classList.add("anim", "enter");
+    scrollToStage(i, false);
+    await (ANIM[STAGES[i]] || (() => sleep(400)))(el, id);
+    if (id !== RUN) return;
+    el.classList.remove("anim", "enter");
+    mark(i, false);
+    if (single) break;
+    await sleep(700);
+    if (id !== RUN) return;
+  }
+  STATE.playing = false;
+  syncPlayer();
+}
+
+// 요소를 처음 상태(숨김, 막대 0)로 바꿔 두는 준비 단계: 전환 없이 즉시 적용한다
+function prep(el, hideSel) {
+  el.classList.add("no-tr");
+  el.querySelectorAll(hideSel).forEach((x) => x.classList.add("pre"));
+  el.querySelectorAll(".bar > span").forEach((b) => { b.dataset.w = b.style.width; b.style.width = "0"; });
+  void el.offsetHeight;
+  el.classList.remove("no-tr");
+}
+const showEl = (x, pop) => { if (!x) return; x.classList.remove("pre"); if (pop) x.querySelector(".ic, .star")?.classList.add("popin"); };
+const grow = (scope) => scope.querySelectorAll(".bar > span").forEach((b) => { b.style.width = b.dataset.w; });
+
+async function typeText(node, text, id, maxMs) {
+  const tick = 22, per = Math.max(1, Math.ceil(text.length / (maxMs / tick)));
+  for (let k = 0; k < text.length; k += per) {
+    if (id !== RUN) return;
+    node.textContent = text.slice(0, k + per);
+    await sleep(tick);
+  }
+}
+
+const ANIM = {
+  async input(el, id) {
+    prep(el, ".checks li");
+    await sleep(300); if (id !== RUN) return;
+    showEl(el.querySelector(".checks li"), true);
+    await sleep(500);
+  },
+  async translate(el, id) {
+    const box = el.querySelectorAll(".tbox")[1];
+    const node = box.lastChild, full = node.textContent;
+    node.textContent = "";
+    await sleep(350); if (id !== RUN) return;
+    el.querySelector(".arrow")?.classList.add("flow-on");
+    box.classList.add("typing");
+    await sleep(500); if (id !== RUN) return;
+    await typeText(node, full, id, 1400);
+    box.classList.remove("typing");
+    await sleep(300);
+  },
+  async retrieve(el, id) {
+    prep(el, ".rank-row, .gold-line");
+    const cols = [...el.querySelectorAll(".cols > div")];
+    await sleep(300);
+    for (let k = 0; k < 10; k++) {
+      if (id !== RUN) return;
+      cols.forEach((c) => { const row = c.querySelectorAll(".rank-row")[k]; if (row) { showEl(row, true); grow(row); } });
+      await sleep(110);
+    }
+    await sleep(350); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
+  async rrf(el, id) {
+    prep(el, ".rank-row, .gold-line");
+    el.querySelectorAll(".bar").forEach((b) => b.classList.add("seq"));
+    await sleep(400);
+    for (const row of el.querySelectorAll(".rank-row")) {
+      if (id !== RUN) return;
+      showEl(row, true); grow(row);
+      await sleep(150);
+    }
+    await sleep(500); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
+  async rerank(el, id) {
+    // RRF 순서로 먼저 세운 뒤 리랭커 점수 순서로 움직여 재정렬한다 (FLIP)
+    prep(el, ".mv, .cut, .gold-line");
+    const rr = STATE.list[STATE.idx].stages.rrf.hits;
+    const rrfRank = Object.fromEntries(rr.map((h, k) => [h[0], k + 1]));
+    const rows = [...el.querySelectorAll(".rank-row")];
+    const tops = rows.map((row) => row.offsetTop);
+    const h = rows[0].offsetHeight;
+    el.classList.add("no-tr");
+    rows.forEach((row, k) => {
+      const cid = row.querySelector("[data-cid]").dataset.cid, r0 = rrfRank[cid];
+      const target = r0 <= rows.length ? tops[r0 - 1] : tops[rows.length - 1] + 1.5 * h;
+      row.style.transform = `translateY(${target - tops[k]}px)`;
+      if (r0 > rows.length) row.style.opacity = "0";
+      const rc = row.querySelector(".r"); rc.dataset.final = rc.textContent; rc.textContent = r0; rc.classList.add("old");
+    });
+    void el.offsetHeight;
+    el.classList.remove("no-tr");
+    await sleep(1100); if (id !== RUN) return;
+    rows.forEach((row) => { row.classList.add("flip"); row.style.transform = ""; row.style.opacity = ""; const rc = row.querySelector(".r"); rc.textContent = rc.dataset.final; rc.classList.remove("old"); });
+    await sleep(1000); if (id !== RUN) return;
+    for (const row of rows) { grow(row); await sleep(60); if (id !== RUN) return; }
+    await sleep(350);
+    el.querySelectorAll(".mv").forEach((m) => showEl(m));
+    await sleep(350); if (id !== RUN) return;
+    showEl(el.querySelector(".cut"));
+    await sleep(400); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
+  async generate(el, id) {
+    prep(el, ".ctx, .kv, details");
+    const ans = el.querySelector(".answer");
+    const parts = [...ans.childNodes];
+    ans.innerHTML = "";
+    await sleep(300);
+    for (const c of el.querySelectorAll(".ctx")) { if (id !== RUN) return; showEl(c); c.classList.add("popin"); await sleep(160); }
+    await sleep(250); if (id !== RUN) return;
+    el.querySelectorAll(".kv").forEach((k) => showEl(k));
+    await sleep(500); if (id !== RUN) return;
+    // 답변을 타자 치듯 출력하고, 인용 칩은 통째로 튀어나오게 한다
+    ans.classList.add("typing");
+    const total = parts.reduce((a, n) => a + (n.nodeType === 3 ? n.textContent.length : 0), 0);
+    const budget = Math.min(3200, 600 + total * 12);
+    for (const n of parts) {
+      if (id !== RUN) return;
+      if (n.nodeType === 3) {
+        const tn = document.createTextNode("");
+        ans.appendChild(tn);
+        await typeText(tn, n.textContent, id, budget * n.textContent.length / Math.max(1, total));
+      } else { n.classList.add("popin"); ans.appendChild(n); await sleep(120); }
+    }
+    ans.classList.remove("typing");
+    await sleep(300); if (id !== RUN) return;
+    showEl(el.querySelector("details"));
+    await sleep(400);
+  },
+  async output(el, id) {
+    prep(el, ".checks li, .reveal, .gold-line");
+    await sleep(300);
+    for (const li of el.querySelectorAll(".checks li")) { if (id !== RUN) return; showEl(li, true); await sleep(330); }
+    await sleep(200); if (id !== RUN) return;
+    el.querySelectorAll(".reveal").forEach((x) => { showEl(x); x.querySelector(".pill")?.classList.add("popin"); });
+    await sleep(300); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
+  async eval(el, id) {
+    prep(el, ".checks li, tr, .gold-line, .note, .empty");
+    await sleep(300);
+    for (const x of el.querySelectorAll(".checks li, tr, .gold-line, .note, .empty")) { if (id !== RUN) return; showEl(x, true); await sleep(230); }
+    await sleep(400);
+  },
+};
 
 init().catch((e) => { document.querySelector("main").insertAdjacentHTML("afterbegin", `<p class="empty">Failed to load data: ${esc(e.message)}</p>`); });

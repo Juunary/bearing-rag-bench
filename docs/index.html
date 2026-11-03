@@ -36,7 +36,6 @@
       <div class="nav-btns">
         <button type="button" class="icon-btn" id="prev" aria-label="previous">‹</button>
         <button type="button" class="icon-btn" id="next" aria-label="next">›</button>
-        <button type="button" class="play" id="play"><span class="play-icon" aria-hidden="true">▶</span> <span data-i18n="play">단계별 재생</span></button>
       </div>
     </div>
     <p class="set-note" id="set-note"></p>
@@ -44,7 +43,17 @@
 
   <section class="question-card" id="question-card" aria-live="polite"></section>
 
-  <nav class="flow" id="flow" aria-label="pipeline stages"></nav>
+  <div class="dock" id="dock">
+    <div class="player" role="toolbar" aria-label="playback">
+      <button type="button" class="icon-btn" id="p-restart" aria-label="restart">↺</button>
+      <button type="button" class="play" id="p-play"></button>
+      <button type="button" class="ghost-btn" id="p-next"></button>
+      <button type="button" class="ghost-btn" id="p-all"></button>
+      <label class="speed"><span id="p-speed-l"></span><select id="p-speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+      <span class="progress" id="p-progress" aria-live="polite"></span>
+    </div>
+    <nav class="flow" id="flow" aria-label="pipeline stages"></nav>
+  </div>
 
   <section id="stages" class="stages"></section>
 
