@@ -283,8 +283,18 @@ RRF + 리랭커 대비 차이(문서 군집 95% 구간), 리랭커 영어 입력
 |---|---|
 | 답변 5개 정확성 | 맞음 4, 부분 1(D03: EP 그리스를 200 °C 이상 고온용으로 설명) |
 | 거절 5개 | 적절 3(구동축 비틀림 댐핑, 전기차 감속기 베어링, 휠 베어링 소음 구분), 부적절 2 |
-| 부적절 D05(오일 씰 누유의 축 측 원인) | 축 표면 다듬질·런아웃 관련 문장이 있는 청크 3개가 검색 후보 9개에 없음 |
+| 부적절 D05(오일 씰 누유의 축 측 원인) | 축 표면 다듬질·런아웃·편심·리드 관련 문장이 있는 청크 5개가 생성 컨텍스트(상위 5)에 없음 (아래) |
 | 부적절 D10(하우징 끼워맞춤이 헐거울 때) | 끼워맞춤 공차 문장 청크는 상위 5에 있으나 헐거울 때의 결과(크리프·프레팅)를 다룬 청크는 키워드 검색(creep, fretting, loose fit 등)으로 찾지 못함 |
+
+D05 검색 단계 추적(`experiments/results/d05_retrieval_trace.md`, `experiments/trace_retrieval.py`): 질의 번역은 "When oil leakage persists in an oil seal, what other shaft-side defect factors should be checked besides lip wear?"이고, 코퍼스 문서는 "radial shaft seal", "opposing running surface"로 씁니다.
+
+| 청크 | 영어 BM25 순위 | 영어 dense 순위 | RRF 순위 | 리랭커 순위 |
+|---|---|---|---|---|
+| luh-diss-pelzer-2022#19 (런아웃·편심) | 9 | 27 | 10 | 7 (상위 5 밖) |
+| de_wellendichtring#0 (축 표면 다듬질) | 35 | 115 | 57 (후보 30 밖) | - |
+| luh-diss-pelzer-2022#28, #40, #43 | 64 .. 361 | 134 .. 330 | 50 밖 | - |
+
+원래 질문에 컨텍스트만 바꿔 생성한 결과(`experiments/results/d05_answer_variants.md`, `experiments/answer_variants.py`): 실제 상위 10(#19 포함)은 답변, 질의의 "oil seal"을 "radial shaft seal"로 바꾼 검색 상위 5(#19 포함)와 "shaft-side defect factors"를 "defects of the shaft surface"로 더 바꾼 검색 상위 5(#19, de_wellendichtring#0 포함)도 답변, 용어집 힌트로 번역한 질의("oil seal (radial shaft seal)", 상위 5에 #19 포함)는 거절입니다. 질의 변형은 대상 청크를 본 뒤 AI 에이전트가 썼고, 답변은 채점하지 않았습니다.
 
 | 비교 (정확성, 문서 군집 95% 구간) | Qwen3-8B 판정 | Granite 판정 |
 |---|---|---|

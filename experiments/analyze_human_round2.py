@@ -43,7 +43,9 @@ JUDGES = {"Qwen3-8B": "judge_qwen", "Granite": "judge_granite"}
 RELATED = {
     "D05": ["de_wellendichtring#0",          # 축 표면 다듬질 요구, 테이퍼 없이 연삭
             "luh-diss-pelzer-2022#19",       # 립이 상대면의 런아웃·편심을 따라감
-            "luh-diss-pelzer-2022#40"],      # 상대면의 표면 다듬질·거칠기와 형상 공차
+            "luh-diss-pelzer-2022#28",       # 축 정렬 각도 오차·편심·축 가공 오차로 씰 끝단이 기울어짐
+            "luh-diss-pelzer-2022#40",       # 상대면의 표면 다듬질·거칠기와 형상 공차
+            "luh-diss-pelzer-2022#43"],      # 상대면의 리드(swirl)·긁힘이 펌핑 작용을 덮음
     "D10": ["en_ball_bearing#15"],           # 축·하우징 끼워맞춤 공차가 맞아야 최대 하중 (헐거울 때의 결과는 없음)
 }
 

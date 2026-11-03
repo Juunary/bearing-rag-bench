@@ -283,8 +283,18 @@ Of 10 questions the grader wrote without looking at the documents (`eval/human_r
 |---|---|
 | correctness of the 5 answers | correct 4, partial 1 (D03: describes EP grease as a lubricant for above 200 °C) |
 | 5 refusals | appropriate 3 (drive-shaft torsional damping, EV reducer bearings, telling wheel-bearing noise from tyre noise), inappropriate 2 |
-| inappropriate D05 (shaft-side causes of oil-seal leakage) | 3 chunks with statements on shaft surface finish and runout are not among the 9 retrieved candidates |
+| inappropriate D05 (shaft-side causes of oil-seal leakage) | 5 chunks with statements on shaft surface finish, runout, eccentricity and lead are not in the generator context (top 5) (below) |
 | inappropriate D10 (loose housing fit) | a chunk on fit tolerances is in the top 5, but a keyword search (creep, fretting, loose fit, ...) finds no chunk on the effects of a loose fit such as creep or fretting |
+
+D05 retrieval trace (`experiments/results/d05_retrieval_trace.md`, `experiments/trace_retrieval.py`): the query is translated as "When oil leakage persists in an oil seal, what other shaft-side defect factors should be checked besides lip wear?", while the corpus documents say "radial shaft seal" and "opposing running surface".
+
+| chunk | English BM25 rank | English dense rank | RRF rank | reranker rank |
+|---|---|---|---|---|
+| luh-diss-pelzer-2022#19 (runout, eccentricity) | 9 | 27 | 10 | 7 (outside the top 5) |
+| de_wellendichtring#0 (shaft surface finish) | 35 | 115 | 57 (outside the 30 candidates) | - |
+| luh-diss-pelzer-2022#28, #40, #43 | 64 .. 361 | 134 .. 330 | outside 50 | - |
+
+Answers to the original question with only the context changed (`experiments/results/d05_answer_variants.md`, `experiments/answer_variants.py`): the served top 10 (with #19) is answered; the top 5 of the query with "oil seal" replaced by "radial shaft seal" (with #19) and of the query that also replaces "shaft-side defect factors" with "defects of the shaft surface" (with #19 and de_wellendichtring#0) are answered; the query translated with glossary hints ("oil seal (radial shaft seal)", #19 in the top 5) is refused. The query variants were written by an AI agent after seeing the target chunks, and the answers were not graded.
 
 | Comparison (correctness, document-cluster 95% interval) | Qwen3-8B judge | Granite judge |
 |---|---|---|
