@@ -1,11 +1,11 @@
 # bearing-rag-bench
 
+## [https://juunary.github.io/bearing-rag-bench/](https://juunary.github.io/bearing-rag-bench/)
+
 [한국어](README.md) | English
 
 An experiment repository that implements and measures RAG retrieval, generation, evaluation, operations and fine-tuning on Korean, English and German technical documents about bearings and automotive parts.
 No RAG framework (LangChain, LlamaIndex) is used. Chunking, BM25, embeddings, HNSW, RRF, reranking, metrics, caching, validation and the LoRA training loop are implemented directly.
-
-Pipeline trace page: https://juunary.github.io/bearing-rag-bench/ (for each of 148 questions: input check, translation, BM25 and dense candidates, RRF, reranker, generation, output check and grades, from real run records)
 
 ## Components
 

@@ -1,11 +1,11 @@
 # bearing-rag-bench
 
+## [https://juunary.github.io/bearing-rag-bench/](https://juunary.github.io/bearing-rag-bench/)
+
 한국어 | [English](README.en.md)
 
 한국어·영어·독일어 베어링·자동차 부품 기술문서를 대상으로 RAG의 검색, 생성, 평가, 운영, 파인튜닝을 구현하고 측정한 실험 저장소입니다.
 LangChain, LlamaIndex 같은 프레임워크 없이 청킹, BM25, 임베딩, HNSW, RRF, 리랭킹, 지표, 캐시, 검증, LoRA 학습 루프를 직접 구현했습니다.
-
-파이프라인 추적 페이지: https://juunary.github.io/bearing-rag-bench/ (질문 148개마다 검증, 번역, BM25·dense 후보, RRF, 리랭커, 생성, 출력 검증, 채점을 실제 실행 기록으로 보여 줌)
 
 ## 구성
 
