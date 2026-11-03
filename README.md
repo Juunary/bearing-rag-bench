@@ -5,6 +5,8 @@
 한국어·영어·독일어 베어링·자동차 부품 기술문서를 대상으로 RAG의 검색, 생성, 평가, 운영, 파인튜닝을 구현하고 측정한 실험 저장소입니다.
 LangChain, LlamaIndex 같은 프레임워크 없이 청킹, BM25, 임베딩, HNSW, RRF, 리랭킹, 지표, 캐시, 검증, LoRA 학습 루프를 직접 구현했습니다.
 
+파이프라인 추적 페이지: https://juunary.github.io/bearing-rag-bench/ (질문 148개마다 검증, 번역, BM25·dense 후보, RRF, 리랭커, 생성, 출력 검증, 채점을 실제 실행 기록으로 보여 줌)
+
 ## 구성
 
 | 영역 | 구현 |
@@ -98,6 +100,7 @@ uv run python experiments/analyze_pdf.py
 uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # 표 캡션·머리글 반복 청크 (configs/pdf/pdfth_*)
 uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # PDF 질문 답변 (이후 run_judge.py)
 uv run python experiments/analyze_pdf_generation.py
+uv run python scripts/export_site_data.py           # 추적 페이지 데이터 (docs/data/)
 
 # 다른 계열 판정 모델 (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -459,6 +462,7 @@ eval/queries_pdf.jsonl, eval/pdf_draft/   PDF 평가셋, 초안·검수 입력�
 configs/pdf/    위키 + PDF 코퍼스 검색 설정 (scripts/make_pdf_configs.py가 생성)
 configs/pdfgen/ PDF 질문 답변 생성 설정
 eval/human_round2/   사람 검수 2차 표본·채점표·채점·직접 쓴 질문 답변 (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
+docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
 ```

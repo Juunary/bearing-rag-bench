@@ -5,6 +5,8 @@
 An experiment repository that implements and measures RAG retrieval, generation, evaluation, operations and fine-tuning on Korean, English and German technical documents about bearings and automotive parts.
 No RAG framework (LangChain, LlamaIndex) is used. Chunking, BM25, embeddings, HNSW, RRF, reranking, metrics, caching, validation and the LoRA training loop are implemented directly.
 
+Pipeline trace page: https://juunary.github.io/bearing-rag-bench/ (for each of 148 questions: input check, translation, BM25 and dense candidates, RRF, reranker, generation, output check and grades, from real run records)
+
 ## Components
 
 | Area | Implementation |
@@ -98,6 +100,7 @@ uv run python experiments/analyze_pdf.py
 uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # chunks with repeated table caption and header rows (configs/pdf/pdfth_*)
 uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # answers to the PDF questions (then run_judge.py)
 uv run python experiments/analyze_pdf_generation.py
+uv run python scripts/export_site_data.py           # trace page data (docs/data/)
 
 # Judge of another model family (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -459,6 +462,7 @@ eval/queries_pdf.jsonl, eval/pdf_draft/   PDF eval set, drafts and review inputs
 configs/pdf/    retrieval configs on the Wikipedia + PDF corpus (written by scripts/make_pdf_configs.py)
 configs/pdfgen/ generation configs for the PDF questions
 eval/human_round2/   human review round 2: sample, sheet, grades, answers to the grader's own questions (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
+docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```

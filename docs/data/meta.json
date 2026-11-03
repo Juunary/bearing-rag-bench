@@ -1,0 +1,62 @@
+{
+ "prompts": {
+  "cite_v1": "You are a technical assistant for bearings and automotive parts. Answer the question using ONLY the context passages below. After every sentence, cite the id of the passage that supports it in square brackets, for example [en_grease#2]. Answer in the same language as the question, in at most four sentences.",
+  "cite_refuse_v1": "You are a technical assistant for bearings and automotive parts. Answer the question using ONLY the context passages below. After every sentence, cite the id of the passage that supports it in square brackets, for example [en_grease#2]. Answer in the same language as the question, in at most four sentences. If the context does not contain the information needed to answer, output exactly NO_ANSWER and nothing else."
+ },
+ "sets": {
+  "v2": {
+   "config": "v2_x2_rerank_en_text",
+   "n_chunks": 346,
+   "corpus": "wiki",
+   "table_header": false,
+   "answers": "v2g_ret_x2_rerank_en_text",
+   "prompt": "cite_v1",
+   "judged": true,
+   "n": 90,
+   "retrieval": {
+    "fusion_candidates": 50,
+    "rrf_k": 60,
+    "rerank_top_n": 30,
+    "context_k": 5,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "embedding_model": "BAAI/bge-m3"
+   }
+  },
+  "pdf": {
+   "config": "pdfth_x13_rrf_en_dense_en_rerank_en_text",
+   "n_chunks": 903,
+   "corpus": "wiki_pdf",
+   "table_header": true,
+   "answers": "pdfg_th_x13_rrf_en_dense_en_rerank_en_text",
+   "prompt": "cite_v1",
+   "judged": true,
+   "n": 48,
+   "retrieval": {
+    "fusion_candidates": 50,
+    "rrf_k": 60,
+    "rerank_top_n": 30,
+    "context_k": 5,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "embedding_model": "BAAI/bge-m3"
+   }
+  },
+  "user": {
+   "config": "pdfth_x13_rrf_en_dense_en_rerank_en_text",
+   "n_chunks": 903,
+   "corpus": "wiki_pdf",
+   "table_header": true,
+   "answers": "user_questions_answers",
+   "prompt": "cite_refuse_v1",
+   "judged": false,
+   "n": 10,
+   "retrieval": {
+    "fusion_candidates": 50,
+    "rrf_k": 60,
+    "rerank_top_n": 30,
+    "context_k": 5,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "embedding_model": "BAAI/bge-m3"
+   }
+  }
+ }
+}

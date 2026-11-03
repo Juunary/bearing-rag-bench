@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG Pipeline Trace</title>
+<meta name="description" content="한 질문이 bearing-rag-bench 파이프라인(검증, 번역, BM25·dense 검색, RRF, 리랭커, 생성, 출력 검증)을 지나는 과정을 실제 실행 기록으로 보여줍니다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%232a78d6' stroke-width='4'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%232a78d6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <div>
+        <h1 data-i18n="title">RAG 파이프라인 추적</h1>
+        <p class="sub" data-i18n="subtitle">질문 하나가 검색·생성·검증을 지나는 과정을 실제 실행 기록으로 보여줍니다.</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="chip-btn" id="lang-btn" type="button" aria-label="Language">EN</button>
+      <button class="chip-btn" id="theme-btn" type="button" aria-label="Theme"></button>
+      <a class="chip-btn" href="https://github.com/Juunary/bearing-rag-bench" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="controls" aria-label="question picker">
+    <div class="tabs" role="tablist" id="set-tabs"></div>
+    <div class="filters">
+      <label><span data-i18n="pair">언어쌍</span><select id="f-pair"></select></label>
+      <label><span data-i18n="show">보기</span><select id="f-kind"></select></label>
+      <label class="grow"><span data-i18n="question">질문</span><select id="f-q"></select></label>
+      <div class="nav-btns">
+        <button type="button" class="icon-btn" id="prev" aria-label="previous">‹</button>
+        <button type="button" class="icon-btn" id="next" aria-label="next">›</button>
+        <button type="button" class="play" id="play"><span class="play-icon" aria-hidden="true">▶</span> <span data-i18n="play">단계별 재생</span></button>
+      </div>
+    </div>
+    <p class="set-note" id="set-note"></p>
+  </section>
+
+  <section class="question-card" id="question-card" aria-live="polite"></section>
+
+  <nav class="flow" id="flow" aria-label="pipeline stages"></nav>
+
+  <section id="stages" class="stages"></section>
+
+  <footer class="foot" id="foot"></footer>
+</main>
+
+<dialog id="chunk-dialog">
+  <form method="dialog" class="dlg-head">
+    <div>
+      <div class="dlg-id" id="dlg-id"></div>
+      <div class="dlg-title" id="dlg-title"></div>
+    </div>
+    <button class="icon-btn" value="close" aria-label="close">✕</button>
+  </form>
+  <div class="dlg-tabs" id="dlg-tabs"></div>
+  <pre class="dlg-text" id="dlg-text"></pre>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
