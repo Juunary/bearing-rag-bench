@@ -1,13 +1,17 @@
-"""Render eval/human_round2/sample.json as the grading sheet -> eval/human_round2/sheet.md.
+"""Render eval/human_round2/sample.json as the grading sheet -> eval/human_round2/sheet.md (and sheet_d.md).
 
 [EN]
 - The sheet shows only what a reviewer needs: the question, the gold sentences, the answer and, for
   faithfulness items, the cited passages. Conditions and judge verdicts are not shown (blind grading).
+- sheet_d.md (when user_questions_answers.json exists): the answers to the grader's own questions, graded
+  from the grader's knowledge (no gold), and for refusals the documents that were retrieved.
 - Usage: uv run python scripts/render_human_round2.py
 
 [KO]
 - 채점표에는 검수에 필요한 것만 넣는다: 질문, 정답 문장, 답변, 충실도 항목이면 인용한 청크 원문. 조건과 판정
   모델 결과는 보여주지 않는다(블라인드 채점).
+- sheet_d.md(user_questions_answers.json이 있을 때): 채점자가 직접 쓴 질문의 답변을 채점자 지식으로 채점(정답 라벨 없음),
+  거절한 질문은 검색된 문서를 함께 보여준다.
 - 사용: uv run python scripts/render_human_round2.py
 """
 
@@ -63,6 +67,27 @@ def main() -> None:
             out += [f"> [{c['chunk_id']}] " + c["text"].replace("\n", " "), ""]
     (DIR / "sheet.md").write_text("\n".join(out) + "\n", encoding="utf-8")
     print(len("\n".join(out)), "chars")
+
+    if (DIR / "user_questions_answers.json").exists():
+        render_d(json.loads((DIR / "user_questions_answers.json").read_text(encoding="utf-8")))
+
+
+def render_d(d: dict) -> None:
+    out = ["# 사람 검수 3차: 직접 쓴 질문의 답변", "",
+           "## 답 형식 (한 항목에 한 줄)", "", "```",
+           "D01 | 정확성: 맞음 | 메모: (선택)",
+           "D02 | 거절: 적절 | 메모: (선택)", "```", "",
+           "- 정확성(답변한 질문): 실무 지식 기준 `맞음` / `부분` = 일부만 맞거나 틀린 내용이 섞임 / `틀림`",
+           "- 거절(거절한 질문): `적절` = 위키백과·NASA 보고서·베어링 학위논문 같은 일반 문헌에서 답을 기대하기 어려운 질문 / "
+           "`부적절` = 이런 문헌에 있을 만한 기본 지식이라 답했어야 함", ""]
+    for r in d["rows"]:
+        out += [f"**{r['qid']}** {'(거절)' if r['blocked'] else ''} 질문: {r['question']}", ""]
+        if r["blocked"]:
+            docs = list(dict.fromkeys(c.split("#")[0] for c in r["best_top5"]))
+            out += [f"답변: {r['answer']}", "", f"검색된 상위 5개 청크의 문서: {', '.join(docs)}", ""]
+        else:
+            out += [f"답변: {r['answer']}", ""]
+    (DIR / "sheet_d.md").write_text("\n".join(out) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
