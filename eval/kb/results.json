@@ -1,0 +1,1411 @@
+{
+ "config": "pdfth_x13_rrf_en_dense_en_rerank_en_text.json",
+ "prompt_version": "cite_refuse_v1",
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "kb_pages": 12,
+ "kb_verified": 12,
+ "modes": [
+  "rag",
+  "bundle",
+  "hybrid"
+ ],
+ "summary": {
+  "rag": {
+   "n": 20,
+   "blocked": 12,
+   "prompt_tokens_mean": 2188.3,
+   "seconds_mean": 3.4461833010427654
+  },
+  "bundle": {
+   "n": 20,
+   "blocked": 6,
+   "prompt_tokens_mean": 10080.65,
+   "seconds_mean": 4.8085403040517125
+  },
+  "hybrid": {
+   "n": 20,
+   "blocked": 5,
+   "prompt_tokens_mean": 8236.6,
+   "seconds_mean": 6.32599945703987,
+   "fallback": 12
+  }
+ },
+ "rows": [
+  {
+   "qid": "K01",
+   "question": "하우징의 끼워맞춤이 너무 헐거울 때 발생하는 외륜 크리프를 방지하려면 어떤 조치를 취해야 합니까?",
+   "topic": "fit_loose_creep",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "de_waelzlager#29",
+      "de_waelzlager#31",
+      "en_ball_bearing#5",
+      "ko_ball_bearing#17",
+      "en_ball_bearing#8"
+     ],
+     "prompt_tokens": 2082,
+     "completion_tokens": 4,
+     "seconds": 0.4118626471608877
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "외륜 크리프를 방지하려면 O링 홈이 있는 외륜, 축 방향 조임(클램프), 또는 하우징 고정핀을 검토해야 합니다 [kb_fit_loose_creep#0].",
+     "raw": "외륜 크리프를 방지하려면 O링 홈이 있는 외륜, 축 방향 조임(클램프), 또는 하우징 고정핀을 검토해야 합니다 [kb_fit_loose_creep#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10076,
+     "completion_tokens": 54,
+     "seconds": 3.192053633276373
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "외륜 크리프를 방지하려면 O링 홈이 있는 외륜, 축 방향 조임(클램프), 또는 하우징 고정핀을 검토해야 합니다 [kb_fit_loose_creep#0].",
+     "raw": "외륜 크리프를 방지하려면 O링 홈이 있는 외륜, 축 방향 조임(클램프), 또는 하우징 고정핀을 검토해야 합니다 [kb_fit_loose_creep#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12158,
+     "completion_tokens": 58,
+     "seconds": 3.603916280437261,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K02",
+   "question": "진동이 심한 설비에서 베어링 내륜과 축 사이에 붉은색 녹 같은 가루가 발견되었는데 원인이 무엇인가요?",
+   "topic": "fit_loose_creep",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "진동이 심한 설비에서 베어링 내륜과 축 사이에 붉은색 녹 같은 가루가 발견된 경우, 이는 fretting(소동)으로 인한 현상입니다. fretting은 접촉 표면이 작은 진동으로 인해 마찰과 부식을 겪고, 이로 인해 미세한 파편이 형성되며, 특히 철재에서는 붉은색 철산 가루(코카오 가루와 유사한 형태)가 나타납니다 [en_fretting#0]. 이 가루는 표면의 마모와 부식을 초래하며, 특히 진동이 심한 경우 발생할 수 있습니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_fretting#0",
+      "ko_ball_bearing#12",
+      "de_waelzlager#0",
+      "en_brinelling#1",
+      "en_rolling_element_bearing#7"
+     ],
+     "prompt_tokens": 2002,
+     "completion_tokens": 157,
+     "seconds": 4.6291999951936305
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "붉은색 녹 같은 가루는 물·습기 침입으로 인한 부식(수분 부식)의 증상입니다. 이는 베어링 내륜과 축 사이에 물이 들어오고, 금속 표면에서 산화 반응이 일어나는 결과로, 특히 정지 상태의 진동에 의해 전동체 간격이 자국을 남기고 적갈색 가루가 생깁니다 [kb_failure_modes#0]. 이는 윤활 부족, 헐거운 끼워맞춤, 또는 운송·정지 중 진동 등이 원인일 수 있습니다 [kb_fit_loose_creep#0].",
+     "raw": "붉은색 녹 같은 가루는 물·습기 침입으로 인한 부식(수분 부식)의 증상입니다. 이는 베어링 내륜과 축 사이에 물이 들어오고, 금속 표면에서 산화 반응이 일어나는 결과로, 특히 정지 상태의 진동에 의해 전동체 간격이 자국을 남기고 적갈색 가루가 생깁니다 [kb_failure_modes#0]. 이는 윤활 부족, 헐거운 끼워맞춤, 또는 운송·정지 중 진동 등이 원인일 수 있습니다 [kb_fit_loose_creep#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10074,
+     "completion_tokens": 156,
+     "seconds": 6.055971994064748
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "진동이 심한 설비에서 베어링 내륜과 축 사이에 붉은색 녹 같은 가루가 발견된 경우, 이는 fretting(소동)으로 인한 현상입니다. fretting은 접촉 표면이 작은 진동으로 인해 마찰과 부식을 겪고, 이로 인해 미세한 파편이 형성되며, 특히 철재에서는 붉은색 철산 가루(코카오 가루와 유사한 형태)가 나타납니다 [en_fretting#0]. 이 가루는 표면의 마모와 부식을 초래하며, 특히 진동이 심한 경우 발생할 수 있습니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_fretting#0",
+      "ko_ball_bearing#12",
+      "de_waelzlager#0",
+      "en_brinelling#1",
+      "en_rolling_element_bearing#7"
+     ],
+     "prompt_tokens": 2002,
+     "completion_tokens": 157,
+     "seconds": 4.6291999951936305,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K03",
+   "question": "감속기 출력축 오일 씰에서 누유가 발생할 때 축 표면에서 가장 먼저 점검해야 할 사항은 무엇입니까?",
+   "topic": "oil_seal_leak_check",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-pelzer-2022#45",
+      "luh-diss-pelzer-2022#78",
+      "luh-diss-pelzer-2022#13",
+      "luh-diss-pelzer-2022#77",
+      "luh-diss-pelzer-2022#4"
+     ],
+     "prompt_tokens": 2581,
+     "completion_tokens": 4,
+     "seconds": 0.479526718147099
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "축 표면에서 가장 먼저 점검해야 할 사항은 립 접촉부 마모 홈(wear groove)입니다. 이는 립이 닿던 자리가 패여 있으면 새 씰도 곧 샙니다. [kb_oil_seal_leak_check#0]",
+     "raw": "축 표면에서 가장 먼저 점검해야 할 사항은 립 접촉부 마모 홈(wear groove)입니다. 이는 립이 닿던 자리가 패여 있으면 새 씰도 곧 샙니다. [kb_oil_seal_leak_check#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10070,
+     "completion_tokens": 69,
+     "seconds": 3.6090301582589746
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "축 표면에서 가장 먼저 점검해야 할 사항은 립 접촉부 마모 홈(wear groove)입니다. 이는 립이 닿던 자리가 패여 있으면 새 씰도 곧 샙니다. [kb_oil_seal_leak_check#0]",
+     "raw": "축 표면에서 가장 먼저 점검해야 할 사항은 립 접촉부 마모 홈(wear groove)입니다. 이는 립이 닿던 자리가 패여 있으면 새 씰도 곧 샙니다. [kb_oil_seal_leak_check#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12651,
+     "completion_tokens": 73,
+     "seconds": 4.088556876406074,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K04",
+   "question": "150도 이상의 고온 환경에서 고하중을 받는 철강 압연기 베어링에는 어떤 종류의 그리스 증주제가 적합한가요?",
+   "topic": "grease_selection",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "no_citation",
+     "context_ids": [
+      "ko_lubrication#0",
+      "de_schmierfett#14",
+      "en_grease#2",
+      "ko_ball_bearing#15",
+      "de_waelzlager#6"
+     ],
+     "prompt_tokens": 2313,
+     "completion_tokens": 256,
+     "seconds": 7.798886162694544
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "150도 이상의 고온 환경에서 고하중을 받는 철강 압연기 베어링에는 PFPE(퍼플루오로폴리에테르) 기유 + PTFE 증주제가 적합합니다. 이 그리스는 약 250~300도까지 사용 가능하며, 고온에서의 안정성과 내성, 고하중 조건에서의 마모 방지를 제공합니다 [kb_grease_selection#0].",
+     "raw": "150도 이상의 고온 환경에서 고하중을 받는 철강 압연기 베어링에는 PFPE(퍼플루오로폴리에테르) 기유 + PTFE 증주제가 적합합니다. 이 그리스는 약 250~300도까지 사용 가능하며, 고온에서의 안정성과 내성, 고하중 조건에서의 마모 방지를 제공합니다 [kb_grease_selection#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10081,
+     "completion_tokens": 112,
+     "seconds": 4.863870757166296
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "150도 이상의 고온 환경에서 고하중을 받는 철강 압연기 베어링에는 PFPE(퍼플루오로폴리에테르) 기유 + PTFE 증주제가 적합합니다. 이 그리스는 약 250~300도까지 사용 가능하며, 고온에서의 안정성과 내성, 고하중 조건에서의 마모 방지를 제공합니다 [kb_grease_selection#0].",
+     "raw": "150도 이상의 고온 환경에서 고하중을 받는 철강 압연기 베어링에는 PFPE(퍼플루오로폴리에테르) 기유 + PTFE 증주제가 적합합니다. 이 그리스는 약 250~300도까지 사용 가능하며, 고온에서의 안정성과 내성, 고하중 조건에서의 마모 방지를 제공합니다 [kb_grease_selection#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12394,
+     "completion_tokens": 368,
+     "seconds": 12.66275691986084,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K05",
+   "question": "24시간 연속 가동하는 모터 베어링의 적정 재급지 주기와 1회 급지량은 어떻게 계산하나요?",
+   "topic": "relubrication",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "ko_ball_bearing#14",
+      "en_ball_bearing#13",
+      "ko_ball_bearing#15",
+      "en_bearing_mechanical#16",
+      "nasa-tm-2017-219545#28"
+     ],
+     "prompt_tokens": 2147,
+     "completion_tokens": 4,
+     "seconds": 0.42151834908872843
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "24시간 연속 가동하는 모터 베어링의 재급지 주기는 운전 온도, 속도 계수, 하중, 진동 및 오염 노출 등에 따라 결정되며, 온도가 70°C를 넘으면 15°C마다 주기 절반으로 보정합니다. 예를 들어, 기준 온도 70°C에서의 기본 주기(예: 1,000시간)는 70°C 이상이면 15°C마다 절반으로 감소합니다. 또한 수직축은 주기의 절반, 강한 진동은 1/2~1/4, 오염·물 노출은 1/2~1/10으로 보정됩니다.  \n1회 급지량은 일반 경험식 **G ≈ 0.005 × D × B** (D: 외경 mm, B: 폭 mm)으로 계산하며, 예를 들어 외경 90mm, 폭 20mm인 베어링은 약 9g입니다. 초기 충전량은 베어",
+     "blocked": true,
+     "reason": "no_citation",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10073,
+     "completion_tokens": 256,
+     "seconds": 9.105851782951504
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "24시간 연속 가동하는 모터 베어링의 재급지 주기는 운전 온도, 속도 계수, 하중, 진동 및 오염 노출 등에 따라 결정되며, 온도가 70°C를 넘으면 15°C마다 주기 절반으로 보정합니다. 예를 들어, 기준 온도 70°C에서의 기본 주기(예: 1,000시간)는 70°C 이상이면 15°C마다 절반으로 감소합니다. 또한 수직축은 주기의 절반, 강한 진동은 1/2~1/4, 오염·물 노출은 1/2~1/10으로 보정됩니다.  \n1회 급지량은 일반 경험식 **G ≈ 0.005 × D × B** (D: 외경 mm, B: 폭 mm)으로 계산하며, 예를 들어 외경 90mm, 폭 20mm인 베어링은 약 9g입니다. 초기 충전량은 베어",
+     "blocked": true,
+     "reason": "no_citation",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12220,
+     "completion_tokens": 260,
+     "seconds": 9.527370132040232,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K06",
+   "question": "공작기계 주축에 앵귤러 콘택트 볼 베어링을 배면 배열로 조립할 때 최적의 예압량은 어떻게 확인합니까?",
+   "topic": "preload_setting",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "공작기계 주축에 앵귤러 콘택트 볼 베어링을 배면 배열로 조립할 때 최적의 예압량은 베어링의 축 방향 힘 용량을 감소시키지 않도록 설계하고 조립해야 하며, 과도한 예압은 베어링을 손상시킬 수 있으므로 이를 조심스럽게 결정해야 합니다 [en_ball_bearing#3]. 예압량은 베어링의 하중 특성과 작동 조건에 따라 계산되어야 하며, 축 방향 하중과 반경 방향 하중의 비율을 고려해야 합니다 [ko_ball_bearing#3]. 또한, 예압은 베어링의 레이스 간의 미세한 간격을 흡수하여 축 방향 런아웃을 개선하는 데 사용되므로, 이에 적합한 값이 필요합니다 [en_ball_bearing#3]. 그러나 제공된 문맥에는 최적의 예압량을 정량적으로 확인하는 구체적인 방법이나 공식이 명시",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_ball_bearing#3",
+      "ko_ball_bearing#0",
+      "ko_ball_bearing#3",
+      "en_ball_bearing#2",
+      "ko_ball_bearing#16"
+     ],
+     "prompt_tokens": 2170,
+     "completion_tokens": 256,
+     "seconds": 7.470839178189635
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "앵귤러 콘택트 볼 베어링을 배면 배열로 조립할 때, 제조업체에서 유니버설 매칭된 쌍(DB/DF/DT)을 사용하면 마주 보게 조립할 때 정해진 예압(경·중·강)이 자동으로 결정됩니다. 임의로 조합하거나 스페이서를 사용할 경우, 스페이서의 폭 차이를 기준으로 예압을 설정해야 합니다. 따라서 최적의 예압량은 스페이서의 폭 차이를 기준으로 계산하거나, 제조업체가 제공한 매칭 쌍의 예압 데이터를 참조하여 확인합니다 [kb_preload_setting#0].",
+     "raw": "앵귤러 콘택트 볼 베어링을 배면 배열로 조립할 때, 제조업체에서 유니버설 매칭된 쌍(DB/DF/DT)을 사용하면 마주 보게 조립할 때 정해진 예압(경·중·강)이 자동으로 결정됩니다. 임의로 조합하거나 스페이서를 사용할 경우, 스페이서의 폭 차이를 기준으로 예압을 설정해야 합니다. 따라서 최적의 예압량은 스페이서의 폭 차이를 기준으로 계산하거나, 제조업체가 제공한 매칭 쌍의 예압 데이터를 참조하여 확인합니다 [kb_preload_setting#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10077,
+     "completion_tokens": 165,
+     "seconds": 6.3317822720855474
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "공작기계 주축에 앵귤러 콘택트 볼 베어링을 배면 배열로 조립할 때 최적의 예압량은 베어링의 축 방향 힘 용량을 감소시키지 않도록 설계하고 조립해야 하며, 과도한 예압은 베어링을 손상시킬 수 있으므로 이를 조심스럽게 결정해야 합니다 [en_ball_bearing#3]. 예압량은 베어링의 하중 특성과 작동 조건에 따라 계산되어야 하며, 축 방향 하중과 반경 방향 하중의 비율을 고려해야 합니다 [ko_ball_bearing#3]. 또한, 예압은 베어링의 레이스 간의 미세한 간격을 흡수하여 축 방향 런아웃을 개선하는 데 사용되므로, 이에 적합한 값이 필요합니다 [en_ball_bearing#3]. 그러나 제공된 문맥에는 최적의 예압량을 정량적으로 확인하는 구체적인 방법이나 공식이 명시",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_ball_bearing#3",
+      "ko_ball_bearing#0",
+      "ko_ball_bearing#3",
+      "en_ball_bearing#2",
+      "ko_ball_bearing#16"
+     ],
+     "prompt_tokens": 2170,
+     "completion_tokens": 256,
+     "seconds": 7.470839178189635,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K07",
+   "question": "휠 허브에 테이퍼 롤러 베어링을 조립할 때 엔드플레이가 너무 작게 설정되면 운전 중 어떤 문제가 생길 수 있나요?",
+   "topic": "preload_setting",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "엔드플레이가 너무 작게 설정되면 운전 중 테이퍼 롤러 베어링의 웨이크(롤러)들이 서로 더 많이 접촉하고 마찰이 증가하여 안전한 작동이 어려워질 수 있습니다 [luh-diss-stuhler-2024#155]. 이로 인해 마찰이 증가하여 높은 온도가 발생하고, 이는 운전 중 베어링의 내부 슬립이 줄어들고 운전 중 접촉이 증가하게 만들 수 있습니다 [luh-diss-stuhler-2024#155]. 이러한 조건은 베어링의 마모와 손상 위험을 증가시킵니다. 또한, 운전 초기에 발생하는 높은 가속력과 함께 접촉이 심해지며, 이는 베어링의 수명을 단축시킬 수 있습니다 [luh-diss-stuhler-2024#155].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_tapered_roller_bearing#0",
+      "en_tapered_roller_bearing#1",
+      "luh-diss-stuhler-2024#155",
+      "en_rolling_element_bearing#5",
+      "en_tapered_roller_bearing#2"
+     ],
+     "prompt_tokens": 1848,
+     "completion_tokens": 237,
+     "seconds": 6.9318917859345675
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "엔드플레이가 너무 작게 설정되면 예압이 과다해지며, 이로 인해 베어링 내 마찰이 증가하고 발열이 발생합니다. 이는 윤활유 파괴와 조기 피로를 유도하여 궤도에 균일한 마모나 박리가 생길 수 있습니다 [kb_preload_setting#0]. 또한 운전 중 온도 상승이 급격해지고, 그리스가 변색되거나 소음이 증가할 수 있습니다 [kb_preload_setting#0].",
+     "raw": "엔드플레이가 너무 작게 설정되면 예압이 과다해지며, 이로 인해 베어링 내 마찰이 증가하고 발열이 발생합니다. 이는 윤활유 파괴와 조기 피로를 유도하여 궤도에 균일한 마모나 박리가 생길 수 있습니다 [kb_preload_setting#0]. 또한 운전 중 온도 상승이 급격해지고, 그리스가 변색되거나 소음이 증가할 수 있습니다 [kb_preload_setting#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10081,
+     "completion_tokens": 126,
+     "seconds": 5.3688528928905725
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "엔드플레이가 너무 작게 설정되면 운전 중 테이퍼 롤러 베어링의 웨이크(롤러)들이 서로 더 많이 접촉하고 마찰이 증가하여 안전한 작동이 어려워질 수 있습니다 [luh-diss-stuhler-2024#155]. 이로 인해 마찰이 증가하여 높은 온도가 발생하고, 이는 운전 중 베어링의 내부 슬립이 줄어들고 운전 중 접촉이 증가하게 만들 수 있습니다 [luh-diss-stuhler-2024#155]. 이러한 조건은 베어링의 마모와 손상 위험을 증가시킵니다. 또한, 운전 초기에 발생하는 높은 가속력과 함께 접촉이 심해지며, 이는 베어링의 수명을 단축시킬 수 있습니다 [luh-diss-stuhler-2024#155].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_tapered_roller_bearing#0",
+      "en_tapered_roller_bearing#1",
+      "luh-diss-stuhler-2024#155",
+      "en_rolling_element_bearing#5",
+      "en_tapered_roller_bearing#2"
+     ],
+     "prompt_tokens": 1848,
+     "completion_tokens": 237,
+     "seconds": 6.9318917859345675,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K08",
+   "question": "운전 중인 베어링을 분해했더니 궤도면에 톱니바퀴 모양의 규칙적인 자국(Fluting)이 생겼는데 이는 어떤 손상에 해당하나요?",
+   "topic": "failure_modes",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "이 자국은 마찰로 인한 톱니바퀴 모양의 규칙적인 자국을 나타내며, 이는 \"fretting wear\"에 해당합니다. 이는 작은 진동이 회전 속도와 조화를 이루며 축이 회전하면서 발생하는 진동으로 인해 발생하며, 회전 속도의 주기와 함께 볼이나 롤러가 경로를 따라 특정 위치에서 경로와 접촉하게 되어 발생합니다. 이러한 접촉은 특정 지역에만 마모를 유도하여 불균형한 마모 패턴을 만들고, 이는 실제 브린엘링과 유사하지만, 마모의 패턴이 움직임에 따라 넓어지기 때문에 구분할 수 있습니다. [en_brinelling#3]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_brinelling#2",
+      "luh-diss-stuhler-2024#156",
+      "en_brinelling#3",
+      "luh-diss-stuhler-2024#196",
+      "luh-diss-stuhler-2024#127"
+     ],
+     "prompt_tokens": 2114,
+     "completion_tokens": 184,
+     "seconds": 5.406490650959313
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "이 톱니바퀴 모양의 규칙적인 자국(Fluting)은 전식(electrical erosion) 손상에 해당합니다. 전식 손상은 인버터의 고속 스위칭으로 인해 베어링 유막이 뚫리고 방전되면서 발생하며, 궤도에 빨래판 무늬(fluting)가 생기고 전동체에 미세한 크레이터가 형성됩니다 [kb_failure_modes#0].",
+     "raw": "이 톱니바퀴 모양의 규칙적인 자국(Fluting)은 전식(electrical erosion) 손상에 해당합니다. 전식 손상은 인버터의 고속 스위칭으로 인해 베어링 유막이 뚫리고 방전되면서 발생하며, 궤도에 빨래판 무늬(fluting)가 생기고 전동체에 미세한 크레이터가 형성됩니다 [kb_failure_modes#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10086,
+     "completion_tokens": 110,
+     "seconds": 4.716478940099478
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "이 자국은 마찰로 인한 톱니바퀴 모양의 규칙적인 자국을 나타내며, 이는 \"fretting wear\"에 해당합니다. 이는 작은 진동이 회전 속도와 조화를 이루며 축이 회전하면서 발생하는 진동으로 인해 발생하며, 회전 속도의 주기와 함께 볼이나 롤러가 경로를 따라 특정 위치에서 경로와 접촉하게 되어 발생합니다. 이러한 접촉은 특정 지역에만 마모를 유도하여 불균형한 마모 패턴을 만들고, 이는 실제 브린엘링과 유사하지만, 마모의 패턴이 움직임에 따라 넓어지기 때문에 구분할 수 있습니다. [en_brinelling#3]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_brinelling#2",
+      "luh-diss-stuhler-2024#156",
+      "en_brinelling#3",
+      "luh-diss-stuhler-2024#196",
+      "luh-diss-stuhler-2024#127"
+     ],
+     "prompt_tokens": 2114,
+     "completion_tokens": 184,
+     "seconds": 5.406490650959313,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K09",
+   "question": "전동체 표면에 미세한 박리(피팅) 현상이 나타나는 구름 접촉 피로의 초기 원인은 보통 무엇으로 볼 수 있나요?",
+   "topic": "failure_modes",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "전동체 표면에 미세한 박리(피팅) 현상이 나타나는 구름 접촉 피로의 초기 원인은 보통 최대 절단 응력 지역에서 발생하는 접촉 표면 아래의 응력에 의해 시작됩니다 [luh-diss-stuhler-2024#125]. 이는 고온과 급격한 냉각으로 인해 발생하는 재질 변화와 함께, 마찰로 인한 물질 이동과 함께 나타납니다 [luh-diss-stuhler-2024#125]. 이러한 현상은 특히 충분한 마찰층이 부족할 때 발생하며, 초기 단계에서 표면의 마모와 함께 나타납니다 [luh-diss-stuhler-2024#15]. 초기 피팅은 고온 마찰과 재질 변화로 인해 발생하는 재질의 새로운 경화(Reibmartenit)와 관련이 있습니다 [luh-diss-stuhler-2024#125].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_fretting#0",
+      "luh-diss-stuhler-2024#15",
+      "luh-diss-stuhler-2024#125",
+      "nasa-tp-2013-215305-rev1#9",
+      "luh-diss-stuhler-2024#129"
+     ],
+     "prompt_tokens": 2239,
+     "completion_tokens": 238,
+     "seconds": 6.936032477766275
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "전동체 표면에 미세한 박리(피팅) 현상이 나타나는 구름 접촉 피로의 초기 원인은 과하중, 윤활 부족(얇은 유막), 오염 입자 압흔에서 시작됩니다 [kb_failure_modes#0].",
+     "raw": "전동체 표면에 미세한 박리(피팅) 현상이 나타나는 구름 접촉 피로의 초기 원인은 과하중, 윤활 부족(얇은 유막), 오염 입자 압흔에서 시작됩니다 [kb_failure_modes#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10078,
+     "completion_tokens": 67,
+     "seconds": 3.699445344042033
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "전동체 표면에 미세한 박리(피팅) 현상이 나타나는 구름 접촉 피로의 초기 원인은 보통 최대 절단 응력 지역에서 발생하는 접촉 표면 아래의 응력에 의해 시작됩니다 [luh-diss-stuhler-2024#125]. 이는 고온과 급격한 냉각으로 인해 발생하는 재질 변화와 함께, 마찰로 인한 물질 이동과 함께 나타납니다 [luh-diss-stuhler-2024#125]. 이러한 현상은 특히 충분한 마찰층이 부족할 때 발생하며, 초기 단계에서 표면의 마모와 함께 나타납니다 [luh-diss-stuhler-2024#15]. 초기 피팅은 고온 마찰과 재질 변화로 인해 발생하는 재질의 새로운 경화(Reibmartenit)와 관련이 있습니다 [luh-diss-stuhler-2024#125].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_fretting#0",
+      "luh-diss-stuhler-2024#15",
+      "luh-diss-stuhler-2024#125",
+      "nasa-tp-2013-215305-rev1#9",
+      "luh-diss-stuhler-2024#129"
+     ],
+     "prompt_tokens": 2239,
+     "completion_tokens": 238,
+     "seconds": 6.936032477766275,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K10",
+   "question": "진동 분석에서 외륜 결함 주파수(BPFO) 성분이 뚜렷하게 나타날 때, 엔벨로프 분석을 함께 적용하는 이유는 무엇입니까?",
+   "topic": "vibration_diagnosis",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#61",
+      "luh-diss-stuhler-2024#57",
+      "luh-diss-stuhler-2024#62",
+      "luh-diss-stuhler-2024#60",
+      "luh-diss-stuhler-2024#49"
+     ],
+     "prompt_tokens": 2465,
+     "completion_tokens": 4,
+     "seconds": 0.48162593599408865
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "진동 분석에서 외륜 결함 주파수(BPFO) 성분이 뚜렷하게 나타날 때 엔벨로프 분석을 함께 적용하는 이유는 초기 손상이 고주파 충격으로 나타나기 때문입니다. 엔벨로프 스펙트럼은 이러한 고주파 충격을 감지하여 결함의 초기 단계를 조기에 탐지할 수 있으며, 속도 스펙트럼에 비해 더 빠르고 정확하게 결함 주파수의 변조 패턴을 파악할 수 있기 때문입니다 [kb_vibration_diagnosis#0].",
+     "raw": "진동 분석에서 외륜 결함 주파수(BPFO) 성분이 뚜렷하게 나타날 때 엔벨로프 분석을 함께 적용하는 이유는 초기 손상이 고주파 충격으로 나타나기 때문입니다. 엔벨로프 스펙트럼은 이러한 고주파 충격을 감지하여 결함의 초기 단계를 조기에 탐지할 수 있으며, 속도 스펙트럼에 비해 더 빠르고 정확하게 결함 주파수의 변조 패턴을 파악할 수 있기 때문입니다 [kb_vibration_diagnosis#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10080,
+     "completion_tokens": 148,
+     "seconds": 5.924156000837684
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "진동 분석에서 외륜 결함 주파수(BPFO) 성분이 뚜렷하게 나타날 때 엔벨로프 분석을 함께 적용하는 이유는 초기 손상이 고주파 충격으로 나타나기 때문입니다. 엔벨로프 스펙트럼은 이러한 고주파 충격을 감지하여 결함의 초기 단계를 조기에 탐지할 수 있으며, 속도 스펙트럼에 비해 더 빠르고 정확하게 결함 주파수의 변조 패턴을 파악할 수 있기 때문입니다 [kb_vibration_diagnosis#0].",
+     "raw": "진동 분석에서 외륜 결함 주파수(BPFO) 성분이 뚜렷하게 나타날 때 엔벨로프 분석을 함께 적용하는 이유는 초기 손상이 고주파 충격으로 나타나기 때문입니다. 엔벨로프 스펙트럼은 이러한 고주파 충격을 감지하여 결함의 초기 단계를 조기에 탐지할 수 있으며, 속도 스펙트럼에 비해 더 빠르고 정확하게 결함 주파수의 변조 패턴을 파악할 수 있기 때문입니다 [kb_vibration_diagnosis#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12545,
+     "completion_tokens": 152,
+     "seconds": 6.405781936831772,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K11",
+   "question": "기어박스 윤활유의 페로그래피 분석 결과 긴 띠 모양의 마모 입자가 다량 검출되었다면 내부에서 어떤 현상이 진행 중이라고 볼 수 있나요?",
+   "topic": "oil_analysis",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "invalid_citation",
+     "context_ids": [
+      "luh-diss-stuhler-2024#19",
+      "de_schmierfett#12",
+      "en_wear#9",
+      "en_wear#6",
+      "luh-diss-stuhler-2024#128"
+     ],
+     "prompt_tokens": 2208,
+     "completion_tokens": 234,
+     "seconds": 6.710983947850764
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "긴 띠 모양의 마모 입자가 다량 검출되면 절삭 마모(abrasive wear)가 진행 중이라고 볼 수 있습니다. 이는 윤활유에 오염 입자가 포함되어 있어 마찰로 인해 금속 표면이 절삭되는 현상을 의미하며, 특히 기어 또는 베어링의 연마 마모로 이어질 수 있습니다 [kb_oil_analysis#0].",
+     "raw": "긴 띠 모양의 마모 입자가 다량 검출되면 절삭 마모(abrasive wear)가 진행 중이라고 볼 수 있습니다. 이는 윤활유에 오염 입자가 포함되어 있어 마찰로 인해 금속 표면이 절삭되는 현상을 의미하며, 특히 기어 또는 베어링의 연마 마모로 이어질 수 있습니다 [kb_oil_analysis#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10087,
+     "completion_tokens": 97,
+     "seconds": 4.594049352686852
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "긴 띠 모양의 마모 입자가 다량 검출되면 절삭 마모(abrasive wear)가 진행 중이라고 볼 수 있습니다. 이는 윤활유에 오염 입자가 포함되어 있어 마찰로 인해 금속 표면이 절삭되는 현상을 의미하며, 특히 기어 또는 베어링의 연마 마모로 이어질 수 있습니다 [kb_oil_analysis#0].",
+     "raw": "긴 띠 모양의 마모 입자가 다량 검출되면 절삭 마모(abrasive wear)가 진행 중이라고 볼 수 있습니다. 이는 윤활유에 오염 입자가 포함되어 있어 마찰로 인해 금속 표면이 절삭되는 현상을 의미하며, 특히 기어 또는 베어링의 연마 마모로 이어질 수 있습니다 [kb_oil_analysis#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12295,
+     "completion_tokens": 331,
+     "seconds": 11.305033300537616,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K12",
+   "question": "주행 중 차체에서 웅웅거리는 소음이 날 때 이것이 타이어 편마모 때문인지 휠 베어링 손상 때문인지 주행 테스트로 구분하는 방법은 무엇입니까?",
+   "topic": "wheel_bearing_noise",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "de_waelzlager#8",
+      "de_verschleiss#0",
+      "en_brinelling#3",
+      "luh-diss-stuhler-2024#7",
+      "luh-diss-stuhler-2024#156"
+     ],
+     "prompt_tokens": 2223,
+     "completion_tokens": 4,
+     "seconds": 0.4464316591620445
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "주행 중 차체에서 웅웅거리는 소음이 날 때, 좌우로 완만하게 차선을 변경하면서 소음이 어떻게 변하는지를 확인합니다. 선회 시 소음이 하중이 실리는 바깥쪽 바퀴에 따라 커지면 휠 베어링 손상이 의심되며, 반대로 소음이 일정하거나 노면에 따라 크게 변하는 경우 타이어 편마모가 원인일 가능성이 높습니다. 또한 중립 타행 상태에서도 소음이 지속되면 휠 베어링 손상이, 차속에 비례해 소음이 증가하고 노면 변화에 따라 크게 달라지는 경우 타이어 편마모일 가능성이 있습니다 [kb_wheel_bearing_noise#0].",
+     "raw": "주행 중 차체에서 웅웅거리는 소음이 날 때, 좌우로 완만하게 차선을 변경하면서 소음이 어떻게 변하는지를 확인합니다. 선회 시 소음이 하중이 실리는 바깥쪽 바퀴에 따라 커지면 휠 베어링 손상이 의심되며, 반대로 소음이 일정하거나 노면에 따라 크게 변하는 경우 타이어 편마모가 원인일 가능성이 높습니다. 또한 중립 타행 상태에서도 소음이 지속되면 휠 베어링 손상이, 차속에 비례해 소음이 증가하고 노면 변화에 따라 크게 달라지는 경우 타이어 편마모일 가능성이 있습니다 [kb_wheel_bearing_noise#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10090,
+     "completion_tokens": 189,
+     "seconds": 7.216023318003863
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "주행 중 차체에서 웅웅거리는 소음이 날 때, 좌우로 완만하게 차선을 변경하면서 소음이 어떻게 변하는지를 확인합니다. 선회 시 소음이 하중이 실리는 바깥쪽 바퀴에 따라 커지면 휠 베어링 손상이 의심되며, 반대로 소음이 일정하거나 노면에 따라 크게 변하는 경우 타이어 편마모가 원인일 가능성이 높습니다. 또한 중립 타행 상태에서도 소음이 지속되면 휠 베어링 손상이, 차속에 비례해 소음이 증가하고 노면 변화에 따라 크게 달라지는 경우 타이어 편마모일 가능성이 있습니다 [kb_wheel_bearing_noise#0].",
+     "raw": "주행 중 차체에서 웅웅거리는 소음이 날 때, 좌우로 완만하게 차선을 변경하면서 소음이 어떻게 변하는지를 확인합니다. 선회 시 소음이 하중이 실리는 바깥쪽 바퀴에 따라 커지면 휠 베어링 손상이 의심되며, 반대로 소음이 일정하거나 노면에 따라 크게 변하는 경우 타이어 편마모가 원인일 가능성이 높습니다. 또한 중립 타행 상태에서도 소음이 지속되면 휠 베어링 손상이, 차속에 비례해 소음이 증가하고 노면 변화에 따라 크게 달라지는 경우 타이어 편마모일 가능성이 있습니다 [kb_wheel_bearing_noise#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12313,
+     "completion_tokens": 193,
+     "seconds": 7.662454977165908,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K13",
+   "question": "후륜구동 차량의 프로펠러 샤프트에서 발생하는 비틀림 진동을 저감하기 위해 적용되는 대표적인 부품이나 설계 방식은 무엇인가요?",
+   "topic": "driveline_torsional_damping",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "후륜구동 차량의 프로펠러 샤프트에서 발생하는 비틀림 진동을 저감하기 위해 적용되는 대표적인 부품은 나일 롤러 베어링입니다. 나일 롤러 베어링은 회전 표면의 마찰을 줄이기 위해 사용되며, 고강도로 하중을 지지할 수 있습니다. 이 베어링은 헤드가 길고 얇아서 축과 주변 구조물 사이의 간격을 줄일 수 있어, 진동을 효과적으로 흡수합니다. 또한, 후륜구동 차량의 드라이브 샤프트에는 일반적으로 각 U조인트에 최소 4개의 나일 롤러 베어링이 사용되며, 긴 샤프트나 경사로 운행 시 더 많은 베어링이 필요할 수 있습니다 [en_needle_roller_bearing#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "de_homokinetisches_gelenk#4",
+      "en_cv_joint#4",
+      "en_needle_roller_bearing#0",
+      "en_cv_joint#7",
+      "de_homokinetisches_gelenk#3"
+     ],
+     "prompt_tokens": 1910,
+     "completion_tokens": 218,
+     "seconds": 6.368148807901889
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "대표적인 부품은 프로펠러 샤프트 동흡진기(튜닝 매스 댐퍼)입니다. 이 장치는 특정 주파수에 맞춘 질량-고무 스프링을 사용하여 공진을 상쇄합니다 [kb_driveline_torsional_damping#0]. 또한, 샤프트 연결부에 고무 커플링 또는 플렉시블 조인트를 적용하여 충격과 고주파 진동을 절연하는 설계 방식도 사용됩니다 [kb_driveline_torsional_damping#0].",
+     "raw": "대표적인 부품은 프로펠러 샤프트 동흡진기(튜닝 매스 댐퍼)입니다. 이 장치는 특정 주파수에 맞춘 질량-고무 스프링을 사용하여 공진을 상쇄합니다 [kb_driveline_torsional_damping#0]. 또한, 샤프트 연결부에 고무 커플링 또는 플렉시블 조인트를 적용하여 충격과 고주파 진동을 절연하는 설계 방식도 사용됩니다 [kb_driveline_torsional_damping#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10080,
+     "completion_tokens": 134,
+     "seconds": 5.720345253124833
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "후륜구동 차량의 프로펠러 샤프트에서 발생하는 비틀림 진동을 저감하기 위해 적용되는 대표적인 부품은 나일 롤러 베어링입니다. 나일 롤러 베어링은 회전 표면의 마찰을 줄이기 위해 사용되며, 고강도로 하중을 지지할 수 있습니다. 이 베어링은 헤드가 길고 얇아서 축과 주변 구조물 사이의 간격을 줄일 수 있어, 진동을 효과적으로 흡수합니다. 또한, 후륜구동 차량의 드라이브 샤프트에는 일반적으로 각 U조인트에 최소 4개의 나일 롤러 베어링이 사용되며, 긴 샤프트나 경사로 운행 시 더 많은 베어링이 필요할 수 있습니다 [en_needle_roller_bearing#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "de_homokinetisches_gelenk#4",
+      "en_cv_joint#4",
+      "en_needle_roller_bearing#0",
+      "en_cv_joint#7",
+      "de_homokinetisches_gelenk#3"
+     ],
+     "prompt_tokens": 1910,
+     "completion_tokens": 218,
+     "seconds": 6.368148807901889,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K14",
+   "question": "전기차 감속기용 베어링이 일반 내연기관 차량용 베어링보다 더 높은 최고 회전수와 내전식성을 요구받는 이유는 무엇인가요?",
+   "topic": "ev_reducer_bearing",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "de_hydrodynamisches_gleitlager#5",
+      "en_bearing_mechanical#11",
+      "en_bearing_mechanical#8",
+      "ko_bearing#3",
+      "ko_bearing#4"
+     ],
+     "prompt_tokens": 2088,
+     "completion_tokens": 4,
+     "seconds": 0.5002082642167807
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "전기차 감속기용 베어링이 일반 내연기관 차량용 베어링보다 더 높은 최고 회전수와 내전식성을 요구받는 이유는 구동 모터가 12,000~20,000 rpm(일부 차종은 그 이상)으로 고속으로 회전하기 때문입니다. 이로 인해 감속기 입력축은 내연기관 변속기 입력축(최대 6,000~8,000 rpm)의 2~3배의 고속 회전을 받기 때문에, 전동체 원심력으로 인한 접촉각 변화, 케이지 하중 증가, 발열, 윤활유 교반 손실이 발생합니다. 또한 인버터의 고속 스위칭(PWM)으로 인해 모터 축에 공통 모드 전압이 유도되어 베어링 유막이 뚫리고 전식(EDM)이 발생할 수 있으므로, 전기 절연성도 요구됩니다 [kb_ev_reducer_bearing#0].",
+     "raw": "전기차 감속기용 베어링이 일반 내연기관 차량용 베어링보다 더 높은 최고 회전수와 내전식성을 요구받는 이유는 구동 모터가 12,000~20,000 rpm(일부 차종은 그 이상)으로 고속으로 회전하기 때문입니다. 이로 인해 감속기 입력축은 내연기관 변속기 입력축(최대 6,000~8,000 rpm)의 2~3배의 고속 회전을 받기 때문에, 전동체 원심력으로 인한 접촉각 변화, 케이지 하중 증가, 발열, 윤활유 교반 손실이 발생합니다. 또한 인버터의 고속 스위칭(PWM)으로 인해 모터 축에 공통 모드 전압이 유도되어 베어링 유막이 뚫리고 전식(EDM)이 발생할 수 있으므로, 전기 절연성도 요구됩니다 [kb_ev_reducer_bearing#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10083,
+     "completion_tokens": 251,
+     "seconds": 9.106762992218137
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "전기차 감속기용 베어링이 일반 내연기관 차량용 베어링보다 더 높은 최고 회전수와 내전식성을 요구받는 이유는 구동 모터가 12,000~20,000 rpm(일부 차종은 그 이상)으로 고속으로 회전하기 때문입니다. 이로 인해 감속기 입력축은 내연기관 변속기 입력축(최대 6,000~8,000 rpm)의 2~3배의 고속 회전을 받기 때문에, 전동체 원심력으로 인한 접촉각 변화, 케이지 하중 증가, 발열, 윤활유 교반 손실이 발생합니다. 또한 인버터의 고속 스위칭(PWM)으로 인해 모터 축에 공통 모드 전압이 유도되어 베어링 유막이 뚫리고 전식(EDM)이 발생할 수 있으므로, 전기 절연성도 요구됩니다 [kb_ev_reducer_bearing#0].",
+     "raw": "전기차 감속기용 베어링이 일반 내연기관 차량용 베어링보다 더 높은 최고 회전수와 내전식성을 요구받는 이유는 구동 모터가 12,000~20,000 rpm(일부 차종은 그 이상)으로 고속으로 회전하기 때문입니다. 이로 인해 감속기 입력축은 내연기관 변속기 입력축(최대 6,000~8,000 rpm)의 2~3배의 고속 회전을 받기 때문에, 전동체 원심력으로 인한 접촉각 변화, 케이지 하중 증가, 발열, 윤활유 교반 손실이 발생합니다. 또한 인버터의 고속 스위칭(PWM)으로 인해 모터 축에 공통 모드 전압이 유도되어 베어링 유막이 뚫리고 전식(EDM)이 발생할 수 있으므로, 전기 절연성도 요구됩니다 [kb_ev_reducer_bearing#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12171,
+     "completion_tokens": 255,
+     "seconds": 9.606971256434917,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K15",
+   "question": "대형 원통 롤러 베어링을 열박음으로 조립할 때 인덕션 히터를 사용해 가열하는 적정 온도 범위와 주의사항은 무엇입니까?",
+   "topic": "storage_handling",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "대형 원통 롤러 베어링을 열박음으로 조립할 때 인덕션 히터를 사용해 가열하는 적정 온도 범위는 80–100 °C입니다. [de_waelzlager#31] 주의사항은 스테인의 구조 변화를 방지하기 위해 최대 약 125 °C까지 가열할 수 있으며, 과도한 온도는 피해야 합니다. [de_waelzlager#31] 또한, 과도한 클라스를 사용하면 베어링에 침투하여 고정될 수 있으므로 적절한 클라스 양을 사용해야 합니다. [de_waelzlager#30]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "de_waelzlager#31",
+      "de_waelzlager#30",
+      "luh-diss-stuhler-2024#45",
+      "luh-diss-stuhler-2024#119",
+      "luh-diss-stuhler-2024#120"
+     ],
+     "prompt_tokens": 2454,
+     "completion_tokens": 170,
+     "seconds": 5.134345124009997
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10084,
+     "completion_tokens": 4,
+     "seconds": 2.413552924990654
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "대형 원통 롤러 베어링을 열박음으로 조립할 때 인덕션 히터를 사용해 가열하는 적정 온도 범위는 80–100 °C입니다. [de_waelzlager#31] 주의사항은 스테인의 구조 변화를 방지하기 위해 최대 약 125 °C까지 가열할 수 있으며, 과도한 온도는 피해야 합니다. [de_waelzlager#31] 또한, 과도한 클라스를 사용하면 베어링에 침투하여 고정될 수 있으므로 적절한 클라스 양을 사용해야 합니다. [de_waelzlager#30]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "de_waelzlager#31",
+      "de_waelzlager#30",
+      "luh-diss-stuhler-2024#45",
+      "luh-diss-stuhler-2024#119",
+      "luh-diss-stuhler-2024#120"
+     ],
+     "prompt_tokens": 2454,
+     "completion_tokens": 170,
+     "seconds": 5.134345124009997,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K16",
+   "question": "포장을 뜯지 않은 새 구름 베어링을 창고에 장기 보관할 때 진동에 의한 거짓 브리넬링을 막기 위한 보관 수칙은 무엇인가요?",
+   "topic": "storage_handling",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "포장을 뜯지 않은 새 구름 베어링을 창고에 장기 보관할 때 진동에 의한 거짓 브리넬링을 막기 위한 보관 수칙은 진동을 최소화하여 베어링이 진동에 노출되지 않도록 하는 것입니다. 진동이 발생하면 레이스와 구름 요소 사이에서 작은 하중이 형성되어 류체가 밀어나지고, 이로 인해 균일한 패턴의 마모가 발생하여 거짓 브리넬링이 일어날 수 있습니다 [ko_ball_bearing#12]. 따라서 보관 시 베어링을 진동이 적은 환경에 두고, 충격이나 진동이 없는 안정된 위치에 보관해야 합니다. 또한, 보관 시 베어링을 고정하여 움직임을 제한하고, 진동이 발생할 가능성이 있는 환경을 피해야 합니다 [en_brinelling#3].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_brinelling#2",
+      "ko_ball_bearing#12",
+      "en_brinelling#1",
+      "en_brinelling#3",
+      "en_fretting#2"
+     ],
+     "prompt_tokens": 1810,
+     "completion_tokens": 231,
+     "seconds": 6.678461062256247
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "포장을 뜯지 않은 새 구름 베어링을 창고에 장기 보관할 때 진동에 의한 거짓 브리넬링을 막기 위한 보관 수칙은 진동이 없는 곳에 보관하는 것입니다 [kb_storage_handling#0].",
+     "raw": "포장을 뜯지 않은 새 구름 베어링을 창고에 장기 보관할 때 진동에 의한 거짓 브리넬링을 막기 위한 보관 수칙은 진동이 없는 곳에 보관하는 것입니다 [kb_storage_handling#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10087,
+     "completion_tokens": 67,
+     "seconds": 4.268053339794278
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "포장을 뜯지 않은 새 구름 베어링을 창고에 장기 보관할 때 진동에 의한 거짓 브리넬링을 막기 위한 보관 수칙은 진동을 최소화하여 베어링이 진동에 노출되지 않도록 하는 것입니다. 진동이 발생하면 레이스와 구름 요소 사이에서 작은 하중이 형성되어 류체가 밀어나지고, 이로 인해 균일한 패턴의 마모가 발생하여 거짓 브리넬링이 일어날 수 있습니다 [ko_ball_bearing#12]. 따라서 보관 시 베어링을 진동이 적은 환경에 두고, 충격이나 진동이 없는 안정된 위치에 보관해야 합니다. 또한, 보관 시 베어링을 고정하여 움직임을 제한하고, 진동이 발생할 가능성이 있는 환경을 피해야 합니다 [en_brinelling#3].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_brinelling#2",
+      "ko_ball_bearing#12",
+      "en_brinelling#1",
+      "en_brinelling#3",
+      "en_fretting#2"
+     ],
+     "prompt_tokens": 1810,
+     "completion_tokens": 231,
+     "seconds": 6.678461062256247,
+     "path": "rag"
+    }
+   }
+  },
+  {
+   "qid": "K17",
+   "question": "V벨트 풀리 구동계에서 장력이 너무 약할 때 발생하는 슬립 현상과 적정 장력 측정 방법은 무엇인가요?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#100",
+      "luh-diss-stuhler-2024#87",
+      "luh-diss-stuhler-2024#85",
+      "luh-diss-stuhler-2024#5",
+      "luh-diss-stuhler-2024#190"
+     ],
+     "prompt_tokens": 2521,
+     "completion_tokens": 4,
+     "seconds": 0.5461276690475643
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10076,
+     "completion_tokens": 4,
+     "seconds": 2.362411345820874
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12597,
+     "completion_tokens": 8,
+     "seconds": 2.9085390148684382,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K18",
+   "question": "자동차 브레이크 패드 소재 중 세라믹 패드와 로우 메탈릭 패드의 제동 성능과 분진 발생량 차이는 어떠합니까?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "ko_ball_bearing#9",
+      "en_plain_bearing#7",
+      "luh-diss-stuhler-2024#184",
+      "luh-diss-stuhler-2024#65",
+      "en_ball_bearing#8"
+     ],
+     "prompt_tokens": 2213,
+     "completion_tokens": 4,
+     "seconds": 0.5053547667339444
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10080,
+     "completion_tokens": 4,
+     "seconds": 2.4921002499759197
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12293,
+     "completion_tokens": 8,
+     "seconds": 2.997455016709864,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K19",
+   "question": "유압 시스템의 기어 펌프에서 캐비테이션이 발생할 때 펌프 내부 기어에 미치는 물리적 영향은 무엇인가요?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "nasa-tp-2013-215305-rev1#90",
+      "luh-diss-pelzer-2022#23",
+      "en_lubrication#3",
+      "nasa-tp-2013-215305-rev1#119",
+      "luh-diss-pelzer-2022#29"
+     ],
+     "prompt_tokens": 2069,
+     "completion_tokens": 4,
+     "seconds": 0.5053794495761395
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10081,
+     "completion_tokens": 4,
+     "seconds": 2.591727187857032
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12150,
+     "completion_tokens": 8,
+     "seconds": 3.0971066374331713,
+     "path": "bundle"
+    }
+   }
+  },
+  {
+   "qid": "K20",
+   "question": "디젤 차량의 DPF 재생 조건이 충족되지 않아 경고등이 켜졌을 때, 강제 재생을 위해 스캐너 없이 운전자가 취할 수 있는 조치는 무엇입니까?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#184",
+      "en_lubrication#3",
+      "luh-diss-stuhler-2024#130",
+      "luh-diss-stuhler-2024#27",
+      "luh-diss-stuhler-2024#123"
+     ],
+     "prompt_tokens": 2309,
+     "completion_tokens": 4,
+     "seconds": 0.560351368971169
+    },
+    "bundle": {
+     "mode": "bundle",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 10089,
+     "completion_tokens": 4,
+     "seconds": 2.5382863408885896
+    },
+    "hybrid": {
+     "mode": "hybrid",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_driveline_torsional_damping#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_grease_selection#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 12398,
+     "completion_tokens": 8,
+     "seconds": 3.0986377098597586,
+     "path": "bundle"
+    }
+   }
+  }
+ ]
+}
