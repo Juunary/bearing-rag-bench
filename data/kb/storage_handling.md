@@ -7,7 +7,7 @@ names:
   en: ["bearing storage", "bearing handling", "bearing mounting", "induction heater"]
   de: ["Lagerung von Wälzlagern", "Lagermontage"]
 related: ["fit_loose_creep", "preload_setting", "failure_modes"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 보관·취급·조립 요령

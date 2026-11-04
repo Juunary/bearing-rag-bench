@@ -7,7 +7,7 @@ names:
   en: ["EV reducer bearing", "electric vehicle bearing requirements", "bearing currents", "high-speed bearing"]
   de: ["E-Achse Lager", "Lagerströme"]
 related: ["grease_selection", "failure_modes", "driveline_torsional_damping"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 전기차 감속기 베어링 요구 사항

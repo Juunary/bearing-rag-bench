@@ -7,7 +7,7 @@ names:
   en: ["loose fit", "ring creep", "fretting corrosion", "housing fit"]
   de: ["Spielpassung", "Passungsrost", "Wandern des Rings"]
 related: ["preload_setting", "failure_modes", "storage_handling"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 헐거운 끼워맞춤과 링 크리프·프레팅

@@ -7,7 +7,7 @@ names:
   en: ["wheel bearing noise", "hub bearing diagnosis", "tire noise"]
   de: ["Radlagergeräusch", "Radlager Diagnose"]
 related: ["vibration_diagnosis", "failure_modes"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 휠 베어링 소음과 타이어 소음 구분

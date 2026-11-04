@@ -7,7 +7,7 @@ names:
   en: ["torsional vibration", "driveline damper", "dual-mass flywheel", "torsional damper", "tuned mass damper"]
   de: ["Drehschwingung", "Zweimassenschwungrad", "Torsionsdämpfer"]
 related: ["ev_reducer_bearing", "failure_modes"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 구동계 비틀림 진동 댐핑 방식

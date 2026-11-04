@@ -7,7 +7,7 @@ names:
   en: ["bearing failure modes", "damage classification", "spalling", "electrical erosion", "false brinelling"]
   de: ["Lagerschäden", "Schadensbild"]
 related: ["fit_loose_creep", "vibration_diagnosis", "oil_analysis", "storage_handling"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 손상 모드와 증상 (ISO 15243 분류)

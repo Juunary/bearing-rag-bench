@@ -7,7 +7,7 @@ names:
   en: ["bearing preload setting", "end play adjustment", "clearance adjustment", "bearing adjustment"]
   de: ["Vorspannung einstellen", "Lagerspiel einstellen"]
 related: ["fit_loose_creep", "failure_modes"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 예압·틈새 설정과 확인

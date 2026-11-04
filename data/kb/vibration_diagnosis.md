@@ -7,7 +7,7 @@ names:
   en: ["vibration analysis", "bearing defect frequencies", "envelope analysis", "ball pass frequency"]
   de: ["Schwingungsdiagnose", "Wälzlagerdiagnose"]
 related: ["failure_modes", "wheel_bearing_noise"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 진동 스펙트럼으로 베어링 결함 찾기

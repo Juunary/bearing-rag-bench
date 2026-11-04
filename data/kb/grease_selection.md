@@ -7,7 +7,7 @@ names:
   en: ["grease selection", "high-temperature grease", "polyurea grease", "lithium complex grease", "EP grease"]
   de: ["Schmierfettauswahl", "Hochtemperaturfett"]
 related: ["relubrication", "ev_reducer_bearing"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 그리스 선정: 고온·고하중·고속

@@ -7,7 +7,7 @@ names:
   en: ["oil analysis", "ferrography", "wear particle analysis", "wear debris"]
   de: ["Ölanalyse", "Ferrographie"]
 related: ["failure_modes", "vibration_diagnosis"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 오일 분석으로 마모 상태 추정
