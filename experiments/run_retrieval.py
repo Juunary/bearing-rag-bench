@@ -47,14 +47,18 @@ SAMPLE_QUERIES = [
 
 def _run_extra(retriever) -> dict:
     """Method-specific facts a retriever wants stored (the English pivot reports translation cost)."""
-    # hybrid(.retrievers)·rerank(.base) 안쪽에 감싸인 검색기까지 내려가며 run_extra()를 모은다
+    # hybrid(.retrievers)·rerank(.base)·개념 후보(.pool_extra) 안쪽에 감싸인 검색기까지 내려가며 run_extra()를 모은다
     found = {}
     stack = [retriever]
+    seen = set()
     while stack:
         r = stack.pop()
+        if id(r) in seen:
+            continue
+        seen.add(id(r))
         if hasattr(r, "run_extra"):
             found.update(r.run_extra())
-        stack.extend(getattr(r, "retrievers", []) + ([r.base] if hasattr(r, "base") else []))
+        stack.extend(getattr(r, "retrievers", []) + [x for x in (getattr(r, "base", None), getattr(r, "pool_extra", None)) if x is not None])
     return found
 
 
@@ -105,6 +109,8 @@ def main() -> None:
             "scores": [round(s, 4) for _, s in hits], "metrics": evaluate_query(ranked, gold),
             # 리랭커가 있으면 리랭커에 들어간 후보 ID도 남긴다 (정답이 후보 안에 있었는지 사후 진단)
             **({"rerank_pool": list(retriever.last_pool)} if hasattr(retriever, "last_pool") else {}),
+            # 개념 경유 검색이 있으면 이 질의에서 매칭된 개념·더해진 후보·리랭커 질의도 남긴다
+            **({"concept": retriever.last_concept} if getattr(retriever, "last_concept", None) else {}),
         })
 
     metrics = {"overall": aggregate(per_query)["overall"], "by_group": aggregate(per_query, "group")}

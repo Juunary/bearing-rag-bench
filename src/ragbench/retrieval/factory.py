@@ -67,19 +67,44 @@ def _dense(cfg: ExperimentConfig, translator=None):
     return EnglishPivotRetriever(translator or _translator(cfg), _english_chunks_path(cfg), inner, skip_english=r.translate_skip_english)
 
 
-def _rerank(cfg: ExperimentConfig, base, translator=None):
+CONCEPT_MODES = ("pool", "pool_query", "rrf_query")
+
+
+def _concept(cfg: ExperimentConfig, dense_pivot, translator):
+    """개념 경유 후보 검색기: 영어 dense 다리(EnglishPivotRetriever)의 안쪽 DenseRetriever와 임베더를 같이 쓴다."""
+    from ragbench.concepts import load_concepts
+    from ragbench.config import REPO_ROOT
+    from ragbench.retrieval.concept import ConceptCandidateRetriever
+
+    r = cfg.retrieval
+    if r.concept_mode not in CONCEPT_MODES:
+        raise ValueError(f"concept_mode must be one of {CONCEPT_MODES}, got {r.concept_mode!r}")
+    if r.method != "hybrid_rerank" or not r.dense_english_pivot:
+        raise ValueError("concept_bundle needs method 'hybrid_rerank' with dense_english_pivot")
+    return ConceptCandidateRetriever(load_concepts(REPO_ROOT / r.concept_bundle), dense_pivot.inner, translator,
+                                     _english_chunks_path(cfg), top_n=r.concept_pool_n, dense_top=r.concept_dense_top,
+                                     dense_min=r.concept_dense_min, skip_english=r.translate_skip_english, bundle=r.concept_bundle)
+
+
+def _rerank(cfg: ExperimentConfig, base, translator=None, concept=None):
     from ragbench.retrieval.rerank import RerankRetriever
 
     r = cfg.retrieval
+    # 개념 검색기: pool·pool_query는 리랭커 후보를 보강하고, pool_query·rrf_query는 리랭커 질의에 정식 명칭을 붙인다
+    extra = {"pool_extra": concept if concept is not None and r.concept_mode in ("pool", "pool_query") else None,
+             "pool_extra_n": r.concept_pool_n,
+             "query_augment": concept if concept is not None and r.concept_mode in ("pool_query", "rrf_query") else None}
     if r.rerank_text == "english":
         # 리랭커가 영어 번역 청크와 영어로 번역한 질의를 읽는다 (후보 ID는 그대로)
         return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n,
-                               english_chunks_path=_english_chunks_path(cfg), query_translator=translator)
-    return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n)
+                               english_chunks_path=_english_chunks_path(cfg), query_translator=translator, **extra)
+    return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n, **extra)
 
 
 def build_retriever(cfg: ExperimentConfig):
     r = cfg.retrieval
+    if r.concept_mode and not r.concept_bundle:
+        raise ValueError("concept_mode needs concept_bundle")
     # 번역기는 한 실험 안에서 하나만 만들어 BM25·dense·리랭커가 모델 한 벌과 캐시를 공유한다
     needs_translator = r.bm25_english_pivot or r.dense_english_pivot or r.rerank_text == "english"
     tr = _translator(cfg) if needs_translator and r.method != "bm25" else None
@@ -97,11 +122,16 @@ def build_retriever(cfg: ExperimentConfig):
             # 3중 RRF: 영어 BM25 + 원문 BM25(단일 언어에 강함) + dense
             from ragbench.retrieval.bm25 import BM25Retriever
             parts.append(BM25Retriever(tokenizer=r.bm25_original_tokenizer, k1=r.bm25_k1, b=r.bm25_b))
-        parts.append(_dense(cfg, tr))
+        dense = _dense(cfg, tr)
+        parts.append(dense)
+        concept = _concept(cfg, dense, tr) if r.concept_bundle else None
+        if concept is not None and r.concept_mode == "rrf_query":
+            # 셋째 다리: 매칭된 질의에서만 후보를 내고, 아니면 빈 목록이라 RRF 결과가 2중 RRF와 같다
+            parts.append(concept)
         base = RRFRetriever(parts, rrf_k=r.rrf_k, candidates=r.fusion_candidates)
         if r.method == "hybrid":
             return base
-        return _rerank(cfg, base, tr)
+        return _rerank(cfg, base, tr, concept)
     raise ValueError(f"unknown retrieval method {r.method!r}")
 
 
@@ -118,7 +148,8 @@ def translators_of(retriever) -> list:
             if t is not None and all(t is not f for f in found):
                 found.append(t)
         stack.extend(getattr(r, "retrievers", []))
-        stack.extend(x for x in (getattr(r, "base", None), getattr(r, "en", None), getattr(r, "inner", None)) if x is not None)
+        stack.extend(x for x in (getattr(r, "base", None), getattr(r, "en", None), getattr(r, "inner", None),
+                                 getattr(r, "pool_extra", None), getattr(r, "query_augment", None)) if x is not None)
     return found
 
 

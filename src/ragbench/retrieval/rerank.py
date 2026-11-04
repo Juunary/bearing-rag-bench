@@ -60,15 +60,22 @@ class CrossEncoder:
 
 class RerankRetriever:
     def __init__(self, base, model_name: str = "BAAI/bge-reranker-v2-m3", top_n: int = 30,
-                 cross_encoder: CrossEncoder | None = None, english_chunks_path=None, query_translator=None):
+                 cross_encoder: CrossEncoder | None = None, english_chunks_path=None, query_translator=None,
+                 pool_extra=None, pool_extra_n: int = 10, query_augment=None):
         self.base = base
         self.top_n = top_n
         self.ce = cross_encoder or CrossEncoder(model_name)
         # english_chunks_path / query_translator: 리랭커가 번역 청크와 번역 질의를 읽게 한다 (후보 ID는 base가 정한 그대로)
         self.english_chunks_path, self.query_translator = english_chunks_path, query_translator
-        self.name = f"rerank({base.name})_{model_name.split('/')[-1]}_n{top_n}" + ("_en" if english_chunks_path else "")
+        # pool_extra: 개념 경유 후보를 리랭커 후보에 더한다 / query_augment: 매칭된 개념의 정식 명칭을 리랭커 질의 뒤에 붙인다
+        # (둘 다 매칭이 없으면 아무것도 바꾸지 않아 원래 리랭커와 결과가 같다)
+        self.pool_extra, self.pool_extra_n, self.query_augment = pool_extra, pool_extra_n, query_augment
+        self.name = (f"rerank({base.name})_{model_name.split('/')[-1]}_n{top_n}" + ("_en" if english_chunks_path else "")
+                     + (f"_cpool{pool_extra_n}" if pool_extra is not None else "") + ("_cq" if query_augment is not None else ""))
         self.last_rerank_seconds = 0.0         # 마지막 질의의 cross-encoder 채점 시간 (측정기가 첫 검색 전에도 이 속성을 찾을 수 있게 미리 만든다)
         self.last_pool: list[str] = []         # 마지막 질의에서 리랭커에 들어간 후보 ID (정답이 후보 안에 있었는지 진단용)
+        self.last_pool_added: list[str] = []   # 그중 pool_extra가 더한 ID
+        self.last_ce_query: str = ""
         self.chunk_text: dict[str, str] = {}
         self.last_base_ranks: dict[str, int] = {}
 
@@ -80,18 +87,38 @@ class RerankRetriever:
                 en = {r["chunk_id"]: r["text"] for r in map(json.loads, filter(str.strip, f))}
             self.chunk_text = {cid: en[cid] for cid in self.chunk_text}      # 영어 번역본(영어 청크는 원문)으로 교체
         stats = self.base.index(chunks)
+        if self.pool_extra is not None:
+            stats[self.pool_extra.name] = self.pool_extra.index(chunks)     # base 색인 뒤여야 dense 임베딩을 쓸 수 있다
         stats["reranker"] = {"model": self.ce.model_name, "revision": self.ce.revision, "top_n": self.top_n}
         return stats
 
     def search(self, query: str, k: int) -> list[Hit]:
         cands = self.base.search(query, self.top_n)
         self.last_base_ranks = {cid: r for r, (cid, _) in enumerate(cands, start=1)}
+        added: list[Hit] = []
+        if self.pool_extra is not None:
+            seen = {cid for cid, _ in cands}
+            added = [h for h in self.pool_extra.search(query, self.pool_extra_n) if h[0] not in seen]
+            cands = cands + added
         self.last_pool = [cid for cid, _ in cands]
+        self.last_pool_added = [cid for cid, _ in added]
         if not cands:
             return []
         t0 = time.perf_counter()
         ce_query = self.query_translator.translate(query, "query")["text"] if self.query_translator else query
+        terms = self.query_augment.augment_terms() if self.query_augment is not None else []
+        if terms:
+            ce_query = f"{ce_query} ({'; '.join(terms)})"
+        self.last_ce_query = ce_query
         scores = self.ce.score(ce_query, [self.chunk_text[cid] for cid, _ in cands])
         self.last_rerank_seconds = time.perf_counter() - t0
         order = sorted(zip((cid for cid, _ in cands), scores), key=lambda x: -x[1])
         return order[:k]
+
+    @property
+    def last_concept(self) -> dict | None:
+        """What the concept retriever did for the last query (None when there is no concept retriever)."""
+        c = self.query_augment if self.query_augment is not None else self.pool_extra
+        if c is None:
+            return None
+        return {**c.last_match.to_dict(), "pool_added": self.last_pool_added, "ce_query": self.last_ce_query}

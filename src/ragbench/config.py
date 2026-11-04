@@ -101,6 +101,12 @@ class RetrievalConfig:
     fusion_candidates: int = 50    # per-retriever candidates fed into RRF
     rerank_model: str | None = None
     rerank_top_n: int = 30         # how many fused candidates go to the reranker
+    # [KO] 개념 경유 검색: data/concepts의 개념 페이지(별칭 ko/en/de + 설명 + 관련 개념)로 후보를 보강한다 (hybrid_rerank + dense 영어 피벗 전용)
+    concept_bundle: str | None = None     # [KO] 개념 페이지 디렉터리 (저장소 기준 경로). None이면 개념 검색 없음
+    concept_mode: str | None = None       # [KO] "pool"(리랭커 후보 보강) | "pool_query"(+ 리랭커 질의에 정식 명칭) | "rrf_query"(매칭 시 셋째 RRF 다리 + 질의 보강)
+    concept_pool_n: int = 10              # [KO] 리랭커 후보에 더하는(또는 셋째 다리가 내는) 개념 후보 수
+    concept_dense_top: int = 1            # [KO] 별칭이 하나도 안 맞을 때만 쓰는 질의-개념 dense 매칭 상위 개수
+    concept_dense_min: float = 0.55       # [KO] 그 코사인 하한 (추정치, 분석에서 분포를 보고 조정)
 
 
 @dataclass
