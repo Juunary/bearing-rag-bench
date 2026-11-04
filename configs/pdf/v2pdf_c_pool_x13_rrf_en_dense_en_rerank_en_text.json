@@ -1,0 +1,24 @@
+{
+  "exp_id": "v2pdf_c_pool_x13_rrf_en_dense_en_rerank_en_text",
+  "stage": "v2pdf",
+  "description": "RRF over English BM25 + English dense, reranker reads English (top 30) + concept bundle (pool) [corpus: wiki + pdf, eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "dense_english_pivot": true,
+    "concept_bundle": "data/concepts",
+    "concept_mode": "pool"
+  },
+  "chunking": {
+    "corpus": "wiki_pdf"
+  }
+}

@@ -101,6 +101,8 @@ uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # chunks w
 uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # answers to the PDF questions (then run_judge.py)
 uv run python experiments/analyze_pdf_generation.py
 uv run python scripts/export_site_data.py           # trace page data (docs/data/)
+uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # concept-mediated retrieval
+uv run python experiments/analyze_concepts.py
 
 # Judge of another model family (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -424,6 +426,19 @@ Top 10 - top 5 (repeated table headers, question-level 95% interval): gold chunk
 
 Searching the 90 v2 questions again on the corpus with the 557 PDF chunks changes nDCG@10 by -0.013 .. -0.040 depending on the setting (English RRF + reranker (English input) 0.895 → 0.865, document-cluster interval -0.065 .. -0.003), and 28 .. 37 questions get a PDF chunk in their top 5. The v2 gold has no PDF chunk, so a relevant PDF chunk counts as a miss.
 
+### Concept-mediated retrieval (26 concept pages; 48 PDF questions, 90 v2 questions, 10 human-written questions)
+
+Concept pages (`data/concepts/*.md`, OKF-style Markdown: aliases in ko/en/de, related concepts, a 2-4 sentence English description) are matched to the question (aliases first, otherwise the top dense match with cosine 0.55 or more), the chunks mentioning the matched concepts are ranked by cosine to the translated query, and the result is attached to the best retrieval (English RRF + reranker on English text) in three ways: pool (reranker pool 30 + 10 concept candidates), pool_query (pool + the canonical names of the matched concepts appended to the reranker query), rrf_query (a third RRF leg only for matched questions + the query augmentation). Concept-to-chunk links are built mechanically from alias occurrences (`src/ragbench/retrieval/concept.py`), and unmatched questions keep exactly the baseline retrieval (verified with an empty bundle: identical ranks, scores and pools on all 48 questions). The pages were written by an AI agent from the glossary and the document titles and reviewed by a person (`data/concepts_review.md`).
+
+| setting | PDF nDCG@10 | diff (document-cluster 95% interval) | v2 nDCG@10 | diff | matched questions (PDF / v2) |
+|---|---|---|---|---|---|
+| best retrieval | 0.831 | - | 0.869 | - | - |
+| + pool | 0.831 | +0.000 (0/0/48) | 0.869 | +0.000 (0/0/90) | 43 / 65 |
+| + pool_query | 0.765 | -0.066 (-0.111 .. -0.027) | 0.859 | -0.010 (-0.042 .. +0.021) | 43 / 65 |
+| + rrf_query | 0.768 | -0.064 (-0.105 .. -0.027) | 0.860 | -0.009 (-0.041 .. +0.022) | 43 / 65 |
+
+pool added 1.1 .. 1.3 candidates per question, but only 2 (PDF) and 7 (v2) of them reached the top 10 and one was a gold chunk, so the metrics did not change. The query augmentation lowered the reranker ranks of matched questions (of 43 matched PDF questions, 2 better, 18 worse). The 10 human-written questions (cite_refuse_v1) are refused 5 times under every variant. With pool_query and rrf_query, D05 is answered because `luh-diss-pelzer-2022#19` moves from rank 7 to 3 (the answer was not graded), but the other 4 related chunks (`de_wellendichtring#0`, ...) still do not reach the pool, and D07, answered correctly with the top 5, is refused under both. Details are in `experiments/results/concept_analysis.md`.
+
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
@@ -437,6 +452,7 @@ Searching the 90 v2 questions again on the corpus with the 557 PDF chunks change
 - LlamaIndex and Haystack have one hybrid + reranker configuration each, without parameter search. The AutoRAG search is limited to 11 modules of the retrieval and reranking nodes; query expansion, prompt and generation nodes were not searched. The generation comparison uses the best configuration of each system and one judge model.
 - Table-header repetition treats the first table row (and the second when the first has empty cells) as the header, and uses as caption only one of the 1-2 paragraphs before the table that starts with TABLE/Table/Tabelle. Where an equation was detected as a table, its lines are repeated as a header too. Chunks with a header reach up to 508 tokens.
 - The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by an AI agent and reviewed by two other AI agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
+- The concept pages were written by an AI agent that knew the D05 failure analysis (oil seal vs radial shaft seal), so the 10 human-written questions are not a fair test of the seal pages; the conclusions rest on the 48 PDF and 90 v2 questions. The dense matching threshold 0.55 is an untuned estimate, and only one concept candidate count (10) was tried.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
@@ -462,6 +478,8 @@ eval/queries_pdf.jsonl, eval/pdf_draft/   PDF eval set, drafts and review inputs
 configs/pdf/    retrieval configs on the Wikipedia + PDF corpus (written by scripts/make_pdf_configs.py)
 configs/pdfgen/ generation configs for the PDF questions
 eval/human_round2/   human review round 2: sample, sheet, grades, answers to the grader's own questions (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
+data/concepts/       26 concept pages (OKF-style Markdown), data/concepts_review.md human review record
+src/ragbench/concepts.py, retrieval/concept.py   concept loader and matcher, concept candidate retriever (experiments/analyze_concepts.py)
 docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)

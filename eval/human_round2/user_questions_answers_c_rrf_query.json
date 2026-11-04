@@ -1,0 +1,1011 @@
+{
+ "best_config": "pdfth_c_rrf_query_x13_rrf_en_dense_en_rerank_en_text.json",
+ "baseline_config": "pdfth_b_rrf_rerank.json",
+ "prompt_version": "cite_refuse_v1",
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "chunk_set": "wiki_pdf_th",
+ "context_k": 5,
+ "rows": [
+  {
+   "qid": "D01",
+   "question": "고속 회전하는 모터에서 볼 베어링 대신 앵귤러 콘택트 베어링을 적용할 때 얻을 수 있는 설계상 이점은 무엇인가요?",
+   "correctness": "맞음",
+   "note": "앵귤러 콘택트 베어링의 고속 회전 및 복합 하중(축/반경) 지지 특성을 실무 지식에 맞게 잘 설명했습니다.",
+   "answer": "고속 회전하는 모터에서 볼 베어링 대신 앵귤러 콘택트 베어링을 적용할 때, 앵귤러 콘택트 베어링은 결합 하중(반경 및 축 방향 하중)을 더 잘 지지할 수 있으며, 특히 고속에서 발생하는 중력과 회전에 대한 반응을 효과적으로 처리할 수 있습니다. 또한, 고속에서 발생하는 중력이 접촉 각도를 변화시킬 수 있으므로, 앵귤러 콘택트 베어링은 이러한 조건에서 더 안정적인 성능을 제공합니다. 더불어, 앵귤러 콘택트 베어링은 높은 접촉 각도를 가질 경우 축 하중을 더 잘 지지할 수 있어, 고속 회전 모터의 설계에서 중요한 이점이 됩니다 [en_ball_bearing#1].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_ball_bearing#1",
+    "ko_ball_bearing#7",
+    "en_ball_bearing#6",
+    "en_ball_bearing#3",
+    "ko_bearing#2"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#7",
+    "ko_ball_bearing#3",
+    "ko_ball_bearing#1",
+    "ko_bearing#0"
+   ],
+   "pool": [
+    "en_ball_bearing#1",
+    "ko_ball_bearing#7",
+    "en_ball_bearing#6",
+    "en_ball_bearing#3",
+    "ko_bearing#2",
+    "ko_ball_bearing#0",
+    "ko_ball_bearing#3",
+    "ko_ball_bearing#1",
+    "ko_bearing#0"
+   ],
+   "best_ranked10": [
+    "en_ball_bearing#1",
+    "ko_ball_bearing#7",
+    "en_ball_bearing#6",
+    "en_ball_bearing#3",
+    "ko_bearing#2",
+    "en_ball_bearing#2",
+    "ko_ball_bearing#0",
+    "ko_bearing#3",
+    "en_ball_bearing#0",
+    "ko_ball_bearing#2"
+   ],
+   "best_rerank_pool": [
+    "en_ball_bearing#2",
+    "en_ball_bearing#1",
+    "ko_ball_bearing#2",
+    "ko_ball_bearing#7",
+    "ko_ball_bearing#1",
+    "en_ball_bearing#6",
+    "en_ball_bearing#3",
+    "ko_ball_bearing#3",
+    "en_rolling_element_bearing#13",
+    "de_waelzlager#14",
+    "en_ball_bearing#0",
+    "ko_ball_bearing#10",
+    "ko_ball_bearing#0",
+    "de_hydrodynamisches_gleitlager#3",
+    "ko_bearing#2",
+    "de_waelzlager#0",
+    "ko_ball_bearing#9",
+    "en_rolling_element_bearing#5",
+    "en_rolling_element_bearing#2",
+    "en_rolling_element_bearing#3",
+    "ko_ball_bearing#19",
+    "en_ball_bearing#8",
+    "de_waelzlager#11",
+    "en_ball_bearing#17",
+    "de_waelzlager#18",
+    "nasa-tp-2013-215305-rev1#58",
+    "ko_bearing#3",
+    "nasa-tp-2013-215305-rev1#80",
+    "en_rolling_element_bearing#6",
+    "en_ball_bearing#7"
+   ],
+   "concept": {
+    "alias": {
+     "angular_contact_ball_bearing": [
+      "angular contact bearing",
+      "앵귤러 콘택트 베어링"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "preload_clearance",
+     "bearing_life"
+    ],
+    "ids": [
+     "angular_contact_ball_bearing"
+    ],
+    "canonical_names": [
+     "angular contact ball bearing"
+    ],
+    "pool_added": [],
+    "ce_query": "What are the design advantages of using angular contact bearings instead of ball bearings in a high-speed motor? (angular contact ball bearing)"
+   }
+  },
+  {
+   "qid": "D02",
+   "question": "구동축(Drive shaft)에서 발생하는 비틀림 진동을 줄이기 위해 보통 어떤 댐핑 방식을 사용하나요?",
+   "refusal": "적절",
+   "note": "비틀림 진동을 잡기 위한 댐퍼나 듀얼 매스 플라이휠 등의 장치는 기계/자동차 NVH 전문 영역이라 일반적인 구동축 개요 문서에는 없을 수 있습니다.",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_cv_joint#1",
+    "en_cv_joint#3",
+    "en_cv_joint#6",
+    "de_homokinetisches_gelenk#4",
+    "ko_drive_shaft#0"
+   ],
+   "baseline_top5": [
+    "ko_drive_shaft#0",
+    "ko_shaft#0",
+    "en_cv_joint#6",
+    "en_cv_joint#5",
+    "en_needle_roller_bearing#0"
+   ],
+   "pool": [
+    "en_cv_joint#1",
+    "en_cv_joint#3",
+    "en_cv_joint#6",
+    "de_homokinetisches_gelenk#4",
+    "ko_drive_shaft#0",
+    "ko_shaft#0",
+    "en_cv_joint#5",
+    "en_needle_roller_bearing#0"
+   ],
+   "best_ranked10": [
+    "en_cv_joint#1",
+    "en_cv_joint#3",
+    "en_cv_joint#6",
+    "de_homokinetisches_gelenk#4",
+    "ko_drive_shaft#0",
+    "de_waelzlager#10",
+    "en_cv_joint#5",
+    "en_cv_joint#4",
+    "de_waelzlager#9",
+    "en_needle_roller_bearing#0"
+   ],
+   "best_rerank_pool": [
+    "en_cv_joint#6",
+    "ko_drive_shaft#0",
+    "de_homokinetisches_gelenk#4",
+    "de_gleitlager#11",
+    "en_cv_joint#5",
+    "en_cv_joint#4",
+    "de_waelzlager#10",
+    "de_gleitlager#0",
+    "en_cv_joint#3",
+    "de_homokinetisches_gelenk#3",
+    "de_gleitlager#1",
+    "de_gleitlager#6",
+    "en_ball_bearing#2",
+    "luh-diss-stuhler-2024#67",
+    "en_bearing_mechanical#8",
+    "de_waelzlager#9",
+    "de_gleitlager#4",
+    "ko_bearing#4",
+    "luh-diss-stuhler-2024#82",
+    "en_ball_bearing#12",
+    "en_needle_roller_bearing#0",
+    "ko_ball_bearing#14",
+    "en_plain_bearing#12",
+    "en_cv_joint#1",
+    "ko_ball_bearing#8",
+    "ko_ball_bearing#15",
+    "en_ball_bearing#7",
+    "en_tapered_roller_bearing#2",
+    "de_waelzlager#31",
+    "ko_shaft#0"
+   ],
+   "concept": {
+    "alias": {
+     "cv_joint_driveline": [
+      "drive shaft",
+      "torsional vibration",
+      "구동축",
+      "비틀림 진동"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "needle_roller_bearing",
+     "grease"
+    ],
+    "ids": [
+     "cv_joint_driveline"
+    ],
+    "canonical_names": [
+     "constant-velocity joint and driveline"
+    ],
+    "pool_added": [],
+    "ce_query": "What damping method is typically used to reduce torsional vibration generated from the drive shaft? (constant-velocity joint and driveline)"
+   }
+  },
+  {
+   "qid": "D03",
+   "question": "고온 환경(200도 이상)에서 작동하는 설비에 일반 리튬 그리스 대신 어떤 윤활제를 적용해야 하나요?",
+   "correctness": "부분",
+   "note": "고체 윤활제(그래파이트 등)를 언급한 부분은 맞지만, EP(극압) 그리스는 고하중/충격용이지 그 자체로 200도 이상의 고온 내성을 의미하지는 않으므로 설명이 부정확합니다(고온용은 우레아계, 불소계 등을 사용).",
+   "answer": "고온 환경(200도 이상)에서 작동하는 설비에 일반 리튬 그리스 대신 시리콘 그리스나 폴리에터 기반 윤활제를 적용해야 합니다. 시리콘 그리스는 고온에서 안정성과 내열성이 우수하며, 200도 이상에서도 효과적으로 작동할 수 있습니다 [en_grease#2]. 또한 폴리에터 기반 윤활제는 고온 및 엄격한 환경에서 사용되며, 화학적 안정성이 뛰어나기 때문에 고온 작동에 적합합니다 [en_grease#4].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_grease#2",
+    "ko_grease#0",
+    "de_schmierfett#4",
+    "en_grease#4",
+    "de_schmierfett#14"
+   ],
+   "baseline_top5": [
+    "ko_grease#0",
+    "ko_lubrication#0",
+    "en_grease#2",
+    "ko_ball_bearing#14",
+    "ko_ball_bearing#13"
+   ],
+   "pool": [
+    "en_grease#2",
+    "ko_grease#0",
+    "de_schmierfett#4",
+    "en_grease#4",
+    "de_schmierfett#14",
+    "ko_lubrication#0",
+    "ko_ball_bearing#14",
+    "ko_ball_bearing#13"
+   ],
+   "best_ranked10": [
+    "en_grease#2",
+    "ko_grease#0",
+    "de_schmierfett#4",
+    "en_grease#4",
+    "de_schmierfett#14",
+    "ko_lubrication#0",
+    "de_schmierfett#0",
+    "en_grease#1",
+    "en_grease#6",
+    "en_grease#5"
+   ],
+   "best_rerank_pool": [
+    "en_grease#2",
+    "en_ball_bearing#13",
+    "ko_ball_bearing#15",
+    "ko_grease#0",
+    "de_schmierfett#15",
+    "en_grease#6",
+    "ko_lubrication#0",
+    "en_grease#5",
+    "de_schmierfett#16",
+    "de_schmierfett#4",
+    "ko_ball_bearing#14",
+    "de_schmierfett#0",
+    "de_schmierfett#14",
+    "en_grease#4",
+    "en_grease#1",
+    "ko_lubricant#0",
+    "en_grease#0",
+    "en_bearing_mechanical#11",
+    "luh-diss-stuhler-2024#25",
+    "ko_wear#1",
+    "en_ball_bearing#12",
+    "en_tribology#21",
+    "de_schmierfett#7",
+    "de_schmierfett#9",
+    "ko_lubricant#1",
+    "en_lubrication#3",
+    "en_ball_bearing#2",
+    "en_grease#3",
+    "de_schmierfett#17",
+    "luh-diss-pelzer-2022#66"
+   ],
+   "concept": {
+    "alias": {
+     "grease": [
+      "lithium grease",
+      "리튬 그리스"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "lubricant_film"
+    ],
+    "ids": [
+     "grease"
+    ],
+    "canonical_names": [
+     "lubricating grease"
+    ],
+    "pool_added": [],
+    "ce_query": "What lubricant should be used instead of conventional lithium grease in equipment operating in high-temperature environments (above 200°C)? (lubricating grease)"
+   }
+  },
+  {
+   "qid": "D04",
+   "question": "엔진 크랭크샤프트 메인 베어링의 마모 상태를 분해하지 않고 예측할 수 있는 진단 방법이 있나요?",
+   "correctness": "맞음",
+   "note": "윤활유 내 철분 분석(Ferrography) 및 입자 분석은 대표적인 엔진 베어링 비분해 상태 진단법입니다.",
+   "answer": "예, 엔진 크랭크샤프트 메인 베어링의 마모 상태를 분해하지 않고 예측할 수 있는 진단 방법이 있습니다. 예를 들어, 라디오ACTIVE 트레이서를 사용하여 마모를 매크로 수준에서 평가하는 방법이 있으며, 이는 마모 발생 전에 마모를 예측하는 데 유용합니다 [en_tribology#29]. 또한, 인공지능과 대규모 데이터 기반 기술을 활용한 자동 마모 입자 인식은 예측 유지보수 및 기계 시스템의 상태 모니터링에 사용되며, 마모 메커니즘을 분석하지 않고도 마모 상태를 예측할 수 있습니다 [en_wear#9].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_wear#9",
+    "en_tribology#29",
+    "innotrac-2020-467#0",
+    "nasa-tm-2017-219545#28",
+    "en_tribology#30"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#17",
+    "ko_wear#0",
+    "luh-diss-stuhler-2024#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#2"
+   ],
+   "pool": [
+    "en_wear#9",
+    "en_tribology#29",
+    "innotrac-2020-467#0",
+    "nasa-tm-2017-219545#28",
+    "en_tribology#30",
+    "ko_ball_bearing#17",
+    "ko_wear#0",
+    "luh-diss-stuhler-2024#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#2"
+   ],
+   "best_ranked10": [
+    "en_wear#9",
+    "en_tribology#29",
+    "innotrac-2020-467#0",
+    "nasa-tm-2017-219545#28",
+    "en_tribology#30",
+    "innotrac-2020-467#1",
+    "nasa-tm-2017-219545#27",
+    "nasa-tm-2017-219545#3",
+    "en_wear#8",
+    "nasa-tm-2017-219545#33"
+   ],
+   "best_rerank_pool": [
+    "en_tribology#29",
+    "en_tribology#30",
+    "innotrac-2020-467#0",
+    "en_wear#9",
+    "nasa-tm-2017-219545#33",
+    "nasa-tm-2017-219545#28",
+    "nasa-tm-2017-219545#24",
+    "en_wear#4",
+    "nasa-tm-2017-219545#27",
+    "en_wear#8",
+    "nasa-tm-2017-219545#31",
+    "nasa-tm-2017-219545#9",
+    "luh-diss-stuhler-2024#205",
+    "innotrac-2020-467#1",
+    "de_schmierfett#10",
+    "en_ball_bearing#15",
+    "luh-diss-stuhler-2024#43",
+    "nasa-tm-2017-219545#11",
+    "ko_ball_bearing#17",
+    "nasa-tm-2017-219545#32",
+    "en_fatigue_material#16",
+    "luh-diss-stuhler-2024#14",
+    "en_plain_bearing#8",
+    "de_verschleiss#3",
+    "en_rolling_element_bearing#9",
+    "en_plain_bearing#3",
+    "luh-diss-stuhler-2024#5",
+    "nasa-tm-2017-219545#3",
+    "en_lubrication#3",
+    "luh-diss-stuhler-2024#39"
+   ],
+   "concept": {
+    "alias": {},
+    "dense": [
+     [
+      "wear_debris_analysis",
+      0.6254
+     ]
+    ],
+    "related": [
+     "plain_bearing",
+     "surface_fatigue"
+    ],
+    "ids": [
+     "wear_debris_analysis"
+    ],
+    "canonical_names": [
+     "wear monitoring and debris analysis"
+    ],
+    "pool_added": [],
+    "ce_query": "Is there a diagnostic method that can predict the wear condition of the engine crankshaft main bearing without disassembling it? (wear monitoring and debris analysis)"
+   }
+  },
+  {
+   "qid": "D05",
+   "question": "오일 씰(Oil seal)에서 누유가 지속적으로 발생할 때, 립(Lip) 마모 외에 점검해야 할 샤프트 측 결함 요소는 무엇인가요?",
+   "refusal": "부적절",
+   "note": "오일 씰(Radial shaft seal)의 누유 원인으로 샤프트 표면의 조도, 스크래치, 런아웃, 마모 궤적(Wear track) 등은 씰링 메커니즘을 다루는 문서나 학위논문에 반드시 등장하는 기초 지식입니다.",
+   "answer": "오일 씰에서 누유가 지속적으로 발생할 때, 립 마모 외에 점검해야 할 샤프트 측 결함 요소는 샤프트의 둥근 오차 및 중심 축이 아닌 위치(Exzentrizität)입니다. 이러한 결함은 립이 정확히 외부 표면에 맞추지 못하게 하여 누유를 유도할 수 있습니다 [luh-diss-pelzer-2022#19]. 또한, 샤프트의 표면 마모나 부식도 누유의 원인일 수 있으며, 이는 립의 압력 분포와 접촉 각도에 영향을 줄 수 있습니다 [en_radial_shaft_seal#0]. 이러한 결함들은 립의 압력 분포와 접촉 각도에 영향을 줄 수 있으므로, 누유 발생 시 샤프트의 정밀도와 상태를 점검해야 합니다 [luh-diss-pelzer-2022#19].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#45",
+    "luh-diss-pelzer-2022#19",
+    "de_wellendichtring#1",
+    "en_radial_shaft_seal#1"
+   ],
+   "baseline_top5": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#97",
+    "luh-diss-pelzer-2022#103",
+    "ko_seal#0",
+    "luh-diss-pelzer-2022#102"
+   ],
+   "pool": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#45",
+    "luh-diss-pelzer-2022#19",
+    "de_wellendichtring#1",
+    "en_radial_shaft_seal#1",
+    "luh-diss-pelzer-2022#97",
+    "luh-diss-pelzer-2022#103",
+    "ko_seal#0",
+    "luh-diss-pelzer-2022#102"
+   ],
+   "best_ranked10": [
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#45",
+    "luh-diss-pelzer-2022#19",
+    "de_wellendichtring#1",
+    "en_radial_shaft_seal#1",
+    "luh-diss-pelzer-2022#13",
+    "luh-diss-pelzer-2022#78",
+    "luh-diss-pelzer-2022#10",
+    "luh-diss-pelzer-2022#60",
+    "luh-diss-pelzer-2022#93"
+   ],
+   "best_rerank_pool": [
+    "luh-diss-pelzer-2022#60",
+    "luh-diss-pelzer-2022#45",
+    "luh-diss-pelzer-2022#78",
+    "luh-diss-pelzer-2022#93",
+    "luh-diss-pelzer-2022#81",
+    "luh-diss-pelzer-2022#4",
+    "luh-diss-pelzer-2022#24",
+    "luh-diss-pelzer-2022#97",
+    "luh-diss-pelzer-2022#27",
+    "luh-diss-pelzer-2022#13",
+    "luh-diss-pelzer-2022#102",
+    "en_radial_shaft_seal#0",
+    "luh-diss-pelzer-2022#77",
+    "luh-diss-pelzer-2022#19",
+    "luh-diss-pelzer-2022#5",
+    "luh-diss-pelzer-2022#66",
+    "luh-diss-pelzer-2022#26",
+    "luh-diss-pelzer-2022#25",
+    "de_schmierfett#12",
+    "luh-diss-pelzer-2022#6",
+    "luh-diss-pelzer-2022#9",
+    "en_radial_shaft_seal#1",
+    "luh-diss-pelzer-2022#59",
+    "luh-diss-pelzer-2022#10",
+    "luh-diss-pelzer-2022#88",
+    "de_wellendichtring#1",
+    "luh-diss-pelzer-2022#56",
+    "luh-diss-pelzer-2022#57",
+    "ko_ball_bearing#15",
+    "en_rolling_element_bearing#14"
+   ],
+   "concept": {
+    "alias": {
+     "radial_shaft_seal": [
+      "oil seal",
+      "오일 씰",
+      "오일씰"
+     ],
+     "seal_leakage": [
+      "leakage",
+      "누유"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "sealing_lip",
+     "shaft_counterface"
+    ],
+    "ids": [
+     "radial_shaft_seal",
+     "seal_leakage"
+    ],
+    "canonical_names": [
+     "radial shaft seal",
+     "seal leakage"
+    ],
+    "pool_added": [],
+    "ce_query": "When oil leakage persists in an oil seal, what other shaft-side defect factors should be checked besides lip wear? (radial shaft seal; seal leakage)"
+   }
+  },
+  {
+   "qid": "D06",
+   "question": "CV 조인트(등속조인트) 부트가 파손되어 내부에 물과 모래가 유입되면 조인트 수명에 어떤 치명적인 영향을 미치나요?",
+   "correctness": "맞음",
+   "note": "",
+   "answer": "CV 조인트 부트가 파손되어 내부에 물과 모래가 유입되면 조인트는 빠르게 마모되거나 완전히 고장날 수 있습니다 [en_cv_joint#7]. 이는 외부 오염물질이 조인트의 윤활 그리스를 제거하고, 기계적 손상을 유발하기 때문입니다. 이러한 마모는 조인트의 성능을 저하시키고, 결국 조인트가 실패하게 만듭니다. 조인트의 수명은 크게 감소합니다 [en_cv_joint#7].",
+   "blocked": false,
+   "reason": null,
+   "best_top5": [
+    "en_cv_joint#0",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#7",
+    "de_homokinetisches_gelenk#1",
+    "en_cv_joint#1"
+   ],
+   "baseline_top5": [
+    "en_cv_joint#7",
+    "en_cv_joint#8",
+    "en_cv_joint#0",
+    "luh-diss-stuhler-2024#130",
+    "ko_ball_bearing#13"
+   ],
+   "pool": [
+    "en_cv_joint#0",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#7",
+    "de_homokinetisches_gelenk#1",
+    "en_cv_joint#1",
+    "en_cv_joint#8",
+    "luh-diss-stuhler-2024#130",
+    "ko_ball_bearing#13"
+   ],
+   "best_ranked10": [
+    "en_cv_joint#0",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#7",
+    "de_homokinetisches_gelenk#1",
+    "en_cv_joint#1",
+    "en_cv_joint#8",
+    "en_cv_joint#6",
+    "en_cv_joint#3",
+    "en_cv_joint#2",
+    "en_cv_joint#4"
+   ],
+   "best_rerank_pool": [
+    "en_cv_joint#0",
+    "en_cv_joint#7",
+    "de_homokinetisches_gelenk#0",
+    "en_cv_joint#8",
+    "de_homokinetisches_gelenk#1",
+    "de_homokinetisches_gelenk#4",
+    "en_cv_joint#6",
+    "en_cv_joint#1",
+    "en_fretting#0",
+    "de_homokinetisches_gelenk#3",
+    "de_waelzlager#8",
+    "ko_wear#0",
+    "en_ball_bearing#12",
+    "en_cv_joint#3",
+    "en_wear#5",
+    "de_verschleiss#3",
+    "en_cv_joint#4",
+    "de_homokinetisches_gelenk#2",
+    "luh-diss-stuhler-2024#129",
+    "en_cv_joint#2",
+    "en_fatigue_material#2",
+    "de_verschleiss#0",
+    "luh-diss-stuhler-2024#205",
+    "en_cv_joint#5",
+    "luh-diss-stuhler-2024#130",
+    "en_tribology#14",
+    "en_bearing_mechanical#14",
+    "en_bearing_mechanical#5",
+    "en_tribology#18",
+    "de_materialermuedung#0"
+   ],
+   "concept": {
+    "alias": {
+     "cv_joint_driveline": [
+      "CV joint",
+      "등속 조인트",
+      "등속조인트",
+      "CV 조인트",
+      "CV조인트",
+      "부트"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "needle_roller_bearing",
+     "grease"
+    ],
+    "ids": [
+     "cv_joint_driveline"
+    ],
+    "canonical_names": [
+     "constant-velocity joint and driveline"
+    ],
+    "pool_added": [],
+    "ce_query": "What detrimental effects does the ingress of water and sand into a CV joint (constant velocity joint) boot, causing it to rupture, have on the joint's lifespan? (constant-velocity joint and driveline)"
+   }
+  },
+  {
+   "qid": "D07",
+   "question": "하중이 매우 큰 건설 기계의 피벗 핀에 구름 베어링 대신 플레인 베어링(부싱)을 주로 사용하는 이유는 무엇인가요?",
+   "correctness": "맞음",
+   "note": "구름 베어링의 점/선 접촉으로 인한 브리넬링 취약성과 플레인 베어링의 면 접촉 하중 분산 특성을 정확히 짚었습니다.",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_plain_bearing#0",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#3",
+    "en_plain_bearing#1",
+    "de_waelzlager#0"
+   ],
+   "baseline_top5": [
+    "en_plain_bearing#3",
+    "ko_bearing#0",
+    "ko_lubrication#0",
+    "ko_bearing#2",
+    "ko_ball_bearing#3"
+   ],
+   "pool": [
+    "en_plain_bearing#0",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#3",
+    "en_plain_bearing#1",
+    "de_waelzlager#0",
+    "ko_bearing#0",
+    "ko_lubrication#0",
+    "ko_bearing#2",
+    "ko_ball_bearing#3"
+   ],
+   "best_ranked10": [
+    "en_plain_bearing#0",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#3",
+    "en_plain_bearing#1",
+    "de_waelzlager#0",
+    "en_bearing_mechanical#0",
+    "en_brinelling#1",
+    "en_bearing_mechanical#5",
+    "ko_bearing#0",
+    "en_plain_bearing#4"
+   ],
+   "best_rerank_pool": [
+    "en_plain_bearing#1",
+    "en_bearing_mechanical#6",
+    "en_plain_bearing#12",
+    "de_waelzlager#0",
+    "en_brinelling#1",
+    "en_plain_bearing#3",
+    "en_plain_bearing#0",
+    "en_bearing_mechanical#0",
+    "en_plain_bearing#4",
+    "ko_bearing#0",
+    "en_rolling_element_bearing#7",
+    "de_waelzlager#32",
+    "de_waelzlager#33",
+    "en_tapered_roller_bearing#2",
+    "de_hydrodynamisches_gleitlager#5",
+    "de_nadellager#0",
+    "en_bearing_mechanical#5",
+    "en_plain_bearing#6",
+    "en_plain_bearing#5",
+    "en_bearing_mechanical#9",
+    "de_gleitlager#0",
+    "en_rolling_element_bearing#5",
+    "en_bearing_mechanical#15",
+    "en_rolling_element_bearing#3",
+    "en_plain_bearing#7",
+    "ko_bearing#2",
+    "de_waelzlager#34",
+    "de_lager_maschinenelement#6",
+    "de_waelzlager#17",
+    "luh-diss-stuhler-2024#16"
+   ],
+   "concept": {
+    "alias": {
+     "plain_bearing": [
+      "plain bearing",
+      "bushing",
+      "플레인 베어링",
+      "부싱"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "lubricant_film",
+     "wear_debris_analysis"
+    ],
+    "ids": [
+     "plain_bearing"
+    ],
+    "canonical_names": [
+     "plain bearing"
+    ],
+    "pool_added": [],
+    "ce_query": "Why are plain bearings (bushings) primarily used instead of rolling bearings in the pivot pins of construction machinery subjected to very heavy loads? (plain bearing)"
+   }
+  },
+  {
+   "qid": "D08",
+   "question": "전기차 감속기 베어링 설계 시, 일반 내연기관 차량용 베어링보다 더 높은 스펙이 요구되는 주요 원인은 무엇인가요?",
+   "refusal": "적절",
+   "note": "전기차 감속기의 초고속 회전 대응 및 전식(Electrical erosion) 방지 기술은 최신 실무/연구 트렌드이므로, 고전적인 베어링 문헌이나 일반 문서에서는 찾기 어렵습니다.",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_bearing_mechanical#11",
+    "de_hydrodynamisches_gleitlager#5",
+    "ko_shaft#0",
+    "nasa-tm-2017-219545#28",
+    "en_rolling_element_bearing#4"
+   ],
+   "baseline_top5": [
+    "ko_bearing#0",
+    "en_rolling_element_bearing#13",
+    "ko_ball_bearing#14",
+    "ko_bearing#3",
+    "ko_ball_bearing#18"
+   ],
+   "pool": [
+    "en_bearing_mechanical#11",
+    "de_hydrodynamisches_gleitlager#5",
+    "ko_shaft#0",
+    "nasa-tm-2017-219545#28",
+    "en_rolling_element_bearing#4",
+    "ko_bearing#0",
+    "en_rolling_element_bearing#13",
+    "ko_ball_bearing#14",
+    "ko_bearing#3",
+    "ko_ball_bearing#18"
+   ],
+   "best_ranked10": [
+    "en_bearing_mechanical#11",
+    "de_hydrodynamisches_gleitlager#5",
+    "ko_shaft#0",
+    "nasa-tm-2017-219545#28",
+    "en_rolling_element_bearing#4",
+    "nasa-tm-2017-219545#27",
+    "en_tapered_roller_bearing#2",
+    "en_rolling_element_bearing#13",
+    "en_rolling_element_bearing#5",
+    "de_waelzlager#26"
+   ],
+   "best_rerank_pool": [
+    "en_rolling_element_bearing#4",
+    "nasa-tm-2017-219545#27",
+    "nasa-tm-2017-219545#9",
+    "ko_ball_bearing#15",
+    "de_hydrodynamisches_gleitlager#5",
+    "luh-diss-stuhler-2024#22",
+    "de_waelzlager#26",
+    "nasa-tm-2017-219545#31",
+    "nasa-tm-2017-219545#32",
+    "de_waelzlager#5",
+    "ko_ball_bearing#7",
+    "ko_differential#0",
+    "luh-diss-stuhler-2024#16",
+    "en_tapered_roller_bearing#2",
+    "en_rolling_element_bearing#13",
+    "ko_shaft#0",
+    "en_bearing_mechanical#11",
+    "de_nadellager#0",
+    "en_needle_roller_bearing#0",
+    "en_rolling_element_bearing#5",
+    "luh-diss-stuhler-2024#33",
+    "en_lubrication#3",
+    "nasa-tp-2013-215305-rev1#59",
+    "en_cv_joint#4",
+    "ko_bearing#4",
+    "luh-diss-stuhler-2024#13",
+    "nasa-tm-2017-219545#28",
+    "en_rolling_element_bearing#15",
+    "de_schmierfett#8",
+    "en_ball_bearing#11"
+   ],
+   "concept": {
+    "alias": {},
+    "dense": [],
+    "related": [],
+    "ids": [],
+    "canonical_names": [],
+    "pool_added": [],
+    "ce_query": "What are the main reasons higher specifications are required for electric vehicle reduction gear bearings compared to internal combustion engine vehicle bearings?"
+   }
+  },
+  {
+   "qid": "D09",
+   "question": "휠 베어링(Wheel bearing)에서 소음이 발생할 때, 타이어 편마모로 인한 소음과 현장에서 어떻게 구분할 수 있나요?",
+   "refusal": "적절",
+   "note": "코너링 시 하중 이동에 따른 소음 변화 확인 등은 정비소 현장의 실무 노하우에 가까워 학술 논문이나 백과사전에서 다루기 어렵습니다.",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "en_brinelling#0",
+    "en_brinelling#1",
+    "en_brinelling#2",
+    "en_brinelling#3",
+    "en_ball_bearing#10"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#9",
+    "ko_bearing#0",
+    "ko_bearing#3",
+    "ko_wear#0",
+    "ko_bearing#2"
+   ],
+   "pool": [
+    "en_brinelling#0",
+    "en_brinelling#1",
+    "en_brinelling#2",
+    "en_brinelling#3",
+    "en_ball_bearing#10",
+    "ko_ball_bearing#9",
+    "ko_bearing#0",
+    "ko_bearing#3",
+    "ko_wear#0",
+    "ko_bearing#2"
+   ],
+   "best_ranked10": [
+    "en_brinelling#0",
+    "en_brinelling#1",
+    "en_brinelling#2",
+    "en_brinelling#3",
+    "en_ball_bearing#10",
+    "en_bearing_mechanical#13",
+    "en_rolling_element_bearing#7",
+    "en_fretting#2",
+    "de_waelzlager#8",
+    "luh-diss-stuhler-2024#57"
+   ],
+   "best_rerank_pool": [
+    "en_bearing_mechanical#9",
+    "en_bearing_mechanical#10",
+    "en_brinelling#2",
+    "luh-diss-stuhler-2024#51",
+    "en_brinelling#3",
+    "ko_bearing#3",
+    "luh-diss-stuhler-2024#200",
+    "en_fretting#2",
+    "en_brinelling#0",
+    "en_rolling_element_bearing#8",
+    "en_bearing_mechanical#7",
+    "ko_ball_bearing#9",
+    "luh-diss-stuhler-2024#97",
+    "luh-diss-stuhler-2024#57",
+    "luh-diss-stuhler-2024#55",
+    "nasa-tp-2013-215305-rev1#31",
+    "en_tribology#10",
+    "luh-diss-stuhler-2024#3",
+    "de_waelzlager#8",
+    "en_fatigue_material#26",
+    "en_bearing_mechanical#13",
+    "en_ball_bearing#10",
+    "de_verschleiss#0",
+    "en_bearing_mechanical#0",
+    "en_rolling_element_bearing#7",
+    "luh-diss-stuhler-2024#82",
+    "de_fressen_technik#0",
+    "en_brinelling#1",
+    "luh-diss-stuhler-2024#5",
+    "ko_bearing#4"
+   ],
+   "concept": {
+    "alias": {},
+    "dense": [
+     [
+      "brinelling",
+      0.5583
+     ]
+    ],
+    "related": [
+     "fretting",
+     "surface_fatigue"
+    ],
+    "ids": [
+     "brinelling"
+    ],
+    "canonical_names": [
+     "brinelling"
+    ],
+    "pool_added": [],
+    "ce_query": "How can you distinguish noise caused by tire imbalance from noise originating in the wheel bearing in the field? (brinelling)"
+   }
+  },
+  {
+   "qid": "D10",
+   "question": "베어링 하우징의 끼워맞춤 공차가 규격보다 헐거울 경우, 베어링 수명과 시스템 진동에 미치는 영향은 무엇인가요?",
+   "refusal": "부적절",
+   "note": "하우징 공차가 헐거울 때 발생하는 외륜의 헛돔(크리프, Creep 현상)과 프레팅 마모는 베어링 끼워맞춤 및 고장 원인을 다루는 기초 문헌에 필수적으로 언급되는 내용입니다.",
+   "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+   "blocked": true,
+   "reason": "refusal_sentinel",
+   "best_top5": [
+    "nasa-tp-2013-215305-rev1#80",
+    "en_ball_bearing#15",
+    "ko_ball_bearing#17",
+    "nasa-tm-2015-218895#18",
+    "en_ball_bearing#9"
+   ],
+   "baseline_top5": [
+    "ko_ball_bearing#17",
+    "ko_ball_bearing#11",
+    "nasa-tm-2017-219545#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#10"
+   ],
+   "pool": [
+    "nasa-tp-2013-215305-rev1#80",
+    "en_ball_bearing#15",
+    "ko_ball_bearing#17",
+    "nasa-tm-2015-218895#18",
+    "en_ball_bearing#9",
+    "ko_ball_bearing#11",
+    "nasa-tm-2017-219545#4",
+    "ko_bearing#0",
+    "ko_ball_bearing#10"
+   ],
+   "best_ranked10": [
+    "nasa-tp-2013-215305-rev1#80",
+    "en_ball_bearing#15",
+    "ko_ball_bearing#17",
+    "nasa-tm-2015-218895#18",
+    "en_ball_bearing#9",
+    "en_bearing_mechanical#14",
+    "en_bearing_mechanical#12",
+    "nasa-tm-2017-219545#33",
+    "nasa-tm-2017-219545#23",
+    "en_rolling_element_bearing#9"
+   ],
+   "best_rerank_pool": [
+    "ko_ball_bearing#17",
+    "en_ball_bearing#15",
+    "nasa-tm-2017-219545#24",
+    "de_waelzlager#8",
+    "luh-diss-stuhler-2024#97",
+    "nasa-tp-2013-215305-rev1#108",
+    "innotrac-2020-467#2",
+    "en_rolling_element_bearing#9",
+    "nasa-tp-2013-215305-rev1#81",
+    "en_bearing_mechanical#14",
+    "de_lager_maschinenelement#7",
+    "en_ball_bearing#16",
+    "nasa-tp-2013-215305-rev1#80",
+    "ko_bearing#4",
+    "en_bearing_mechanical#12",
+    "de_lager_maschinenelement#6",
+    "nasa-tp-2013-215305-rev1#59",
+    "nasa-tm-2017-219545#23",
+    "de_waelzlager#29",
+    "en_plain_bearing#10",
+    "en_plain_bearing#9",
+    "en_ball_bearing#5",
+    "ko_ball_bearing#5",
+    "en_ball_bearing#9",
+    "luh-diss-stuhler-2024#81",
+    "de_waelzlager#30",
+    "nasa-tm-2015-218895#18",
+    "luh-diss-stuhler-2024#71",
+    "ko_ball_bearing#11",
+    "nasa-tm-2017-219545#33"
+   ],
+   "concept": {
+    "alias": {
+     "bearing_fit": [
+      "끼워맞춤",
+      "끼워 맞춤"
+     ],
+     "bearing_life": [
+      "bearing life",
+      "베어링 수명"
+     ]
+    },
+    "dense": [],
+    "related": [
+     "fretting",
+     "preload_clearance",
+     "surface_fatigue",
+     "hertzian_contact",
+     "bearing_material"
+    ],
+    "ids": [
+     "bearing_fit",
+     "bearing_life"
+    ],
+    "canonical_names": [
+     "bearing fit",
+     "bearing fatigue life"
+    ],
+    "pool_added": [],
+    "ce_query": "What are the effects on bearing life and system vibration when the fit clearance of the bearing housing is greater than the specified tolerance? (bearing fit; bearing fatigue life)"
+   }
+  }
+ ]
+}

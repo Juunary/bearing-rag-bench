@@ -7,8 +7,10 @@
 - Answers: the base bf16 Qwen3-4B with the serving prompt cite_refuse_v1 (may refuse when the passages do not
   answer) on the top 5 chunks of the best retrieval. The query translator shares the generator's weights.
 - Output: eval/human_round2/user_questions_answers.json (--context-k other than 5: user_questions_answers_k<k>.json,
-  the generator reads the top k chunks of the best retrieval; the pool stays best top 5 + baseline top 5)
-- Usage: uv run python scripts/answer_user_questions.py [--context-k 10]
+  the generator reads the top k chunks of the best retrieval; the pool stays best top 5 + baseline top 5).
+  --config/--tag: another retrieval config in place of the best one (e.g. a concept-bundle variant), written to
+  user_questions_answers[_k<k>]_<tag>.json; rows then also keep the best retrieval's top 10, reranker pool and concept match.
+- Usage: uv run python scripts/answer_user_questions.py [--context-k 10] [--config configs/pdf/pdfth_c_pool_query_x13_... --tag c_pool_query]
 
 [KO]
 - 역할: 사람이 직접 쓴 질문은 아직 정답 라벨이 없다. 서비스 구성으로 답을 만들고, 사람이 라벨을 붙일 청크를 모은다:
@@ -16,8 +18,10 @@
 - 답변: 기반 bf16 Qwen3-4B, 서비스 프롬프트 cite_refuse_v1(근거가 없으면 거절할 수 있음), 최고 검색 상위 5개 청크.
   질의 번역기는 생성 모델 가중치를 함께 쓴다.
 - 출력: eval/human_round2/user_questions_answers.json (--context-k가 5가 아니면 user_questions_answers_k<k>.json. 생성 모델이
-  최고 검색 상위 k개를 읽고, 후보 풀은 최고 검색 상위 5 + 기준 검색 상위 5 그대로)
-- 사용: uv run python scripts/answer_user_questions.py [--context-k 10]
+  최고 검색 상위 k개를 읽고, 후보 풀은 최고 검색 상위 5 + 기준 검색 상위 5 그대로).
+  --config/--tag: 최고 검색 대신 다른 검색 설정(예: 개념 묶음 변형)을 쓰고 user_questions_answers[_k<k>]_<tag>.json에 쓴다.
+  이때 행에 그 검색의 상위 10·리랭커 후보·개념 매칭도 남긴다.
+- 사용: uv run python scripts/answer_user_questions.py [--context-k 10] [--config configs/pdf/pdfth_c_pool_query_x13_... --tag c_pool_query]
 """
 
 from __future__ import annotations
@@ -47,9 +51,14 @@ PROMPT, MODEL = "cite_refuse_v1", "Qwen/Qwen3-4B-Instruct-2507"
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--context-k", type=int, default=5)
-    k = ap.parse_args().context_k
+    ap.add_argument("--config", type=Path, default=BEST, help="retrieval config for the answers (default: the best PDF retrieval)")
+    ap.add_argument("--tag", default="", help="suffix of the output file (required with --config)")
+    args = ap.parse_args()
+    k, tag = args.context_k, args.tag
+    if args.config != BEST and not tag:
+        raise SystemExit("--tag is required with --config")
     questions = json.loads((DIR / "labels.json").read_text(encoding="utf-8"))["user_questions"]
-    best, base = ExperimentConfig.load(BEST), ExperimentConfig.load(BASE)
+    best, base = ExperimentConfig.load(args.config), ExperimentConfig.load(BASE)
     set_seed(best.seed)
     chunks = load_chunks(best.chunking)
     r_best, r_base = build_retriever(best), build_retriever(base)
@@ -60,19 +69,26 @@ def main() -> None:
     share_translator_model(r_base, generator)
     pipe = RAGPipeline(r_best, chunks, generator, LLMCache(REPO / "logs" / "human_round2_cache.sqlite"),
                        RequestLogger(REPO / "logs" / "human_round2_requests.jsonl"), prompt_version=PROMPT, context_k=k,
-                       max_new_tokens=256, config_id=f"human_round2:{best.exp_id}" + ("" if k == 5 else f"_k{k}"))
+                       max_new_tokens=256, config_id=f"human_round2:{best.exp_id}" + ("" if k == 5 else f"_k{k}") + (f"_{tag}" if tag else ""))
     rows = []
     for q in questions:
         resp = pipe.answer(q["question"])
         base_ids = [cid for cid, _ in r_base.search(q["question"], 5)]
         ctx = list(resp.context_ids)
         pool = list(dict.fromkeys(ctx[:5] + base_ids))
-        rows.append({**q, "answer": resp.answer, "blocked": resp.blocked, "reason": resp.reason,
-                     "best_top5": ctx[:5], "baseline_top5": base_ids, "pool": pool, **({} if k == 5 else {"context_ids": ctx})})
+        row = {**q, "answer": resp.answer, "blocked": resp.blocked, "reason": resp.reason,
+               "best_top5": ctx[:5], "baseline_top5": base_ids, "pool": pool, **({} if k == 5 else {"context_ids": ctx})}
+        if tag:
+            # 변형 검색 진단용: 상위 10, 리랭커 후보(개념 후보 포함), 매칭된 개념
+            row["best_ranked10"] = [cid for cid, _ in r_best.search(q["question"], 10)]
+            row["best_rerank_pool"] = list(getattr(r_best, "last_pool", []))
+            row["concept"] = getattr(r_best, "last_concept", None)
+        rows.append(row)
         print(q["qid"], "blocked" if resp.blocked else "", len(pool), resp.answer[:120].replace("\n", " "))
-    out = {"best_config": BEST.name, "baseline_config": BASE.name, "prompt_version": PROMPT, "model": MODEL,
+    out = {"best_config": args.config.name, "baseline_config": BASE.name, "prompt_version": PROMPT, "model": MODEL,
            "chunk_set": "wiki_pdf_th", "context_k": k, "rows": rows}
-    (DIR / ("user_questions_answers.json" if k == 5 else f"user_questions_answers_k{k}.json")).write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    name = "user_questions_answers" + ("" if k == 5 else f"_k{k}") + (f"_{tag}" if tag else "") + ".json"
+    (DIR / name).write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 if __name__ == "__main__":

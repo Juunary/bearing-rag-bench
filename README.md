@@ -101,6 +101,8 @@ uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # 표 캡�
 uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # PDF 질문 답변 (이후 run_judge.py)
 uv run python experiments/analyze_pdf_generation.py
 uv run python scripts/export_site_data.py           # 추적 페이지 데이터 (docs/data/)
+uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # 개념 경유 검색
+uv run python experiments/analyze_concepts.py
 
 # 다른 계열 판정 모델 (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -424,6 +426,19 @@ PDF 질문 답변(기반 bf16 Qwen3-4B, cite_v1, 상위 5개, 마지막 행만 �
 
 v2 질문 90개를 PDF 청크 557개가 추가된 코퍼스에서 다시 검색하면 nDCG@10이 설정별 -0.013 .. -0.040 바뀌고(영어 RRF + 리랭커(영어 입력) 0.895 → 0.865, 문서 군집 구간 -0.065 .. -0.003), 상위 5에 PDF 청크가 들어간 질문은 28 .. 37개입니다. v2 정답에는 PDF 청크가 없어서 관련 있는 PDF 청크도 오답으로 셉니다.
 
+### 개념 경유 검색 (개념 페이지 26개; PDF 질문 48개, v2 질문 90개, 사람 질문 10개)
+
+개념 페이지(`data/concepts/*.md`, OKF식 마크다운: 별칭 ko/en/de, 관련 개념, 영어 설명 2~4문장)를 질문에 매칭하고(별칭 우선, 없으면 dense 코사인 0.55 이상 상위 1개) 그 개념이 나오는 청크를 번역 질의와의 코사인 순으로 뽑아, 최고 검색(영어 RRF + 리랭커 영어 입력)에 세 방식으로 붙였습니다: pool(리랭커 후보 30 + 개념 후보 10), pool_query(pool + 리랭커 질의 뒤에 매칭 개념의 정식 명칭), rrf_query(매칭된 질문에서만 셋째 RRF 다리 + 질의 보강). 개념과 청크의 연결은 별칭 출현으로 기계적으로 만들었고(`src/ragbench/retrieval/concept.py`), 매칭되지 않은 질문은 기존 검색과 결과가 같습니다(빈 묶음으로 48문항의 순위·점수·후보가 같음을 확인). 페이지는 AI 에이전트가 용어집과 문서 제목에서 썼고 사람이 검수했습니다(`data/concepts_review.md`).
+
+| 설정 | PDF nDCG@10 | 차이 (문서 군집 95% 구간) | v2 nDCG@10 | 차이 | 매칭 질문 (PDF / v2) |
+|---|---|---|---|---|---|
+| 최고 검색 | 0.831 | - | 0.869 | - | - |
+| + pool | 0.831 | +0.000 (0/0/48) | 0.869 | +0.000 (0/0/90) | 43 / 65 |
+| + pool_query | 0.765 | -0.066 (-0.111 .. -0.027) | 0.859 | -0.010 (-0.042 .. +0.021) | 43 / 65 |
+| + rrf_query | 0.768 | -0.064 (-0.105 .. -0.027) | 0.860 | -0.009 (-0.041 .. +0.022) | 43 / 65 |
+
+pool은 후보를 질문당 평균 1.1 .. 1.3개 더했지만 상위 10에 든 것이 PDF 2건, v2 7건이고 그중 정답 청크는 1건이라 지표가 바뀌지 않았습니다. 질의 보강은 매칭된 질문에서 리랭커 순위를 떨어뜨렸습니다(PDF 매칭 43개 중 나아짐 2, 나빠짐 18). 사람 질문 10개(cite_refuse_v1)는 세 방식 모두 거절 5개로 같습니다. D05는 pool_query·rrf_query에서 `luh-diss-pelzer-2022#19`가 7위에서 3위로 올라 답변했지만(채점하지 않음) 나머지 관련 청크 4개(`de_wellendichtring#0` 등)는 여전히 후보에 들지 못했고, 상위 5에서 맞게 답하던 D07은 두 방식에서 거절로 바뀌었습니다. 상세는 `experiments/results/concept_analysis.md`에 있습니다.
+
 ## 한계
 
 - 평가 질문은 45개(언어쌍별 2~9개)와 90개(언어쌍별 10개)이며 코퍼스는 위키백과 문서입니다. PDF 문서는 별도 코퍼스(위키 + PDF)와 PDF 질문 48개로만 평가했습니다.
@@ -437,6 +452,7 @@ v2 질문 90개를 PDF 청크 557개가 추가된 코퍼스에서 다시 검색�
 - LlamaIndex·Haystack는 하이브리드 + 리랭커 구성 1개씩이고 파라미터 탐색을 하지 않았습니다. AutoRAG 탐색은 검색·리랭킹 노드의 모듈 11개로 한정했고 질의 확장, 프롬프트, 생성 노드는 탐색하지 않았습니다. 생성 비교는 시스템마다 최고 구성 1개, 판정 모델 1종입니다.
 - 표 머리글 반복은 표의 첫 행(빈 칸이 있으면 둘째 행까지)을 머리글로 보고, 표 앞 1~2개 문단 중 TABLE/Table/Tabelle로 시작하는 것만 캡션으로 씁니다. 수식이 표로 검출된 경우 그 줄도 머리글로 붙습니다. 머리글을 붙인 청크는 최대 508토큰입니다.
 - PDF 코퍼스는 한국어 문서가 없고(한국어는 질문 언어로만 씀), 문서 6건·질문 48개(언어쌍별 8개)입니다. PDF 질문은 AI 에이전트가 쓰고 다른 AI 에이전트 2개가 검수했으며 사람이 검수하지 않았습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
+- 개념 페이지는 AI 에이전트가 D05 실패 분석(oil seal과 radial shaft seal)을 알고 쓴 것이라 사람 질문 10개는 씰 개념의 공정한 시험이 아니며, 판단은 PDF 48·v2 90으로 했습니다. dense 매칭 임계값 0.55는 조정하지 않은 추정치이고, 개념 후보 수는 10 하나만 시험했습니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
@@ -462,6 +478,8 @@ eval/queries_pdf.jsonl, eval/pdf_draft/   PDF 평가셋, 초안·검수 입력�
 configs/pdf/    위키 + PDF 코퍼스 검색 설정 (scripts/make_pdf_configs.py가 생성)
 configs/pdfgen/ PDF 질문 답변 생성 설정
 eval/human_round2/   사람 검수 2차 표본·채점표·채점·직접 쓴 질문 답변 (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
+data/concepts/       개념 페이지 26개(OKF식 마크다운), data/concepts_review.md 사람 검수 기록
+src/ragbench/concepts.py, retrieval/concept.py   개념 로더·매칭, 개념 경유 후보 검색기 (experiments/analyze_concepts.py)
 docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
