@@ -39,7 +39,7 @@ from ragbench.stats import compare  # noqa: E402
 RES = REPO / "experiments" / "results"
 HR = REPO / "eval" / "human_round2"
 BEST = "x13_rrf_en_dense_en_rerank_en_text"
-MODES = ["pool", "pool_query", "rrf_query"]
+MODES = ["pool", "pool30", "pool_query", "rrf_query"]     # pool30 = pool with concept_pool_n 30
 SETS = {"pdfth": ("eval/queries_pdf.jsonl", "PDF questions (48, table-header chunks)"),
         "v2pdf": ("eval/queries_v2.jsonl", "v2 questions (90, wiki + pdf chunks)")}
 D05_TARGETS = ["luh-diss-pelzer-2022#19", "de_wellendichtring#0", "luh-diss-pelzer-2022#28", "luh-diss-pelzer-2022#40", "luh-diss-pelzer-2022#43"]

@@ -45,6 +45,9 @@ BEST = "x13_rrf_en_dense_en_rerank_en_text"
 CONCEPT = {f"c_{mode}_{BEST}": (f"{EXPERIMENTS[BEST][0]} + concept bundle ({mode})",
                                 {**EXPERIMENTS[BEST][1], "concept_bundle": "data/concepts", "concept_mode": mode}, EXPERIMENTS[BEST][2])
            for mode in ("pool", "pool_query", "rrf_query")}
+# pool 후보 수 ablation: 10(기본) 대신 30
+CONCEPT[f"c_pool30_{BEST}"] = (f"{EXPERIMENTS[BEST][0]} + concept bundle (pool, 30 candidates)",
+                               {**EXPERIMENTS[BEST][1], "concept_bundle": "data/concepts", "concept_mode": "pool", "concept_pool_n": 30}, EXPERIMENTS[BEST][2])
 CONCEPT_SETS = ("pdfth", "v2pdf")
 
 
