@@ -1,14 +1,14 @@
 ---
 id: oil_seal_leak_check
 type: guide
-title: 오일 씰 누유 점검 항목
+title: "오일 씰 누유 점검 항목"
 names:
   ko: ["오일 씰 누유", "씰 누유 점검", "래디얼 샤프트 씰 점검", "립 씰 누유"]
   en: ["oil seal leakage", "radial shaft seal leak", "shaft seal troubleshooting"]
   de: ["Wellendichtring Leckage", "RWDR undicht"]
 related: ["failure_modes", "storage_handling"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 오일 씰(래디얼 샤프트 씰) 누유 점검 항목
 

@@ -1,14 +1,14 @@
 ---
 id: relubrication
 type: guide
-title: 재급지 주기와 급지량
+title: "재급지 주기와 급지량"
 names:
   ko: ["재급지 주기", "그리스 보충", "급지량", "그리스 수명"]
   en: ["relubrication interval", "grease quantity", "grease life", "regreasing"]
   de: ["Nachschmierintervall", "Nachschmiermenge"]
 related: ["grease_selection", "failure_modes"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 재급지 주기와 급지량
 

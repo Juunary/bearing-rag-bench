@@ -1,14 +1,14 @@
 ---
 id: wheel_bearing_noise
 type: guide
-title: 휠 베어링 소음과 타이어 소음 구분
+title: "휠 베어링 소음과 타이어 소음 구분"
 names:
   ko: ["휠 베어링 소음", "허브 베어링 진단", "타이어 편마모 소음", "주행 소음 구분"]
   en: ["wheel bearing noise", "hub bearing diagnosis", "tire noise"]
   de: ["Radlagergeräusch", "Radlager Diagnose"]
 related: ["vibration_diagnosis", "failure_modes"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 휠 베어링 소음과 타이어 소음 구분
 

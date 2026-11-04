@@ -1,14 +1,14 @@
 ---
 id: vibration_diagnosis
 type: guide
-title: 진동 스펙트럼으로 베어링 결함 찾기
+title: "진동 스펙트럼으로 베어링 결함 찾기"
 names:
   ko: ["진동 진단", "베어링 결함 주파수", "엔벨로프 분석", "BPFO", "BPFI"]
   en: ["vibration analysis", "bearing defect frequencies", "envelope analysis", "ball pass frequency"]
   de: ["Schwingungsdiagnose", "Wälzlagerdiagnose"]
 related: ["failure_modes", "wheel_bearing_noise"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 진동 스펙트럼으로 베어링 결함 찾기
 

@@ -1,14 +1,14 @@
 ---
 id: ev_reducer_bearing
 type: guide
-title: 전기차 감속기 베어링 요구 사항
+title: "전기차 감속기 베어링 요구 사항"
 names:
   ko: ["전기차 감속기 베어링", "EV 베어링", "고속 베어링", "전식 방지", "모터 베어링 축전류"]
   en: ["EV reducer bearing", "electric vehicle bearing requirements", "bearing currents", "high-speed bearing"]
   de: ["E-Achse Lager", "Lagerströme"]
 related: ["grease_selection", "failure_modes", "driveline_torsional_damping"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 전기차 감속기 베어링 요구 사항
 

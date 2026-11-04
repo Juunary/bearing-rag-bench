@@ -1,14 +1,14 @@
 ---
 id: storage_handling
 type: guide
-title: 베어링 보관·취급·조립 요령
+title: "베어링 보관·취급·조립 요령"
 names:
   ko: ["베어링 보관", "베어링 취급", "베어링 조립", "가열 조립", "베어링 세척"]
   en: ["bearing storage", "bearing handling", "bearing mounting", "induction heater"]
   de: ["Lagerung von Wälzlagern", "Lagermontage"]
 related: ["fit_loose_creep", "preload_setting", "failure_modes"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 보관·취급·조립 요령
 

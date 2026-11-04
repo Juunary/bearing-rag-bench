@@ -1,14 +1,14 @@
 ---
 id: driveline_torsional_damping
 type: guide
-title: 구동계 비틀림 진동 댐핑 방식
+title: "구동계 비틀림 진동 댐핑 방식"
 names:
   ko: ["비틀림 진동", "구동축 진동 저감", "댐퍼", "듀얼 매스 플라이휠", "비틀림 댐퍼"]
   en: ["torsional vibration", "driveline damper", "dual-mass flywheel", "torsional damper", "tuned mass damper"]
   de: ["Drehschwingung", "Zweimassenschwungrad", "Torsionsdämpfer"]
 related: ["ev_reducer_bearing", "failure_modes"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 구동계 비틀림 진동 댐핑 방식
 

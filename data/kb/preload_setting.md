@@ -1,14 +1,14 @@
 ---
 id: preload_setting
 type: guide
-title: 예압·틈새 설정과 확인
+title: "예압·틈새 설정과 확인"
 names:
   ko: ["예압 설정", "베어링 틈새 조정", "테이퍼 롤러 베어링 조정", "앵귤러 베어링 예압", "엔드 플레이"]
   en: ["bearing preload setting", "end play adjustment", "clearance adjustment", "bearing adjustment"]
   de: ["Vorspannung einstellen", "Lagerspiel einstellen"]
 related: ["fit_loose_creep", "failure_modes"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 예압·틈새 설정과 확인
 

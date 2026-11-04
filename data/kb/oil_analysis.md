@@ -1,14 +1,14 @@
 ---
 id: oil_analysis
 type: guide
-title: 오일 분석으로 마모 상태 추정
+title: "오일 분석으로 마모 상태 추정"
 names:
   ko: ["오일 분석", "윤활유 분석", "페로그래피", "마모 입자 분석", "철분 분석"]
   en: ["oil analysis", "ferrography", "wear particle analysis", "wear debris"]
   de: ["Ölanalyse", "Ferrographie"]
 related: ["failure_modes", "vibration_diagnosis"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 오일 분석으로 마모 상태 추정
 

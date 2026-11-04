@@ -1,14 +1,14 @@
 ---
 id: fit_loose_creep
 type: guide
-title: 헐거운 끼워맞춤과 링 크리프·프레팅
+title: "헐거운 끼워맞춤과 링 크리프·프레팅"
 names:
   ko: ["끼워맞춤 불량", "헐거운 끼워맞춤", "링 크리프", "프레팅", "하우징 공차"]
   en: ["loose fit", "ring creep", "fretting corrosion", "housing fit"]
   de: ["Spielpassung", "Passungsrost", "Wandern des Rings"]
 related: ["preload_setting", "failure_modes", "storage_handling"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 헐거운 끼워맞춤과 링 크리프·프레팅
 

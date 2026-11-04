@@ -1,14 +1,14 @@
 ---
 id: grease_selection
 type: guide
-title: 그리스 선정: 고온·고하중·고속
+title: "그리스 선정: 고온·고하중·고속"
 names:
   ko: ["그리스 선정", "고온 그리스", "리튬 그리스 한계", "고하중 그리스", "EP 그리스"]
   en: ["grease selection", "high-temperature grease", "polyurea grease", "lithium complex grease", "EP grease"]
   de: ["Schmierfettauswahl", "Hochtemperaturfett"]
 related: ["relubrication", "ev_reducer_bearing"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 그리스 선정: 고온·고하중·고속
 

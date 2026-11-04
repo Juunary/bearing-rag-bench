@@ -1,14 +1,14 @@
 ---
 id: failure_modes
 type: guide
-title: 베어링 손상 모드와 증상 (ISO 15243 분류)
+title: "베어링 손상 모드와 증상 (ISO 15243 분류)"
 names:
   ko: ["베어링 손상 모드", "베어링 고장 원인", "손상 증상", "박리", "전식", "프레팅", "브리넬링"]
   en: ["bearing failure modes", "damage classification", "spalling", "electrical erosion", "false brinelling"]
   de: ["Lagerschäden", "Schadensbild"]
 related: ["fit_loose_creep", "vibration_diagnosis", "oil_analysis", "storage_handling"]
 verified: false
-author: AI agent draft (general engineering knowledge; standards cited by name only)
+author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 손상 모드와 증상 (ISO 15243 분류)
 
