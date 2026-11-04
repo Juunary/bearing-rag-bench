@@ -54,6 +54,8 @@ class Concept:
     related: list[str]
     docs: list[str]
     description: str
+    type: str = "concept"
+    verified: bool = False       # guide 페이지: 사람이 내용을 검수했는지
 
     def aliases(self) -> list[tuple[str, str]]:
         """[(lang, form)]; the title counts as an English form."""
@@ -75,8 +77,9 @@ def parse_concept_page(text: str, path: Path) -> Concept:
     if not m:
         raise ValueError(f"{path}: missing YAML front matter")
     meta = yaml.safe_load(m.group(1)) or {}
-    if meta.get("type") != "concept":
-        raise ValueError(f"{path}: type must be 'concept'")
+    # concept = 검색 다리용 개념 페이지, guide = 답변 근거로 쓰는 정리된 지식 페이지(data/kb)
+    if meta.get("type") not in ("concept", "guide"):
+        raise ValueError(f"{path}: type must be 'concept' or 'guide'")
     cid = str(meta.get("id", ""))
     if cid != path.stem:
         raise ValueError(f"{path}: id {cid!r} must equal the file stem")
@@ -84,8 +87,10 @@ def parse_concept_page(text: str, path: Path) -> Concept:
     title = str(meta.get("title", "")).strip()
     if not title and not any(names.values()):
         raise ValueError(f"{path}: a concept needs a title or at least one alias")
-    return Concept(id=cid, title=title or names["en"][0], names=names, related=[str(r) for r in meta.get("related") or []],
-                   docs=[str(d) for d in meta.get("docs") or []], description=m.group(2).strip())
+    first = next((f for lang in LANGS for f in names[lang]), "")
+    return Concept(id=cid, title=title or first, names=names, related=[str(r) for r in meta.get("related") or []],
+                   docs=[str(d) for d in meta.get("docs") or []], description=m.group(2).strip(),
+                   type=str(meta["type"]), verified=bool(meta.get("verified", False)))
 
 
 def load_concepts(directory: str | Path) -> list[Concept]:
