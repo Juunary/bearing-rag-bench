@@ -1,0 +1,2581 @@
+{
+ "questions": "eval/kb/questions2.jsonl",
+ "config": "pdfth_x13_rrf_en_dense_en_rerank_en_text.json",
+ "prompt_version": "cite_refuse_v1",
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "kb_pages": 24,
+ "kb_verified": 24,
+ "modes": [
+  "rag",
+  "kb_first",
+  "kb_matched"
+ ],
+ "kb_dense_min": 0.55,
+ "summary": {
+  "rag": {
+   "n": 20,
+   "blocked": 13,
+   "prompt_tokens_mean": 2253.25,
+   "seconds_mean": 0.0
+  },
+  "kb_first": {
+   "n": 20,
+   "blocked": 8,
+   "prompt_tokens_mean": 16577.1,
+   "seconds_mean": 8.527590915630572,
+   "fallback": 16
+  },
+  "kb_matched": {
+   "n": 20,
+   "blocked": 7,
+   "prompt_tokens_mean": 3449.4,
+   "seconds_mean": 4.332369247218594,
+   "fallback": 16
+  }
+ },
+ "rows": [
+  {
+   "qid": "K50",
+   "question": "4극 200HP 수직형 유도전동기의 하부 베어링을 구면 롤러 베어링에서 앵귤러 콘택트 볼 베어링으로 교체하려는데 적절한 설계 변경인가요?",
+   "topic": "bearing_selection_basics",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "ko_ball_bearing#0",
+      "en_ball_bearing#0",
+      "de_waelzlager#17",
+      "en_rolling_element_bearing#4",
+      "en_ball_bearing#1"
+     ],
+     "prompt_tokens": 2037,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "아니요, 4극 200HP 수직형 유도전동기의 하부 베어링을 구면 롤러 베어링에서 앵귤러 콘택트 볼 베어링으로 교체하는 것은 적절한 설계 변경이 아닙니다. [kb_bearing_selection_basics#0]에 따르면, 수직형 전동기의 하중은 주로 축 방향이며, 구면 롤러 베어링은 양방향 중하중에 적합하지만, 축 방향 하중이 큰 경우에 앵귤러 콘택트 볼 베어링이 더 적합하다고 명시되어 있습니다. 그러나 수직형 전동기의 경우, 축 방향 하중이 크고 정렬 오차가 있을 수 있으므로 앵귤러 콘택트 볼 베어링이 더 적합할 수 있습니다. 그러나 전동기의 구조와 하중 조건을 고려해야 하며, 구면 롤러 베어링이 축 방향 하중에 더 적합하지 않을 수 있습니다.",
+     "raw": "아니요, 4극 200HP 수직형 유도전동기의 하부 베어링을 구면 롤러 베어링에서 앵귤러 콘택트 볼 베어링으로 교체하는 것은 적절한 설계 변경이 아닙니다. [kb_bearing_selection_basics#0]에 따르면, 수직형 전동기의 하중은 주로 축 방향이며, 구면 롤러 베어링은 양방향 중하중에 적합하지만, 축 방향 하중이 큰 경우에 앵귤러 콘택트 볼 베어링이 더 적합하다고 명시되어 있습니다. 그러나 수직형 전동기의 경우, 축 방향 하중이 크고 정렬 오차가 있을 수 있으므로 앵귤러 콘택트 볼 베어링이 더 적합할 수 있습니다. 그러나 전동기의 구조와 하중 조건을 고려해야 하며, 구면 롤러 베어링이 축 방향 하중에 더 적합하지 않을 수 있습니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20148,
+     "completion_tokens": 256,
+     "seconds": 14.159635664429516,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_selection_basics",
+        0.6052
+       ]
+      ],
+      "related": [
+       "preload_setting",
+       "lubrication_method_choice",
+       "bearing_designation"
+      ],
+      "ids": [
+       "bearing_selection_basics"
+      ],
+      "canonical_names": [
+       "베어링 형식 선정 기본"
+      ],
+      "ids_with_related": [
+       "bearing_selection_basics",
+       "preload_setting",
+       "lubrication_method_choice",
+       "bearing_designation"
+      ],
+      "dense_best": [
+       "bearing_selection_basics",
+       0.6052
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "네, 적절한 설계 변경입니다. 구면 롤러 베어링은 정렬 오차 ±1~2°를 허용하며 중하중·저속에서 사용되지만, 앵귤러 콘택트 볼 베어링은 레이디얼과 축 하중이 동시에 걸릴 때, 특히 축 방향 강성이 필요할 경우 더 적합합니다. 4극 200HP 수직형 유도전동기의 하부는 축 방향 하중이 크고 정렬 오차가 있을 가능성이 높아 앵귤러 콘택트 볼 베어링이 더 안정적인 성능을 제공합니다 [kb_bearing_selection_basics#0]. 또한, 앵귤러 콘택트 볼 베어링은 예압을 통해 강성과 정밀도를 높일 수 있어, 고정된 하우징과 축 열팽창을 고려한 설계에 유리합니다 [kb_preload_setting#0].",
+     "raw": "네, 적절한 설계 변경입니다. 구면 롤러 베어링은 정렬 오차 ±1~2°를 허용하며 중하중·저속에서 사용되지만, 앵귤러 콘택트 볼 베어링은 레이디얼과 축 하중이 동시에 걸릴 때, 특히 축 방향 강성이 필요할 경우 더 적합합니다. 4극 200HP 수직형 유도전동기의 하부는 축 방향 하중이 크고 정렬 오차가 있을 가능성이 높아 앵귤러 콘택트 볼 베어링이 더 안정적인 성능을 제공합니다 [kb_bearing_selection_basics#0]. 또한, 앵귤러 콘택트 볼 베어링은 예압을 통해 강성과 정밀도를 높일 수 있어, 고정된 하우징과 축 열팽창을 고려한 설계에 유리합니다 [kb_preload_setting#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_selection_basics#0",
+      "kb_preload_setting#0",
+      "kb_lubrication_method_choice#0",
+      "kb_bearing_designation#0"
+     ],
+     "prompt_tokens": 3710,
+     "completion_tokens": 237,
+     "seconds": 9.535546000115573,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_selection_basics",
+        0.6052
+       ]
+      ],
+      "related": [
+       "preload_setting",
+       "lubrication_method_choice",
+       "bearing_designation"
+      ],
+      "ids": [
+       "bearing_selection_basics"
+      ],
+      "canonical_names": [
+       "베어링 형식 선정 기본"
+      ],
+      "ids_with_related": [
+       "bearing_selection_basics",
+       "preload_setting",
+       "lubrication_method_choice",
+       "bearing_designation"
+      ],
+      "dense_best": [
+       "bearing_selection_basics",
+       0.6052
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K51",
+   "question": "레이저 축 정렬 작업 시 다이얼 인디케이터로 소프트 풋을 측정할 때 볼트 4개를 다 푼 상태에서 해야 하나요, 아니면 하나씩 풀면서 해야 하나요?",
+   "topic": "shaft_misalignment",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#67",
+      "luh-diss-stuhler-2024#89",
+      "luh-diss-stuhler-2024#197",
+      "en_ball_bearing#16",
+      "luh-diss-pelzer-2022#79"
+     ],
+     "prompt_tokens": 2447,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "레이저 축 정렬 작업 시 다이얼 인디케이터로 소프트 풋을 측정할 때는 볼트 4개를 다 풀어 0.05 mm 이상 들리면 심으로 보정해야 합니다. 하나씩 풀면서 측정하는 것이 아니라, 모든 볼트를 동시에 풀고 그 후에 보정을 진행해야 합니다. [kb_shaft_misalignment#0]",
+     "raw": "레이저 축 정렬 작업 시 다이얼 인디케이터로 소프트 풋을 측정할 때는 볼트 4개를 다 풀어 0.05 mm 이상 들리면 심으로 보정해야 합니다. 하나씩 풀면서 측정하는 것이 아니라, 모든 볼트를 동시에 풀고 그 후에 보정을 진행해야 합니다. [kb_shaft_misalignment#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20147,
+     "completion_tokens": 107,
+     "seconds": 8.272661961149424,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "shaft_misalignment": [
+        "laser alignment",
+        "soft foot",
+        "축 정렬",
+        "소프트 풋"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "vibration_diagnosis",
+       "bearing_temperature",
+       "failure_modes"
+      ],
+      "ids": [
+       "shaft_misalignment"
+      ],
+      "canonical_names": [
+       "축 정렬 불량(미스얼라인먼트) 진단과 보정"
+      ],
+      "ids_with_related": [
+       "shaft_misalignment",
+       "vibration_diagnosis",
+       "bearing_temperature",
+       "failure_modes"
+      ],
+      "dense_best": [
+       "shaft_misalignment",
+       0.5755
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_shaft_misalignment#0",
+      "kb_vibration_diagnosis#0",
+      "kb_bearing_temperature#0",
+      "kb_failure_modes#0"
+     ],
+     "prompt_tokens": 3415,
+     "completion_tokens": 4,
+     "seconds": 0.6626579212024808,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "shaft_misalignment": [
+        "laser alignment",
+        "soft foot",
+        "축 정렬",
+        "소프트 풋"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "vibration_diagnosis",
+       "bearing_temperature",
+       "failure_modes"
+      ],
+      "ids": [
+       "shaft_misalignment"
+      ],
+      "canonical_names": [
+       "축 정렬 불량(미스얼라인먼트) 진단과 보정"
+      ],
+      "ids_with_related": [
+       "shaft_misalignment",
+       "vibration_diagnosis",
+       "bearing_temperature",
+       "failure_modes"
+      ],
+      "dense_best": [
+       "shaft_misalignment",
+       0.5755
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K52",
+   "question": "DN 400,000 수준의 고속 원심 펌프 베어링 윤활 방식으로 적하 급유(Drip feed)와 오일 미스트 중 어떤 방식이 더 유리한가요?",
+   "topic": "lubrication_method_choice",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "en_ball_bearing#13",
+      "luh-diss-stuhler-2024#137",
+      "ko_ball_bearing#15",
+      "de_schmierfett#15",
+      "en_ball_bearing#12"
+     ],
+     "prompt_tokens": 2264,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "DN 400,000 수준의 고속 원심 펌프 베어링은 고속(dn값이 높을 때)에서 작동하므로, 윤활 방식으로는 오일 미스트가 더 유리합니다. [kb_lubrication_method_choice#0]에 따르면, 고속(DN 50만 이상)에서는 기유 점도를 낮게 하고 채널링 특성이 좋은 폴리우레아·리튬 콤플렉스를 사용하며, 충전량은 자유 공간의 약 20~30%로 설정해야 합니다. 오일 미스트는 고속에서 압축공기에 오일을 안개로 섞어 공급하여 소량으로 냉각하고, 고속 회전에 적합합니다. 반면, 적하 급유는 고속에서 효과가 제한적이며, 고속에서의 냉각 및 윤활 효율이 낮습니다. 따라서 오일 미스트가 더 유리합니다.",
+     "raw": "DN 400,000 수준의 고속 원심 펌프 베어링은 고속(dn값이 높을 때)에서 작동하므로, 윤활 방식으로는 오일 미스트가 더 유리합니다. [kb_lubrication_method_choice#0]에 따르면, 고속(DN 50만 이상)에서는 기유 점도를 낮게 하고 채널링 특성이 좋은 폴리우레아·리튬 콤플렉스를 사용하며, 충전량은 자유 공간의 약 20~30%로 설정해야 합니다. 오일 미스트는 고속에서 압축공기에 오일을 안개로 섞어 공급하여 소량으로 냉각하고, 고속 회전에 적합합니다. 반면, 적하 급유는 고속에서 효과가 제한적이며, 고속에서의 냉각 및 윤활 효율이 낮습니다. 따라서 오일 미스트가 더 유리합니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20139,
+     "completion_tokens": 240,
+     "seconds": 13.739292966201901,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "lubrication_method_choice": [
+        "oil mist",
+        "오일 미스트"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "ids": [
+       "lubrication_method_choice"
+      ],
+      "canonical_names": [
+       "윤활 방식 선택: 그리스와 오일"
+      ],
+      "ids_with_related": [
+       "lubrication_method_choice",
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "dense_best": [
+       "lubrication_method_choice",
+       0.6013
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "DN 400,000 수준의 고속 원심 펌프 베어링은 고속에서 작동하므로 오일 미스트가 더 유리합니다. 오일 미스트는 고속에서 소량으로 냉각을 제공하며, 교반 발열을 줄일 수 있습니다 [kb_lubrication_method_choice#0]. 적하 급유는 중~고속에서 사용되지만, 고속에서는 오일 미스트보다 열 관리와 윤활 효율이 우수합니다 [kb_lubrication_method_choice#0].",
+     "raw": "DN 400,000 수준의 고속 원심 펌프 베어링은 고속에서 작동하므로 오일 미스트가 더 유리합니다. 오일 미스트는 고속에서 소량으로 냉각을 제공하며, 교반 발열을 줄일 수 있습니다 [kb_lubrication_method_choice#0]. 적하 급유는 중~고속에서 사용되지만, 고속에서는 오일 미스트보다 열 관리와 윤활 효율이 우수합니다 [kb_lubrication_method_choice#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_lubrication_method_choice#0",
+      "kb_grease_selection#0",
+      "kb_relubrication#0",
+      "kb_bearing_temperature#0"
+     ],
+     "prompt_tokens": 3299,
+     "completion_tokens": 130,
+     "seconds": 5.37394933309406,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "lubrication_method_choice": [
+        "oil mist",
+        "오일 미스트"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "ids": [
+       "lubrication_method_choice"
+      ],
+      "canonical_names": [
+       "윤활 방식 선택: 그리스와 오일"
+      ],
+      "ids_with_related": [
+       "lubrication_method_choice",
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "dense_best": [
+       "lubrication_method_choice",
+       0.6013
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K53",
+   "question": "진동 스펙트럼에 1× 및 2× 회전 주파수가 크게 튀고 축 방향 진폭이 레이디얼 진폭의 50%를 넘는다면 주로 어떤 결함으로 볼 수 있습니까?",
+   "topic": "shaft_misalignment",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#51",
+      "luh-diss-stuhler-2024#61",
+      "luh-diss-stuhler-2024#170",
+      "luh-diss-stuhler-2024#179",
+      "luh-diss-stuhler-2024#56"
+     ],
+     "prompt_tokens": 2551,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "진동 스펙트럼에 1× 및 2× 회전 주파수가 크게 튀고 축 방향 진폭이 레이디얼 진폭의 50%를 넘는 경우는 **틀린 끼워맞춤(틀림 또는 헐거움)** 또는 **정렬 불량**으로 볼 수 있습니다. 이는 진동 스펙트럼에서 회전 주파수의 정수배 성분이 강하게 나타나며, 특히 1× 조화파가 다수 존재하는 것이 헐거움의 특징입니다. 또한 축 방향 진폭이 높다는 점은 정렬 불량이나 헐거움이 축 방향에 큰 하중을 가하고 있음을 시사합니다. [kb_vibration_diagnosis#0]",
+     "raw": "진동 스펙트럼에 1× 및 2× 회전 주파수가 크게 튀고 축 방향 진폭이 레이디얼 진폭의 50%를 넘는 경우는 **틀린 끼워맞춤(틀림 또는 헐거움)** 또는 **정렬 불량**으로 볼 수 있습니다. 이는 진동 스펙트럼에서 회전 주파수의 정수배 성분이 강하게 나타나며, 특히 1× 조화파가 다수 존재하는 것이 헐거움의 특징입니다. 또한 축 방향 진폭이 높다는 점은 정렬 불량이나 헐거움이 축 방향에 큰 하중을 가하고 있음을 시사합니다. [kb_vibration_diagnosis#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20144,
+     "completion_tokens": 187,
+     "seconds": 11.543240912724286,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "vibration_diagnosis",
+        0.63
+       ]
+      ],
+      "related": [
+       "failure_modes",
+       "wheel_bearing_noise"
+      ],
+      "ids": [
+       "vibration_diagnosis"
+      ],
+      "canonical_names": [
+       "진동 스펙트럼으로 베어링 결함 찾기"
+      ],
+      "ids_with_related": [
+       "vibration_diagnosis",
+       "failure_modes",
+       "wheel_bearing_noise"
+      ],
+      "dense_best": [
+       "vibration_diagnosis",
+       0.63
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "정수배 성분(1×, 2×)은 불평형·정렬 불량·헐거움, 기어 맞물림 주파수는 기어로, 진동 스펙트럼에 1× 및 2× 회전 주파수가 크게 튀는 것은 불평형·정렬 불량·헐거움 등의 원인을 시사합니다 [kb_vibration_diagnosis#0]. 또한 축 방향 진폭이 레이디얼 진폭의 50%를 넘는 것은 축 방향 하중이 큰 경우를 나타내며, 이는 정렬 불량이나 예압 과다와 관련될 수 있습니다 [kb_failure_modes#0]. 따라서 주로 정렬 불량 또는 예압 과다로 볼 수 있습니다.",
+     "raw": "정수배 성분(1×, 2×)은 불평형·정렬 불량·헐거움, 기어 맞물림 주파수는 기어로, 진동 스펙트럼에 1× 및 2× 회전 주파수가 크게 튀는 것은 불평형·정렬 불량·헐거움 등의 원인을 시사합니다 [kb_vibration_diagnosis#0]. 또한 축 방향 진폭이 레이디얼 진폭의 50%를 넘는 것은 축 방향 하중이 큰 경우를 나타내며, 이는 정렬 불량이나 예압 과다와 관련될 수 있습니다 [kb_failure_modes#0]. 따라서 주로 정렬 불량 또는 예압 과다로 볼 수 있습니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_vibration_diagnosis#0",
+      "kb_failure_modes#0",
+      "kb_wheel_bearing_noise#0"
+     ],
+     "prompt_tokens": 2659,
+     "completion_tokens": 177,
+     "seconds": 7.099894651211798,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "vibration_diagnosis",
+        0.63
+       ]
+      ],
+      "related": [
+       "failure_modes",
+       "wheel_bearing_noise"
+      ],
+      "ids": [
+       "vibration_diagnosis"
+      ],
+      "canonical_names": [
+       "진동 스펙트럼으로 베어링 결함 찾기"
+      ],
+      "ids_with_related": [
+       "vibration_diagnosis",
+       "failure_modes",
+       "wheel_bearing_noise"
+      ],
+      "dense_best": [
+       "vibration_diagnosis",
+       0.63
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K54",
+   "question": "기어박스 분해 시 베어링 외륜에 각인된 '6210-2RS1/C3'에서 2RS1과 C3가 각각 의미하는 바는 무엇입니까?",
+   "topic": "bearing_designation",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "de_waelzlager#27",
+      "de_waelzlager#28",
+      "de_waelzlager#26",
+      "de_waelzlager#7",
+      "de_waelzlager#29"
+     ],
+     "prompt_tokens": 2463,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "2RS1은 고무 접촉 씰을 의미하며, 한쪽에 설치되어 수분·이물 차단을 제공합니다. [kb_bearing_designation#0]  \nC3는 레이디얼 내부 틈새가 표준보다 큼을 의미하며, 고온·억지 끼워맞춤 상황에서 사용됩니다. [kb_bearing_designation#0]",
+     "raw": "2RS1은 고무 접촉 씰을 의미하며, 한쪽에 설치되어 수분·이물 차단을 제공합니다. [kb_bearing_designation#0]  \nC3는 레이디얼 내부 틈새가 표준보다 큼을 의미하며, 고온·억지 끼워맞춤 상황에서 사용됩니다. [kb_bearing_designation#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20132,
+     "completion_tokens": 93,
+     "seconds": 7.994635456707329,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_designation",
+        0.5506
+       ]
+      ],
+      "related": [
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "ids": [
+       "bearing_designation"
+      ],
+      "canonical_names": [
+       "베어링 호칭 번호 읽는 법"
+      ],
+      "ids_with_related": [
+       "bearing_designation",
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "bearing_designation",
+       0.5506
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "'2RS1'은 고무 접촉 씰이 한쪽에 설치된 것을 의미하며, 수분·이물 차단을 제공하지만 속도 한계가 낮고 마찰이 큽니다 [kb_bearing_designation#0]. 'C3'는 레이디얼 내부 틈새가 표준보다 큰 것을 의미하며, 고온·억지 끼워맞춤 상황에서 사용됩니다 [kb_bearing_designation#0].",
+     "raw": "'2RS1'은 고무 접촉 씰이 한쪽에 설치된 것을 의미하며, 수분·이물 차단을 제공하지만 속도 한계가 낮고 마찰이 큽니다 [kb_bearing_designation#0]. 'C3'는 레이디얼 내부 틈새가 표준보다 큰 것을 의미하며, 고온·억지 끼워맞춤 상황에서 사용됩니다 [kb_bearing_designation#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_selection_basics#0",
+      "kb_preload_setting#0",
+      "kb_storage_handling#0"
+     ],
+     "prompt_tokens": 3697,
+     "completion_tokens": 110,
+     "seconds": 4.75126932375133,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_designation",
+        0.5506
+       ]
+      ],
+      "related": [
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "ids": [
+       "bearing_designation"
+      ],
+      "canonical_names": [
+       "베어링 호칭 번호 읽는 법"
+      ],
+      "ids_with_related": [
+       "bearing_designation",
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "bearing_designation",
+       0.5506
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K55",
+   "question": "자동차 에어컨 콤프레샤 마그네틱 클러치가 붙지 않을 때 릴레이와 퓨즈를 점검하는 방법은 어떻게 되나요?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#133",
+      "de_nadellager#0",
+      "en_bearing_mechanical#15",
+      "luh-diss-stuhler-2024#170",
+      "ko_bearing#3"
+     ],
+     "prompt_tokens": 2382,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#133",
+      "de_nadellager#0",
+      "en_bearing_mechanical#15",
+      "luh-diss-stuhler-2024#170",
+      "ko_bearing#3"
+     ],
+     "prompt_tokens": 2382,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "oil_seal_leak_check",
+       0.5301
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#133",
+      "de_nadellager#0",
+      "en_bearing_mechanical#15",
+      "luh-diss-stuhler-2024#170",
+      "ko_bearing#3"
+     ],
+     "prompt_tokens": 2382,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "oil_seal_leak_check",
+       0.5301
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K56",
+   "question": "정상적으로 가동되던 송풍기 베어링 온도가 그리스 급지 직후 15도 이상 급격히 상승했다면 가장 유력한 원인과 조치 방법은 무엇인가요?",
+   "topic": "bearing_temperature",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "정상적으로 가동되던 송풍기 베어링 온도가 그리스 급지 직후 15도 이상 급격히 상승했다면, 가장 유력한 원인은 그리스가 과도하게 공급되어 베어링 내부에서 점성 저항이 증가하고 마찰이 증가했기 때문입니다. 이는 그리스의 점도가 너무 높아 베어링의 운동을 방해하고, 마찰로 인해 열이 발생하기 때문입니다. 조치 방법으로는 그리스의 양을 줄이고, 적절한 온도와 점도를 갖는 그리스를 사용하며, 주기적으로 그리스를 교체해야 합니다 [ko_lubrication#0][ko_ball_bearing#14].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "luh-diss-stuhler-2024#119",
+      "luh-diss-stuhler-2024#146",
+      "ko_lubrication#0",
+      "luh-diss-stuhler-2024#199",
+      "ko_ball_bearing#14"
+     ],
+     "prompt_tokens": 2539,
+     "completion_tokens": 179,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "정상적으로 가동되던 송풍기 베어링 온도가 그리스 급지 직후 15도 이상 급격히 상승했다면 가장 유력한 원인은 **그리스 과충전**입니다. [kb_bearing_temperature#0]에서 그리스 과충전은 기동 직후 급상승 후 서서히 하강하며, 교반 발열로 인해 온도가 급격히 상승한다는 점이 명시되어 있습니다.  \n조치 방법은 급지 후 배출구(릴리프)를 열어 묵은 그리스를 제거하고, 운전 중에 재급지를 원칙으로 하며, 초기 충전량을 베어링 내부 자유 공간의 약 30~50%로 제한하여 과충전을 방지하는 것입니다. [kb_grease_selection#0] 및 [kb_reubrication#0]에서 과충전이 교반 발열의 가장 흔한 원인임을 강조합니다.",
+     "blocked": true,
+     "reason": "invalid_citation",
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20137,
+     "completion_tokens": 237,
+     "seconds": 13.200334335677326,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "bearing_temperature": [
+        "bearing temperature",
+        "베어링 온도"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "lubrication_method_choice",
+       "relubrication",
+       "preload_setting",
+       "shaft_misalignment"
+      ],
+      "ids": [
+       "bearing_temperature"
+      ],
+      "canonical_names": [
+       "베어링 운전 온도 관리와 과열 원인"
+      ],
+      "ids_with_related": [
+       "bearing_temperature",
+       "lubrication_method_choice",
+       "relubrication",
+       "preload_setting",
+       "shaft_misalignment"
+      ],
+      "dense_best": [
+       "bearing_temperature",
+       0.671
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "가장 유력한 원인은 그리스 과충전입니다. [kb_bearing_temperature#0] 그리스 과충전 시 기동 직후 급상승 후 서서히 하강하며, 릴리프 밸브에서 그리스 배출되는 특징이 있습니다. 조치 방법은 급지 후 배출구(릴리프)를 열어 두어 묵은 그리스를 배출하고, 운전 중에 급지를 원칙으로 하며, 초기 충전량을 베어링 내부 공간의 30~50% 내외로 조절하여 과충전을 방지해야 합니다. [kb_relubrication#0]",
+     "raw": "가장 유력한 원인은 그리스 과충전입니다. [kb_bearing_temperature#0] 그리스 과충전 시 기동 직후 급상승 후 서서히 하강하며, 릴리프 밸브에서 그리스 배출되는 특징이 있습니다. 조치 방법은 급지 후 배출구(릴리프)를 열어 두어 묵은 그리스를 배출하고, 운전 중에 급지를 원칙으로 하며, 초기 충전량을 베어링 내부 공간의 30~50% 내외로 조절하여 과충전을 방지해야 합니다. [kb_relubrication#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_temperature#0",
+      "kb_lubrication_method_choice#0",
+      "kb_relubrication#0",
+      "kb_preload_setting#0",
+      "kb_shaft_misalignment#0"
+     ],
+     "prompt_tokens": 4001,
+     "completion_tokens": 153,
+     "seconds": 6.036638242192566,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "bearing_temperature": [
+        "bearing temperature",
+        "베어링 온도"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "lubrication_method_choice",
+       "relubrication",
+       "preload_setting",
+       "shaft_misalignment"
+      ],
+      "ids": [
+       "bearing_temperature"
+      ],
+      "canonical_names": [
+       "베어링 운전 온도 관리와 과열 원인"
+      ],
+      "ids_with_related": [
+       "bearing_temperature",
+       "lubrication_method_choice",
+       "relubrication",
+       "preload_setting",
+       "shaft_misalignment"
+      ],
+      "dense_best": [
+       "bearing_temperature",
+       0.671
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K57",
+   "question": "전륜구동 차량의 CV 조인트 고무 부트가 찢어져 구리스가 약간 샜는데 관절 부위에서 아직 소음은 안 납니다. 부트만 교체해도 될까요, 아니면 조인트 어셈블리를 통째로 교체해야 하나요?",
+   "topic": "cv_joint_boot_service",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "전륜구동 차량의 CV 조인트 고무 부트가 찢어져 구리스가 약간 샜지만 아직 소음이 없다면, 부트만 교체하는 것이 가능합니다 [en_cv_joint#7]. 그러나 부트가 찢어져 있어 외부 오염물이 들어오고 라이브러리가 손상될 수 있으므로, 부트의 상태가 계속 악화되지 않도록 주의해야 합니다. 소음이 없고 조인트가 정상적으로 작동한다면 부트만 교체하는 것이 충분할 수 있습니다. 그러나 부트가 심하게 손상되었거나, 조인트가 불규칙한 진동을 보이기 시작하면 조인트 어셈블리를 통째로 교체해야 합니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_cv_joint#7",
+      "en_cv_joint#0",
+      "en_cv_joint#8",
+      "de_homokinetisches_gelenk#0",
+      "de_homokinetisches_gelenk#4"
+     ],
+     "prompt_tokens": 1820,
+     "completion_tokens": 178,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "부트만 교체해도 될 수 있습니다. 부트 파손으로 인해 그리스가 빠져나가고 물·모래가 들어가면 볼·케이지·레이스가 연마 마모되어 수주~수개월 내에 소음·유격이 생기지만, 현재 소음이 없고 조인트 자체의 마모가 없음을 확인했을 경우 부트만 교체하면 충분합니다. 부트 교체 후 지정 그리스를 지정량으로 충전하고, 조인트의 마모·유격을 점검하는 것이 중요합니다 [kb_cv_joint_boot_service#0].",
+     "raw": "부트만 교체해도 될 수 있습니다. 부트 파손으로 인해 그리스가 빠져나가고 물·모래가 들어가면 볼·케이지·레이스가 연마 마모되어 수주~수개월 내에 소음·유격이 생기지만, 현재 소음이 없고 조인트 자체의 마모가 없음을 확인했을 경우 부트만 교체하면 충분합니다. 부트 교체 후 지정 그리스를 지정량으로 충전하고, 조인트의 마모·유격을 점검하는 것이 중요합니다 [kb_cv_joint_boot_service#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20154,
+     "completion_tokens": 144,
+     "seconds": 9.950203366111964,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "cv_joint_boot_service",
+        0.7259
+       ]
+      ],
+      "related": [
+       "wheel_hub_bearing_replacement",
+       "driveline_torsional_damping",
+       "grease_selection"
+      ],
+      "ids": [
+       "cv_joint_boot_service"
+      ],
+      "canonical_names": [
+       "CV 조인트와 부트 정비"
+      ],
+      "ids_with_related": [
+       "cv_joint_boot_service",
+       "wheel_hub_bearing_replacement",
+       "driveline_torsional_damping",
+       "grease_selection"
+      ],
+      "dense_best": [
+       "cv_joint_boot_service",
+       0.7259
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "네, 부트만 교체해도 될 수 있습니다. 부트 파손으로 인해 그리스가 빠져나가고 물·모래가 들어가면 볼·케이지·레이스가 마모되어 소음이나 유격이 생길 수 있지만, 현재 소음이 없고 조인트 자체가 마모되지 않았다면 부트만 교체하면 됩니다 [kb_cv_joint_boot_service#0]. 부트 교체 시 지정 그리스를 정확히 충전하고, 공기 압력을 맞추어 부트가 팽창하지 않도록 해야 합니다 [kb_cv_joint_boot_service#0]. 조인트 어셈블리를 통째로 교체할 필요는 없습니다.",
+     "raw": "네, 부트만 교체해도 될 수 있습니다. 부트 파손으로 인해 그리스가 빠져나가고 물·모래가 들어가면 볼·케이지·레이스가 마모되어 소음이나 유격이 생길 수 있지만, 현재 소음이 없고 조인트 자체가 마모되지 않았다면 부트만 교체하면 됩니다 [kb_cv_joint_boot_service#0]. 부트 교체 시 지정 그리스를 정확히 충전하고, 공기 압력을 맞추어 부트가 팽창하지 않도록 해야 합니다 [kb_cv_joint_boot_service#0]. 조인트 어셈블리를 통째로 교체할 필요는 없습니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_cv_joint_boot_service#0",
+      "kb_wheel_hub_bearing_replacement#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_grease_selection#0"
+     ],
+     "prompt_tokens": 3641,
+     "completion_tokens": 158,
+     "seconds": 6.332135981880128,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "cv_joint_boot_service",
+        0.7259
+       ]
+      ],
+      "related": [
+       "wheel_hub_bearing_replacement",
+       "driveline_torsional_damping",
+       "grease_selection"
+      ],
+      "ids": [
+       "cv_joint_boot_service"
+      ],
+      "canonical_names": [
+       "CV 조인트와 부트 정비"
+      ],
+      "ids_with_related": [
+       "cv_joint_boot_service",
+       "wheel_hub_bearing_replacement",
+       "driveline_torsional_damping",
+       "grease_selection"
+      ],
+      "dense_best": [
+       "cv_joint_boot_service",
+       0.7259
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K58",
+   "question": "주행 거리 15만 km인 승용차의 3세대 휠 허브 베어링(허브 일체형) 어셈블리를 너클에서 분리할 때 슬라이딩 해머로 빼지 않고 프레스로 작업해야 하는 이유는 무엇입니까?",
+   "topic": "wheel_hub_bearing_replacement",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "프레스로 작업해야 하는 이유는 슬라이딩 해머로 빼면 베어링과 허브 표면에 손상을 줄 수 있기 때문입니다. 해머로 두드리면 베어링과 샤프트 모두 손상되며, 이는 브린엘링이나 표면 손상과 같은 결함을 유발할 수 있습니다 [en_ball_bearing#16][ko_ball_bearing#18]. 이러한 손상은 베어링의 수명과 성능에 부정적인 영향을 미칩니다. 또한, 정확한 분리가 필요하기 때문에 프레스는 일정한 힘을 안정적으로 제공하여 손상을 최소화할 수 있습니다 [de_waelzlager#31].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_ball_bearing#16",
+      "ko_ball_bearing#18",
+      "de_waelzlager#31",
+      "nasa-tm-2017-219545#7",
+      "en_brinelling#2"
+     ],
+     "prompt_tokens": 2105,
+     "completion_tokens": 178,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "슬라이딩 해머로 빼지 않고 프레스로 작업해야 하는 이유는 내륜을 통해 외륜을 밀면 전동체를 통해 힘이 전달되어 궤도에 압흔(브리넬링)이 생기기 때문입니다. 이는 베어링의 손상으로 이어질 수 있으며, 조립 시 손상이 발생하지 않도록 하기 위해 직접적인 충격을 피해야 합니다 [kb_wheel_hub_bearing_replacement#0].",
+     "raw": "슬라이딩 해머로 빼지 않고 프레스로 작업해야 하는 이유는 내륜을 통해 외륜을 밀면 전동체를 통해 힘이 전달되어 궤도에 압흔(브리넬링)이 생기기 때문입니다. 이는 베어링의 손상으로 이어질 수 있으며, 조립 시 손상이 발생하지 않도록 하기 위해 직접적인 충격을 피해야 합니다 [kb_wheel_hub_bearing_replacement#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20156,
+     "completion_tokens": 114,
+     "seconds": 9.099293909035623,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "wheel_hub_bearing_replacement",
+        0.6217
+       ]
+      ],
+      "related": [
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "ids": [
+       "wheel_hub_bearing_replacement"
+      ],
+      "canonical_names": [
+       "휠 허브 베어링 교체 절차와 주의점"
+      ],
+      "ids_with_related": [
+       "wheel_hub_bearing_replacement",
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "dense_best": [
+       "wheel_hub_bearing_replacement",
+       0.6217
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "3세대 휠 허브 베어링은 내·외륜이 플랜지와 일체된 허브 유닛으로 구성되어 있으며, 이 구조는 압입·탈거 시 허브 유닛의 기울어짐을 유발할 수 있습니다. 슬라이딩 해머로 작업하면 허브 유닛이 기울어져 런아웃이 발생하고, 이는 브레이크 떨림의 원인이 됩니다. 따라서 프레스를 사용하여 정확하고 안정적으로 분리해야 하며, 해머 타격은 CV 조인트 손상과 같은 부작용을 초래할 수 있습니다 [kb_wheel_hub_bearing_replacement#0].",
+     "raw": "3세대 휠 허브 베어링은 내·외륜이 플랜지와 일체된 허브 유닛으로 구성되어 있으며, 이 구조는 압입·탈거 시 허브 유닛의 기울어짐을 유발할 수 있습니다. 슬라이딩 해머로 작업하면 허브 유닛이 기울어져 런아웃이 발생하고, 이는 브레이크 떨림의 원인이 됩니다. 따라서 프레스를 사용하여 정확하고 안정적으로 분리해야 하며, 해머 타격은 CV 조인트 손상과 같은 부작용을 초래할 수 있습니다 [kb_wheel_hub_bearing_replacement#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_wheel_hub_bearing_replacement#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_storage_handling#0",
+      "kb_preload_setting#0",
+      "kb_cv_joint_boot_service#0"
+     ],
+     "prompt_tokens": 4288,
+     "completion_tokens": 169,
+     "seconds": 6.9763318109326065,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "wheel_hub_bearing_replacement",
+        0.6217
+       ]
+      ],
+      "related": [
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "ids": [
+       "wheel_hub_bearing_replacement"
+      ],
+      "canonical_names": [
+       "휠 허브 베어링 교체 절차와 주의점"
+      ],
+      "ids_with_related": [
+       "wheel_hub_bearing_replacement",
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "dense_best": [
+       "wheel_hub_bearing_replacement",
+       0.6217
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K59",
+   "question": "디젤 엔진의 인젝터 동와셔가 파손되었을 때 엔진 오일 쪽으로 블로바이 가스가 새어 나오면서 나타나는 전형적인 오일 오염 증상은 무엇인가요?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "en_lubrication#3",
+      "en_bearing_mechanical#11",
+      "de_schmierfett#8",
+      "de_schmierfett#10",
+      "de_schmierfett#12"
+     ],
+     "prompt_tokens": 2039,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "en_lubrication#3",
+      "en_bearing_mechanical#11",
+      "de_schmierfett#8",
+      "de_schmierfett#10",
+      "de_schmierfett#12"
+     ],
+     "prompt_tokens": 2039,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "oil_seal_leak_check",
+       0.4986
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "en_lubrication#3",
+      "en_bearing_mechanical#11",
+      "de_schmierfett#8",
+      "de_schmierfett#10",
+      "de_schmierfett#12"
+     ],
+     "prompt_tokens": 2039,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "oil_seal_leak_check",
+       0.4986
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K60",
+   "question": "정기 보수를 위해 분해한 원통 롤러 베어링을 세척제로 씻고 보니 궤도면에 옅은 갈색 얼룩이 남아 있습니다. 손톱으로 긁히지 않는 정도인데 이 베어링을 재사용해도 될까요?",
+   "topic": "bearing_reuse_assessment",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "de_waelzlager#15",
+      "de_waelzlager#14",
+      "de_waelzlager#18",
+      "ko_ball_bearing#10",
+      "de_waelzlager#6"
+     ],
+     "prompt_tokens": 2463,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "궤도면에 옅은 갈색 얼룩이 남아 있는 경우, 이는 수분 침입 또는 정지 상태에서의 진동에 의한 부식(프레팅)의 징후일 수 있습니다 [kb_failure_modes#0]. 이러한 부식은 베어링의 정격 수명을 줄이고 조기 손상의 원인이 될 수 있으며, 특히 손톱으로 긁히지 않는 정도라도 마모나 피로 손상의 초기 단계일 수 있습니다. 따라서 이 상태의 베어링은 재사용 판정 기준에서 \"불합격\"에 해당합니다 [kb_bearing_reuse_assessment#0]. 재사용은 위험할 수 있으므로 교체를 권장합니다.",
+     "raw": "궤도면에 옅은 갈색 얼룩이 남아 있는 경우, 이는 수분 침입 또는 정지 상태에서의 진동에 의한 부식(프레팅)의 징후일 수 있습니다 [kb_failure_modes#0]. 이러한 부식은 베어링의 정격 수명을 줄이고 조기 손상의 원인이 될 수 있으며, 특히 손톱으로 긁히지 않는 정도라도 마모나 피로 손상의 초기 단계일 수 있습니다. 따라서 이 상태의 베어링은 재사용 판정 기준에서 \"불합격\"에 해당합니다 [kb_bearing_reuse_assessment#0]. 재사용은 위험할 수 있으므로 교체를 권장합니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20155,
+     "completion_tokens": 168,
+     "seconds": 11.4124052580446,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_reuse_assessment",
+        0.6716
+       ]
+      ],
+      "related": [
+       "failure_modes",
+       "storage_handling",
+       "fit_loose_creep"
+      ],
+      "ids": [
+       "bearing_reuse_assessment"
+      ],
+      "canonical_names": [
+       "분해한 베어링의 재사용 판정"
+      ],
+      "ids_with_related": [
+       "bearing_reuse_assessment",
+       "failure_modes",
+       "storage_handling",
+       "fit_loose_creep"
+      ],
+      "dense_best": [
+       "bearing_reuse_assessment",
+       0.6716
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "유사한 경우에 대해 분석해 보면, 궤도에 옅은 녹·얼룩이 세척으로 제거되고 피팅 없음은 조건부 합격입니다 [kb_bearing_reuse_assessment#0]. 그러나 이 얼룩이 손톱으로 긁히지 않는 정도로 얇고, 피팅 없이 제거 가능하다면 손상이 심하지 않다고 판단할 수 있습니다. 따라서 재사용이 가능할 수 있으나, 세척 후 방청유 도포 및 조립 전까지 보관하고, 재사용한 베어링에 대해 진동·온도 추세를 감시해야 합니다 [kb_bearing_reuse_assessment#0].",
+     "raw": "유사한 경우에 대해 분석해 보면, 궤도에 옅은 녹·얼룩이 세척으로 제거되고 피팅 없음은 조건부 합격입니다 [kb_bearing_reuse_assessment#0]. 그러나 이 얼룩이 손톱으로 긁히지 않는 정도로 얇고, 피팅 없이 제거 가능하다면 손상이 심하지 않다고 판단할 수 있습니다. 따라서 재사용이 가능할 수 있으나, 세척 후 방청유 도포 및 조립 전까지 보관하고, 재사용한 베어링에 대해 진동·온도 추세를 감시해야 합니다 [kb_bearing_reuse_assessment#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_reuse_assessment#0",
+      "kb_failure_modes#0",
+      "kb_storage_handling#0",
+      "kb_fit_loose_creep#0"
+     ],
+     "prompt_tokens": 3533,
+     "completion_tokens": 158,
+     "seconds": 6.655363254249096,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_reuse_assessment",
+        0.6716
+       ]
+      ],
+      "related": [
+       "failure_modes",
+       "storage_handling",
+       "fit_loose_creep"
+      ],
+      "ids": [
+       "bearing_reuse_assessment"
+      ],
+      "canonical_names": [
+       "분해한 베어링의 재사용 판정"
+      ],
+      "ids_with_related": [
+       "bearing_reuse_assessment",
+       "failure_modes",
+       "storage_handling",
+       "fit_loose_creep"
+      ],
+      "dense_best": [
+       "bearing_reuse_assessment",
+       0.6716
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K61",
+   "question": "기어박스 오일 점검 창(사이트 글라스)이 우윳빛으로 탁해졌고 내시경 검사 결과 궤도면에 미세한 수분 부식이 보입니다. 오일 오염의 원인과 조치 방법은 무엇입니까?",
+   "topic": "gearbox_bearing_failure",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "기어박스 오일의 우윳빛으로 탁해지고 궤도면에 미세한 수분 부식이 나타난 경우, 오일 내에 수분이 혼합되어 있어 부식이 발생한 것으로 판단됩니다. 수분은 오일의 산화를 유도하여 부식을 악화시키며, 특히 금속 표면에 물과 산소가 결합하여 부식을 유발합니다 [de_schmierfett#17]. 이는 오일의 내수성 부족 또는 외부에서 오일에 수분이 침투했음을 의미합니다. 조치 방법으로는 오일을 완전히 교체하고, 오일에 내수성(예: 칼슘 기반 그리스)을 가진 고급 윤활제를 사용하여 부식을 예방해야 하며, 시스템의 밀봉성을 점검하여 수분 침투를 방지해야 합니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "ko_lubrication#0",
+      "de_schmierfett#10",
+      "de_schmierfett#17",
+      "luh-diss-stuhler-2024#201",
+      "luh-diss-stuhler-2024#176"
+     ],
+     "prompt_tokens": 2456,
+     "completion_tokens": 215,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "오일 점검 창이 우윳빛으로 탁해지고 내시경 검사에서 궤도면에 미세한 수분 부식이 발견되면, 오일 오염의 주요 원인은 **수분 침입**입니다. 기어박스 내부의 기어 마모 입자나 주조 모래와 함께 수분이 혼합되어 베어링에 수분 부식을 유발하며, 이는 전동체 간격 자국(거짓 브리넬링)과 정지 상태 진동에 의한 부식으로 이어집니다.  \n조치 방법은 오일 교체와 하우징 내부의 입자를 세척한 후 재조립이며, 오염이 원인이면 브리더(통기구) 필터 및 씰 개선을 함께 수행해야 합니다.",
+     "blocked": true,
+     "reason": "no_citation",
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20148,
+     "completion_tokens": 193,
+     "seconds": 12.47479438316077,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "gearbox_bearing_failure",
+        0.6121
+       ]
+      ],
+      "related": [
+       "oil_analysis",
+       "failure_modes",
+       "preload_setting",
+       "lubrication_method_choice"
+      ],
+      "ids": [
+       "gearbox_bearing_failure"
+      ],
+      "canonical_names": [
+       "기어박스(감속기) 베어링 고장의 원인과 점검"
+      ],
+      "ids_with_related": [
+       "gearbox_bearing_failure",
+       "oil_analysis",
+       "failure_modes",
+       "preload_setting",
+       "lubrication_method_choice"
+      ],
+      "dense_best": [
+       "gearbox_bearing_failure",
+       0.6121
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "오일 오염의 원인은 수분 침입으로 인한 부식입니다. 수분은 기어 마모 입자와 함께 오일에 혼입되어 부식을 유발하며, 궤도면에 미세한 수분 부식이 나타납니다 [kb_gearbox_bearing_failure#0]. 조치 방법으로는 오일 교체 및 하우징 내부의 입자를 세척한 후 재조립하고, 브리더(통기구) 필터와 시울을 개선하여 수분 침입을 방지해야 합니다 [kb_gearbox_bearing_failure#0].",
+     "raw": "오일 오염의 원인은 수분 침입으로 인한 부식입니다. 수분은 기어 마모 입자와 함께 오일에 혼입되어 부식을 유발하며, 궤도면에 미세한 수분 부식이 나타납니다 [kb_gearbox_bearing_failure#0]. 조치 방법으로는 오일 교체 및 하우징 내부의 입자를 세척한 후 재조립하고, 브리더(통기구) 필터와 시울을 개선하여 수분 침입을 방지해야 합니다 [kb_gearbox_bearing_failure#0].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_gearbox_bearing_failure#0",
+      "kb_oil_analysis#0",
+      "kb_failure_modes#0",
+      "kb_preload_setting#0",
+      "kb_lubrication_method_choice#0"
+     ],
+     "prompt_tokens": 4286,
+     "completion_tokens": 140,
+     "seconds": 6.096319041680545,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "gearbox_bearing_failure",
+        0.6121
+       ]
+      ],
+      "related": [
+       "oil_analysis",
+       "failure_modes",
+       "preload_setting",
+       "lubrication_method_choice"
+      ],
+      "ids": [
+       "gearbox_bearing_failure"
+      ],
+      "canonical_names": [
+       "기어박스(감속기) 베어링 고장의 원인과 점검"
+      ],
+      "ids_with_related": [
+       "gearbox_bearing_failure",
+       "oil_analysis",
+       "failure_modes",
+       "preload_setting",
+       "lubrication_method_choice"
+      ],
+      "dense_best": [
+       "gearbox_bearing_failure",
+       0.6121
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K62",
+   "question": "내경 100mm인 레이디얼 볼 베어링의 축 자리(저널) 표면에 이전 베어링이 돌아서 생긴 0.05mm 깊이의 크리프 마모가 생겼습니다. 록타이트 같은 축혈부 고정제로 보강해서 바로 조립해도 안전할까요?",
+   "topic": "shaft_seat_repair",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "en_plain_bearing#4",
+      "en_ball_bearing#4",
+      "nasa-tp-2013-215305-rev1#38",
+      "en_plain_bearing#0",
+      "de_gleitlager#2"
+     ],
+     "prompt_tokens": 1989,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "아니요, 록타이트 같은 축혈부 고정제로 보강해서 바로 조립하면 안전하지 않습니다. [kb_shaft_seat_repair#0]에 따르면, 축 자리의 크리프 마모는 정렬 불량, 과부하, 또는 헐거운 끼워맞춤 등 원인을 찾지 않고 복구하면 같은 손상이 반복될 수 있으며, 보강 후에도 축의 지름이 줄거나 거칠어진 상태에서 조립하면 베어링의 정밀도와 수명에 부정적인 영향을 줄 수 있습니다. 또한, 축혈부 고정제는 간섭 부족이 0.05mm 이내일 때 보조로만 사용되며, 틈이 크면 강도가 급감하고 분해 시 가열이 필요합니다. 따라서 복구 전에 원인을 파악하고, 적절한 복구 방법(예: 재가공 + 슬리브, 금속 용사 등)을 적용한 후 조립해야 합니다. [kb_shaft_seat_repair",
+     "raw": "아니요, 록타이트 같은 축혈부 고정제로 보강해서 바로 조립하면 안전하지 않습니다. [kb_shaft_seat_repair#0]에 따르면, 축 자리의 크리프 마모는 정렬 불량, 과부하, 또는 헐거운 끼워맞춤 등 원인을 찾지 않고 복구하면 같은 손상이 반복될 수 있으며, 보강 후에도 축의 지름이 줄거나 거칠어진 상태에서 조립하면 베어링의 정밀도와 수명에 부정적인 영향을 줄 수 있습니다. 또한, 축혈부 고정제는 간섭 부족이 0.05mm 이내일 때 보조로만 사용되며, 틈이 크면 강도가 급감하고 분해 시 가열이 필요합니다. 따라서 복구 전에 원인을 파악하고, 적절한 복구 방법(예: 재가공 + 슬리브, 금속 용사 등)을 적용한 후 조립해야 합니다. [kb_shaft_seat_repair",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20172,
+     "completion_tokens": 256,
+     "seconds": 14.104629991110414,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "shaft_seat_repair",
+        0.5655
+       ]
+      ],
+      "related": [
+       "fit_loose_creep",
+       "oil_seal_leak_check",
+       "storage_handling"
+      ],
+      "ids": [
+       "shaft_seat_repair"
+      ],
+      "canonical_names": [
+       "베어링 자리면(축·하우징) 손상 복구"
+      ],
+      "ids_with_related": [
+       "shaft_seat_repair",
+       "fit_loose_creep",
+       "oil_seal_leak_check",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "shaft_seat_repair",
+       0.5655
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "아니요, 록타이트 같은 축혈부 고정제로 보강해서 바로 조립해도 안전하지 않습니다. [kb_fit_loose_creep#0]에서 크리프 마모는 자리 표면의 거칠어짐과 긁힘을 유발하며, 이는 링의 피로 손상과 조기 마모를 초래할 수 있습니다. 또한, 크리프 마모가 0.05mm 깊이로 발생했을 경우, 이는 축 자리의 정밀도를 저하시키고, 고정제만으로는 이러한 손상의 원인을 해결하지 못합니다. 복구 후 지름, 진원도, 원통도, 동심도, 런아웃 등을 확인해야 하며, 복구 방법으로는 재가공 또는 슬리브 장착 등이 필요합니다. [kb_shaft_seat_repair#0]",
+     "raw": "아니요, 록타이트 같은 축혈부 고정제로 보강해서 바로 조립해도 안전하지 않습니다. [kb_fit_loose_creep#0]에서 크리프 마모는 자리 표면의 거칠어짐과 긁힘을 유발하며, 이는 링의 피로 손상과 조기 마모를 초래할 수 있습니다. 또한, 크리프 마모가 0.05mm 깊이로 발생했을 경우, 이는 축 자리의 정밀도를 저하시키고, 고정제만으로는 이러한 손상의 원인을 해결하지 못합니다. 복구 후 지름, 진원도, 원통도, 동심도, 런아웃 등을 확인해야 하며, 복구 방법으로는 재가공 또는 슬리브 장착 등이 필요합니다. [kb_shaft_seat_repair#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_shaft_seat_repair#0",
+      "kb_fit_loose_creep#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_storage_handling#0"
+     ],
+     "prompt_tokens": 3637,
+     "completion_tokens": 206,
+     "seconds": 8.135643632616848,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "shaft_seat_repair",
+        0.5655
+       ]
+      ],
+      "related": [
+       "fit_loose_creep",
+       "oil_seal_leak_check",
+       "storage_handling"
+      ],
+      "ids": [
+       "shaft_seat_repair"
+      ],
+      "canonical_names": [
+       "베어링 자리면(축·하우징) 손상 복구"
+      ],
+      "ids_with_related": [
+       "shaft_seat_repair",
+       "fit_loose_creep",
+       "oil_seal_leak_check",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "shaft_seat_repair",
+       0.5655
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K63",
+   "question": "유압 실린더의 피스톤 로드 씰을 교체할 때 패킹 방향을 반대로 꽂으면 팽창 행정에서 어떤 현상이 일어나나요?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-pelzer-2022#46",
+      "luh-diss-pelzer-2022#80",
+      "ko_seal#1",
+      "en_seal_mechanical#0",
+      "luh-diss-pelzer-2022#53"
+     ],
+     "prompt_tokens": 2215,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-pelzer-2022#46",
+      "luh-diss-pelzer-2022#80",
+      "ko_seal#1",
+      "en_seal_mechanical#0",
+      "luh-diss-pelzer-2022#53"
+     ],
+     "prompt_tokens": 2215,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "preload_setting",
+       0.4761
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-pelzer-2022#46",
+      "luh-diss-pelzer-2022#80",
+      "ko_seal#1",
+      "en_seal_mechanical#0",
+      "luh-diss-pelzer-2022#53"
+     ],
+     "prompt_tokens": 2215,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "preload_setting",
+       0.4761
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K64",
+   "question": "공장 설비를 순회 점검하는데 모터 베어링 부근에서 불규칙하고 날카로운 '찍찍' 하는 금속 마찰음이 들렸다가 사라지기를 반복합니다. 주로 어떤 문제가 있을 때 이런 소음이 나나요?",
+   "topic": "bearing_noise_diagnosis",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "이러한 불규칙하고 날카로운 '찍찍' 하는 금속 마찰음은 베어링의 마찰이나 손상이 있을 때 나타날 수 있으며, 특히 높은 하중이나 불순물이 존재할 경우 발생합니다 [de_waelzlager#8]. 이 소음은 마찰이 증가하거나 레이어 간의 불균형이 생겼을 때 나타나며, 이는 베어링 내부의 마모나 브린넬링(부식 또는 마모)과 관련이 있습니다 [en_rolling_element_bearing#7]. 이러한 소음은 베어링의 내구성 저하와 함께 발생하며, 장기적으로는 베어링의 고장으로 이어질 수 있습니다. 따라서 이 소음은 베어링의 마모나 불순물 침투로 인한 결함을 시사합니다 [de_waelzlager#8].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "de_waelzlager#8",
+      "ko_bearing#3",
+      "ko_bearing#0",
+      "en_bearing_mechanical#0",
+      "en_rolling_element_bearing#7"
+     ],
+     "prompt_tokens": 2187,
+     "completion_tokens": 214,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "불규칙하고 날카로운 '찍찍' 하는 금속 마찰음은 윤활 부족이 주요 원인일 수 있습니다. 이 소음은 윤활제가 부족하거나 그리스가 변색·경화되었을 때 발생하며, 금속 부품 간의 직접적인 마찰로 인해 나타납니다. 또한, 이 소음은 초기 단계에서 소음이 사라지기 전에 윤활 부족 초기 단계의 증상으로, 그리스 보충 후 사라지면 윤활 부족을 확인할 수 있습니다. [kb_bearing_noise_diagnosis#0]",
+     "raw": "불규칙하고 날카로운 '찍찍' 하는 금속 마찰음은 윤활 부족이 주요 원인일 수 있습니다. 이 소음은 윤활제가 부족하거나 그리스가 변색·경화되었을 때 발생하며, 금속 부품 간의 직접적인 마찰로 인해 나타납니다. 또한, 이 소음은 초기 단계에서 소음이 사라지기 전에 윤활 부족 초기 단계의 증상으로, 그리스 보충 후 사라지면 윤활 부족을 확인할 수 있습니다. [kb_bearing_noise_diagnosis#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20149,
+     "completion_tokens": 142,
+     "seconds": 10.43457845179364,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_noise_diagnosis",
+        0.6068
+       ]
+      ],
+      "related": [
+       "vibration_diagnosis",
+       "wheel_bearing_noise",
+       "failure_modes",
+       "relubrication"
+      ],
+      "ids": [
+       "bearing_noise_diagnosis"
+      ],
+      "canonical_names": [
+       "설비 베어링 소음의 종류와 원인 구분"
+      ],
+      "ids_with_related": [
+       "bearing_noise_diagnosis",
+       "vibration_diagnosis",
+       "wheel_bearing_noise",
+       "failure_modes",
+       "relubrication"
+      ],
+      "dense_best": [
+       "bearing_noise_diagnosis",
+       0.6068
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "이 소음은 윤활 부족 또는 전동체의 축 방향 미끄럼(슬립)이 원인일 수 있습니다. 금속성 끽·삐 소리(스퀼)는 윤활 부족, 원통 롤러의 축 방향 미끄럼, 과예압 등에서 발생하며, 그리스 보충 후 사라지면 윤활 부족을 의미합니다 [kb_bearing_noise_diagnosis#0]. 또한, 전동체 손상이나 압흔(브리넬링)도 규칙적인 딱딱·탁탁 소리로 나타나며, 저속에서 손으로 돌리면 주기적 걸림을 보일 수 있습니다 [kb_bearing_noise_diagnosis#0]. 그러나 '찍찍' 하는 불규칙한 소음은 윤활 부족이 가장 가능성이 높습니다.",
+     "raw": "이 소음은 윤활 부족 또는 전동체의 축 방향 미끄럼(슬립)이 원인일 수 있습니다. 금속성 끽·삐 소리(스퀼)는 윤활 부족, 원통 롤러의 축 방향 미끄럼, 과예압 등에서 발생하며, 그리스 보충 후 사라지면 윤활 부족을 의미합니다 [kb_bearing_noise_diagnosis#0]. 또한, 전동체 손상이나 압흔(브리넬링)도 규칙적인 딱딱·탁탁 소리로 나타나며, 저속에서 손으로 돌리면 주기적 걸림을 보일 수 있습니다 [kb_bearing_noise_diagnosis#0]. 그러나 '찍찍' 하는 불규칙한 소음은 윤활 부족이 가장 가능성이 높습니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_noise_diagnosis#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_failure_modes#0",
+      "kb_relubrication#0"
+     ],
+     "prompt_tokens": 4086,
+     "completion_tokens": 195,
+     "seconds": 7.878639968112111,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_noise_diagnosis",
+        0.6068
+       ]
+      ],
+      "related": [
+       "vibration_diagnosis",
+       "wheel_bearing_noise",
+       "failure_modes",
+       "relubrication"
+      ],
+      "ids": [
+       "bearing_noise_diagnosis"
+      ],
+      "canonical_names": [
+       "설비 베어링 소음의 종류와 원인 구분"
+      ],
+      "ids_with_related": [
+       "bearing_noise_diagnosis",
+       "vibration_diagnosis",
+       "wheel_bearing_noise",
+       "failure_modes",
+       "relubrication"
+      ],
+      "dense_best": [
+       "bearing_noise_diagnosis",
+       0.6068
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K65",
+   "question": "베어링 카탈로그에서 기본 동정격하중(C)과 기본 정정격하중(C0)의 차이는 무엇이며, L10 수명을 계산할 때는 둘 중 어느 값을 사용해야 합니까?",
+   "topic": "bearing_selection_basics",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "베어링 카탈로그에서 기본 동정격하중(C)은 동적 하중 조건에서 베어링이 견딜 수 있는 하중을 나타내며, L10 수명을 계산할 때 사용됩니다. 반면, 기본 정정격하중(C0)은 정적 하중 조건에서의 하중을 나타내며, 회전 하중이나 동적 하중과는 다릅니다. L10 수명을 계산할 때는 동적 하중을 반영하는 기본 동정격하중(C)을 사용해야 합니다 [en_bearing_mechanical#14].",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_rolling_element_bearing#10",
+      "en_bearing_mechanical#14",
+      "nasa-tp-2013-215305-rev1#119",
+      "de_waelzlager#20",
+      "nasa-tp-2013-215305-rev1#80"
+     ],
+     "prompt_tokens": 2122,
+     "completion_tokens": 140,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20139,
+     "completion_tokens": 4,
+     "seconds": 5.734102328773588,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_designation",
+        0.5543
+       ]
+      ],
+      "related": [
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "ids": [
+       "bearing_designation"
+      ],
+      "canonical_names": [
+       "베어링 호칭 번호 읽는 법"
+      ],
+      "ids_with_related": [
+       "bearing_designation",
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "bearing_designation",
+       0.5543
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_selection_basics#0",
+      "kb_preload_setting#0",
+      "kb_storage_handling#0"
+     ],
+     "prompt_tokens": 3704,
+     "completion_tokens": 4,
+     "seconds": 0.8376236548647285,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "bearing_designation",
+        0.5543
+       ]
+      ],
+      "related": [
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "ids": [
+       "bearing_designation"
+      ],
+      "canonical_names": [
+       "베어링 호칭 번호 읽는 법"
+      ],
+      "ids_with_related": [
+       "bearing_designation",
+       "bearing_selection_basics",
+       "preload_setting",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "bearing_designation",
+       0.5543
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K66",
+   "question": "V벨트를 새것으로 교체하고 텐셔너로 장력을 맞춘 뒤 3일 만에 벨트가 느슨해져서 슬립이 납니다. 보통 원인이 무엇인가요?",
+   "topic": null,
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#132",
+      "luh-diss-stuhler-2024#142",
+      "luh-diss-stuhler-2024#24",
+      "luh-diss-stuhler-2024#20",
+      "luh-diss-stuhler-2024#21"
+     ],
+     "prompt_tokens": 2559,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#132",
+      "luh-diss-stuhler-2024#142",
+      "luh-diss-stuhler-2024#24",
+      "luh-diss-stuhler-2024#20",
+      "luh-diss-stuhler-2024#21"
+     ],
+     "prompt_tokens": 2559,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "wheel_hub_bearing_replacement",
+       0.5298
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "luh-diss-stuhler-2024#132",
+      "luh-diss-stuhler-2024#142",
+      "luh-diss-stuhler-2024#24",
+      "luh-diss-stuhler-2024#20",
+      "luh-diss-stuhler-2024#21"
+     ],
+     "prompt_tokens": 2559,
+     "completion_tokens": 4,
+     "seconds": 0.0,
+     "path": "rag",
+     "match": {
+      "alias": {},
+      "dense": [],
+      "related": [],
+      "ids": [],
+      "canonical_names": [],
+      "ids_with_related": [],
+      "dense_best": [
+       "wheel_hub_bearing_replacement",
+       0.5298
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K67",
+   "question": "인버터 구동 전동기에 절연 베어링(세라믹 볼 하이브리드)을 사용하지 않고 일반 강철 베어링을 사용할 때 전식(축전류 방전)을 막으려면 어떤 부가 조치가 필요한가요?",
+   "topic": "electric_motor_bearing",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "세라믹 볼 하이브리드 베어링은 전기 절연성으로 인해 축전류 방전(아크)을 방지할 수 있으므로, 일반 강철 베어링을 사용할 때는 전류가 베어링을 통과할 경우 아크를 방지하기 위해 추가적인 전기적 보호 조치(예: 전기 절연 장치, 전류 제어 장치)가 필요합니다 [en_ball_bearing#8][ko_ball_bearing#9]. 강철 베어링은 전기적으로 도전성이 있어 전류가 통과할 경우 아크 발생 위험이 높기 때문에, 이러한 위험을 줄이기 위해 외부 전기적 차단 장치나 전류 감지 장치를 설치해야 합니다.",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "en_ball_bearing#8",
+      "ko_ball_bearing#9",
+      "en_ball_bearing#7",
+      "en_ball_bearing#1",
+      "de_waelzlager#6"
+     ],
+     "prompt_tokens": 2052,
+     "completion_tokens": 183,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "인버터 구동 전동기에 절연 베어링(세라믹 볼 하이브리드)을 사용하지 않고 일반 강철 베어링을 사용할 때 전식(축전류 방전)을 막으려면 축 접지 브러시·접지 링, 공통 모드 필터, 케이블 차폐·접지 개선 등의 부가 조치가 필요합니다. [kb_electric_motor_bearing#0]",
+     "raw": "인버터 구동 전동기에 절연 베어링(세라믹 볼 하이브리드)을 사용하지 않고 일반 강철 베어링을 사용할 때 전식(축전류 방전)을 막으려면 축 접지 브러시·접지 링, 공통 모드 필터, 케이블 차폐·접지 개선 등의 부가 조치가 필요합니다. [kb_electric_motor_bearing#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20150,
+     "completion_tokens": 111,
+     "seconds": 10.107158203143626,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "failure_modes": [
+        "전식"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "fit_loose_creep",
+       "vibration_diagnosis",
+       "oil_analysis",
+       "storage_handling"
+      ],
+      "ids": [
+       "failure_modes"
+      ],
+      "canonical_names": [
+       "베어링 손상 모드와 증상 (ISO 15243 분류)"
+      ],
+      "ids_with_related": [
+       "failure_modes",
+       "fit_loose_creep",
+       "vibration_diagnosis",
+       "oil_analysis",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "ev_reducer_bearing",
+       0.6281
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "인버터 구동 전동기에 일반 강철 베어링을 사용할 때 전식(축전류 방전)을 막기 위해서는 접지 불량을 방지하고, 인버터의 축전압을 줄이는 등의 부가 조치가 필요합니다. 전식은 인버터 구동 모터의 축전압이나 용접 전류, 접지 불량에서 발생하므로, 전기적 접지 경로를 확보하고, 축 전류를 차단할 수 있는 접지 회로를 설치해야 합니다. 또한, 베어링의 전기적 방지 설계를 통해 전류 누설을 방지할 수 있습니다. [kb_failure_modes#0]",
+     "raw": "인버터 구동 전동기에 일반 강철 베어링을 사용할 때 전식(축전류 방전)을 막기 위해서는 접지 불량을 방지하고, 인버터의 축전압을 줄이는 등의 부가 조치가 필요합니다. 전식은 인버터 구동 모터의 축전압이나 용접 전류, 접지 불량에서 발생하므로, 전기적 접지 경로를 확보하고, 축 전류를 차단할 수 있는 접지 회로를 설치해야 합니다. 또한, 베어링의 전기적 방지 설계를 통해 전류 누설을 방지할 수 있습니다. [kb_failure_modes#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_vibration_diagnosis#0",
+      "kb_oil_analysis#0",
+      "kb_storage_handling#0"
+     ],
+     "prompt_tokens": 4268,
+     "completion_tokens": 161,
+     "seconds": 6.600317322649062,
+     "path": "bundle",
+     "match": {
+      "alias": {
+       "failure_modes": [
+        "전식"
+       ]
+      },
+      "dense": [],
+      "related": [
+       "fit_loose_creep",
+       "vibration_diagnosis",
+       "oil_analysis",
+       "storage_handling"
+      ],
+      "ids": [
+       "failure_modes"
+      ],
+      "canonical_names": [
+       "베어링 손상 모드와 증상 (ISO 15243 분류)"
+      ],
+      "ids_with_related": [
+       "failure_modes",
+       "fit_loose_creep",
+       "vibration_diagnosis",
+       "oil_analysis",
+       "storage_handling"
+      ],
+      "dense_best": [
+       "ev_reducer_bearing",
+       0.6281
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K68",
+   "question": "2세대 휠 베어링을 허브에 압입할 때 베어링 내륜을 누르지 않고 외륜에 직접 프레스 힘을 가해야 하는 이유는 무엇입니까?",
+   "topic": "wheel_hub_bearing_replacement",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "de_waelzlager#31",
+      "de_waelzlager#30",
+      "de_waelzlager#17",
+      "en_ball_bearing#3",
+      "de_waelzlager#16"
+     ],
+     "prompt_tokens": 2212,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20137,
+     "completion_tokens": 4,
+     "seconds": 7.493194555863738,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "wheel_hub_bearing_replacement",
+        0.6309
+       ]
+      ],
+      "related": [
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "ids": [
+       "wheel_hub_bearing_replacement"
+      ],
+      "canonical_names": [
+       "휠 허브 베어링 교체 절차와 주의점"
+      ],
+      "ids_with_related": [
+       "wheel_hub_bearing_replacement",
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "dense_best": [
+       "wheel_hub_bearing_replacement",
+       0.6309
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "raw": "NO_ANSWER",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "kb_wheel_hub_bearing_replacement#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_storage_handling#0",
+      "kb_preload_setting#0",
+      "kb_cv_joint_boot_service#0"
+     ],
+     "prompt_tokens": 4269,
+     "completion_tokens": 4,
+     "seconds": 1.1394306495785713,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "wheel_hub_bearing_replacement",
+        0.6309
+       ]
+      ],
+      "related": [
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "ids": [
+       "wheel_hub_bearing_replacement"
+      ],
+      "canonical_names": [
+       "휠 허브 베어링 교체 절차와 주의점"
+      ],
+      "ids_with_related": [
+       "wheel_hub_bearing_replacement",
+       "wheel_bearing_noise",
+       "storage_handling",
+       "preload_setting",
+       "cv_joint_boot_service"
+      ],
+      "dense_best": [
+       "wheel_hub_bearing_replacement",
+       0.6309
+      ]
+     }
+    }
+   }
+  },
+  {
+   "qid": "K69",
+   "question": "밀봉되지 않은 개방형 구름 베어링을 오일 배스(Oil bath) 방식으로 윤활할 때, 하우징 내 적정 오일 수위는 베어링의 어느 위치에 맞추어야 하나요?",
+   "topic": "lubrication_method_choice",
+   "modes": {
+    "rag": {
+     "mode": "rag",
+     "answer": "제공된 문서에서 이 질문에 답할 근거를 찾지 못했습니다.",
+     "blocked": true,
+     "reason": "refusal_sentinel",
+     "context_ids": [
+      "en_ball_bearing#12",
+      "en_ball_bearing#13",
+      "ko_lubrication#0",
+      "ko_ball_bearing#14",
+      "de_waelzlager#31"
+     ],
+     "prompt_tokens": 2163,
+     "completion_tokens": 4,
+     "seconds": 0.0
+    },
+    "kb_first": {
+     "mode": "kb_first",
+     "answer": "하우징 내 적정 오일 수위는 베어링의 전동체 중심 높이에 맞추어야 합니다. 오일 배스 방식에서 정지 시 유면이 전동체 중심 높이에 도달해야 하며, 유면이 높으면 교반 발열이 발생할 수 있습니다. [kb_lubrication_method_choice#0]",
+     "raw": "하우징 내 적정 오일 수위는 베어링의 전동체 중심 높이에 맞추어야 합니다. 오일 배스 방식에서 정지 시 유면이 전동체 중심 높이에 도달해야 하며, 유면이 높으면 교반 발열이 발생할 수 있습니다. [kb_lubrication_method_choice#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_bearing_designation#0",
+      "kb_bearing_noise_diagnosis#0",
+      "kb_bearing_reuse_assessment#0",
+      "kb_bearing_selection_basics#0",
+      "kb_bearing_temperature#0",
+      "kb_cv_joint_boot_service#0",
+      "kb_driveline_torsional_damping#0",
+      "kb_electric_motor_bearing#0",
+      "kb_ev_reducer_bearing#0",
+      "kb_failure_modes#0",
+      "kb_fit_loose_creep#0",
+      "kb_gearbox_bearing_failure#0",
+      "kb_grease_selection#0",
+      "kb_lubrication_method_choice#0",
+      "kb_oil_analysis#0",
+      "kb_oil_seal_leak_check#0",
+      "kb_preload_setting#0",
+      "kb_relubrication#0",
+      "kb_shaft_misalignment#0",
+      "kb_shaft_seat_repair#0",
+      "kb_storage_handling#0",
+      "kb_vibration_diagnosis#0",
+      "kb_wheel_bearing_noise#0",
+      "kb_wheel_hub_bearing_replacement#0"
+     ],
+     "prompt_tokens": 20140,
+     "completion_tokens": 87,
+     "seconds": 10.831656568683684,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "lubrication_method_choice",
+        0.6886
+       ]
+      ],
+      "related": [
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "ids": [
+       "lubrication_method_choice"
+      ],
+      "canonical_names": [
+       "윤활 방식 선택: 그리스와 오일"
+      ],
+      "ids_with_related": [
+       "lubrication_method_choice",
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "dense_best": [
+       "lubrication_method_choice",
+       0.6886
+      ]
+     }
+    },
+    "kb_matched": {
+     "mode": "kb_matched",
+     "answer": "하우징 내 적정 오일 수위는 정지 시 유면이 베어링의 최하단 전동체 중심 높이에 맞춰야 합니다. [kb_lubrication_method_choice#0]",
+     "raw": "하우징 내 적정 오일 수위는 정지 시 유면이 베어링의 최하단 전동체 중심 높이에 맞춰야 합니다. [kb_lubrication_method_choice#0]",
+     "blocked": false,
+     "reason": null,
+     "context_ids": [
+      "kb_lubrication_method_choice#0",
+      "kb_grease_selection#0",
+      "kb_relubrication#0",
+      "kb_bearing_temperature#0"
+     ],
+     "prompt_tokens": 3300,
+     "completion_tokens": 51,
+     "seconds": 2.535624156240374,
+     "path": "bundle",
+     "match": {
+      "alias": {},
+      "dense": [
+       [
+        "lubrication_method_choice",
+        0.6886
+       ]
+      ],
+      "related": [
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "ids": [
+       "lubrication_method_choice"
+      ],
+      "canonical_names": [
+       "윤활 방식 선택: 그리스와 오일"
+      ],
+      "ids_with_related": [
+       "lubrication_method_choice",
+       "grease_selection",
+       "relubrication",
+       "bearing_temperature"
+      ],
+      "dense_best": [
+       "lubrication_method_choice",
+       0.6886
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

@@ -99,7 +99,8 @@ class Generator:
     adapter trained in stage 4 and applied on top of the loaded base.
     """
 
-    def __init__(self, model_name: str, device: str = "cuda:0", quantize_4bit: bool = False, adapter: str | None = None):
+    def __init__(self, model_name: str, device: str = "cuda:0", quantize_4bit: bool = False, adapter: str | None = None,
+                 max_memory: dict | None = None):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
@@ -113,6 +114,10 @@ class Generator:
                                      bnb_4bit_compute_dtype=torch.bfloat16)
             index = int(device.split(":")[1]) if ":" in device else 0
             self.model = AutoModelForCausalLM.from_pretrained(model_name, quantization_config=bnb, device_map={"": index})
+        elif device == "auto":
+            # 두 GPU에 층을 나눠 싣는다 (긴 프롬프트의 KV 캐시가 한 장에 안 들어갈 때). 입력은 임베딩 층의 장치로 보낸다
+            self.model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.bfloat16, device_map="auto", max_memory=max_memory)
+            self.device = str(self.model.get_input_embeddings().weight.device)
         else:
             self.model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.bfloat16).to(device)
         if adapter:

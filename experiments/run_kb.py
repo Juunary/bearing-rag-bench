@@ -7,7 +7,8 @@
   is blocked (refusal, missing or invalid citation), `bundle`, (4) `kb_first`: `bundle` when the question matches a
   bundle page (alias match on the question or its English translation, otherwise the best dense match with cosine
   `--kb-dense-min` or more, fixed before the run; the same ConceptMatcher as the concept pages), else `rag`,
-  (5) `both`: the 12 pages and the 5 RAG chunks in one context. Same generator (Qwen3-4B, greedy), same prompt,
+  (5) `both`: the 12 pages and the 5 RAG chunks in one context; (6) `kb_matched`: the kb_first decision with only the
+  matched pages and their `related` pages as context (the serving setting kb_context "matched"). Same generator (Qwen3-4B, greedy), same prompt,
   same output validation; passages of the bundle are cited as kb_<page id>#0.
 - Records per question and mode: answer, blocked, reason, context ids, prompt and completion tokens, generation
   seconds (from the LLM cache when repeated), and for hybrid / kb_first which path produced the answer.
@@ -15,7 +16,8 @@
   fixed seed, and the sheet never shows the mode. Items already in eval/kb/sample.json keep their id; only new answers
   go to sheet_new.md, so a later run with more modes adds items without regrading the old ones.
 - Usage: uv run python experiments/run_kb.py [--modes rag,bundle,hybrid,kb_first,both] [--kb-dense-min 0.55]
-         [--questions eval/kb/questions2.jsonl --out eval/kb2 --item-prefix M]   (second question set, 24-page bundle)
+         [--questions eval/kb/questions2.jsonl --out eval/kb2 --item-prefix M --gen-device auto --gen-max-memory 0=2.5GiB,1=10GiB]
+         (second question set; the 24-page bundle prompt is about 20k tokens and does not fit one 12 GB GPU)
   Outputs: eval/kb/results.json, eval/kb/sample.json, eval/kb/sheet.md (all items), eval/kb/sheet_new.md (new items).
 
 [KO]
@@ -23,7 +25,7 @@
   (2) `bundle`: 검색 없이 data/kb의 페이지 전부(실무 안내 12쪽, 약 1만 토큰)를 컨텍스트로, (3) `hybrid`: `rag`를 먼저 하고 답이
   차단될 때(거절, 인용 없음·잘못된 인용)만 `bundle`, (4) `kb_first`: 질문이 번들 페이지에 매칭되면(질문 또는 영어 번역의 별칭 일치,
   없으면 dense 코사인 `--kb-dense-min` 이상 상위 1, 실행 전에 고정; 개념 페이지와 같은 ConceptMatcher) `bundle`, 아니면 `rag`,
-  (5) `both`: 페이지 12쪽과 RAG 청크 5개를 한 컨텍스트에. 생성 모델·프롬프트·출력 검증은 같고, 번들 문단은 kb_<페이지 id>#0으로 인용한다.
+  (5) `both`: 페이지 12쪽과 RAG 청크 5개를 한 컨텍스트에, (6) `kb_matched`: kb_first와 같은 분기에 매칭 페이지 + related 페이지만 컨텍스트로(서비스 설정 kb_context "matched"). 생성 모델·프롬프트·출력 검증은 같고, 번들 문단은 kb_<페이지 id>#0으로 인용한다.
 - 질문·방식마다 답변, 차단 여부와 사유, 컨텍스트 ID, 프롬프트·생성 토큰, 생성 시간(반복 실행은 캐시), hybrid·kb_first는 어느 경로로
   답했는지 기록한다.
 - 블라인드 채점표: 같은 질문의 같은 답변은 한 항목으로 묶고, 고정 시드로 섞으며, 방식은 표시하지 않는다. 이미 sample.json에 있는 항목은
@@ -56,7 +58,7 @@ from ragbench.validation import SAFE_MESSAGES, guess_lang, validate_answer  # no
 OUT = REPO / "eval" / "kb"
 CONFIG = REPO / "configs" / "pdf" / "pdfth_x13_rrf_en_dense_en_rerank_en_text.json"
 PROMPT, MODEL, MAX_NEW, SEED = "cite_refuse_v1", "Qwen/Qwen3-4B-Instruct-2507", 256, 20261104
-ALL_MODES = ["rag", "bundle", "hybrid", "kb_first", "both"]
+ALL_MODES = ["rag", "bundle", "hybrid", "kb_first", "both", "kb_matched"]
 
 
 def bundle_passages(kb) -> list[dict]:
@@ -81,19 +83,23 @@ def main() -> None:
     ap.add_argument("--kb-dense-min", type=float, default=0.55, help="kb_first: cosine threshold of the dense fallback (fixed before the run)")
     ap.add_argument("--out", type=Path, default=OUT, help="output directory (results.json, sample.json, sheet.md)")
     ap.add_argument("--item-prefix", default="K", help="prefix of the blind sheet item ids")
+    ap.add_argument("--gen-device", default="cuda:1", help="generator device; 'auto' splits the model over the GPUs (long bundle prompts)")
+    ap.add_argument("--gen-max-memory", default=None, help="with --gen-device auto, e.g. '0=2.5GiB,1=10GiB'")
     args = ap.parse_args()
     out = args.out
     modes = args.modes.split(",")
     questions = [json.loads(l) for l in args.questions.read_text(encoding="utf-8").splitlines() if l.strip()]
     kb = load_concepts(args.kb)
     passages = bundle_passages(kb)
+    passage_of = {c.id: p for c, p in zip(kb, passages)}
     cfg = ExperimentConfig.load(CONFIG)
     set_seed(cfg.seed)
     chunks = load_chunks(cfg.chunking)
     by_id = {c["chunk_id"]: c for c in chunks}
     retriever = build_retriever(cfg)
     retriever.index(chunks)
-    generator = Generator(MODEL, device="cuda:1")
+    max_memory = {int(k): v for k, v in (x.split("=") for x in args.gen_max_memory.split(","))} if args.gen_max_memory else None
+    generator = Generator(MODEL, device=args.gen_device, max_memory=max_memory)
     share_translator_model(retriever, generator)
     cache = LLMCache(REPO / "logs" / "kb_cache.sqlite")
     pipe = RAGPipeline(retriever, chunks, generator, cache, RequestLogger(REPO / "logs" / "kb_requests.jsonl"),
@@ -126,7 +132,7 @@ def main() -> None:
         m = matcher.match(q["question"], en, qvec)
         sims = matcher.page_emb @ qvec
         best = int(sims.argmax())
-        return {**m.to_dict(), "dense_best": [kb[best].id, round(float(sims[best]), 4)]}
+        return {**m.to_dict(), "ids_with_related": m.ids_with_related, "dense_best": [kb[best].id, round(float(sims[best]), 4)]}
 
     rows = []
     for q in questions:
@@ -146,11 +152,19 @@ def main() -> None:
                                           "seconds": rag["seconds"] + bun["seconds"]}
             else:
                 rec["modes"]["hybrid"] = {**rag, "mode": "hybrid", "path": "rag"}
+        mt = match_kb(q) if any(m in modes for m in ("kb_first", "kb_matched")) else None
         if "kb_first" in modes:
             # 번들 페이지에 매칭되면 번들 답, 아니면 RAG 답 (RAG의 거절 여부와 무관). 매칭 비용은 임베딩 1회라 토큰에 넣지 않는다
-            mt = match_kb(q)
             src = bun if mt["ids"] else rag
             rec["modes"]["kb_first"] = {**src, "mode": "kb_first", "path": "bundle" if mt["ids"] else "rag", "match": mt}
+        if "kb_matched" in modes:
+            # kb_first와 같은 분기, 컨텍스트는 전체가 아니라 매칭 페이지 + related 페이지만 (서비스 설정 kb_context "matched")
+            if mt["ids"]:
+                ctx = [passage_of[i] for i in mt["ids_with_related"] if i in passage_of]
+                src = generate_with("kb_matched", q, ctx)
+            else:
+                src = rag
+            rec["modes"]["kb_matched"] = {**src, "mode": "kb_matched", "path": "bundle" if mt["ids"] else "rag", "match": mt}
         if "both" in modes:
             rec["modes"]["both"] = generate_with("both", q, passages + [by_id[i] for i in rag["context_ids"]])
         rows.append(rec)
@@ -163,8 +177,8 @@ def main() -> None:
         summary[m] = {"n": len(rs), "blocked": sum(r["blocked"] for r in rs),
                       "prompt_tokens_mean": sum(r["prompt_tokens"] or 0 for r in rs) / len(rs),
                       "seconds_mean": sum(r["seconds"] for r in rs) / len(rs),
-                      **({"fallback": sum(r["path"] == "bundle" for r in rs)} if m in ("hybrid", "kb_first") else {})}
-    result = {"questions": str(args.questions.relative_to(REPO)), "config": CONFIG.name, "prompt_version": PROMPT, "model": MODEL, "kb_pages": len(kb), "kb_verified": sum(c.verified for c in kb),
+                      **({"fallback": sum(r["path"] == "bundle" for r in rs)} if m in ("hybrid", "kb_first", "kb_matched") else {})}
+    result = {"questions": str(args.questions.resolve().relative_to(REPO)), "config": CONFIG.name, "prompt_version": PROMPT, "model": MODEL, "kb_pages": len(kb), "kb_verified": sum(c.verified for c in kb),
               "modes": modes, "kb_dense_min": args.kb_dense_min, "summary": summary, "rows": rows}
     (out / "results.json").write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=1))
@@ -200,7 +214,7 @@ def main() -> None:
 
     sheet(out / "sheet.md", items, "지식 번들 실험 채점표 (블라인드)")
     sheet(out / "sheet_new.md", new_items, "지식 번들 실험 추가 채점표 (블라인드, 새 답변만)")
-    print(f"items: {len(items)} (new {len(new_items)}) -> {out.relative_to(REPO)}/sheet.md, sheet_new.md")
+    print(f"items: {len(items)} (new {len(new_items)}) -> {out.resolve().relative_to(REPO)}/sheet.md, sheet_new.md")
 
 
 if __name__ == "__main__":
