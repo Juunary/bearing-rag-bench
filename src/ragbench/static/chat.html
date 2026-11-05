@@ -71,7 +71,8 @@ function render(div, data) {
   if (data.blocked) div.classList.add("blocked");
   const meta = document.createElement("div"); meta.className = "meta";
   const t = data.timings_ms;
-  meta.textContent = `${data.blocked ? "차단: " + data.reason + " · " : ""}${data.lang} · 검색 ${t.retrieve ?? 0}ms · 생성 ${t.generate ?? 0}ms${data.cache_hit ? " (캐시)" : ""} · 전체 ${t.total}ms`;
+  const kb = data.path === "kb" ? `지식 번들(${(data.kb_match?.canonical_names || []).join(", ")}) · ` : (data.path === "rag" ? "문서 검색 · " : "");
+  meta.textContent = `${data.blocked ? "차단: " + data.reason + " · " : ""}${kb}${data.lang} · 검색 ${t.retrieve ?? 0}ms · 생성 ${t.generate ?? 0}ms${data.cache_hit ? " (캐시)" : ""} · 전체 ${t.total}ms`;
   div.append(meta);
   for (const c of data.contexts) {
     const det = document.createElement("details"); det.dataset.id = c.chunk_id;

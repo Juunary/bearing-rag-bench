@@ -13,6 +13,9 @@
 - Components are injected (retriever, generator, cache, logger), so the flow is unit-tested with
   fakes on CPU and run with the real models in experiments/run_pipeline.py.
 - Latency is reported per stage in milliseconds: retrieve, generate (0 on a cache hit), total.
+- Knowledge bundle (optional, `kb`, 2026-11): after validation the question is matched against the curated
+  guide pages (ragbench.kb). On a match the retrieval step is skipped and the bundle is the context (path "kb");
+  otherwise the request takes the usual path ("rag"). The path and the matched pages are in the response and the log.
 - The raw answer is always logged, even when it is blocked, so blocked cases can be reviewed.
 
 [KO]
@@ -27,6 +30,8 @@
 - 부품을 주입(검색기, 생성기, 캐시, 로거)하므로 흐름은 CPU에서 가짜 부품으로 단위 테스트하고 실제
   모델로는 experiments/run_pipeline.py에서 돌린다.
 - 지연은 단계별 ms로 보고한다: retrieve, generate(캐시 히트면 0), total.
+- 지식 번들(선택, `kb`, 2026-11): 검증 뒤 질문을 정리된 안내 페이지(ragbench.kb)에 매칭한다. 매칭되면 검색을 건너뛰고 번들을
+  컨텍스트로 쓴다(경로 "kb"), 아니면 기존 경로("rag"). 경로와 매칭 페이지는 응답과 로그에 남는다.
 - 차단되어도 원본 답변은 항상 로그에 남겨 차단 사례를 검토할 수 있게 한다.
 """
 
@@ -56,16 +61,29 @@ class Response:
     timings_ms: dict[str, float] = field(default_factory=dict)
     prompt_tokens: int = 0
     completion_tokens: int = 0
+    path: str = "rag"                 # "rag" | "kb" (knowledge bundle) | "invalid"
+    kb_match: dict[str, Any] | None = None
 
 
 class RAGPipeline:
     def __init__(self, retriever, chunks: list[dict[str, Any]], generator, cache: LLMCache, logger: RequestLogger,
                  prompt_version: str = "cite_refuse_v1", context_k: int = 5, max_new_tokens: int = 256,
-                 config_id: str | None = None):
+                 config_id: str | None = None, kb=None):
         self.retriever, self.generator, self.cache, self.logger = retriever, generator, cache, logger
         self.by_id = {c["chunk_id"]: c for c in chunks}
         self.prompt_version, self.context_k, self.max_new_tokens = prompt_version, context_k, max_new_tokens
         self.config_id = config_id
+        self.kb = kb                          # ragbench.kb.KnowledgeBundle 또는 None
+        if kb is not None:
+            self.by_id.update({x["chunk_id"]: x for x in kb.passages.values()})    # 번들 문단도 청크 ID로 찾을 수 있게
+
+    def _english(self, question: str) -> str | None:
+        """번들의 영어 별칭 매칭용 번역 (검색기의 번역기, 캐시됨). 번역기가 없으면 None."""
+        tr = getattr(self.retriever, "query_translator", None)
+        try:
+            return tr.translate(question, "query")["text"] if tr is not None else None
+        except Exception:   # noqa: BLE001 - 번역 실패는 별칭 매칭 범위만 줄인다
+            return None
 
     def answer(self, question: str, lang: str | None = None, request_id: str | None = None) -> Response:
         t_start = time.perf_counter()
@@ -74,14 +92,23 @@ class RAGPipeline:
         verdict, cleaned = validate_question(question)
         if not verdict.ok:
             resp = Response(request_id, INVALID_INPUT_MESSAGES.get(lang, INVALID_INPUT_MESSAGES["en"]), None, True,
-                            verdict.reason, lang, timings_ms={"total": (time.perf_counter() - t_start) * 1000})
+                            verdict.reason, lang, timings_ms={"total": (time.perf_counter() - t_start) * 1000}, path="invalid")
             self._log(resp, question, [], None)
             return resp
 
         t0 = time.perf_counter()
-        hits = self.retriever.search(cleaned, self.context_k)
+        path, kb_match = "rag", None
+        if self.kb is not None:
+            # 번들 페이지에 매칭되면 검색을 건너뛴다 (kb_first). 매칭 비용은 번역 캐시 조회 + 임베딩 1회
+            m = self.kb.match(cleaned, self._english(cleaned))
+            kb_match = m.to_dict()
+            if m.ids:
+                path = "kb"
+                ctx = [(p["chunk_id"], 1.0) for p in self.kb.context_for(m)]
+        if path == "rag":
+            hits = self.retriever.search(cleaned, self.context_k)
+            ctx = [(cid, score) for cid, score in hits[: self.context_k]]
         retrieve_ms = (time.perf_counter() - t0) * 1000
-        ctx = [(cid, score) for cid, score in hits[: self.context_k]]
         context_ids = [cid for cid, _ in ctx]
         messages = build_messages(self.prompt_version, cleaned, [self.by_id[i] for i in context_ids])
 
@@ -102,7 +129,7 @@ class RAGPipeline:
         resp = Response(
             request_id, shown, out["text"], not verdict_out.ok, verdict_out.reason, lang, context_ids, cache_hit,
             {"retrieve": retrieve_ms, "generate": generate_ms, "total": (time.perf_counter() - t_start) * 1000},
-            out["prompt_tokens"], out["completion_tokens"])
+            out["prompt_tokens"], out["completion_tokens"], path, kb_match)
         self._log(resp, question, ctx, messages)
         return resp
 
@@ -115,4 +142,5 @@ class RAGPipeline:
             "raw_answer": resp.raw_answer, "answer": resp.answer, "blocked": resp.blocked, "block_reason": resp.reason,
             "cache_hit": resp.cache_hit, "latency_ms": {k: round(v, 2) for k, v in resp.timings_ms.items()},
             "prompt_tokens": resp.prompt_tokens, "completion_tokens": resp.completion_tokens,
+            "path": resp.path, "kb_match": resp.kb_match,
         })

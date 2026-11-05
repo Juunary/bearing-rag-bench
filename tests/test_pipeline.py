@@ -1,3 +1,4 @@
+import json
 from ragbench.cache import LLMCache
 from ragbench.pipeline import RAGPipeline
 from ragbench.requestlog import RequestLogger
@@ -66,3 +67,20 @@ def test_invalid_input_skips_retrieval_and_model(tmp_path):
     r = pipe.answer("   ", lang="de")
     assert r.blocked and r.reason == "empty_question" and ret.calls == 0 and gen.calls == 0
     assert pipe.logger.read()[0]["block_reason"] == "empty_question"
+
+
+def test_knowledge_bundle_path_skips_retrieval_when_a_page_matches(tmp_path):
+    from ragbench.kb import KnowledgeBundle
+    d = tmp_path / "kb"
+    d.mkdir()
+    (d / "fit_loose_creep.md").write_text('---\nid: fit_loose_creep\ntype: guide\ntitle: "헐거운 끼워맞춤"\nnames:\n  ko: ["끼워맞춤"]\n  en: ["loose fit"]\n  de: []\nrelated: []\nverified: true\n---\n헐거우면 링이 돈다.\n', encoding="utf-8")
+    kb = KnowledgeBundle(d, context="all")                      # 임베더 없음: 별칭 매칭만
+    gen, ret = FakeGenerator("헐거우면 링이 돕니다 [kb_fit_loose_creep#0]."), FakeRetriever()
+    pipe = RAGPipeline(ret, CHUNKS, gen, LLMCache(tmp_path / "c.sqlite"), RequestLogger(tmp_path / "log.jsonl"), context_k=3, config_id="t", kb=kb)
+    r = pipe.answer("하우징 끼워맞춤이 헐거우면?")
+    assert r.path == "kb" and r.context_ids == ["kb_fit_loose_creep#0"] and ret.calls == 0 and not r.blocked
+    assert r.kb_match["ids"] == ["fit_loose_creep"] and r.kb_match["canonical_names"] == ["헐거운 끼워맞춤"]
+    r2 = pipe.answer("What is grease?", lang="en")              # 매칭 없음 -> 기존 검색 경로
+    assert r2.path == "rag" and ret.calls == 1 and r2.context_ids[0] == "en_grease#2"
+    logged = [json.loads(l) for l in (tmp_path / "log.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert [x["path"] for x in logged] == ["kb", "rag"] and logged[0]["kb_match"]["ids"] == ["fit_loose_creep"]

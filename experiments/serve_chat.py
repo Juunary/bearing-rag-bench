@@ -10,8 +10,11 @@
   When the query translator uses the same model as the generator (English pivot), it shares the
   generator's weights instead of loading a second copy on cuda:0; any translator that cannot share is
   loaded at start-up, so an out-of-memory error appears before the server accepts requests.
-- Usage: uv run python experiments/serve_chat.py [configs/s6_pipeline_en.json] [--port 8000]
-  (default config = English pivot; configs/s35_pipeline.json serves the original-text pipeline)
+- Knowledge bundle (generation.kb_bundle): the pages of data/kb are matched first; on a match the bundle is the
+  context instead of retrieved chunks (ragbench.kb, kb_first). The response carries path "kb" or "rag".
+- Usage: uv run python experiments/serve_chat.py [configs/s7_pipeline_kb.json] [--port 8000]
+  (default = wiki + PDF corpus with the knowledge bundle; configs/s6_pipeline_en.json = wiki only, no bundle;
+  configs/s35_pipeline.json = original-text pipeline)
 
 [KO]
 - 역할: experiments/run_pipeline.py와 똑같이 실제 서비스 파이프라인(설정의 검색기, Qwen3 생성기, SQLite
@@ -21,8 +24,10 @@
 - 127.0.0.1에만 열린다. 검색 모델은 cuda:0, 생성기는 generation.device(cuda:1)를 쓴다.
   질의 번역 모델이 생성 모델과 같으면(영어 피벗) cuda:0에 두 번째 복사본을 올리지 않고 생성기 가중치를
   같이 쓴다. 공유할 수 없는 번역기는 시작할 때 미리 올려, 메모리 부족이 요청 전에 드러나게 한다.
-- 사용: uv run python experiments/serve_chat.py [configs/s6_pipeline_en.json] [--port 8000]
-  (기본 설정 = 영어 피벗, 원문 검색 파이프라인은 configs/s35_pipeline.json)
+- 지식 번들(generation.kb_bundle): data/kb 페이지를 먼저 매칭해, 매칭되면 검색 청크 대신 번들을 컨텍스트로 쓴다(ragbench.kb, kb_first).
+  응답에 경로 "kb" 또는 "rag"가 실린다.
+- 사용: uv run python experiments/serve_chat.py [configs/s7_pipeline_kb.json] [--port 8000]
+  (기본 = 위키 + PDF 코퍼스 + 지식 번들, configs/s6_pipeline_en.json = 위키만·번들 없음, 원문 검색은 configs/s35_pipeline.json)
 """
 
 from __future__ import annotations
@@ -48,8 +53,8 @@ from ragbench.retrieval.factory import build_retriever  # noqa: E402
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("config", type=Path, nargs="?", default=REPO / "configs" / "s6_pipeline_en.json",
-                    help="serving config (default configs/s6_pipeline_en.json: English pivot + reranker on English text)")
+    ap.add_argument("config", type=Path, nargs="?", default=REPO / "configs" / "s7_pipeline_kb.json",
+                    help="serving config (default configs/s7_pipeline_kb.json: wiki + PDF corpus, English pivot + reranker on English text, knowledge bundle kb_first)")
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--cache", type=Path, default=None, help="LLM cache file (default logs/chat_cache.sqlite)")
     ap.add_argument("--cold-translation", action="store_true", help="benchmark mode: start with an empty translation cache")
@@ -70,9 +75,16 @@ def main() -> None:
         # 질의 번역 모델이 생성 모델과 같으면 한 벌만 올린다 (영어 피벗에서 cuda:0의 Qwen3-4B 복사본 약 7.7 GiB가 빠짐)
         from ragbench.retrieval.factory import share_translator_model
         share_translator_model(retriever, generator)
+        kb = None
+        if g.kb_bundle:
+            # 지식 번들(kb_first): dense 검색기의 임베더(bge-m3)를 같이 써서 모델을 더 올리지 않는다
+            from ragbench.kb import KnowledgeBundle
+            dense = next((r for r in getattr(retriever.base, "retrievers", []) if "dense" in r.name), None)
+            embedder = getattr(getattr(dense, "inner", dense), "embedder", None)
+            kb = KnowledgeBundle(REPO / g.kb_bundle, embedder=embedder, dense_min=g.kb_dense_min, context=g.kb_context)
         return RAGPipeline(retriever, chunks, generator, LLMCache(args.cache or REPO / "logs" / "chat_cache.sqlite"),
                            RequestLogger(REPO / "logs" / "requests.jsonl"), prompt_version=g.prompt_version,
-                           context_k=g.context_k, max_new_tokens=g.max_new_tokens, config_id=f"chat:{cfg.exp_id}")
+                           context_k=g.context_k, max_new_tokens=g.max_new_tokens, config_id=f"chat:{cfg.exp_id}", kb=kb)
 
     # host를 127.0.0.1로 고정: 이 컴퓨터의 브라우저에서만 접속된다
     uvicorn.run(create_app(build, chunks), host="127.0.0.1", port=args.port, log_level="info")

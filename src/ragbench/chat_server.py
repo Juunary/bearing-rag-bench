@@ -5,7 +5,7 @@
   run from scripts. Nothing in the answer path changes: validation, retrieval, prompt, cache,
   output check and request log all happen in the pipeline; this module only translates HTTP <-> Response.
 - Endpoints: GET / (chat page), GET /api/health, POST /api/ask {question, lang?} ->
-  {answer, blocked, reason, lang, cache_hit, timings_ms, contexts[{chunk_id, text}]}.
+  {answer, blocked, reason, lang, cache_hit, path, kb_match, timings_ms, contexts[{chunk_id, text}]}.
   The raw model answer is never returned (it stays in the request log).
 - Threading: the pipeline is built inside ONE worker thread and every request runs there. Reasons:
   a SQLite connection (LLM cache) may only be used by the thread that created it, and one GPU should
@@ -19,7 +19,7 @@
   답변 경로는 바뀌지 않는다: 검사, 검색, 프롬프트, 캐시, 출력 검사, 요청 로그는 모두 파이프라인 안에서
   일어나고, 이 모듈은 HTTP와 Response만 변환한다.
 - 엔드포인트: GET /(채팅 페이지), GET /api/health, POST /api/ask {question, lang?} ->
-  {answer, blocked, reason, lang, cache_hit, timings_ms, contexts[{chunk_id, text}]}.
+  {answer, blocked, reason, lang, cache_hit, path, kb_match, timings_ms, contexts[{chunk_id, text}]}.
   모델 원본 답변은 반환하지 않는다(요청 로그에만 남는다).
 - 스레딩: 파이프라인을 단일 작업 스레드 안에서 만들고 모든 요청을 그 스레드에서 처리한다. 이유: SQLite
   연결(LLM 캐시)은 만든 스레드에서만 쓸 수 있고, GPU 하나는 한 번에 한 생성만 돌려야 한다. 그래서 요청은
@@ -52,6 +52,7 @@ class AskRequest(BaseModel):
 
 def create_app(build_pipeline: Callable[[], Any], chunks: list[dict[str, Any]], title: str = "bearing-rag-bench") -> FastAPI:
     by_id = {c["chunk_id"]: c for c in chunks}
+    # 번들 문단은 파이프라인이 만들어지면 by_id에 합쳐진다 (lifespan 안)
     # max_workers=1: 파이프라인(캐시 연결·GPU 모델)을 소유하는 스레드는 하나뿐이다
     executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="rag")
     state: dict[str, Any] = {}
@@ -61,6 +62,8 @@ def create_app(build_pipeline: Callable[[], Any], chunks: list[dict[str, Any]], 
         loop = asyncio.get_running_loop()
         # 모델 로드와 인덱스 생성도 같은 스레드에서 한다 (끝나기 전에는 서버가 요청을 받지 않는다)
         state["pipe"] = await loop.run_in_executor(executor, build_pipeline)
+        if getattr(state["pipe"], "kb", None) is not None:
+            by_id.update({x["chunk_id"]: x for x in state["pipe"].kb.passages.values()})
         yield
         executor.shutdown(wait=False, cancel_futures=True)
 
@@ -73,8 +76,10 @@ def create_app(build_pipeline: Callable[[], Any], chunks: list[dict[str, Any]], 
     @app.get("/api/health")
     def health() -> dict[str, Any]:
         pipe = state["pipe"]
+        kb = getattr(pipe, "kb", None)
         return {"ok": True, "config_id": pipe.config_id, "model": getattr(pipe.generator, "model_name", None),
-                "prompt_version": pipe.prompt_version, "context_k": pipe.context_k}
+                "prompt_version": pipe.prompt_version, "context_k": pipe.context_k,
+                "kb": {"pages": len(kb.pages), "verified": kb.verified, "context": kb.context} if kb is not None else None}
 
     @app.post("/api/ask")
     async def ask(req: AskRequest) -> dict[str, Any]:
@@ -83,6 +88,8 @@ def create_app(build_pipeline: Callable[[], Any], chunks: list[dict[str, Any]], 
         return {
             "request_id": resp.request_id, "answer": resp.answer, "blocked": resp.blocked, "reason": resp.reason,
             "lang": resp.lang, "cache_hit": resp.cache_hit,
+            # 경로: "kb"(지식 번들 페이지가 매칭되어 번들로 답함) | "rag"(문서 검색) | "invalid"
+            "path": resp.path, "kb_match": resp.kb_match,
             "timings_ms": {k: round(v, 1) for k, v in resp.timings_ms.items()},
             # 인용 확인용: 프롬프트에 들어간 청크의 원문 (raw_answer는 의도적으로 내보내지 않는다)
             "contexts": [{"chunk_id": cid, "text": by_id[cid]["text"]} for cid in resp.context_ids if cid in by_id],

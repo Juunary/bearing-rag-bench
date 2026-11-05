@@ -1,0 +1,34 @@
+{
+  "exp_id": "s7_pipeline_kb",
+  "stage": "s7",
+  "description": "Serving pipeline: wiki + PDF corpus (table headers repeated), English BM25 + English dense RRF, reranker on English text; Qwen3-4B-Instruct-2507 greedy (cite_refuse_v1); knowledge bundle data/kb matched first (kb_first); SQLite LLM cache, output validation, request log",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "dense_english_pivot": true,
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "top_k": 10
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  },
+  "generation": {
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "prompt_version": "cite_refuse_v1",
+    "max_new_tokens": 256,
+    "temperature": 0.0,
+    "context_k": 5,
+    "device": "cuda:1",
+    "kb_bundle": "data/kb",
+    "kb_dense_min": 0.55,
+    "kb_context": "all"
+  }
+}

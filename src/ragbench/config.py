@@ -146,6 +146,10 @@ class GenerationConfig:
     device: str = "cuda:0"
     quantize_4bit: bool = False        # load the base as NF4 (the QLoRA base)
     adapter: str | None = None         # LoRA/QLoRA adapter directory (stage 4)
+    # [KO] 서비스용 지식 번들(kb_first): 디렉터리, dense 매칭 하한, 컨텍스트("all" 전체 페이지 | "matched" 매칭 + related)
+    kb_bundle: str | None = None
+    kb_dense_min: float = 0.55
+    kb_context: str = "all"
 
 
 @dataclass
