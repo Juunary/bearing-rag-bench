@@ -105,6 +105,7 @@ uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite
 uv run python experiments/analyze_concepts.py
 uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # 지식 번들: rag / bundle / hybrid
 uv run python scripts/make_model_configs.py && uv run python experiments/run_suite.py --glob 'configs/modelswap/*.json' && uv run python experiments/analyze_models.py   # 모델 교체
+uv run python experiments/run_dci.py --variant v2 && uv run python experiments/analyze_dci.py   # grep·read 에이전트
 
 # 다른 계열 판정 모델 (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -472,6 +473,17 @@ rag의 거절 8개는 모두 번들에 답이 있는 질문이었고(채점자 �
 
 임베딩 교체는 두 세트 모두 구분되지 않거나 약간 나쁩니다. Qwen3-Reranker-0.6B는 v2에서 확실히 나쁘고(나빠짐 26, 나아짐 13), Qwen3-Reranker-4B는 PDF에서 +0.065(R@5 0.882 → 0.931, 교차 언어 0.842 → 0.920)로 구간이 0에 걸치며 v2에서는 차이가 없습니다. 4B 리랭커는 후보 30개 채점에 약 3초가 걸려 기준선의 15 .. 19배이고 GPU 메모리 8 GiB(bf16)가 더 필요합니다. 기본 모델은 바꾸지 않았습니다.
 
+### 코퍼스 직접 탐색(DCI): grep·read 에이전트 (RAG가 거절한 질문 20개)
+
+상위 k 검색 한 번 대신 같은 생성 모델(Qwen3-4B, greedy)이 `grep`(청크 903개의 원문과 영어 번역문 검색, 일치 10개까지), `read`(청크 원문 + 번역), `answer`(읽은 청크를 인용하거나 NO_ANSWER) 도구로 코퍼스를 직접 뒤지게 했습니다(`experiments/run_dci.py`; arXiv 2605.05242의 direct corpus interaction과 OKF 폴더 모드 계열). 호출 상한 8회, 출력 검증은 파이프라인과 같고 인용 허용 범위는 읽은 청크입니다. 대상은 서비스 파이프라인(cite_refuse_v1)이 거절한 질문 전부: 사람 질문 5개, 실무 질문 12개(주제 밖 4개 포함), PDF 질문 3개(정답 청크 있음). v1은 정규식 grep, v2는 단어 전부 포함(순서 무관) grep + "검색어는 핵심 단어 1~2개" 지시입니다(`experiments/results/dci_analysis.md`).
+
+| 변형 | 사람 질문 5 | 실무 질문 12 (주제 안 8 / 밖 4) | PDF 3: 답변 / 정답 청크 읽음 | 질문당 호출 · 토큰 · 시간 |
+|---|---|---|---|---|
+| v1 | 답변 0 | 답변 2 / 거절 4 | 1 / 0 | 7.2회 · 4,700 · 9 s |
+| v2 | 답변 2 | 답변 5 / 거절 4 | 1 / 0 | 6.2회 · 7,800 · 12 s |
+
+v1은 4B 모델이 "oil seal.*lip wear.*shaft"처럼 문장 길이 정규식으로 검색해 거의 아무것도 읽지 못했습니다. v2가 답한 7개의 사람 채점은 맞음 1, 부분 4, 틀림 2입니다(같은 실무 질문 6개를 지식 번들은 모두 맞게 답함). D05(오일 씰)는 v2에서도 관련 청크에 닿지 못했고(`en_radial_shaft_seal#0`만 읽음), PDF 3개는 두 변형 모두 정답 청크를 한 번도 읽지 않았습니다. 주제 밖 질문 4개는 두 변형 모두 거절했습니다.
+
 ## 한계
 
 - 평가 질문은 45개(언어쌍별 2~9개)와 90개(언어쌍별 10개)이며 코퍼스는 위키백과 문서입니다. PDF 문서는 별도 코퍼스(위키 + PDF)와 PDF 질문 48개로만 평가했습니다.
@@ -488,6 +500,7 @@ rag의 거절 8개는 모두 번들에 답이 있는 질문이었고(채점자 �
 - 개념 페이지는 AI 에이전트가 D05 실패 분석(oil seal과 radial shaft seal)을 알고 쓴 것이라 사람 질문 10개는 씰 개념의 공정한 시험이 아니며, 판단은 PDF 48·v2 90으로 했습니다. dense 매칭 임계값 0.55는 조정하지 않은 추정치이고, 개념 후보 수는 10과 30만 시험했습니다.
 - 지식 번들 실험은 질문 20개, 채점자 1명, 번들 12쪽이며, 번들 내용은 AI 에이전트가 쓴 것을 사람이 읽고 승인했을 뿐 제조사 자료나 규격 원문과 대조하지는 않았습니다. 번들 방식의 답은 원문 문서가 아니라 요약 페이지를 인용합니다. kb_first의 매칭 임계값은 조정하지 않은 고정값이며 질문 20개로는 경계가 좁습니다.
 - 모델 교체 비교는 모델당 설정 1개(모델 카드의 기본 프롬프트·풀링)이고, 질의 지시문이나 Matryoshka 차원 같은 선택지는 시험하지 않았습니다. 지연은 다른 사용자와 GPU를 나눠 쓰는 상태에서 잰 값입니다.
+- DCI 실험은 질문 20개, 변형 2개, 호출 상한 8회이며 도구 호출 형식은 JSON 한 줄입니다. 검색어 전략은 지시문으로만 유도했고(v2), 다른 모델이나 도구 설계(요약 먼저 읽기, 문서 단위 열람)는 시험하지 않았습니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
@@ -516,6 +529,7 @@ eval/human_round2/   사람 검수 2차 표본·채점표·채점·직접 쓴 �
 data/concepts/       개념 페이지 26개(OKF식 마크다운), data/concepts_review.md 사람 검수 기록
 data/kb/             실무 안내 페이지 12개(사람 검수, data/kb_review.md), eval/kb/ 질문 20개·답변·채점 (experiments/run_kb.py, analyze_kb.py)
 configs/modelswap/      모델 교체 설정 (scripts/make_model_configs.py), 분석 experiments/analyze_models.py
+eval/dci/            DCI 에이전트 결과·궤적·채점 (experiments/run_dci.py, analyze_dci.py)
 src/ragbench/concepts.py, retrieval/concept.py   개념 로더·매칭, 개념 경유 후보 검색기 (experiments/analyze_concepts.py)
 docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성
 outputs/        학습된 어댑터 (git 제외)

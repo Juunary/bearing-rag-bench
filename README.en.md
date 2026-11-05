@@ -105,6 +105,7 @@ uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite
 uv run python experiments/analyze_concepts.py
 uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # knowledge bundle: rag / bundle / hybrid
 uv run python scripts/make_model_configs.py && uv run python experiments/run_suite.py --glob 'configs/modelswap/*.json' && uv run python experiments/analyze_models.py   # model swap
+uv run python experiments/run_dci.py --variant v2 && uv run python experiments/analyze_dci.py   # grep/read agent
 
 # Judge of another model family (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -472,6 +473,17 @@ One model was replaced in the best pipelines (`scripts/make_model_configs.py`; p
 
 The embedding swaps are indistinguishable or slightly worse on both sets. Qwen3-Reranker-0.6B is clearly worse on v2 (26 worse, 13 better); Qwen3-Reranker-4B gives +0.065 on PDF (R@5 0.882 → 0.931, cross-language 0.842 → 0.920) with an interval touching zero and no difference on v2. The 4B reranker takes about 3 s to score 30 candidates, 15 .. 19 times the baseline, and needs 8 GiB more GPU memory (bf16). The default models were not changed.
 
+### Direct corpus interaction (DCI): a grep/read agent (the 20 questions RAG refused)
+
+Instead of one top-k retrieval step, the same generator (Qwen3-4B, greedy) searched the corpus itself with `grep` (original text and English translation of the 903 chunks, up to 10 hits), `read` (chunk text + translation) and `answer` (citing read chunks, or NO_ANSWER) (`experiments/run_dci.py`; the direct corpus interaction of arXiv 2605.05242 and the OKF folder mode). Budget 8 calls; output validation as in the pipeline, with the read chunks as the allowed citations. Questions: everything the serving pipeline (cite_refuse_v1) refused: 5 human-written, 12 practical (4 outside the bundle topics), 3 PDF questions with gold chunks. v1 uses regex grep; v2 an all-terms grep (every term, any order) and a prompt asking for one or two key terms per search (`experiments/results/dci_analysis.md`).
+
+| variant | human 5 | practical 12 (in 8 / out 4) | PDF 3: answered / gold read | per question: calls · tokens · seconds |
+|---|---|---|---|---|
+| v1 | answered 0 | answered 2 / refused 4 | 1 / 0 | 7.2 · 4,700 · 9 s |
+| v2 | answered 2 | answered 5 / refused 4 | 1 / 0 | 6.2 · 7,800 · 12 s |
+
+In v1 the 4B model searched with sentence-long regexes ("oil seal.*lip wear.*shaft") and read almost nothing. The 7 v2 answers were graded by a person: 1 correct, 4 partial, 2 wrong (the knowledge bundle answered the same 6 practical questions correctly). D05 (oil seal) still did not reach the relevant chunks in v2 (only `en_radial_shaft_seal#0` was read), and in both variants none of the 3 PDF questions had its gold chunk read. The 4 out-of-scope questions were refused by both variants.
+
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
@@ -488,6 +500,7 @@ The embedding swaps are indistinguishable or slightly worse on both sets. Qwen3-
 - The concept pages were written by an AI agent that knew the D05 failure analysis (oil seal vs radial shaft seal), so the 10 human-written questions are not a fair test of the seal pages; the conclusions rest on the 48 PDF and 90 v2 questions. The dense matching threshold 0.55 is an untuned estimate, and only two concept candidate counts (10, 30) were tried.
 - The knowledge bundle experiment has 20 questions, one grader and 12 pages; the pages were written by an AI agent and approved by a person on reading, not checked against manufacturer data or standard texts. Bundle answers cite the summary pages, not original documents. The kb_first matching threshold is an untuned fixed value, and the margin on 20 questions is narrow.
 - The model swap uses one configuration per model (the model card's default prompt and pooling); query instructions and Matryoshka dimensions were not explored. Latencies were measured while the GPUs were shared with another user.
+- The DCI experiment has 20 questions, 2 variants and an 8-call budget with a one-line JSON tool protocol. The search strategy was steered only through the prompt (v2); other models or tool designs (summaries first, document-level reads) were not tried.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
@@ -516,6 +529,7 @@ eval/human_round2/   human review round 2: sample, sheet, grades, answers to the
 data/concepts/       26 concept pages (OKF-style Markdown), data/concepts_review.md human review record
 data/kb/             12 practical guide pages (reviewed by a person, data/kb_review.md), eval/kb/ 20 questions, answers, grades (experiments/run_kb.py, analyze_kb.py)
 configs/modelswap/      model swap configs (scripts/make_model_configs.py), analysis experiments/analyze_models.py
+eval/dci/            DCI agent results, trajectories, grades (experiments/run_dci.py, analyze_dci.py)
 src/ragbench/concepts.py, retrieval/concept.py   concept loader and matcher, concept candidate retriever (experiments/analyze_concepts.py)
 docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
 outputs/        trained adapters (git-ignored)
