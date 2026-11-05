@@ -103,6 +103,7 @@ uv run python experiments/analyze_pdf_generation.py
 uv run python scripts/export_site_data.py           # 추적 페이지 데이터 (docs/data/)
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # 개념 경유 검색
 uv run python experiments/analyze_concepts.py
+uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # 지식 번들: rag / bundle / hybrid
 
 # 다른 계열 판정 모델 (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -440,6 +441,18 @@ v2 질문 90개를 PDF 청크 557개가 추가된 코퍼스에서 다시 검색�
 
 pool은 후보를 질문당 평균 1.1 .. 1.3개 더했지만 상위 10에 든 것이 PDF 2건, v2 7건이고 그중 정답 청크는 1건이라 지표가 바뀌지 않았습니다. 개념 후보를 30개로 늘리면 질문당 평균 10.4 .. 11.0개가 더해지고 상위 10에 든 것이 PDF 20건, v2 32건(정답 4건)이지만 nDCG 차이는 두 세트 모두 구간이 0을 포함하고(v2 나아짐 1, 나빠짐 3), p50 지연이 약 80 ms 늘며, D05의 관련 청크는 여전히 후보에 들지 않습니다. 질의 보강은 매칭된 질문에서 리랭커 순위를 떨어뜨렸습니다(PDF 매칭 43개 중 나아짐 2, 나빠짐 18). 사람 질문 10개(cite_refuse_v1)는 세 방식 모두 거절 5개로 같습니다. D05는 pool_query·rrf_query에서 `luh-diss-pelzer-2022#19`가 7위에서 3위로 올라 답변했지만(채점하지 않음) 나머지 관련 청크 4개(`de_wellendichtring#0` 등)는 여전히 후보에 들지 못했고, 상위 5에서 맞게 답하던 D07은 두 방식에서 거절로 바뀌었습니다. 상세는 `experiments/results/concept_analysis.md`에 있습니다.
 
+### 정리된 지식 번들: RAG, 전부 넣기, 하이브리드 (실무 질문 20개)
+
+실무 안내 페이지 12개(`data/kb/*.md`, 한국어, 본문 9,638토큰: 끼워맞춤 불량, 오일 씰 누유 점검, 그리스 선정, 재급지, 예압 설정, 손상 모드, 진동 진단, 오일 분석, 휠 베어링 소음, 구동계 비틀림 댐핑, 전기차 감속기 베어링, 보관·취급)를 AI 에이전트가 일반 공학 지식으로 쓰고, 사람이 질문을 쓴 뒤 검수했습니다(`data/kb_review.md`, 수정 없이 승인). 질문 20개(`eval/kb/questions.jsonl`)는 같은 사람이 페이지를 보기 전에 주제 목록만 보고 썼고, 16개는 주제 안, 4개는 주제 밖(브레이크 패드, V벨트, 유압 펌프, DPF)입니다. 세 방식: `rag`(서비스 파이프라인, PDF 코퍼스 최고 검색 + cite_refuse_v1, 상위 5), `bundle`(검색 없이 페이지 12개 전부를 컨텍스트로), `hybrid`(rag가 차단되면 bundle). 같은 생성 모델·프롬프트·출력 검증이며, 답변은 같은 사람이 블라인드로 채점했습니다(`experiments/results/kb_analysis.md`).
+
+| 방식 | 주제 안 16개: 맞음 / 부분 / 틀림 / 거절 | 주제 밖 4개: 거절 | 프롬프트 토큰 평균 | 생성 시간 평균 |
+|---|---|---|---|---|
+| rag | 2 / 4 / 2 / 8 | 4 (모두 적절) | 2,188 | 3.4 s |
+| bundle | 14 / 0 / 0 / 2 | 4 (모두 적절) | 10,081 | 4.8 s |
+| hybrid | 9 / 4 / 2 / 1 | 4 (모두 적절) | 8,237 | 6.3 s |
+
+rag의 거절 8개는 모두 번들에 답이 있는 질문이었고(채점자 판정 부적절), 답한 8개 중 맞음은 2개입니다. bundle은 주제 안 14개를 모두 맞게 답했고 주제 밖 4개는 모두 거절했으며, 거절 2개는 인용 없이 답하다 256토큰에서 잘린 경우(K05)와 페이지에 내용이 있는데도 거절한 경우(K15)입니다. hybrid는 rag가 거절한 12개를 번들로 넘겨 11개를 맞게 답했지만, rag가 거절하지 않고 틀리거나 부분적으로 답한 6개는 그대로 남았습니다(틀림 2개는 비틀림 진동 질문에 니들 롤러 베어링, 전식 플루팅을 프레팅으로 답한 것). 토큰은 bundle이 rag의 4.6배입니다.
+
 ## 한계
 
 - 평가 질문은 45개(언어쌍별 2~9개)와 90개(언어쌍별 10개)이며 코퍼스는 위키백과 문서입니다. PDF 문서는 별도 코퍼스(위키 + PDF)와 PDF 질문 48개로만 평가했습니다.
@@ -454,6 +467,7 @@ pool은 후보를 질문당 평균 1.1 .. 1.3개 더했지만 상위 10에 든 �
 - 표 머리글 반복은 표의 첫 행(빈 칸이 있으면 둘째 행까지)을 머리글로 보고, 표 앞 1~2개 문단 중 TABLE/Table/Tabelle로 시작하는 것만 캡션으로 씁니다. 수식이 표로 검출된 경우 그 줄도 머리글로 붙습니다. 머리글을 붙인 청크는 최대 508토큰입니다.
 - PDF 코퍼스는 한국어 문서가 없고(한국어는 질문 언어로만 씀), 문서 6건·질문 48개(언어쌍별 8개)입니다. PDF 질문은 AI 에이전트가 쓰고 다른 AI 에이전트 2개가 검수했으며 사람이 검수하지 않았습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
 - 개념 페이지는 AI 에이전트가 D05 실패 분석(oil seal과 radial shaft seal)을 알고 쓴 것이라 사람 질문 10개는 씰 개념의 공정한 시험이 아니며, 판단은 PDF 48·v2 90으로 했습니다. dense 매칭 임계값 0.55는 조정하지 않은 추정치이고, 개념 후보 수는 10과 30만 시험했습니다.
+- 지식 번들 실험은 질문 20개, 채점자 1명, 번들 12쪽이며, 번들 내용은 AI 에이전트가 쓴 것을 사람이 읽고 승인했을 뿐 제조사 자료나 규격 원문과 대조하지는 않았습니다. 번들 방식의 답은 원문 문서가 아니라 요약 페이지를 인용합니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
@@ -480,6 +494,7 @@ configs/pdf/    위키 + PDF 코퍼스 검색 설정 (scripts/make_pdf_configs.p
 configs/pdfgen/ PDF 질문 답변 생성 설정
 eval/human_round2/   사람 검수 2차 표본·채점표·채점·직접 쓴 질문 답변 (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
 data/concepts/       개념 페이지 26개(OKF식 마크다운), data/concepts_review.md 사람 검수 기록
+data/kb/             실무 안내 페이지 12개(사람 검수, data/kb_review.md), eval/kb/ 질문 20개·답변·채점 (experiments/run_kb.py, analyze_kb.py)
 src/ragbench/concepts.py, retrieval/concept.py   개념 로더·매칭, 개념 경유 후보 검색기 (experiments/analyze_concepts.py)
 docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성
 outputs/        학습된 어댑터 (git 제외)

@@ -103,6 +103,7 @@ uv run python experiments/analyze_pdf_generation.py
 uv run python scripts/export_site_data.py           # trace page data (docs/data/)
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # concept-mediated retrieval
 uv run python experiments/analyze_concepts.py
+uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # knowledge bundle: rag / bundle / hybrid
 
 # Judge of another model family (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -440,6 +441,18 @@ Concept pages (`data/concepts/*.md`, OKF-style Markdown: aliases in ko/en/de, re
 
 pool added 1.1 .. 1.3 candidates per question, but only 2 (PDF) and 7 (v2) of them reached the top 10 and one was a gold chunk, so the metrics did not change. With 30 concept candidates, 10.4 .. 11.0 chunks per question are added and 20 (PDF) / 32 (v2, 4 gold) reach the top 10, but the nDCG differences include zero on both sets (v2: 1 better, 3 worse), p50 latency grows by about 80 ms, and the D05 chunks still do not reach the pool. The query augmentation lowered the reranker ranks of matched questions (of 43 matched PDF questions, 2 better, 18 worse). The 10 human-written questions (cite_refuse_v1) are refused 5 times under every variant. With pool_query and rrf_query, D05 is answered because `luh-diss-pelzer-2022#19` moves from rank 7 to 3 (the answer was not graded), but the other 4 related chunks (`de_wellendichtring#0`, ...) still do not reach the pool, and D07, answered correctly with the top 5, is refused under both. Details are in `experiments/results/concept_analysis.md`.
 
+### Curated knowledge bundle: RAG, whole bundle, hybrid (20 practical questions)
+
+12 practical guide pages (`data/kb/*.md`, Korean, 9,638 body tokens: loose fits, oil seal leakage checks, grease selection, relubrication, preload setting, failure modes, vibration diagnosis, oil analysis, wheel bearing noise, driveline torsional damping, EV reducer bearings, storage and handling) were written by an AI agent from general engineering knowledge and reviewed by a person after the questions were written (`data/kb_review.md`, approved without changes). The 20 questions (`eval/kb/questions.jsonl`) were written by the same person from the topic list before seeing the pages; 16 are within the topics and 4 outside (brake pads, V-belts, hydraulic pumps, DPF). Three modes: `rag` (the serving pipeline: best PDF-corpus retrieval + cite_refuse_v1, top 5), `bundle` (no retrieval, all 12 pages as the context), `hybrid` (bundle only when rag is blocked). Same generator, prompt and output validation; the answers were graded blind by the same person (`experiments/results/kb_analysis.md`).
+
+| mode | in-scope 16: correct / partial / wrong / refused | out-of-scope 4: refused | prompt tokens, mean | generation, mean |
+|---|---|---|---|---|
+| rag | 2 / 4 / 2 / 8 | 4 (all appropriate) | 2,188 | 3.4 s |
+| bundle | 14 / 0 / 0 / 2 | 4 (all appropriate) | 10,081 | 4.8 s |
+| hybrid | 9 / 4 / 2 / 1 | 4 (all appropriate) | 8,237 | 6.3 s |
+
+All 8 rag refusals were questions the bundle answers (graded inappropriate), and only 2 of its 8 answers were correct. bundle answered 14 in-scope questions correctly and refused all 4 out-of-scope ones; its 2 refusals are an answer cut at 256 tokens before any citation (K05) and a refusal although the page covers the question (K15). hybrid passed the 12 rag refusals to the bundle and got 11 right, but the 6 answers that rag gave without refusing (partial or wrong) stayed; the 2 wrong ones answered a torsional-vibration question with needle roller bearings and diagnosed electrical fluting as fretting. bundle costs 4.6 times the prompt tokens of rag.
+
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
@@ -454,6 +467,7 @@ pool added 1.1 .. 1.3 candidates per question, but only 2 (PDF) and 7 (v2) of th
 - Table-header repetition treats the first table row (and the second when the first has empty cells) as the header, and uses as caption only one of the 1-2 paragraphs before the table that starts with TABLE/Table/Tabelle. Where an equation was detected as a table, its lines are repeated as a header too. Chunks with a header reach up to 508 tokens.
 - The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by an AI agent and reviewed by two other AI agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
 - The concept pages were written by an AI agent that knew the D05 failure analysis (oil seal vs radial shaft seal), so the 10 human-written questions are not a fair test of the seal pages; the conclusions rest on the 48 PDF and 90 v2 questions. The dense matching threshold 0.55 is an untuned estimate, and only two concept candidate counts (10, 30) were tried.
+- The knowledge bundle experiment has 20 questions, one grader and 12 pages; the pages were written by an AI agent and approved by a person on reading, not checked against manufacturer data or standard texts. Bundle answers cite the summary pages, not original documents.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
@@ -480,6 +494,7 @@ configs/pdf/    retrieval configs on the Wikipedia + PDF corpus (written by scri
 configs/pdfgen/ generation configs for the PDF questions
 eval/human_round2/   human review round 2: sample, sheet, grades, answers to the grader's own questions (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
 data/concepts/       26 concept pages (OKF-style Markdown), data/concepts_review.md human review record
+data/kb/             12 practical guide pages (reviewed by a person, data/kb_review.md), eval/kb/ 20 questions, answers, grades (experiments/run_kb.py, analyze_kb.py)
 src/ragbench/concepts.py, retrieval/concept.py   concept loader and matcher, concept candidate retriever (experiments/analyze_concepts.py)
 docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
 outputs/        trained adapters (git-ignored)
