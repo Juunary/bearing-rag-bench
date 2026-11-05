@@ -1,6 +1,6 @@
 "use strict";
 // 데이터: scripts/export_site_data.py가 만든 docs/data/*.json (실제 실행 기록)
-const SETS = ["v2", "pdf", "user"];
+const SETS = ["v2", "pdf", "user", "service"];
 const STATE = { lang: "ko", set: "v2", rows: {}, meta: null, chunks: null, idx: 0, list: [], playing: false, revealed: 0, speed: 1, cardHTML: {}, waiting: true };   // waiting: 첫 재생 전 대기 (3초 무조작 또는 아래로 스크롤하면 시작)
 let RUN = 0;                                  // 재생 세대 번호: 바뀌면 진행 중인 애니메이션을 멈춘다
 
@@ -9,11 +9,17 @@ const T = {
     title: "RAG 파이프라인 추적", subtitle: "질문 하나가 검색·생성·검증을 지나는 과정을 실제 실행 기록으로 보여줍니다.",
     pair: "언어쌍", show: "보기", question: "질문", wheel_hint: "휠 ↓ 짧게: 다음 단계 · 길게 또는 ↑: 전체 보기", wait_hint: "3초 뒤 또는 아래로 스크롤하면 재생을 시작합니다", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
     set_v2: "위키백과 질문", set_v2_s: "90개 · 청크 346개", set_pdf: "PDF 질문", set_pdf_s: "48개 · 청크 903개",
-    set_user: "사람이 쓴 질문", set_user_s: "10개 · 청크 903개",
+    set_user: "사람이 쓴 질문", set_user_s: "10개 · 청크 903개", set_service: "서비스 (지식 번들)", set_service_s: "30개 · 번들 12쪽 + 청크 903개",
     k_all: "전체", k_missing: "정답 청크가 컨텍스트에 없음", k_blocked: "차단·거절된 답변",
     note_v2: "코퍼스: 위키백과 한·영·독 45건. 검색은 채팅 서버와 같은 구성(영어 BM25 + dense, RRF, 리랭커 영어 입력), 답변 프롬프트 cite_v1.",
     note_pdf: "코퍼스: 위키백과 + PDF 6건(NASA 보고서, 학위논문), 표 머리글 반복 청크. 검색은 영어 BM25 + 영어 dense, RRF, 리랭커 영어 입력, 답변 프롬프트 cite_v1.",
     note_user: "채점자가 문서를 보지 않고 쓴 실무 질문. PDF 질문과 같은 검색, 서비스 프롬프트 cite_refuse_v1(근거가 없으면 거절).",
+    note_service: "현재 채팅 서버 설정(configs/s7_pipeline_kb.json): 사람이 쓴 실무 질문 30개. 질문이 사람이 검수한 안내 페이지 12쪽에 매칭되면 검색 없이 번들로 답하고(경로 kb), 아니면 문서 검색으로 답합니다(경로 rag).",
+    s_kbmatch: "페이지 매칭", s_bundle: "번들 컨텍스트",
+    w_kbmatch: "질문을 지식 번들 페이지의 별칭(ko/en/de)에 맞춰 봅니다. 별칭이 없으면 질문과 페이지 본문의 dense 코사인(bge-m3)이 0.55 이상인 상위 1개를 씁니다. 매칭되면 검색을 건너뛰고 번들로 답합니다.",
+    w_bundle: "매칭된 질문은 문서 검색 대신 사람이 검수한 안내 페이지 전부(12쪽, 약 1만 토큰)를 컨텍스트로 받습니다. 인용은 kb_<페이지>#0 형식입니다.",
+    kb_matched: "매칭된 페이지", kb_none: "매칭된 페이지 없음 → 문서 검색 경로", kb_how_alias: "별칭 일치", kb_how_dense: "dense 코사인", kb_best: "가장 가까운 페이지", kb_pages: "컨텍스트에 넣은 페이지", kb_verified: "사람 검수",
+    k_kb: "번들 경로로 답한 질문", k_rag: "문서 검색 경로로 답한 질문",
     s_input: "입력 검증", s_translate: "질의 번역", s_retrieve: "후보 검색", s_rrf: "RRF 융합", s_rerank: "리랭커", s_generate: "생성", s_output: "출력 검증", s_answer: "답변",
     w_input: "빈 질문과 1000자를 넘는 질문을 걸러냅니다. 통과한 질문만 검색과 LLM을 부릅니다.",
     w_translate: "Qwen3-4B가 질문을 영어로 옮깁니다. 문서 조각도 미리 영어로 번역해 두었으므로, 한국어 질문으로 독일어 문서를 찾을 때도 영어끼리 비교합니다.",
@@ -43,11 +49,17 @@ const T = {
     title: "RAG Pipeline Trace", subtitle: "One question at a time through retrieval, generation and validation, from real run records.",
     pair: "Language pair", show: "Show", question: "Question", wheel_hint: "Wheel ↓ short: next stage · long or ↑: show all", wait_hint: "Playback starts in 3 seconds or when you scroll down", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
     set_v2: "Wikipedia questions", set_v2_s: "90 · 346 chunks", set_pdf: "PDF questions", set_pdf_s: "48 · 903 chunks",
-    set_user: "Human-written questions", set_user_s: "10 · 903 chunks",
+    set_user: "Human-written questions", set_user_s: "10 · 903 chunks", set_service: "Service (knowledge bundle)", set_service_s: "30 · 12 pages + 903 chunks",
     k_all: "All", k_missing: "Gold chunk not in the context", k_blocked: "Blocked or refused",
     note_v2: "Corpus: 45 Wikipedia articles in Korean, English and German. Retrieval as in the chat server (English BM25 + dense, RRF, reranker on English text); answer prompt cite_v1.",
     note_pdf: "Corpus: Wikipedia + 6 PDFs (NASA reports, theses), table headers repeated in chunks. Retrieval: English BM25 + English dense, RRF, reranker on English text; answer prompt cite_v1.",
     note_user: "Practical questions written by the grader without looking at the documents. Same retrieval as the PDF set, serving prompt cite_refuse_v1 (refuses without evidence).",
+    note_service: "The current chat-server config (configs/s7_pipeline_kb.json) on 30 human-written practical questions. When a question matches one of the 12 reviewed guide pages, the bundle answers without retrieval (path kb); otherwise document retrieval answers (path rag).",
+    s_kbmatch: "Page match", s_bundle: "Bundle context",
+    w_kbmatch: "The question is matched against the aliases (ko/en/de) of the knowledge bundle pages; without an alias match, the best dense match (bge-m3 cosine of question vs page text) of 0.55 or more is used. On a match, retrieval is skipped and the bundle answers.",
+    w_bundle: "A matched question gets all reviewed guide pages (12, about 10k tokens) as the context instead of retrieved chunks. Citations use the form kb_<page>#0.",
+    kb_matched: "Matched pages", kb_none: "No page matched → document retrieval path", kb_how_alias: "alias match", kb_how_dense: "dense cosine", kb_best: "closest page", kb_pages: "Pages in the context", kb_verified: "reviewed by a person",
+    k_kb: "Answered through the bundle", k_rag: "Answered through retrieval",
     s_input: "Input check", s_translate: "Translation", s_retrieve: "Candidates", s_rrf: "RRF fusion", s_rerank: "Reranker", s_generate: "Generation", s_output: "Output check", s_answer: "Answer",
     w_input: "Rejects empty questions and questions over 1000 characters. Only questions that pass call retrieval and the LLM.",
     w_translate: "Qwen3-4B translates the question into English. The chunks were translated in advance, so a Korean question is matched against German documents in English.",
@@ -74,7 +86,14 @@ const T = {
     theme_auto: "Auto", theme_light: "Light", theme_dark: "Dark", ms: "ms", s: "s",
   },
 };
-const STAGES = ["input", "translate", "retrieve", "rrf", "rerank", "generate", "output", "answer"];
+const DEFAULT_STAGES = ["input", "translate", "retrieve", "rrf", "rerank", "generate", "output", "answer"];
+let STAGES = DEFAULT_STAGES;
+// 서비스 세트(지식 번들 포함): 입력 검증 뒤 "페이지 매칭" 단계가 있고, 매칭되면 검색 단계 대신 번들 컨텍스트 단계가 온다
+function stagesOf(r) {
+  if (!r.kb) return DEFAULT_STAGES;
+  return r.path === "kb" ? ["input", "kbmatch", "bundle", "generate", "output", "answer"]
+                         : ["input", "kbmatch", "translate", "retrieve", "rrf", "rerank", "generate", "output", "answer"];
+}
 const CITE = /\[([A-Za-z0-9_.\-]+#\d+)\]/g;
 
 const $ = (s) => document.querySelector(s);
@@ -173,7 +192,7 @@ function renderStatic() {
   const pv = $("#f-pair").value;
   $("#f-pair").innerHTML = `<option value="">${esc(t("all"))}</option>` + pairs.map((p) => `<option ${p === pv ? "selected" : ""}>${esc(p)}</option>`).join("");
   $("#f-pair").disabled = pairs.length < 2;
-  const kinds = ["all", "missing", "blocked"].filter((k) => STATE.set !== "user" || k !== "missing");
+  const kinds = STATE.set === "service" ? ["all", "kb", "rag", "blocked"] : ["all", "missing", "blocked"].filter((k) => STATE.set !== "user" || k !== "missing");
   const kv = $("#f-kind").value || "all";
   $("#f-kind").innerHTML = kinds.map((k) => `<option value="${k}" ${k === kv ? "selected" : ""}>${esc(t("k_" + k))}</option>`).join("");
   $("#foot").innerHTML = `<p>${esc(t("foot1"))}</p><p>${esc(t("foot2"))}</p><p>${esc(t("foot3"))}</p><p>${esc(t("foot4"))}</p>
@@ -184,6 +203,8 @@ function matches(r, kind) {
   const inCtx = Object.keys(r.gold).some((g) => r.context_ids.includes(g));
   if (kind === "missing") return Object.keys(r.gold).length > 0 && !inCtx;
   if (kind === "blocked") return !r.output.ok;
+  if (kind === "kb") return r.path === "kb";
+  if (kind === "rag") return r.path === "rag";
   return true;
 }
 
@@ -210,6 +231,7 @@ function show() {
   const r = cur();
   if (!r) { $("#question-card").innerHTML = `<p class="empty">-</p>`; $("#flow").innerHTML = ""; $("#stages").innerHTML = ""; return; }
   history.replaceState(null, "", `#set=${STATE.set}&q=${encodeURIComponent(r.qid)}`);
+  STAGES = stagesOf(r);
   renderQuestion(r);
   renderFlow(r);
   renderStages(r);
@@ -227,6 +249,7 @@ const cidBtn = (r, cid) => `<button class="cid" data-cid="${esc(cid)}" title="${
 function renderQuestion(r) {
   const pills = [`<span class="pill">${esc(r.qid)}</span>`, `<span class="pill">${esc(r.group)}</span>`];
   if (r.evidence_kind) pills.push(`<span class="pill">${esc(r.evidence_kind)}</span>`);
+  if (r.kb) pills.push(`<span class="pill ${r.path === "kb" ? "gold" : ""}">${r.path === "kb" ? "kb" : "rag"}</span>`);
   if (Object.keys(r.gold).length) pills.push(`<span class="pill gold">★ ${esc(t("gold"))} ${Object.keys(r.gold).length}</span>`);
   $("#question-card").innerHTML = `<div class="q-meta">${pills.join("")}</div><p class="q-text">${esc(r.question)}</p>`;
 }
@@ -234,7 +257,9 @@ function renderQuestion(r) {
 function nodeVal(r, s) {
   const st = r.stages, m = STATE.meta.sets[STATE.set];
   switch (s) {
-    case "input": return st.input.ok ? t("pass") : t("blocked");
+    case "input": return st ? (st.input.ok ? t("pass") : t("blocked")) : t("pass");
+    case "kbmatch": return r.kb.match.ids.length ? r.kb.match.ids.join(", ") : "-";
+    case "bundle": return `${r.kb.passages.length} ${STATE.lang === "ko" ? "쪽" : "pages"}`;
     case "translate": return `${fmt(st.translation.seconds, 2)} ${t("s")}`;
     case "retrieve": return `${m.n_chunks} → ${st.parts.map((p) => p.n).join(" + ")}`;
     case "rrf": return `→ ${st.rrf.n}`;
@@ -246,8 +271,9 @@ function nodeVal(r, s) {
 }
 
 function renderFlow(r) {
+  $("#flow").style.gridTemplateColumns = `repeat(${STAGES.length}, minmax(0, 1fr))`;
   $("#flow").innerHTML = STAGES.map((s, i) => {
-    const blocked = (s === "output" && !r.output.ok) || (s === "input" && !r.stages.input.ok);
+    const blocked = (s === "output" && !r.output.ok) || (s === "input" && r.stages && !r.stages.input.ok);
     return `<button class="node${blocked ? " blocked" : ""}" data-stage="${s}" type="button"><span class="n-step">${i + 1}</span><span class="n-name">${esc(t("s_" + s))}</span><span class="n-val">${esc(nodeVal(r, s))}</span></button>`;
   }).join("");
   // 노드를 누르면 그 단계까지 바로 펼치고 그 단계로 이동한다
@@ -259,6 +285,7 @@ function renderFlow(r) {
 }
 
 function card(s, i, timing, body) {
+  i = STAGES.indexOf(s);
   return `<article class="stage" data-stage="${s}" id="stage-${s}" hidden><div class="stage-head"><h2><span class="num">${i + 1}</span>${esc(t("s_" + s))}</h2>${timing ? `<span class="timing">${timing}</span>` : ""}</div><p class="what">${esc(t("w_" + s))}</p>${body}</article>`;
 }
 
@@ -284,11 +311,41 @@ function goldLine(r, gr, n) {
   return `<div class="gold-line">★ ${esc(t("gold_rank"))}: ${ids.map((g) => `<span class="pill gold">${esc(g)} → ${esc(rankLabel(gr[g], n))}</span>`).join(" ")}</div>`;
 }
 
+function renderKbMatch(r) {
+  const mt = r.kb.match;
+  const how = Object.entries(mt.alias).map(([id, forms]) => `<li><span class="ic ok">✓</span><span>${esc(id)} · ${esc(t("kb_how_alias"))}: ${esc(forms.join("; "))}</span></li>`)
+    .concat(mt.dense.map(([id, sc]) => `<li><span class="ic ok">✓</span><span>${esc(id)} · ${esc(t("kb_how_dense"))} ${sc.toFixed(2)}</span></li>`));
+  const best = r.kb.dense_best ? `<div class="gold-line">${esc(t("kb_best"))}: ${esc(r.kb.dense_best[0])} (${r.kb.dense_best[1].toFixed(2)})</div>` : "";
+  return (how.length ? `<ul class="checks">${how.join("")}</ul>` : `<ul class="checks"><li><span class="ic na">–</span><span>${esc(t("kb_none"))}</span></li></ul>`) + best;
+}
+
+function renderBundle(r) {
+  const pages = r.kb.passages.map((p) => `<button class="ctx${r.kb.match.ids.includes(p.id) ? " gold" : ""}" data-cid="${esc(p.cid)}">${r.kb.match.ids.includes(p.id) ? "★ " : ""}${esc(p.title)}</button>`).join("");
+  return `<div class="col-title">${esc(t("kb_pages"))} · ${r.kb.passages.length} · ${esc(t("kb_verified"))} ${r.kb.verified}/${r.kb.passages.length}</div><div class="ctx-list">${pages}</div>`;
+}
+
 function renderStages(r) {
   const st = r.stages, m = STATE.meta.sets[STATE.set];
   const out = [];
   // 1. 입력 검증
-  out.push(card("input", 0, ms(st.input.ms), `<ul class="checks"><li><span class="ic ${st.input.ok ? "ok" : "no"}">${st.input.ok ? "✓" : "✕"}</span>${esc(st.input.ok ? `${t("pass")} · ${r.question.length} / 1000` : st.input.reason)}</li></ul>`));
+  const inOk = st ? st.input.ok : true;
+  out.push(card("input", 0, st ? ms(st.input.ms) : "", `<ul class="checks"><li><span class="ic ${inOk ? "ok" : "no"}">${inOk ? "✓" : "✕"}</span>${esc(inOk ? `${t("pass")} · ${r.question.length} / 1000` : st.input.reason)}</li></ul>`));
+  if (r.kb) {
+    out.push(card("kbmatch", 0, "", renderKbMatch(r)));
+    if (r.path === "kb") {
+      out.push(card("bundle", 0, `${r.kb.passages.length} ${STATE.lang === "ko" ? "쪽" : "pages"}`, renderBundle(r)));
+      out.push(card("generate", 0, r.gen ? `${fmt(r.gen.seconds, 2)} ${t("s")} · ${esc(m.prompt)}` : esc(m.prompt),
+        `<div class="col-title">${esc(t("context"))}</div><div class="ctx-list">${r.context_ids.map((c) => `<button class="ctx gold" data-cid="${esc(c)}">${esc(c)}</button>`).join("")}</div>` +
+        (r.gen ? `<dl class="kv"><dt>${esc(t("prompt_tok"))}</dt><dd>${r.gen.prompt_tokens}</dd><dt>${esc(t("out_tok"))}</dt><dd>${r.gen.completion_tokens}</dd><dt>${esc(t("gen_time"))}</dt><dd>${fmt(r.gen.seconds, 2)} ${t("s")}</dd></dl>` : "") +
+        `<details><summary>${esc(t("system_prompt"))} (${esc(m.prompt)})</summary><pre class="sys">${esc(STATE.meta.prompts[m.prompt])}\n\nContext:\n\n[${esc(r.context_ids[0])}] …\n…\n\nQuestion: ${esc(r.question)}</pre></details>`));
+      out.push(card("output", 0, "", renderChecks(r)));
+      out.push(card("answer", 0, "", renderDelivered(r)));
+      $("#stages").innerHTML = out.join("");
+      STATE.cardHTML = {};
+      document.querySelectorAll(".stage").forEach((c) => { STATE.cardHTML[c.dataset.stage] = c.innerHTML; });
+      return;
+    }
+  }
   // 2. 번역
   out.push(card("translate", 1, `${fmt(st.translation.seconds, 2)} ${t("s")} · ${esc(t("cached"))}`,
     `<div class="translate-row"><div class="tbox"><small>${esc(t("original"))} · ${esc(r.q_lang)}</small>${esc(r.question)}</div><span class="arrow" aria-hidden="true">→</span><div class="tbox"><small>${esc(t("english"))}</small>${esc(st.translation.text)}</div></div>`));
@@ -336,8 +393,9 @@ const SAFE = {
 function renderDelivered(r) {
   if (r.output.ok) return `<div class="answer final">${renderAnswer(r)}</div>`;
   // 서비스 경로(사람이 쓴 질문)는 저장된 답변이 이미 고정 문구이고 모델 원문은 NO_ANSWER다
-  const shown = STATE.set === "user" ? r.answer : SAFE[r.q_lang] || SAFE.en;
-  const raw = STATE.set === "user" ? (r.output.reason === "refusal_sentinel" ? "NO_ANSWER" : "") : r.answer;
+  const served = STATE.set === "user" || STATE.set === "service";
+  const shown = served ? r.answer : SAFE[r.q_lang] || SAFE.en;
+  const raw = served ? (r.raw_answer || (r.output.reason === "refusal_sentinel" ? "NO_ANSWER" : "")) : r.answer;
   return `<div class="answer final blocked">${esc(shown)}</div>` +
     (raw ? `<details><summary>${esc(t("raw_answer"))} · ${esc(t("r_" + r.output.reason))}</summary><pre class="sys">${raw === r.answer ? renderAnswer(r) : esc(raw)}</pre></details>` : "");
 }
@@ -547,6 +605,20 @@ async function typeText(node, text, id, maxMs) {
 }
 
 const ANIM = {
+  async kbmatch(el, id) {
+    prep(el, ".checks li, .gold-line");
+    await sleep(350);
+    for (const li of el.querySelectorAll(".checks li")) { if (id !== RUN) return; showEl(li, true); await sleep(300); }
+    await sleep(200); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
+  async bundle(el, id) {
+    prep(el, ".ctx");
+    await sleep(300);
+    for (const c of el.querySelectorAll(".ctx")) { if (id !== RUN) return; showEl(c); c.classList.add("popin"); await sleep(120); }
+    await sleep(500);
+  },
   async input(el, id) {
     prep(el, ".checks li");
     await sleep(300); if (id !== RUN) return;

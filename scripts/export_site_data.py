@@ -7,7 +7,10 @@
 - Sets: v2 (90 questions, Wikipedia corpus, retrieval v2_x2_rerank_en_text = the chat server's retrieval,
   answers v2g_ret_x2_rerank_en_text), pdf (48 questions, Wikipedia + PDF corpus, pdfth_x13_rrf_en_dense_en_rerank_en_text,
   answers pdfg_th_x13_rrf_en_dense_en_rerank_en_text) and user (10 questions the grader wrote, same retrieval,
-  answers eval/human_round2/user_questions_answers.json). Answers and grades are read from stored results, not regenerated.
+  answers eval/human_round2/user_questions_answers.json) and service (30 practical questions answered by the current chat-server
+  config configs/s7_pipeline_kb.json via scripts/answer_questions.py -> eval/service/s7_answers.json: when a question matched a
+  knowledge-bundle page the record carries the match and the bundle pages instead of retrieval stages). Answers and grades are
+  read from stored results, not regenerated.
 - Retrieval is run again here (translations come from logs/translate_cache.sqlite, so no LLM is loaded) to record
   every stage; the final top 10 must equal the stored retrieval result of the same config, otherwise the export stops.
 - Stage timings are measured in this run on this machine; translation and generation seconds are the stored
@@ -56,6 +59,7 @@ SETS = [
     {"set": "pdf", "config": "configs/pdf/pdfth_x13_rrf_en_dense_en_rerank_en_text.json", "eval": "eval/queries_pdf.jsonl",
      "answers": "pdfg_th_x13_rrf_en_dense_en_rerank_en_text"},
     {"set": "user", "config": "configs/pdf/pdfth_x13_rrf_en_dense_en_rerank_en_text.json", "eval": None, "answers": None},
+    {"set": "service", "config": "configs/s7_pipeline_kb.json", "eval": None, "answers": None, "served": "eval/service/s7_answers.json"},
 ]
 PART_LABEL = {"bm25": "BM25 (English)", "dense": "dense (bge-m3)"}
 
@@ -155,7 +159,21 @@ def main() -> None:
         chunks, retriever, en, titles = built[spec["config"]]
         by_id = {c["chunk_id"]: c for c in chunks}
 
-        if spec["set"] == "user":
+        if spec["set"] == "service":
+            # 서비스 설정으로 답한 질문: 경로 kb면 번들 매칭·페이지를, rag면 검색 단계를 기록한다
+            from ragbench.kb import KnowledgeBundle
+            served = json.loads((REPO / spec["served"]).read_text(encoding="utf-8"))
+            kb = KnowledgeBundle(REPO / cfg.generation.kb_bundle, embedder=None, context=cfg.generation.kb_context)
+            page_of = {p["chunk_id"]: c for c, p in zip(kb.pages, kb.passages.values())}
+            items = [{"qid": r["qid"], "question": r["question"], "q_lang": "ko", "group": r.get("scope", "in"), "gold": {},
+                      "answer": r["answer"], "raw_answer": r.get("raw_answer"), "context_ids": r["context_ids"], "blocked": r["blocked"], "reason": r["reason"],
+                      "path": r["path"], "kb_match": r["kb_match"], "stored_top": r["context_ids"] if r["path"] == "rag" else [],
+                      "gen": {"seconds": r["timings_ms"].get("generate", 0) / 1000, "prompt_tokens": r["prompt_tokens"], "completion_tokens": r["completion_tokens"]}}
+                     for r in served["rows"]]
+            prompt, judged = served.get("prompt_version", cfg.generation.prompt_version), None
+            for cid, c in page_of.items():
+                chunk_text[cid] = {"doc": f"kb_{c.id}", "title": c.title, "lang": "ko", "text": c.description}
+        elif spec["set"] == "user":
             rows = {r["qid"]: r for r in user_ans["rows"]}
             items = [{"qid": u["qid"], "question": u["question"], "q_lang": "ko", "group": "ko", "gold": {},
                       "answer": rows[u["qid"]]["answer"], "context_ids": rows[u["qid"]]["best_top5"],
@@ -186,12 +204,16 @@ def main() -> None:
         retriever.search(items[0]["question"], cfg.retrieval.top_k)
         out = []
         for it in items:
-            st = trim(stages(retriever, cfg, it["question"]), set(it["gold"]))
-            served = [h[0] for h in st["rerank"]["hits"]]
-            # 다시 돌린 검색이 저장된 결과와 같아야 화면의 단계 데이터가 그 답변의 실제 경로다
-            k = len(it["stored_top"])
-            if served[:k] != it["stored_top"][:k] or it["context_ids"] != served[:len(it["context_ids"])]:
-                raise SystemExit(f"{spec['set']} {it['qid']}: rerun {served[:k]} != stored {it['stored_top'][:k]}")
+            if it.get("path") == "kb":
+                # 번들 경로: 검색 단계가 없다. 매칭 결과와 컨텍스트 페이지만 기록한다
+                st = None
+            else:
+                st = trim(stages(retriever, cfg, it["question"]), set(it["gold"]))
+                served_top = [h[0] for h in st["rerank"]["hits"]]
+                # 다시 돌린 검색이 저장된 결과와 같아야 화면의 단계 데이터가 그 답변의 실제 경로다
+                k = len(it["stored_top"])
+                if served_top[:k] != it["stored_top"][:k] or it["context_ids"] != served_top[:len(it["context_ids"])]:
+                    raise SystemExit(f"{spec['set']} {it['qid']}: rerun {served_top[:k]} != stored {it['stored_top'][:k]}")
             parsed = parse_answer(it["answer"], it["context_ids"], set(it["gold"]))
             if "blocked" in it:
                 # 서비스 경로의 답변: 저장된 것은 사용자에게 보인 문구(차단되면 고정 문구)라 저장된 판정을 그대로 쓴다
@@ -200,24 +222,31 @@ def main() -> None:
                     parsed = {**parsed, "refused": it["reason"] in ("refusal_sentinel", "refusal_text"), "cited": []}
             else:
                 v = validate_answer(it["answer"], it["context_ids"])
-            rec = {k2: it[k2] for k2 in ("qid", "question", "q_lang", "group", "gold", "answer", "context_ids") if k2 in it}
+            rec = {k2: it[k2] for k2 in ("qid", "question", "q_lang", "group", "gold", "answer", "context_ids", "raw_answer", "path") if k2 in it}
             rec.update({"stages": st, "output": {"ok": v.ok, "reason": v.reason, "cited": sorted(set(parsed["cited"])),
                                                  "refused": parsed["refused"]}})
+            if spec["set"] == "service":
+                mt = it["kb_match"] or {"alias": {}, "dense": [], "ids": [], "related": [], "canonical_names": []}
+                pages = [{"id": page_of[c].id, "cid": c, "title": page_of[c].title} for c in it["context_ids"] if c in page_of] if it["path"] == "kb" \
+                    else [{"id": c.id, "cid": p["chunk_id"], "title": c.title} for c, p in zip(kb.pages, kb.passages.values())]
+                rec["kb"] = {"match": {k3: mt.get(k3) for k3 in ("alias", "dense", "ids", "related", "canonical_names")}, "passages": pages,
+                             "verified": kb.verified, "dense_best": it.get("dense_best")}
             for k2 in ("gen", "judges", "human", "evidence_kind"):
                 if it.get(k2) is not None:
                     rec[k2] = it[k2]
             out.append(rec)
-            shown = {h[0] for p in st["parts"] for h in p["hits"]} | {h[0] for h in st["rrf"]["hits"][:SHOW]} \
-                | {h[0] for h in st["rerank"]["hits"]} | set(it["gold"]) | set(it["context_ids"])
+            shown = set(it["gold"]) | set(it["context_ids"])
+            if st is not None:
+                shown |= {h[0] for p in st["parts"] for h in p["hits"]} | {h[0] for h in st["rrf"]["hits"][:SHOW]} | {h[0] for h in st["rerank"]["hits"]}
             for cid in shown:
-                if cid not in chunk_text:
+                if cid not in chunk_text and cid in by_id:
                     c = by_id[cid]
                     e = en[cid]
                     chunk_text[cid] = {"doc": c["doc_id"], "title": titles[c["doc_id"]], "lang": c["lang"], "text": c["text"],
                                        **({"en": e["text"]} if e.get("translated") else {})}
             print(spec["set"], it["qid"], "ok")
         meta["sets"][spec["set"]] = {"config": cfg.exp_id, "n_chunks": len(chunks), "corpus": cfg.chunking.corpus,
-                                     "table_header": cfg.chunking.table_header, "answers": spec["answers"] or "user_questions_answers",
+                                     "table_header": cfg.chunking.table_header, "answers": spec["answers"] or spec.get("served", "user_questions_answers"),
                                      "prompt": prompt, "judged": bool(judged), "n": len(out),
                                      "retrieval": {"fusion_candidates": cfg.retrieval.fusion_candidates, "rrf_k": cfg.retrieval.rrf_k,
                                                    "rerank_top_n": cfg.retrieval.rerank_top_n, "context_k": 5,

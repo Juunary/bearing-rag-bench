@@ -19,7 +19,7 @@ LangChain, LlamaIndex 같은 프레임워크 없이 청킹, BM25, 임베딩, HNS
 | 운영 | 요청 로깅(JSONL), LLM 캐시(SQLite), 입출력 검증, 기준선 비교 회귀 테스트 |
 | 파인튜닝 | LoRA, QLoRA(rank 16, 직접 작성한 학습 루프) |
 | 영어 피벗 | Qwen3-4B-Instruct-2507로 청크와 질의를 영어로 번역해 영어 BM25 (청킹 후 번역, 문서 먼저 번역), 용어집 힌트, 어간 추출, 질의 확장(multi, HyDE), 리랭커 영어 입력 |
-| 서비스 | FastAPI 로컬 채팅 서버(127.0.0.1) 위에 검증·캐시·로그가 있는 파이프라인 |
+| 서비스 | FastAPI 로컬 채팅 서버(127.0.0.1) 위에 검증·캐시·로그가 있는 파이프라인. 지식 번들(사람 검수 안내 페이지)에 매칭되면 번들로, 아니면 문서 검색으로 답함(kb_first) |
 
 ## 요구 사항
 
@@ -77,7 +77,8 @@ uv run python scripts/make_v2_ft_configs.py --retrieval v2_b_rrf_en_rerank
 uv run python experiments/analyze_v2_generation.py
 
 # 로컬 채팅 서버 (http://127.0.0.1:8000)
-uv run python experiments/serve_chat.py   # 기본 configs/s6_pipeline_en.json
+uv run python experiments/serve_chat.py   # 기본 configs/s7_pipeline_kb.json (위키 + PDF + 지식 번들); configs/s6_pipeline_en.json = 위키만
+uv run python scripts/answer_questions.py --config configs/s7_pipeline_kb.json --questions eval/kb/questions.jsonl eval/human_round2/user_questions.jsonl --out eval/service/s7_answers.json   # 서비스 설정 점검
 
 # 서비스 성능 (단계별 지연, 동시 요청)
 uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30
@@ -333,6 +334,8 @@ D05 검색 단계 추적(`experiments/results/d05_retrieval_trace.md`, `experime
 
 채팅 서버(`experiments/serve_chat.py`)는 질의 번역기가 같은 생성 모델을 함께 써서 Qwen3-4B를 한 벌만 올립니다. s6 기준 GPU 메모리는 질의 3개 처리 후 cuda:0 2730 MiB, cuda:1 8782 MiB이고, v2 질의 30개의 번역은 기존 캐시와 모두 같았습니다. 위 표와 아래 표는 공유 전(번역기가 cuda:0에 별도 복사본) 측정입니다.
 
+서비스 설정은 2026-11-05부터 `configs/s7_pipeline_kb.json`입니다: 위키 + PDF 코퍼스(표 머리글 반복), 영어 BM25 + 영어 dense RRF + 리랭커 영어 입력에 **지식 번들(kb_first)**을 더한 구성입니다(`src/ragbench/kb.py`). 질문이 사람이 검수한 안내 페이지 12쪽(`data/kb/`)에 매칭되면(별칭 일치, 없으면 dense 코사인 0.55 이상) 검색을 건너뛰고 페이지 전부를 컨텍스트로 답하며, 응답과 요청 로그에 경로(`kb` / `rag`)와 매칭 페이지가 남습니다. 사람이 쓴 실무 질문 30개(`eval/service/s7_answers.json`, `scripts/answer_questions.py`)에서 번들 경로 24, 검색 경로 6이고, 차단 7개는 주제 밖 4개(검색 경로에서 거절)와 번들 경로 거절 3개(D08, K05, K15)입니다. 추적 페이지의 "서비스" 세트가 이 30개의 경로를 보여 줍니다. 번들 경로의 생성 시간은 페이지 12쪽(약 1만 토큰) 때문에 약 5 .. 9초입니다.
+
 HTTP 동시 요청(질문은 모두 다르고 캐시 히트 없음, 서버 시작 시 번역 캐시와 LLM 캐시가 빈 상태). 대기 시간 = 클라이언트 지연 - 서버 처리 시간입니다.
 
 | 요청 방식 | 설정 | 전체 시간 | 요청/분 | 클라이언트 지연 p50 / 최대 | 대기 p50 |
@@ -529,6 +532,7 @@ eval/human_round2/   사람 검수 2차 표본·채점표·채점·직접 쓴 �
 data/concepts/       개념 페이지 26개(OKF식 마크다운), data/concepts_review.md 사람 검수 기록
 data/kb/             실무 안내 페이지 12개(사람 검수, data/kb_review.md), eval/kb/ 질문 20개·답변·채점 (experiments/run_kb.py, analyze_kb.py)
 configs/modelswap/      모델 교체 설정 (scripts/make_model_configs.py), 분석 experiments/analyze_models.py
+src/ragbench/kb.py, eval/service/   서비스용 지식 번들(kb_first)과 서비스 설정의 답변 (scripts/answer_questions.py)
 eval/dci/            DCI 에이전트 결과·궤적·채점 (experiments/run_dci.py, analyze_dci.py)
 src/ragbench/concepts.py, retrieval/concept.py   개념 로더·매칭, 개념 경유 후보 검색기 (experiments/analyze_concepts.py)
 docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성

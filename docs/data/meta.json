@@ -57,6 +57,24 @@
     "rerank_model": "BAAI/bge-reranker-v2-m3",
     "embedding_model": "BAAI/bge-m3"
    }
+  },
+  "service": {
+   "config": "s7_pipeline_kb",
+   "n_chunks": 903,
+   "corpus": "wiki_pdf",
+   "table_header": true,
+   "answers": "eval/service/s7_answers.json",
+   "prompt": "cite_refuse_v1",
+   "judged": false,
+   "n": 30,
+   "retrieval": {
+    "fusion_candidates": 50,
+    "rrf_k": 60,
+    "rerank_top_n": 30,
+    "context_k": 5,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "embedding_model": "BAAI/bge-m3"
+   }
   }
  }
 }

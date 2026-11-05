@@ -77,7 +77,8 @@ uv run python scripts/make_v2_ft_configs.py --retrieval v2_b_rrf_en_rerank
 uv run python experiments/analyze_v2_generation.py
 
 # Local chat server (http://127.0.0.1:8000)
-uv run python experiments/serve_chat.py   # default configs/s6_pipeline_en.json
+uv run python experiments/serve_chat.py   # default configs/s7_pipeline_kb.json (wiki + PDF + knowledge bundle); configs/s6_pipeline_en.json = wiki only
+uv run python scripts/answer_questions.py --config configs/s7_pipeline_kb.json --questions eval/kb/questions.jsonl eval/human_round2/user_questions.jsonl --out eval/service/s7_answers.json   # check a serving config
 
 # Service performance (stage latency, concurrent requests)
 uv run python experiments/bench_service.py configs/s6_pipeline_en.json --n 30
@@ -333,6 +334,8 @@ Answers to the original question with only the context changed (`experiments/res
 
 The chat server (`experiments/serve_chat.py`) lets the query translator use the generator's model, so Qwen3-4B is loaded once. For s6 the GPU memory after three queries is 2730 MiB on cuda:0 and 8782 MiB on cuda:1, and the translations of 30 v2 queries were identical to the stored cache. The table above and the one below were measured before this sharing (translator as a separate copy on cuda:0).
 
+Since 2026-11-05 the serving config is `configs/s7_pipeline_kb.json`: the Wikipedia + PDF corpus (table headers repeated), English BM25 + English dense RRF + reranker on English text, plus the **knowledge bundle (kb_first)** (`src/ragbench/kb.py`). When a question matches one of the 12 reviewed guide pages (`data/kb/`; alias match, otherwise dense cosine 0.55 or more), retrieval is skipped and all pages form the context; the response and the request log carry the path (`kb` / `rag`) and the matched pages. On 30 human-written practical questions (`eval/service/s7_answers.json`, `scripts/answer_questions.py`) 24 take the bundle path and 6 retrieval; the 7 blocked answers are the 4 out-of-scope questions (refused on the retrieval path) and 3 bundle refusals (D08, K05, K15). The "service" set of the trace page shows these 30 paths. Generation on the bundle path takes about 5 .. 9 s because of the 12 pages (about 10k tokens).
+
 Concurrent HTTP requests (every question different, no cache hit, translation and LLM caches empty at server start). Queue wait = client latency - server processing time.
 
 | Requests | Config | Wall time | Requests/min | Client latency p50 / max | Queue wait p50 |
@@ -529,6 +532,7 @@ eval/human_round2/   human review round 2: sample, sheet, grades, answers to the
 data/concepts/       26 concept pages (OKF-style Markdown), data/concepts_review.md human review record
 data/kb/             12 practical guide pages (reviewed by a person, data/kb_review.md), eval/kb/ 20 questions, answers, grades (experiments/run_kb.py, analyze_kb.py)
 configs/modelswap/      model swap configs (scripts/make_model_configs.py), analysis experiments/analyze_models.py
+src/ragbench/kb.py, eval/service/   serving-side knowledge bundle (kb_first) and the serving config's answers (scripts/answer_questions.py)
 eval/dci/            DCI agent results, trajectories, grades (experiments/run_dci.py, analyze_dci.py)
 src/ragbench/concepts.py, retrieval/concept.py   concept loader and matcher, concept candidate retriever (experiments/analyze_concepts.py)
 docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
