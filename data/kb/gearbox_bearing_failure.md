@@ -7,7 +7,7 @@ names:
   en: ["gearbox bearing failure", "gear reducer bearing damage", "gearbox bearing inspection", "gear oil contamination bearing"]
   de: ["Getriebelagerschaden", "Getriebelager"]
 related: ["oil_analysis", "failure_modes", "preload_setting", "lubrication_method_choice"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 기어박스(감속기) 베어링 고장의 원인과 점검

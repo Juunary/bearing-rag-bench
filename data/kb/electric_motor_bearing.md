@@ -7,7 +7,7 @@ names:
   en: ["electric motor bearing", "motor bearing replacement", "motor bearing lubrication", "VFD motor bearing", "inverter-driven motor bearing"]
   de: ["Motorlager", "Elektromotor Lager", "Umrichterbetrieb Lagerströme"]
 related: ["ev_reducer_bearing", "bearing_temperature", "relubrication", "failure_modes"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 전동기(모터) 베어링의 선정·윤활·고장

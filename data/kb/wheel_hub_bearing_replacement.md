@@ -7,7 +7,7 @@ names:
   en: ["wheel hub bearing replacement", "hub bearing replacement", "wheel bearing replacement", "hub nut torque", "pressing a wheel bearing"]
   de: ["Radlagerwechsel", "Radlager tauschen", "Radnabe Lager"]
 related: ["wheel_bearing_noise", "storage_handling", "preload_setting", "cv_joint_boot_service"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 휠 허브 베어링 교체 절차와 주의점

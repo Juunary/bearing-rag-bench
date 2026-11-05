@@ -7,7 +7,7 @@ names:
   en: ["bearing designation", "bearing number meaning", "bearing suffix", "bearing part number", "2RS vs ZZ"]
   de: ["Lagerbezeichnung", "Lager Kurzzeichen", "Nachsetzzeichen"]
 related: ["bearing_selection_basics", "preload_setting", "storage_handling"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 호칭 번호 읽는 법

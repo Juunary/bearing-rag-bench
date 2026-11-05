@@ -15,6 +15,7 @@
   fixed seed, and the sheet never shows the mode. Items already in eval/kb/sample.json keep their id; only new answers
   go to sheet_new.md, so a later run with more modes adds items without regrading the old ones.
 - Usage: uv run python experiments/run_kb.py [--modes rag,bundle,hybrid,kb_first,both] [--kb-dense-min 0.55]
+         [--questions eval/kb/questions2.jsonl --out eval/kb2 --item-prefix M]   (second question set, 24-page bundle)
   Outputs: eval/kb/results.json, eval/kb/sample.json, eval/kb/sheet.md (all items), eval/kb/sheet_new.md (new items).
 
 [KO]
@@ -78,7 +79,10 @@ def main() -> None:
     ap.add_argument("--modes", default=",".join(ALL_MODES))
     ap.add_argument("--kb", type=Path, default=REPO / "data" / "kb")
     ap.add_argument("--kb-dense-min", type=float, default=0.55, help="kb_first: cosine threshold of the dense fallback (fixed before the run)")
+    ap.add_argument("--out", type=Path, default=OUT, help="output directory (results.json, sample.json, sheet.md)")
+    ap.add_argument("--item-prefix", default="K", help="prefix of the blind sheet item ids")
     args = ap.parse_args()
+    out = args.out
     modes = args.modes.split(",")
     questions = [json.loads(l) for l in args.questions.read_text(encoding="utf-8").splitlines() if l.strip()]
     kb = load_concepts(args.kb)
@@ -152,7 +156,7 @@ def main() -> None:
         rows.append(rec)
         print(q["qid"], {m: ("blocked" if r["blocked"] else "ok") + (f"/{r['path']}" if "path" in r else "") for m, r in rec["modes"].items()})
 
-    OUT.mkdir(parents=True, exist_ok=True)
+    out.mkdir(parents=True, exist_ok=True)
     summary = {}
     for m in modes:
         rs = [r["modes"][m] for r in rows]
@@ -160,14 +164,14 @@ def main() -> None:
                       "prompt_tokens_mean": sum(r["prompt_tokens"] or 0 for r in rs) / len(rs),
                       "seconds_mean": sum(r["seconds"] for r in rs) / len(rs),
                       **({"fallback": sum(r["path"] == "bundle" for r in rs)} if m in ("hybrid", "kb_first") else {})}
-    result = {"config": CONFIG.name, "prompt_version": PROMPT, "model": MODEL, "kb_pages": len(kb), "kb_verified": sum(c.verified for c in kb),
+    result = {"questions": str(args.questions.relative_to(REPO)), "config": CONFIG.name, "prompt_version": PROMPT, "model": MODEL, "kb_pages": len(kb), "kb_verified": sum(c.verified for c in kb),
               "modes": modes, "kb_dense_min": args.kb_dense_min, "summary": summary, "rows": rows}
-    (OUT / "results.json").write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
+    (out / "results.json").write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=1))
 
     # 블라인드 채점표: 같은 질문의 같은 답변 텍스트는 한 항목으로 (방식은 표시하지 않음).
     # 이미 있는 항목(sample.json)은 번호를 유지하고, 새 답변만 뒤 번호로 붙여 sheet_new.md에 쓴다
-    old = json.loads((OUT / "sample.json").read_text(encoding="utf-8"))["items"] if (OUT / "sample.json").exists() else []
+    old = json.loads((out / "sample.json").read_text(encoding="utf-8"))["items"] if (out / "sample.json").exists() else []
     known = {(it["qid"], it["answer"]): it for it in old}
     new_items = []
     for r in rows:
@@ -181,9 +185,9 @@ def main() -> None:
                 new_items.append({"qid": r["qid"], "question": r["question"], "answer": ans, "modes": ms, "blocked": r["modes"][ms[0]]["blocked"]})
     random.Random(SEED + len(old)).shuffle(new_items)
     for i, it in enumerate(new_items, start=len(old) + 1):
-        it["item"] = f"K{i:02d}"
+        it["item"] = f"{args.item_prefix}{i:02d}"
     items = old + new_items
-    (OUT / "sample.json").write_text(json.dumps({"seed": SEED, "items": items}, ensure_ascii=False, indent=1), encoding="utf-8")
+    (out / "sample.json").write_text(json.dumps({"seed": SEED, "items": items}, ensure_ascii=False, indent=1), encoding="utf-8")
 
     def sheet(path: Path, its: list[dict], title: str) -> None:
         lines = [f"# {title}", "",
@@ -194,9 +198,9 @@ def main() -> None:
                       ("답변(거절): " if it["blocked"] else "답변: ") + it["answer"], ""]
         path.write_text("\n".join(lines), encoding="utf-8")
 
-    sheet(OUT / "sheet.md", items, "지식 번들 실험 채점표 (블라인드)")
-    sheet(OUT / "sheet_new.md", new_items, "지식 번들 실험 추가 채점표 (블라인드, 새 답변만)")
-    print(f"items: {len(items)} (new {len(new_items)}) -> {OUT.relative_to(REPO)}/sheet.md, sheet_new.md")
+    sheet(out / "sheet.md", items, "지식 번들 실험 채점표 (블라인드)")
+    sheet(out / "sheet_new.md", new_items, "지식 번들 실험 추가 채점표 (블라인드, 새 답변만)")
+    print(f"items: {len(items)} (new {len(new_items)}) -> {out.relative_to(REPO)}/sheet.md, sheet_new.md")
 
 
 if __name__ == "__main__":

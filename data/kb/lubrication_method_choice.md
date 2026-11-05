@@ -7,7 +7,7 @@ names:
   en: ["lubrication method", "grease vs oil lubrication", "oil bath lubrication", "circulating oil", "oil-air lubrication", "oil mist"]
   de: ["Schmierungsart", "Fettschmierung oder Ölschmierung", "Ölbadschmierung"]
 related: ["grease_selection", "relubrication", "bearing_temperature"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 윤활 방식 선택: 그리스와 오일

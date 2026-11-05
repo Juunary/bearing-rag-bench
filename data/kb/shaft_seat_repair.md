@@ -7,7 +7,7 @@ names:
   en: ["shaft seat repair", "bearing seat repair", "housing bore repair", "shaft repair sleeve", "thermal spray repair", "weld build-up shaft"]
   de: ["Lagersitz reparieren", "Wellenreparatur", "Lagersitz instandsetzen"]
 related: ["fit_loose_creep", "oil_seal_leak_check", "storage_handling"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 자리면(축·하우징) 손상 복구

@@ -7,7 +7,7 @@ names:
   en: ["bearing reuse assessment", "can a bearing be reused", "inspecting a used bearing", "bearing reusability"]
   de: ["Wiederverwendung von Wälzlagern", "Lager wiederverwenden", "Lagerprüfung nach Demontage"]
 related: ["failure_modes", "storage_handling", "fit_loose_creep"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 분해한 베어링의 재사용 판정

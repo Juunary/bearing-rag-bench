@@ -7,7 +7,7 @@ names:
   en: ["bearing temperature", "bearing overheating", "operating temperature limit", "bearing running hot"]
   de: ["Lagertemperatur", "Lagerüberhitzung", "Betriebstemperatur"]
 related: ["lubrication_method_choice", "relubrication", "preload_setting", "shaft_misalignment"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 운전 온도 관리와 과열 원인

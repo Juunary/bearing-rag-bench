@@ -7,7 +7,7 @@ names:
   en: ["CV joint service", "constant velocity joint", "CV boot replacement", "torn CV boot", "CV joint clicking", "drive shaft joint"]
   de: ["Gleichlaufgelenk", "Achsmanschette", "Antriebswelle Gelenk"]
 related: ["wheel_hub_bearing_replacement", "driveline_torsional_damping", "grease_selection"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # CV 조인트와 부트 정비

@@ -7,7 +7,7 @@ names:
   en: ["bearing noise diagnosis", "bearing noise types", "noisy bearing cause", "bearing squeal", "bearing rumble"]
   de: ["Lagergeräusch", "Lagergeräusche Ursachen"]
 related: ["vibration_diagnosis", "wheel_bearing_noise", "failure_modes", "relubrication"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 설비 베어링 소음의 종류와 원인 구분

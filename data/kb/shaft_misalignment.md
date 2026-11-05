@@ -7,7 +7,7 @@ names:
   en: ["shaft misalignment", "shaft alignment", "coupling alignment", "laser alignment", "soft foot"]
   de: ["Wellenausrichtung", "Fluchtungsfehler", "Kupplungsausrichtung"]
 related: ["vibration_diagnosis", "bearing_temperature", "failure_modes"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 축 정렬 불량(미스얼라인먼트) 진단과 보정

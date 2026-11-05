@@ -7,7 +7,7 @@ names:
   en: ["bearing selection", "bearing type selection", "ball vs roller bearing", "angular contact bearing selection"]
   de: ["Lagerauswahl", "Lagerbauart wählen"]
 related: ["preload_setting", "lubrication_method_choice", "bearing_designation"]
-verified: false
+verified: true
 author: "AI agent draft (general engineering knowledge; standards cited by name only)"
 ---
 # 베어링 형식 선정 기본
