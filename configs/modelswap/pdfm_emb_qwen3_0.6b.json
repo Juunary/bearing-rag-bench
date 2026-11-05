@@ -1,0 +1,26 @@
+{
+  "exp_id": "pdfm_emb_qwen3_0.6b",
+  "stage": "pdfm",
+  "description": "RRF over English BM25 + English dense, reranker reads English (top 30); embedding Qwen3-Embedding-0.6B (last-token pooling, instruction prefix, bf16) [eval: 48 PDF questions, table headers repeated]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "Qwen/Qwen3-Embedding-0.6B",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "dense_english_pivot": true,
+    "embedding_pooling": "last",
+    "embedding_query_prefix": "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:",
+    "embedding_dtype": "bf16"
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  }
+}

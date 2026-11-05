@@ -104,6 +104,7 @@ uv run python scripts/export_site_data.py           # 추적 페이지 데이터
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # 개념 경유 검색
 uv run python experiments/analyze_concepts.py
 uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # 지식 번들: rag / bundle / hybrid
+uv run python scripts/make_model_configs.py && uv run python experiments/run_suite.py --glob 'configs/modelswap/*.json' && uv run python experiments/analyze_models.py   # 모델 교체
 
 # 다른 계열 판정 모델 (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -457,6 +458,20 @@ rag의 거절 8개는 모두 번들에 답이 있는 질문이었고(채점자 �
 
 하이브리드의 약점(rag가 거절하지 않고 틀리게 답하면 번들로 넘어가지 않음)을 겨냥해 두 방식을 더했습니다. `kb_first`는 질문이 번들 페이지에 매칭되면(별칭 일치, 없으면 dense 코사인 0.55 이상 상위 1; 임계값은 실행 전에 고정) 번들로, 아니면 rag로 답합니다. 주제 안 16개는 모두 매칭됐고(별칭 10, dense 6) 주제 밖 4개는 매칭되지 않아 결과가 bundle과 같습니다(14 / 0 / 0 / 2). 다만 주제 밖 최고 코사인 0.54와 주제 안 최저 0.57의 차이가 작아 임계값에 민감합니다. `both`는 페이지 12쪽과 rag 청크 5개를 한 컨텍스트에 넣는 방식으로, 주제 안 16개를 모두 답했고(bundle이 거절한 K05·K15 포함) 주제 밖은 모두 거절했지만, 맞음은 13개로 bundle(14)보다 적고 틀림 1개(앵귤러 콘택트 예압 질문에 테이퍼 롤러 조정법)·부분 2개가 생겼으며 토큰은 rag의 5.5배입니다.
 
+### 모델 교체: 2026년 임베딩·리랭커 모델 (한 번에 하나씩)
+
+최고 파이프라인에서 모델 하나만 바꿔 비교했습니다(`scripts/make_model_configs.py`, 프롬프트·풀링·dtype은 모델 카드대로: Qwen3-Embedding은 마지막 토큰 풀링 + 지시문 접두사, EmbeddingGemma 2는 평균 풀링 + `task: search result | query:` / `title: none | text:`, Qwen3-Reranker는 yes/no 로짓의 P(yes), 모두 bf16). 기준선은 v2가 영어 RRF + 리랭커 영어 입력(x2), PDF가 영어 BM25 + 영어 dense RRF + 리랭커 영어 입력(x13, 표 머리글 청크)입니다. 차이는 nDCG@10, 괄호는 문서 군집 95% 구간입니다(`experiments/results/model_swap.md`).
+
+| 교체 | v2 90 nDCG@10 (차이) | PDF 48 nDCG@10 (차이) | 질의 p50 (v2 / PDF) |
+|---|---|---|---|
+| 기준선 bge-m3 / bge-reranker-v2-m3 | 0.895 | 0.831 | 184 / 196 ms |
+| 임베딩 → Qwen3-Embedding-0.6B | 0.878 (-0.017, -0.043 .. +0.004) | 0.816 (-0.015, -0.046 .. +0.000) | 196 / 213 ms |
+| 임베딩 → EmbeddingGemma 2 | 0.890 (-0.005, -0.013 .. +0.002) | 0.832 (+0.001, +0.000 .. +0.002) | 201 / 222 ms |
+| 리랭커 → Qwen3-Reranker-0.6B | 0.854 (-0.040, -0.072 .. -0.010) | 0.850 (+0.018, -0.036 .. +0.070) | 660 / 570 ms |
+| 리랭커 → Qwen3-Reranker-4B | 0.901 (+0.006, -0.030 .. +0.041) | 0.896 (+0.065, -0.004 .. +0.130) | 3,688 / 2,969 ms |
+
+임베딩 교체는 두 세트 모두 구분되지 않거나 약간 나쁩니다. Qwen3-Reranker-0.6B는 v2에서 확실히 나쁘고(나빠짐 26, 나아짐 13), Qwen3-Reranker-4B는 PDF에서 +0.065(R@5 0.882 → 0.931, 교차 언어 0.842 → 0.920)로 구간이 0에 걸치며 v2에서는 차이가 없습니다. 4B 리랭커는 후보 30개 채점에 약 3초가 걸려 기준선의 15 .. 19배이고 GPU 메모리 8 GiB(bf16)가 더 필요합니다. 기본 모델은 바꾸지 않았습니다.
+
 ## 한계
 
 - 평가 질문은 45개(언어쌍별 2~9개)와 90개(언어쌍별 10개)이며 코퍼스는 위키백과 문서입니다. PDF 문서는 별도 코퍼스(위키 + PDF)와 PDF 질문 48개로만 평가했습니다.
@@ -472,6 +487,7 @@ rag의 거절 8개는 모두 번들에 답이 있는 질문이었고(채점자 �
 - PDF 코퍼스는 한국어 문서가 없고(한국어는 질문 언어로만 씀), 문서 6건·질문 48개(언어쌍별 8개)입니다. PDF 질문은 AI 에이전트가 쓰고 다른 AI 에이전트 2개가 검수했으며 사람이 검수하지 않았습니다. 추출 텍스트에는 표로 검출되지 않은 표(NASA TM 2건), 여러 줄 셀이 행으로 나뉜 표, 제목이 검출되지 않아 남은 참고문헌·기호 목록·이력서(학위논문)가 있습니다.
 - 개념 페이지는 AI 에이전트가 D05 실패 분석(oil seal과 radial shaft seal)을 알고 쓴 것이라 사람 질문 10개는 씰 개념의 공정한 시험이 아니며, 판단은 PDF 48·v2 90으로 했습니다. dense 매칭 임계값 0.55는 조정하지 않은 추정치이고, 개념 후보 수는 10과 30만 시험했습니다.
 - 지식 번들 실험은 질문 20개, 채점자 1명, 번들 12쪽이며, 번들 내용은 AI 에이전트가 쓴 것을 사람이 읽고 승인했을 뿐 제조사 자료나 규격 원문과 대조하지는 않았습니다. 번들 방식의 답은 원문 문서가 아니라 요약 페이지를 인용합니다. kb_first의 매칭 임계값은 조정하지 않은 고정값이며 질문 20개로는 경계가 좁습니다.
+- 모델 교체 비교는 모델당 설정 1개(모델 카드의 기본 프롬프트·풀링)이고, 질의 지시문이나 Matryoshka 차원 같은 선택지는 시험하지 않았습니다. 지연은 다른 사용자와 GPU를 나눠 쓰는 상태에서 잰 값입니다.
 - 비교표의 쌍체 구간은 수치를 본 뒤 비교 쌍을 정했고 다중 비교 보정이 없습니다. 지연은 시스템 사이에 비교하지 않았습니다(이 저장소 영어 피벗 행은 번역 포함, AutoRAG는 자체 배치 시간).
 
 ## 저장소 구조
@@ -499,6 +515,7 @@ configs/pdfgen/ PDF 질문 답변 생성 설정
 eval/human_round2/   사람 검수 2차 표본·채점표·채점·직접 쓴 질문 답변 (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
 data/concepts/       개념 페이지 26개(OKF식 마크다운), data/concepts_review.md 사람 검수 기록
 data/kb/             실무 안내 페이지 12개(사람 검수, data/kb_review.md), eval/kb/ 질문 20개·답변·채점 (experiments/run_kb.py, analyze_kb.py)
+configs/modelswap/      모델 교체 설정 (scripts/make_model_configs.py), 분석 experiments/analyze_models.py
 src/ragbench/concepts.py, retrieval/concept.py   개념 로더·매칭, 개념 경유 후보 검색기 (experiments/analyze_concepts.py)
 docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성
 outputs/        학습된 어댑터 (git 제외)

@@ -54,16 +54,27 @@ def _bm25(cfg: ExperimentConfig, translator=None):
     return BM25Retriever(tokenizer=r.bm25_tokenizer, k1=r.bm25_k1, b=r.bm25_b)
 
 
+def _embedder(cfg: ExperimentConfig):
+    """임베더: bge-m3 기본값이면 None(DenseRetriever가 예전처럼 만든다), 풀링·접두사·dtype이 다르면 그 설정으로 만든다."""
+    r = cfg.retrieval
+    if (r.embedding_pooling, r.embedding_query_prefix, r.embedding_doc_prefix, r.embedding_dtype, r.embedding_max_length) == ("cls", "", "", None, 512):
+        return None
+    from ragbench.embedding import Embedder
+    return Embedder(r.embedding_model, pooling=r.embedding_pooling, query_prefix=r.embedding_query_prefix,
+                    doc_prefix=r.embedding_doc_prefix, dtype=r.embedding_dtype, max_length=r.embedding_max_length)
+
+
 def _dense(cfg: ExperimentConfig, translator=None):
     """dense 검색기: 영어 피벗이면 영어 번역 청크를 임베딩(캐시 키 "_en")하고 질의를 번역해 검색한다."""
     from ragbench.retrieval.dense import DenseRetriever
 
     r = cfg.retrieval
+    emb = _embedder(cfg)
     if not r.dense_english_pivot:
-        return DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg))
+        return DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg), embedder=emb)
     from ragbench.retrieval.bm25_en import EnglishPivotRetriever
 
-    inner = DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg) + "_en")
+    inner = DenseRetriever(model_name=r.embedding_model, hnsw=r.hnsw, exact=r.exact_search, chunk_set_id=_index_set_id(cfg) + "_en", embedder=emb)
     return EnglishPivotRetriever(translator or _translator(cfg), _english_chunks_path(cfg), inner, skip_english=r.translate_skip_english)
 
 
@@ -87,18 +98,22 @@ def _concept(cfg: ExperimentConfig, dense_pivot, translator):
 
 
 def _rerank(cfg: ExperimentConfig, base, translator=None, concept=None):
-    from ragbench.retrieval.rerank import RerankRetriever
+    from ragbench.retrieval.rerank import CrossEncoder, RerankRetriever
 
     r = cfg.retrieval
+    # 리랭커 종류·장치·지시문이 기본값이 아니면 cross-encoder를 여기서 만들어 넘긴다 (기본값이면 RerankRetriever가 예전처럼 만든다)
+    ce = None
+    if r.rerank_kind != "seq_cls" or r.rerank_device or r.rerank_instruction:
+        ce = CrossEncoder(r.rerank_model, device=r.rerank_device, kind=r.rerank_kind, instruction=r.rerank_instruction)
     # 개념 검색기: pool·pool_query는 리랭커 후보를 보강하고, pool_query·rrf_query는 리랭커 질의에 정식 명칭을 붙인다
     extra = {"pool_extra": concept if concept is not None and r.concept_mode in ("pool", "pool_query") else None,
              "pool_extra_n": r.concept_pool_n,
              "query_augment": concept if concept is not None and r.concept_mode in ("pool_query", "rrf_query") else None}
     if r.rerank_text == "english":
         # 리랭커가 영어 번역 청크와 영어로 번역한 질의를 읽는다 (후보 ID는 그대로)
-        return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n,
+        return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n, cross_encoder=ce,
                                english_chunks_path=_english_chunks_path(cfg), query_translator=translator, **extra)
-    return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n, **extra)
+    return RerankRetriever(base, model_name=r.rerank_model, top_n=r.rerank_top_n, cross_encoder=ce, **extra)
 
 
 def build_retriever(cfg: ExperimentConfig):

@@ -113,6 +113,8 @@ class StubEmb:
     def encode_chunks_cached(self, chunks, chunk_set_id):
         return self.encode([c["text"] for c in chunks]), {"cached": False}
 
+    encode_queries = encode
+
 
 def test_dense_matching_is_a_fallback_with_threshold(tmp_path):
     cs = load_concepts(bundle(tmp_path))

@@ -95,12 +95,21 @@ class RetrievalConfig:
     dense_english_pivot: bool = False  # [KO] 켜면 dense도 영어 번역 청크를 임베딩하고 질의를 영어로 번역해 검색 (임베딩 캐시는 "_en" 키)
     embedding_model: str = "BAAI/bge-m3"
     embedding_revision: str | None = None   # HF commit hash, filled in at run time if None
+    # [KO] 모델 교체 실험: 풀링(cls | last | mean), 질의·문서 접두사, dtype(fp16 | bf16 | fp32). 기본값은 bge-m3 그대로
+    embedding_pooling: str = "cls"
+    embedding_query_prefix: str = ""
+    embedding_doc_prefix: str = ""
+    embedding_dtype: str | None = None
+    embedding_max_length: int = 512
     hnsw: HNSWConfig = field(default_factory=HNSWConfig)
     exact_search: bool = False     # True -> brute-force numpy instead of HNSW (ground truth)
     rrf_k: int = 60
     fusion_candidates: int = 50    # per-retriever candidates fed into RRF
     rerank_model: str | None = None
     rerank_top_n: int = 30         # how many fused candidates go to the reranker
+    rerank_kind: str = "seq_cls"   # [KO] "seq_cls"(분류 헤드, bge-reranker) | "qwen3"(Qwen3-Reranker, yes/no 로짓)
+    rerank_device: str | None = None       # [KO] 리랭커를 올릴 장치 (None이면 기본 cuda). 큰 리랭커는 cuda:1에
+    rerank_instruction: str | None = None  # [KO] qwen3 리랭커의 지시문 (None이면 모델 카드 기본 문장)
     # [KO] 개념 경유 검색: data/concepts의 개념 페이지(별칭 ko/en/de + 설명 + 관련 개념)로 후보를 보강한다 (hybrid_rerank + dense 영어 피벗 전용)
     concept_bundle: str | None = None     # [KO] 개념 페이지 디렉터리 (저장소 기준 경로). None이면 개념 검색 없음
     concept_mode: str | None = None       # [KO] "pool"(리랭커 후보 보강) | "pool_query"(+ 리랭커 질의에 정식 명칭) | "rrf_query"(매칭 시 셋째 RRF 다리 + 질의 보강)

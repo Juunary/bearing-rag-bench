@@ -104,6 +104,7 @@ uv run python scripts/export_site_data.py           # trace page data (docs/data
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # concept-mediated retrieval
 uv run python experiments/analyze_concepts.py
 uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # knowledge bundle: rag / bundle / hybrid
+uv run python scripts/make_model_configs.py && uv run python experiments/run_suite.py --glob 'configs/modelswap/*.json' && uv run python experiments/analyze_models.py   # model swap
 
 # Judge of another model family (Granite 3.3 8B)
 uv run python experiments/run_judge.py configs/s3_judge_granite.json v2g_base_bf16 v2g_ret_x2_rerank_en_text
@@ -457,6 +458,20 @@ All 8 rag refusals were questions the bundle answers (graded inappropriate), and
 
 Two more modes target the weakness of hybrid (a wrong rag answer that is not a refusal never reaches the bundle). `kb_first` answers from the bundle when the question matches a bundle page (alias match, otherwise the best dense match with cosine 0.55 or more; the threshold was fixed before the run), else from rag. All 16 in-scope questions matched (10 by alias, 6 by dense) and none of the 4 out-of-scope ones, so its results equal bundle (14 / 0 / 0 / 2); the margin is thin, though (best out-of-scope cosine 0.54, lowest in-scope match 0.57). `both` puts the 12 pages and the 5 rag chunks in one context: it answered all 16 in-scope questions (including K05 and K15, which bundle refused) and refused all out-of-scope ones, but has 13 correct instead of 14, one wrong answer (tapered-roller adjustment for an angular-contact preload question) and two partial ones, at 5.5 times the tokens of rag.
 
+### Model swap: 2026 embedding and reranker models (one at a time)
+
+One model was replaced in the best pipelines (`scripts/make_model_configs.py`; prompts, pooling and dtype follow the model cards: Qwen3-Embedding with last-token pooling and an instruction prefix, EmbeddingGemma 2 with mean pooling and `task: search result | query:` / `title: none | text:`, Qwen3-Reranker scored as P(yes) from the yes/no logits, all bf16). Baselines: English RRF + reranker on English text (x2) for v2, English BM25 + English dense RRF + reranker on English text (x13, table-header chunks) for PDF. Differences are nDCG@10 with document-cluster 95% intervals (`experiments/results/model_swap.md`).
+
+| swap | v2 90 nDCG@10 (diff) | PDF 48 nDCG@10 (diff) | query p50 (v2 / PDF) |
+|---|---|---|---|
+| baseline bge-m3 / bge-reranker-v2-m3 | 0.895 | 0.831 | 184 / 196 ms |
+| embedding → Qwen3-Embedding-0.6B | 0.878 (-0.017, -0.043 .. +0.004) | 0.816 (-0.015, -0.046 .. +0.000) | 196 / 213 ms |
+| embedding → EmbeddingGemma 2 | 0.890 (-0.005, -0.013 .. +0.002) | 0.832 (+0.001, +0.000 .. +0.002) | 201 / 222 ms |
+| reranker → Qwen3-Reranker-0.6B | 0.854 (-0.040, -0.072 .. -0.010) | 0.850 (+0.018, -0.036 .. +0.070) | 660 / 570 ms |
+| reranker → Qwen3-Reranker-4B | 0.901 (+0.006, -0.030 .. +0.041) | 0.896 (+0.065, -0.004 .. +0.130) | 3,688 / 2,969 ms |
+
+The embedding swaps are indistinguishable or slightly worse on both sets. Qwen3-Reranker-0.6B is clearly worse on v2 (26 worse, 13 better); Qwen3-Reranker-4B gives +0.065 on PDF (R@5 0.882 → 0.931, cross-language 0.842 → 0.920) with an interval touching zero and no difference on v2. The 4B reranker takes about 3 s to score 30 candidates, 15 .. 19 times the baseline, and needs 8 GiB more GPU memory (bf16). The default models were not changed.
+
 ## Limitations
 
 - The eval sets have 45 questions (2 to 9 per language pair) and 90 questions (10 per language pair) on the Wikipedia corpus. The PDF documents are evaluated only in a separate corpus (Wikipedia + PDF) with 48 PDF questions.
@@ -472,6 +487,7 @@ Two more modes target the weakness of hybrid (a wrong rag answer that is not a r
 - The PDF corpus has no Korean document (Korean is used only as a question language) and has 6 documents and 48 questions (8 per language pair). The PDF questions were written by an AI agent and reviewed by two other AI agents, not by a human. The extracted text contains tables that were not detected as tables (two NASA TMs), tables whose multi-line cells were split into rows, and reference lists, symbol lists and a CV left in the dissertations because their headings were not detected.
 - The concept pages were written by an AI agent that knew the D05 failure analysis (oil seal vs radial shaft seal), so the 10 human-written questions are not a fair test of the seal pages; the conclusions rest on the 48 PDF and 90 v2 questions. The dense matching threshold 0.55 is an untuned estimate, and only two concept candidate counts (10, 30) were tried.
 - The knowledge bundle experiment has 20 questions, one grader and 12 pages; the pages were written by an AI agent and approved by a person on reading, not checked against manufacturer data or standard texts. Bundle answers cite the summary pages, not original documents. The kb_first matching threshold is an untuned fixed value, and the margin on 20 questions is narrow.
+- The model swap uses one configuration per model (the model card's default prompt and pooling); query instructions and Matryoshka dimensions were not explored. Latencies were measured while the GPUs were shared with another user.
 - The paired intervals in the comparison were chosen after seeing the numbers and have no multiplicity correction. Latency is not compared across systems (this repository's English-pivot rows include translation, AutoRAG's is its own batch time).
 
 ## Repository layout
@@ -499,6 +515,7 @@ configs/pdfgen/ generation configs for the PDF questions
 eval/human_round2/   human review round 2: sample, sheet, grades, answers to the grader's own questions (scripts/make_human_round2.py, render_human_round2.py, answer_user_questions.py)
 data/concepts/       26 concept pages (OKF-style Markdown), data/concepts_review.md human review record
 data/kb/             12 practical guide pages (reviewed by a person, data/kb_review.md), eval/kb/ 20 questions, answers, grades (experiments/run_kb.py, analyze_kb.py)
+configs/modelswap/      model swap configs (scripts/make_model_configs.py), analysis experiments/analyze_models.py
 src/ragbench/concepts.py, retrieval/concept.py   concept loader and matcher, concept candidate retriever (experiments/analyze_concepts.py)
 docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
 outputs/        trained adapters (git-ignored)

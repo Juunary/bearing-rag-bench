@@ -99,5 +99,5 @@ class DenseRetriever:
         return [(self.chunk_ids[i], float(1.0 - d)) for i, d in zip(labels[0], dists[0])]
 
     def search(self, query: str, k: int) -> list[Hit]:
-        qvec = self.embedder.encode([query])[0]
+        qvec = self.embedder.encode_queries([query])[0]
         return self.search_vec(qvec, k)

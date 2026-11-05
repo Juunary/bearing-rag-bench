@@ -1,0 +1,23 @@
+{
+  "exp_id": "v2m_rr_qwen3_4b",
+  "stage": "v2m",
+  "description": "English-pivot RRF, reranker reads English chunks and English query (top 30); reranker Qwen3-Reranker-4B (yes/no logits, bf16, cuda:1) [eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "Qwen/Qwen3-Reranker-4B",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "rerank_kind": "qwen3",
+    "rerank_device": "cuda:1"
+  },
+  "chunking": {
+    "corpus": "wiki"
+  }
+}

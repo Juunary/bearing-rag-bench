@@ -81,7 +81,7 @@ class ConceptCandidateRetriever:
         emb = getattr(self.dense, "emb", None)
         qvec = None
         if emb is not None and self.matcher.page_emb is not None:
-            qvec = self.dense.embedder.encode([en])[0]
+            qvec = self.dense.embedder.encode_queries([en])[0]
         m = self.matcher.match(query, en, qvec)
         self.last_match = m
         self.match_log.append({"query": query, "english": en, **m.to_dict()})
@@ -91,7 +91,7 @@ class ConceptCandidateRetriever:
         primary = set().union(*(self.chunk_sets.get(c, set()) for c in m.ids))
         secondary = set().union(*(self.chunk_sets.get(c, set()) for c in m.related)) - primary
         if qvec is None:
-            qvec = self.dense.embedder.encode([en])[0]
+            qvec = self.dense.embedder.encode_queries([en])[0]
         out: list[Hit] = []
         for group in (primary, secondary):
             rows = [self.row[c] for c in group if c in self.row]

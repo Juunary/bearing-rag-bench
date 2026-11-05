@@ -1,0 +1,25 @@
+{
+  "exp_id": "pdfm_rr_qwen3_0.6b",
+  "stage": "pdfm",
+  "description": "RRF over English BM25 + English dense, reranker reads English (top 30); reranker Qwen3-Reranker-0.6B (yes/no logits, bf16, cuda:1) [eval: 48 PDF questions, table headers repeated]",
+  "eval_path": "eval/queries_pdf.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "BAAI/bge-m3",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "Qwen/Qwen3-Reranker-0.6B",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "dense_english_pivot": true,
+    "rerank_kind": "qwen3",
+    "rerank_device": "cuda:1"
+  },
+  "chunking": {
+    "corpus": "wiki_pdf",
+    "table_header": true
+  }
+}

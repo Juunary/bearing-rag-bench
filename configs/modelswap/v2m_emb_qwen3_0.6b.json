@@ -1,0 +1,24 @@
+{
+  "exp_id": "v2m_emb_qwen3_0.6b",
+  "stage": "v2m",
+  "description": "English-pivot RRF, reranker reads English chunks and English query (top 30); embedding Qwen3-Embedding-0.6B (last-token pooling, instruction prefix, bf16) [eval: 90 v2 questions]",
+  "eval_path": "eval/queries_v2.jsonl",
+  "retrieval": {
+    "top_k": 10,
+    "method": "hybrid_rerank",
+    "bm25_tokenizer": "whitespace",
+    "bm25_english_pivot": true,
+    "embedding_model": "Qwen/Qwen3-Embedding-0.6B",
+    "rrf_k": 60,
+    "fusion_candidates": 50,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "rerank_top_n": 30,
+    "rerank_text": "english",
+    "embedding_pooling": "last",
+    "embedding_query_prefix": "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:",
+    "embedding_dtype": "bf16"
+  },
+  "chunking": {
+    "corpus": "wiki"
+  }
+}

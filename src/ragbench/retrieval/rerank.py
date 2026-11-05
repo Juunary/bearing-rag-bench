@@ -10,6 +10,8 @@
   Output = single logit; higher is more relevant. fp16 on GPU, batched, max_length 512.
 - top_n=30 default: the candidate list must contain the answer (recall of the base retriever)
   while staying cheap; the trade-off is reported via latency in the result file.
+- kind "qwen3" (model swap experiment, 2026-11): Qwen3-Reranker is a causal LM; the pair is wrapped in the
+  prompt from its model card and the score is P("yes") from the last-position logits of "yes" vs "no".
 
 [KO]
 - 역할: 기본 검색기의 상위 `top_n`개 후보를 (질의, 청크) 쌍으로 cross-encoder에 넣어 점수를 매기고
@@ -21,6 +23,8 @@
   클수록 관련. GPU fp16, 배치, max_length 512.
 - top_n=30 기본: 후보 목록에 정답이 들어 있어야 하고(기본 검색기의 recall) 동시에 싸야 한다.
   그 trade-off는 결과 파일의 지연 시간으로 보고한다.
+- kind "qwen3"(모델 교체 실험, 2026-11): Qwen3-Reranker는 causal LM이라 모델 카드의 프롬프트로 쌍을 감싸고, 마지막 위치의
+  "yes"/"no" 로짓에서 P("yes")를 점수로 쓴다.
 """
 
 from __future__ import annotations
@@ -34,16 +38,42 @@ from ragbench.embedding import hf_cached_revision
 from ragbench.retrieval.base import Hit
 
 
+QWEN3_RERANK_INSTRUCTION = "Given a web search query, retrieve relevant passages that answer the query"
+QWEN3_RERANK_PREFIX = ("<|im_start|>system\nJudge whether the Document meets the requirements based on the Query and the Instruct "
+                       "provided. Note that the answer can only be \"yes\" or \"no\".<|im_end|>\n<|im_start|>user\n")
+QWEN3_RERANK_SUFFIX = "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+
+
+def qwen3_rerank_text(query: str, doc: str, instruction: str | None = None) -> str:
+    """The user turn of the Qwen3-Reranker prompt (model card format)."""
+    return f"<Instruct>: {instruction or QWEN3_RERANK_INSTRUCTION}\n<Query>: {query}\n<Document>: {doc}"
+
+
 class CrossEncoder:
     def __init__(self, model_name: str = "BAAI/bge-reranker-v2-m3", device: str | None = None,
-                 batch_size: int = 16, max_length: int = 512, fp16: bool = True):
-        from transformers import AutoModelForSequenceClassification, AutoTokenizer
-        self.model_name = model_name
+                 batch_size: int | None = None, max_length: int = 512, fp16: bool = True, kind: str = "seq_cls",
+                 instruction: str | None = None):
+        self.model_name, self.kind, self.instruction = model_name, kind, instruction
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.batch_size, self.max_length = batch_size, max_length
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        dtype = torch.float16 if (fp16 and self.device == "cuda") else torch.float32
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name, dtype=dtype).to(self.device).eval()
+        # causal LM 리랭커는 프롬프트가 길고 활성값이 커서 배치를 작게 잡는다 (4B bf16은 배치 16에서 12 GB를 넘겼다)
+        self.batch_size = batch_size or (4 if kind == "qwen3" else 16)
+        self.max_length = max_length
+        if kind == "qwen3":
+            from transformers import AutoModelForCausalLM, AutoTokenizer
+            # 왼쪽 패딩: 마지막 위치의 로짓이 모든 행에서 답 토큰 자리가 되게 한다
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side="left")
+            dtype = torch.bfloat16 if self.device.startswith("cuda") else torch.float32
+            self.model = AutoModelForCausalLM.from_pretrained(model_name, dtype=dtype).to(self.device).eval()
+            self.prefix_ids = self.tokenizer.encode(QWEN3_RERANK_PREFIX, add_special_tokens=False)
+            self.suffix_ids = self.tokenizer.encode(QWEN3_RERANK_SUFFIX, add_special_tokens=False)
+            self.yes_id, self.no_id = self.tokenizer.convert_tokens_to_ids("yes"), self.tokenizer.convert_tokens_to_ids("no")
+        elif kind == "seq_cls":
+            from transformers import AutoModelForSequenceClassification, AutoTokenizer
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            dtype = torch.float16 if (fp16 and self.device.startswith("cuda")) else torch.float32
+            self.model = AutoModelForSequenceClassification.from_pretrained(model_name, dtype=dtype).to(self.device).eval()
+        else:
+            raise ValueError(f"kind must be 'seq_cls' or 'qwen3', got {kind!r}")
         self.revision = hf_cached_revision(model_name)
 
     @torch.no_grad()
@@ -51,10 +81,21 @@ class CrossEncoder:
         out: list[float] = []
         for i in range(0, len(texts), self.batch_size):
             batch = texts[i:i + self.batch_size]
-            enc = self.tokenizer([query] * len(batch), batch, padding=True, truncation=True,
-                                 max_length=self.max_length, return_tensors="pt").to(self.device)
-            logits = self.model(**enc).logits.view(-1).float()
-            out.extend(logits.cpu().tolist())
+            if self.kind == "qwen3":
+                body = self.tokenizer([qwen3_rerank_text(query, t, self.instruction) for t in batch], padding=False,
+                                      truncation=True, add_special_tokens=False,
+                                      max_length=self.max_length - len(self.prefix_ids) - len(self.suffix_ids))
+                ids = [self.prefix_ids + x + self.suffix_ids for x in body["input_ids"]]
+                enc = self.tokenizer.pad({"input_ids": ids}, padding=True, return_tensors="pt").to(self.device)
+                logits = self.model(**enc).logits[:, -1, :].float()
+                pair = torch.stack([logits[:, self.no_id], logits[:, self.yes_id]], dim=1)
+                scores = torch.log_softmax(pair, dim=1)[:, 1].exp()       # P(yes)
+                out.extend(scores.cpu().tolist())
+            else:
+                enc = self.tokenizer([query] * len(batch), batch, padding=True, truncation=True,
+                                     max_length=self.max_length, return_tensors="pt").to(self.device)
+                logits = self.model(**enc).logits.view(-1).float()
+                out.extend(logits.cpu().tolist())
         return out
 
 
