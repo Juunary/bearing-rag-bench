@@ -1,4 +1,4 @@
-# Knowledge bundle (data/kb, 12 reviewed pages) vs RAG vs hybrid: 20 questions written by a person
+# Knowledge bundle (data/kb, 12 reviewed pages) vs RAG: 20 questions written by a person (questions.jsonl)
 
 Generator Qwen/Qwen3-4B-Instruct-2507, prompt cite_refuse_v1, RAG retrieval `pdfth_x13_rrf_en_dense_en_rerank_en_text.json` (top 5). Grades by one person (eval/kb/labels.json); identical answers to the same question were graded once.
 

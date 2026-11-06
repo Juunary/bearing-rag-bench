@@ -29,6 +29,6 @@
     "device": "cuda:1",
     "kb_bundle": "data/kb",
     "kb_dense_min": 0.55,
-    "kb_context": "all"
+    "kb_context": "matched"
   }
 }

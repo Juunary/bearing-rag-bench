@@ -8,7 +8,7 @@
   in-scope (16) and out-of-scope (4) questions, mean prompt tokens and seconds; hybrid / kb_first also by path, and for
   kb_first how the questions matched (alias / dense) with the best dense cosine of every question, so the fixed threshold
   can be judged; (2) per question: the grade of every mode side by side; (3) the item -> mode map that the blind sheet hid.
-- Usage: uv run python experiments/analyze_kb.py
+- Usage: uv run python experiments/analyze_kb.py [--dir eval/kb2 --questions eval/kb/questions2.jsonl --out experiments/results/kb2_analysis.md]
 
 [KO]
 - 입력: eval/kb/results.json(results["modes"]의 모든 방식 답변: rag, bundle, hybrid, kb_first, both), eval/kb/sample.json(블라인드 항목, 같은 답변은 묶음),
@@ -30,15 +30,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from ragbench.ingest import REPO  # noqa: E402
 
-KB = REPO / "eval" / "kb"
-OUT = REPO / "experiments" / "results" / "kb_analysis.md"
+KB_DEFAULT = REPO / "eval" / "kb"
+OUT_DEFAULT = REPO / "experiments" / "results" / "kb_analysis.md"
 
 
 def main() -> None:
-    res = json.loads((KB / "results.json").read_text(encoding="utf-8"))
-    sample = json.loads((KB / "sample.json").read_text(encoding="utf-8"))["items"]
-    lab = json.loads((KB / "labels.json").read_text(encoding="utf-8"))["labels"]
-    scope = {json.loads(l)["qid"]: json.loads(l)["scope"] for l in (KB / "questions.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()}
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dir", type=Path, default=KB_DEFAULT, help="eval/kb (round 1, 12 pages) or eval/kb2 (round 2, 24 pages)")
+    ap.add_argument("--questions", type=Path, default=None, help="question file (default <dir>/questions.jsonl)")
+    ap.add_argument("--out", type=Path, default=OUT_DEFAULT)
+    args = ap.parse_args()
+    kbdir, OUTP = args.dir, args.out
+    qfile = args.questions or kbdir / "questions.jsonl"
+    res = json.loads((kbdir / "results.json").read_text(encoding="utf-8"))
+    sample = json.loads((kbdir / "sample.json").read_text(encoding="utf-8"))["items"]
+    lab = json.loads((kbdir / "labels.json").read_text(encoding="utf-8"))["labels"]
+    scope = {json.loads(l)["qid"]: json.loads(l)["scope"] for l in qfile.read_text(encoding="utf-8").splitlines() if l.strip()}
     # (qid, mode) -> 채점 (같은 답변은 한 항목이므로 그 항목의 채점을 모든 방식에 적용)
     grade: dict[tuple[str, str], dict] = {}
     item_of: dict[tuple[str, str], str] = {}
@@ -62,9 +70,9 @@ def main() -> None:
                 c["refusal_" + g["refusal"]] += 1
         return c
 
-    out = ["# Knowledge bundle (data/kb, 12 reviewed pages) vs RAG vs hybrid: 20 questions written by a person", "",
+    out = [f"# Knowledge bundle (data/kb, {res['kb_pages']} reviewed pages) vs RAG: {len(rows)} questions written by a person ({qfile.name})", "",
            f"Generator {res['model']}, prompt {res['prompt_version']}, RAG retrieval `{res['config']}` (top 5). Grades by one person "
-           f"(eval/kb/labels.json); identical answers to the same question were graded once.", "",
+           f"({kbdir.resolve().relative_to(REPO)}/labels.json); identical answers to the same question were graded once.", "",
            "## 1. Per mode", "", "| mode | subset | n | answered | 맞음 | 부분 | 틀림 | refused | 거절 적절 | 거절 부적절 | prompt tokens, mean | seconds, mean |",
            "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     all_q = [r["qid"] for r in rows]
@@ -77,7 +85,7 @@ def main() -> None:
             sec = sum(r["seconds"] for r in rs) / len(rs)
             out.append(f"| {m} | {name} | {c['n']} | {c['answered']} | {c['맞음']} | {c['부분']} | {c['틀림']} | {c['refused']} | "
                        f"{c['refusal_적절']} | {c['refusal_부적절']} | {tok:.0f} | {sec:.1f} |")
-    for m in ("hybrid", "kb_first"):
+    for m in ("hybrid", "kb_first", "kb_matched"):
         if m in MODES:
             paths = Counter(r["modes"][m]["path"] for r in rows)
             out += ["", f"{m} path: answered by RAG {paths['rag']}, by the bundle {paths['bundle']} "
@@ -100,7 +108,7 @@ def main() -> None:
         g = lab[it["item"]]
         out.append(f"| {it['item']} | {it['qid']} | {', '.join(it['modes'])} | {fmt(g)} | {g['note']} |")
     text = "\n".join(out) + "\n"
-    OUT.write_text(text, encoding="utf-8")
+    OUTP.write_text(text, encoding="utf-8")
     print(text)
 
 

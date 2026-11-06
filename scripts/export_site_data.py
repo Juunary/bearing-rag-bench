@@ -7,7 +7,7 @@
 - Sets: v2 (90 questions, Wikipedia corpus, retrieval v2_x2_rerank_en_text = the chat server's retrieval,
   answers v2g_ret_x2_rerank_en_text), pdf (48 questions, Wikipedia + PDF corpus, pdfth_x13_rrf_en_dense_en_rerank_en_text,
   answers pdfg_th_x13_rrf_en_dense_en_rerank_en_text) and user (10 questions the grader wrote, same retrieval,
-  answers eval/human_round2/user_questions_answers.json) and service (30 practical questions answered by the current chat-server
+  answers eval/human_round2/user_questions_answers.json) and service (50 practical questions answered by the current chat-server
   config configs/s7_pipeline_kb.json via scripts/answer_questions.py -> eval/service/s7_answers.json: when a question matched a
   knowledge-bundle page the record carries the match and the bundle pages instead of retrieval stages). Answers and grades are
   read from stored results, not regenerated.
