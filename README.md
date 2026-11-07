@@ -101,7 +101,8 @@ uv run python experiments/analyze_pdf.py
 uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # 표 캡션·머리글 반복 청크 (configs/pdf/pdfth_*)
 uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # PDF 질문 답변 (이후 run_judge.py)
 uv run python experiments/analyze_pdf_generation.py
-uv run python scripts/export_site_data.py           # 추적 페이지 데이터 (docs/data/)
+uv run python scripts/export_site_data.py           # 추적 페이지 데이터: 위키·서비스 세트 (docs/data/)
+uv run python scripts/export_site_docs.py           # 추적 페이지 데이터: PDF → 청크, OKF 세트 (모델 불필요)
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # 개념 경유 검색
 uv run python experiments/analyze_concepts.py
 uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # 지식 번들: rag / bundle / hybrid
@@ -547,7 +548,7 @@ configs/modelswap/      모델 교체 설정 (scripts/make_model_configs.py), �
 src/ragbench/kb.py, eval/service/   서비스용 지식 번들(kb_first)과 서비스 설정의 답변 (scripts/answer_questions.py)
 eval/dci/            DCI 에이전트 결과·궤적·채점 (experiments/run_dci.py, analyze_dci.py)
 src/ragbench/concepts.py, retrieval/concept.py   개념 로더·매칭, 개념 경유 후보 검색기 (experiments/analyze_concepts.py)
-docs/           파이프라인 추적 페이지(GitHub Pages, master 브랜치 docs/), 데이터는 scripts/export_site_data.py가 생성
+docs/           추적 페이지(GitHub Pages, master 브랜치 docs/): 세트 4개 — 위키백과 질문 90개의 파이프라인 추적, PDF 6건이 청크 557개가 되는 과정, OKF 지식 번들(페이지 24쪽, 번들 전용 질문 40개의 사람 채점), 서비스 설정의 질문 50개 추적. 데이터는 scripts/export_site_data.py·export_site_docs.py가 생성
 outputs/        학습된 어댑터 (git 제외)
 logs/           요청 로그와 캐시 (git 제외)
 ```

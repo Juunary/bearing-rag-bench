@@ -101,7 +101,8 @@ uv run python experiments/analyze_pdf.py
 uv run python -m ragbench.chunking --corpus wiki_pdf --table-header   # chunks with repeated table caption and header rows (configs/pdf/pdfth_*)
 uv run python experiments/run_generation.py configs/pdfgen/pdfg_x13_rrf_en_dense_en_rerank_en_text.json   # answers to the PDF questions (then run_judge.py)
 uv run python experiments/analyze_pdf_generation.py
-uv run python scripts/export_site_data.py           # trace page data (docs/data/)
+uv run python scripts/export_site_data.py           # trace page data: Wikipedia and service sets (docs/data/)
+uv run python scripts/export_site_docs.py           # trace page data: PDF -> chunks and OKF sets (no model needed)
 uv run python scripts/make_pdf_configs.py && uv run python experiments/run_suite.py --glob 'configs/pdf/*_c_*.json'   # concept-mediated retrieval
 uv run python experiments/analyze_concepts.py
 uv run python experiments/run_kb.py && uv run python experiments/analyze_kb.py   # knowledge bundle: rag / bundle / hybrid
@@ -547,7 +548,7 @@ configs/modelswap/      model swap configs (scripts/make_model_configs.py), anal
 src/ragbench/kb.py, eval/service/   serving-side knowledge bundle (kb_first) and the serving config's answers (scripts/answer_questions.py)
 eval/dci/            DCI agent results, trajectories, grades (experiments/run_dci.py, analyze_dci.py)
 src/ragbench/concepts.py, retrieval/concept.py   concept loader and matcher, concept candidate retriever (experiments/analyze_concepts.py)
-docs/           pipeline trace page (GitHub Pages, master branch docs/), data built by scripts/export_site_data.py
+docs/           trace page (GitHub Pages, master branch docs/): four sets — pipeline trace of the 90 Wikipedia questions, how the 6 PDFs become 557 chunks, the OKF knowledge bundle (24 pages, human grades of 40 bundle-only questions), the 50 questions of the serving config. Data built by scripts/export_site_data.py and export_site_docs.py
 outputs/        trained adapters (git-ignored)
 logs/           request logs and caches (git-ignored)
 ```

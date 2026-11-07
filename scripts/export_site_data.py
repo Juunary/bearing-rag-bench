@@ -5,12 +5,11 @@
   input validation, query translation, English BM25 and dense candidates, RRF fusion, reranker order, the
   5 passages given to the generator, the stored answer with its citations, output validation and the grades.
 - Sets: v2 (90 questions, Wikipedia corpus, retrieval v2_x2_rerank_en_text = the chat server's retrieval,
-  answers v2g_ret_x2_rerank_en_text), pdf (48 questions, Wikipedia + PDF corpus, pdfth_x13_rrf_en_dense_en_rerank_en_text,
-  answers pdfg_th_x13_rrf_en_dense_en_rerank_en_text) and user (10 questions the grader wrote, same retrieval,
-  answers eval/human_round2/user_questions_answers.json) and service (50 practical questions answered by the current chat-server
+  answers v2g_ret_x2_rerank_en_text) and service (50 practical questions answered by the current chat-server
   config configs/s7_pipeline_kb.json via scripts/answer_questions.py -> eval/service/s7_answers.json: when a question matched a
   knowledge-bundle page the record carries the match and the bundle pages instead of retrieval stages). Answers and grades are
-  read from stored results, not regenerated.
+  read from stored results, not regenerated. The "PDF -> chunks" and "OKF" sets of the site come from
+  scripts/export_site_docs.py (no model needed).
 - Retrieval is run again here (translations come from logs/translate_cache.sqlite, so no LLM is loaded) to record
   every stage; the final top 10 must equal the stored retrieval result of the same config, otherwise the export stops.
 - Stage timings are measured in this run on this machine; translation and generation seconds are the stored
@@ -21,9 +20,10 @@
 [KO]
 - 역할: 사이트(docs/)에서 질문 하나씩, 서비스 파이프라인의 각 단계를 실제 데이터로 보여준다: 입력 검증, 질의 번역, 영어
   BM25·dense 후보, RRF 융합, 리랭커 순서, 생성 모델에 넣은 5개 문단, 저장된 답변과 인용, 출력 검증, 채점.
-- 세트: v2(90문항, 위키 코퍼스, 검색 v2_x2_rerank_en_text = 채팅 서버 검색, 답변 v2g_ret_x2_rerank_en_text), pdf(48문항,
-  위키 + PDF 코퍼스, pdfth_x13_rrf_en_dense_en_rerank_en_text, 답변 pdfg_th_x13_rrf_en_dense_en_rerank_en_text), user(채점자가
-  쓴 10문항, 같은 검색, 답변 eval/human_round2/user_questions_answers.json). 답변과 채점은 저장된 결과를 읽고 다시 만들지 않는다.
+- 세트: v2(90문항, 위키 코퍼스, 검색 v2_x2_rerank_en_text = 채팅 서버 검색, 답변 v2g_ret_x2_rerank_en_text), service(현재 채팅
+  서버 설정 configs/s7_pipeline_kb.json으로 답한 실무 질문 50개, eval/service/s7_answers.json; 번들 페이지에 매칭된 질문은 검색
+  단계 대신 매칭과 번들 페이지를 기록). 답변과 채점은 저장된 결과를 읽고 다시 만들지 않는다. 사이트의 "PDF → 청크"·"OKF" 세트는
+  scripts/export_site_docs.py가 만든다(모델 불필요).
 - 검색은 단계를 기록하려고 여기서 다시 돌린다(번역은 logs/translate_cache.sqlite에서 읽어 LLM을 올리지 않음). 최종 상위 10이
   같은 설정의 저장된 검색 결과와 다르면 멈춘다.
 - 단계 시간은 이 실행에서 이 컴퓨터로 잰 값이고, 번역·생성 시간은 저장된 원래 값이다(캐시에 남아 있음).
@@ -56,9 +56,6 @@ SHOW = 10                                   # 단계마다 화면에 보여 줄 
 SETS = [
     {"set": "v2", "config": "configs/v2/v2_x2_rerank_en_text.json", "eval": "eval/queries_v2.jsonl",
      "answers": "v2g_ret_x2_rerank_en_text"},
-    {"set": "pdf", "config": "configs/pdf/pdfth_x13_rrf_en_dense_en_rerank_en_text.json", "eval": "eval/queries_pdf.jsonl",
-     "answers": "pdfg_th_x13_rrf_en_dense_en_rerank_en_text"},
-    {"set": "user", "config": "configs/pdf/pdfth_x13_rrf_en_dense_en_rerank_en_text.json", "eval": None, "answers": None},
     {"set": "service", "config": "configs/s7_pipeline_kb.json", "eval": None, "answers": None, "served": "eval/service/s7_answers.json"},
 ]
 PART_LABEL = {"bm25": "BM25 (English)", "dense": "dense (bge-m3)"}
@@ -138,8 +135,6 @@ def trim(st: dict, gold: set[str]) -> dict:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     human = human_grades()
-    users = json.loads((REPO / "eval" / "human_round2" / "labels.json").read_text(encoding="utf-8"))["user_questions"]
-    user_ans = json.loads((REPO / "eval" / "human_round2" / "user_questions_answers.json").read_text(encoding="utf-8"))
     chunk_text: dict[str, dict] = {}
     meta = {"prompts": PROMPTS, "sets": {}}
     built: dict[str, tuple] = {}
@@ -173,14 +168,6 @@ def main() -> None:
             prompt, judged = served.get("prompt_version", cfg.generation.prompt_version), None
             for cid, c in page_of.items():
                 chunk_text[cid] = {"doc": f"kb_{c.id}", "title": c.title, "lang": "ko", "text": c.description}
-        elif spec["set"] == "user":
-            rows = {r["qid"]: r for r in user_ans["rows"]}
-            items = [{"qid": u["qid"], "question": u["question"], "q_lang": "ko", "group": "ko", "gold": {},
-                      "answer": rows[u["qid"]]["answer"], "context_ids": rows[u["qid"]]["best_top5"],
-                      "human": {k: u[k] for k in ("correctness", "refusal", "note") if k in u},
-                      "blocked": rows[u["qid"]]["blocked"], "reason": rows[u["qid"]]["reason"],
-                      "stored_top": rows[u["qid"]]["best_top5"]} for u in users]
-            prompt, judged = user_ans["prompt_version"], None
         else:
             queries = {q["qid"]: q for q in load_queries(REPO / spec["eval"])}
             gen = load(spec["answers"])

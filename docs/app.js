@@ -1,19 +1,47 @@
 "use strict";
 // 데이터: scripts/export_site_data.py가 만든 docs/data/*.json (실제 실행 기록)
-const SETS = ["v2", "pdf", "user", "service"];
-const STATE = { lang: "ko", set: "v2", rows: {}, meta: null, chunks: null, idx: 0, list: [], playing: false, revealed: 0, speed: 1, cardHTML: {}, waiting: true };   // waiting: 첫 재생 전 대기 (3초 무조작 또는 아래로 스크롤하면 시작)
+const SETS = ["v2", "pdf", "okf", "service"];
+// trace = 파이프라인 추적(재생), chunking = PDF 문서가 청크가 되는 과정(정적), okf = 지식 번들 페이지(정적)와 번들 전용 질문(재생)
+const KIND = { v2: "trace", pdf: "chunking", okf: "okf", service: "trace" };
+const STATE = { lang: "ko", set: "v2", view: "q", rows: {}, meta: null, chunks: null, pdfdocs: [], pdfmeta: null, okf: null, pdfChunks: null, idx: 0, list: [], playing: false, revealed: 0, speed: 1, cardHTML: {}, waiting: true };   // waiting: 첫 재생 전 대기 (3초 무조작 또는 아래로 스크롤하면 시작); view: okf 세트에서 q(질문) | pages(페이지)
 let RUN = 0;                                  // 재생 세대 번호: 바뀌면 진행 중인 애니메이션을 멈춘다
 
 const T = {
   ko: {
-    title: "RAG 파이프라인 추적", subtitle: "질문 하나가 검색·생성·검증을 지나는 과정을 실제 실행 기록으로 보여줍니다.",
+    title: "RAG 파이프라인 추적", subtitle: "실제 실행 기록으로 보여줍니다: 질문 하나가 검색·생성·검증을 지나는 과정, PDF 문서가 청크가 되는 과정, OKF 지식 번들 페이지와 번들 전용 답변의 사람 채점.",
     pair: "언어쌍", show: "보기", question: "질문", wheel_hint: "휠 ↓ 짧게: 다음 단계 · 길게 또는 ↑: 전체 보기", wait_hint: "3초 뒤 또는 아래로 스크롤하면 재생을 시작합니다", play: "재생", pause: "일시정지", replay: "다시 재생", next_stage: "다음 단계 ›", show_all: "전체 보기", speed: "속도", stage_of: "단계", all: "전체",
-    set_v2: "위키백과 질문", set_v2_s: "90개 · 청크 346개", set_pdf: "PDF 질문", set_pdf_s: "48개 · 청크 903개",
-    set_user: "사람이 쓴 질문", set_user_s: "10개 · 청크 903개", set_service: "서비스 (지식 번들)", set_service_s: "50개 · 번들 24쪽 + 청크 903개",
+    set_v2: "위키백과 질문", set_v2_s: "90개 · 청크 346개", set_pdf: "PDF 문서 → 청크", set_pdf_s: "문서 6건 · 청크 557개",
+    set_okf: "OKF 지식 번들", set_okf_s: "페이지 24쪽 · 질문 40개", set_service: "서비스 (지식 번들)", set_service_s: "50개 · 번들 24쪽 + 청크 903개",
     k_all: "전체", k_missing: "정답 청크가 컨텍스트에 없음", k_blocked: "차단·거절된 답변",
+    k_r1: "1차 (12쪽 전부)", k_r2: "2차 (24쪽, 매칭 쪽만)", k_correct: "맞음", k_partial: "부분", k_wrong: "틀림", k_refuse_ok: "거절 (적절)", k_refuse_bad: "거절 (부적절)", k_nomatch: "매칭 없음",
+    doc: "문서", page: "페이지", target: "대상", okf_questions: "질문 40개", okf_pages: "페이지 24쪽",
+    note_pdf: "PDF 6건이 청크 557개가 되는 과정입니다(질문·검색 없음). pdf-editor의 레이아웃 복원으로 읽기 순서의 블록을 얻고, 머리말·꼬리말·그림 글자·목차 줄·참고문헌 절을 버린 뒤, 제목으로 절을 나누고, bge-m3 토크나이저 기준 384토큰 예산으로 문장 경계에서 잘라 끝 문장을 다음 청크에 겹칩니다(오버랩 48토큰). 표 중간에서 시작하는 청크에는 캡션과 머리글 행을 다시 붙입니다.",
+    note_okf: "OKF(Open Knowledge Format) 발상을 따른 지식 번들: 사람이 검수한 안내 페이지 24쪽(별칭 ko/en/de, 관련 페이지 링크, 본문)과, 그 페이지에 매칭된 질문을 문서 검색 없이 번들로만 답한 결과입니다. 질문 40개는 사람이 페이지를 보지 않고 썼고, 답변은 모드를 숨기고 섞어 사람이 채점했습니다. 1차(12쪽): 매칭되면 페이지 전부를 컨텍스트로. 2차(24쪽): 매칭 페이지와 관련 페이지만.",
+    s_grade: "사람 채점", s_nobundle: "번들 답변 없음",
+    w_grade: "답변은 모드(RAG·번들)를 숨기고 섞은 뒤 사람이 채점했습니다. 같은 답변은 한 번만 채점하고, 거절은 질문이 범위 안이면 부적절, 밖이면 적절로 봅니다. 비교를 위해 같은 질문을 문서 검색(상위 5 청크)으로 답했을 때의 채점을 함께 둡니다.",
+    w_nobundle: "별칭이 맞는 페이지가 없고 가장 가까운 페이지의 dense 코사인도 0.55에 못 미쳐 번들 답변을 만들지 않았습니다. 서비스에서는 이 질문이 문서 검색 경로로 넘어갑니다.",
+    w_bundle_r1: "1차(12쪽): 매칭된 질문은 검수한 안내 페이지 전부(12쪽, 약 1만 토큰)를 컨텍스트로 받습니다. 인용은 kb_<페이지>#0 형식입니다.",
+    w_bundle_r2: "2차(24쪽): 매칭된 질문은 매칭 페이지와 그 관련(related) 페이지만 컨텍스트로 받습니다(평균 3.7쪽, 약 3,700 토큰). 24쪽 전부를 넣으면 정답이 8/16으로 떨어졌고 한 GPU에 들어가지 않았습니다.",
+    grade: "채점", blind_item: "블라인드 항목", rag_same: "같은 질문의 문서 검색(RAG) 답변", refused: "거절", note_lbl: "채점 메모", scope_in: "범위 안", scope_out: "범위 밖", path_bundle: "번들", path_none: "매칭 없음",
+    gr_맞음: "맞음", gr_부분: "부분", gr_틀림: "틀림", gr_적절: "적절", gr_부적절: "부적절",
+    p_aliases: "별칭 (매칭에 쓰는 이름)", p_related: "관련 페이지", p_backlinks: "이 페이지를 가리키는 페이지", p_body: "본문", p_used: "이 페이지가 쓰인 질문", p_matched: "매칭", p_context: "컨텍스트", p_verified: "사람 검수", p_author: "작성", p_none: "없음", p_round: "페이지",
+    w_aliases: "질문 원문(ko·de)과 영어 번역문(en)에 이 이름이 나오면 페이지가 매칭됩니다. 별칭이 없으면 질문과 페이지 본문의 bge-m3 코사인 0.55 이상인 상위 1쪽을 씁니다.",
+    w_related: "관련 페이지는 2차 설정에서 매칭 페이지와 함께 컨텍스트에 들어갑니다(1홉).",
+    w_body: "페이지는 AI 에이전트가 초안을 쓰고 사람이 검수했습니다(data/kb_review.md). 생성 모델은 이 본문만 보고 답합니다.",
+    w_used: "이 페이지가 매칭됐거나 컨텍스트에 들어간 질문과 그 채점입니다. 누르면 그 질문으로 이동합니다.",
+    d_source: "원본 PDF", d_layout: "레이아웃 복원 → 블록", d_drop: "버린 것과 남긴 것", d_sections: "절", d_chunks: "청크", d_ex_overlap: "예시 1 · 문장 오버랩", d_ex_table: "예시 2 · 표 머리글 반복",
+    w_source: "PDF는 저장소에 커밋하지 않고 내려받아 sha256으로 확인합니다. 라이선스는 퍼블릭 도메인·CC BY 계열만 썼습니다.",
+    w_layout: "pdf-editor(MuPDF WASM)의 레이아웃 복원이 쪽마다 문단의 역할(본문·제목·목록·캡션·머리말·꼬리말·각주), 표(행·열 격자), 그림을 읽기 순서로 돌려줍니다. 머리말·꼬리말은 이웃 쪽과 비교해 찾습니다.",
+    w_drop: "머리말·꼬리말·그림(안의 글자 포함)·목차 줄(점선 뒤 쪽 번호)·참고문헌 절은 버립니다. 표는 행마다 한 줄 | 칸 | 칸 |으로 적습니다.",
+    w_sections: "제목 역할의 문단마다 절을 나눕니다. 학위논문은 제목 감지가 적어 절이 큽니다. 청크에는 절 경로를 기록하지만 본문 앞에 붙이지는 않습니다.",
+    w_chunks: "bge-m3 토크나이저 토큰 384개 예산을 문장 단위로 채웁니다. 다음 청크는 이전 청크의 끝 문장들로 시작합니다(오버랩 48토큰까지). 한 문장이 예산을 넘을 때만(표·목록) 토큰 수로 자릅니다. 막대 하나가 청크 하나이고 폭은 문자 수, 색은 절입니다. 누르면 본문이 열립니다.",
+    w_ex_overlap: "연속 청크 3개입니다. 색칠한 부분이 이웃 청크와 겹치는 문장입니다. 근거 문장이 경계에 걸쳐 잘리는 일을 줄입니다.",
+    w_ex_table: "표 중간에서 시작하는 청크에는 그 표의 캡션과 머리글 행을 앞에 붙입니다(색칠). 문자 범위는 원문 위치 그대로라 정답 매핑은 바뀌지 않습니다.",
+    d_lang: "언어", d_pages: "쪽수", d_license: "라이선스", d_sha: "sha256", d_tool: "추출기", d_chars: "본문 문자 수", d_blocks: "블록", d_count: "개", d_dropped: "버림", d_kept: "남김", d_chunk_n: "청크 수", d_tok: "토큰 (평균 · 최소 · 최대)", d_ov: "이전 청크와 겹치는 청크", d_ov_chars: "평균 겹침 문자 수", d_th: "표 머리글을 붙인 청크", d_span: "절을 걸치는 청크", d_range: "문자 범위", d_sec_chunks: "청크", d_no_table: "이 문서에는 표 중간에서 시작하는 청크가 없습니다.", d_raw_missing: "원본 블록 파일(data/raw/pdf, 커밋 안 함)이 없어 남긴 블록만 보여 줍니다.", d_open: "본문 열기", d_toc: "목차 줄", d_drop_sections: "버린 절",
+    role_body: "본문", "role_list-item": "목록 항목", role_heading: "제목", role_caption: "캡션", role_footnote: "각주", role_other: "기타(회전·세로 글)", role_header: "머리말", role_footer: "꼬리말", role_table: "표", role_figure: "그림", role_image: "그림(이미지)", role_vector: "그림(벡터)",
+    foot_pdf: "청크 파일 chunks_fixed_tok384_ov48_pdf_th.jsonl · scripts/build_pdf_docs.py · src/ragbench/chunking.py · scripts/export_site_docs.py",
+    foot_okf: "data/kb/*.md · data/kb_review.md · eval/kb/results.json (1차) · eval/kb2/results.json (2차) · scripts/export_site_docs.py",
     note_v2: "코퍼스: 위키백과 한·영·독 45건. 검색은 채팅 서버와 같은 구성(영어 BM25 + dense, RRF, 리랭커 영어 입력), 답변 프롬프트 cite_v1.",
-    note_pdf: "코퍼스: 위키백과 + PDF 6건(NASA 보고서, 학위논문), 표 머리글 반복 청크. 검색은 영어 BM25 + 영어 dense, RRF, 리랭커 영어 입력, 답변 프롬프트 cite_v1.",
-    note_user: "채점자가 문서를 보지 않고 쓴 실무 질문. PDF 질문과 같은 검색, 서비스 프롬프트 cite_refuse_v1(근거가 없으면 거절).",
     note_service: "현재 채팅 서버 설정(configs/s7_pipeline_kb.json): 사람이 쓴 실무 질문 50개. 질문이 사람이 검수한 안내 페이지 24쪽 중 하나에 매칭되면 검색 없이 번들로 답하고(경로 kb), 아니면 문서 검색으로 답합니다(경로 rag).",
     s_kbmatch: "페이지 매칭", s_bundle: "번들 컨텍스트",
     w_kbmatch: "질문을 지식 번들 페이지의 별칭(ko/en/de)에 맞춰 봅니다. 별칭이 없으면 질문과 페이지 본문의 dense 코사인(bge-m3)이 0.55 이상인 상위 1개를 씁니다. 매칭되면 검색을 건너뛰고 번들로 답합니다.",
@@ -46,14 +74,40 @@ const T = {
     theme_auto: "자동", theme_light: "밝게", theme_dark: "어둡게", ms: "ms", s: "s",
   },
   en: {
-    title: "RAG Pipeline Trace", subtitle: "One question at a time through retrieval, generation and validation, from real run records.",
+    title: "RAG Pipeline Trace", subtitle: "From real run records: one question through retrieval, generation and validation; how PDF documents become chunks; the OKF knowledge-bundle pages and the human grades of bundle-only answers.",
     pair: "Language pair", show: "Show", question: "Question", wheel_hint: "Wheel ↓ short: next stage · long or ↑: show all", wait_hint: "Playback starts in 3 seconds or when you scroll down", play: "Play", pause: "Pause", replay: "Replay", next_stage: "Next stage ›", show_all: "Show all", speed: "Speed", stage_of: "stage", all: "All",
-    set_v2: "Wikipedia questions", set_v2_s: "90 · 346 chunks", set_pdf: "PDF questions", set_pdf_s: "48 · 903 chunks",
-    set_user: "Human-written questions", set_user_s: "10 · 903 chunks", set_service: "Service (knowledge bundle)", set_service_s: "50 · 24 pages + 903 chunks",
+    set_v2: "Wikipedia questions", set_v2_s: "90 · 346 chunks", set_pdf: "PDF documents → chunks", set_pdf_s: "6 documents · 557 chunks",
+    set_okf: "OKF knowledge bundle", set_okf_s: "24 pages · 40 questions", set_service: "Service (knowledge bundle)", set_service_s: "50 · 24 pages + 903 chunks",
     k_all: "All", k_missing: "Gold chunk not in the context", k_blocked: "Blocked or refused",
+    k_r1: "Round 1 (all 12 pages)", k_r2: "Round 2 (24 pages, matched only)", k_correct: "correct", k_partial: "partial", k_wrong: "wrong", k_refuse_ok: "refused (appropriate)", k_refuse_bad: "refused (inappropriate)", k_nomatch: "no match",
+    doc: "Document", page: "Page", target: "Show", okf_questions: "40 questions", okf_pages: "24 pages",
+    note_pdf: "How 6 PDFs become 557 chunks (no questions, no retrieval). The layout reconstruction of pdf-editor yields blocks in reading order; headers, footers, figure text, table-of-contents lines and reference sections are dropped; headings split the text into sections; chunks are cut at sentence boundaries under a 384-token budget (bge-m3 tokenizer) and the trailing sentences repeat in the next chunk (overlap 48 tokens). A chunk that starts inside a table gets the caption and header row again.",
+    note_okf: "A knowledge bundle in the spirit of OKF (Open Knowledge Format): 24 reviewed guide pages (aliases ko/en/de, related-page links, body) and the questions that matched them, answered from the bundle only, without document retrieval. The 40 questions were written by a person without seeing the pages; answers were graded by a person with the mode hidden and shuffled. Round 1 (12 pages): a matched question gets all pages as context. Round 2 (24 pages): the matched pages and their related pages only.",
+    s_grade: "Human grade", s_nobundle: "No bundle answer",
+    w_grade: "Answers of all modes (RAG, bundle) were shuffled with the mode hidden and graded by a person. Identical answers were graded once; a refusal counts as inappropriate for an in-scope question and appropriate for an out-of-scope one. The grade of the retrieval answer (top 5 chunks) to the same question is shown for comparison.",
+    w_nobundle: "No page alias matched and the closest page's dense cosine is below 0.55, so no bundle answer was generated. In the service this question goes to the document-retrieval path.",
+    w_bundle_r1: "Round 1 (12 pages): a matched question gets all reviewed guide pages (12, about 10k tokens) as the context. Citations use the form kb_<page>#0.",
+    w_bundle_r2: "Round 2 (24 pages): a matched question gets the matched pages and their related pages only (3.7 pages, about 3,700 tokens on average). With all 24 pages the correct answers fell to 8 of 16 and the prompt did not fit one GPU.",
+    grade: "Grade", blind_item: "blind item", rag_same: "Retrieval (RAG) answer to the same question", refused: "refused", note_lbl: "Grader's note", scope_in: "in scope", scope_out: "out of scope", path_bundle: "bundle", path_none: "no match",
+    gr_맞음: "correct", gr_부분: "partial", gr_틀림: "wrong", gr_적절: "appropriate", gr_부적절: "inappropriate",
+    p_aliases: "Aliases (names used for matching)", p_related: "Related pages", p_backlinks: "Pages linking here", p_body: "Body", p_used: "Questions that used this page", p_matched: "matched", p_context: "context", p_verified: "reviewed by a person", p_author: "author", p_none: "none", p_round: "page",
+    w_aliases: "A page matches when one of these names occurs in the original question (ko, de) or its English translation (en). Without an alias match, the top page with a bge-m3 cosine of 0.55 or more between question and page text is used.",
+    w_related: "In the round-2 setting the related pages enter the context together with the matched page (1 hop).",
+    w_body: "Pages were drafted by an AI agent and reviewed by a person (data/kb_review.md). The generator answers from this body only.",
+    w_used: "Questions where this page was matched or placed in the context, with their grades. Click to open the question.",
+    d_source: "Source PDF", d_layout: "Layout reconstruction → blocks", d_drop: "Dropped and kept", d_sections: "Sections", d_chunks: "Chunks", d_ex_overlap: "Example 1 · sentence overlap", d_ex_table: "Example 2 · repeated table header",
+    w_source: "PDFs are not committed; they are downloaded and checked against a sha256. Only public-domain and CC BY licenses were used.",
+    w_layout: "The layout reconstruction of pdf-editor (MuPDF WASM) returns, per page, paragraphs with their role (body, heading, list item, caption, header, footer, footnote), tables as row/column grids and figures, in reading order. Headers and footers are found by comparing neighbouring pages.",
+    w_drop: "Headers, footers, figures (including their text), table-of-contents lines (dot leaders followed by a page number) and reference sections are dropped. Tables are written one row per line as | cell | cell |.",
+    w_sections: "Every heading paragraph starts a section. Heading detection found few headings in the theses, so their sections are large. Chunks record their section path but do not prepend it to the text.",
+    w_chunks: "A budget of 384 bge-m3 tokens is filled sentence by sentence. The next chunk starts with the trailing sentences of the previous one (up to 48 tokens of overlap). Only a sentence longer than the budget (tables, lists) is cut by token count. One bar is one chunk; width is its character count, colour its section. Click to open the text.",
+    w_ex_overlap: "Three consecutive chunks. The highlighted text is shared with the neighbouring chunk, so an evidence sentence rarely gets cut at a boundary.",
+    w_ex_table: "A chunk that starts inside a table gets the table's caption and header row prepended (highlighted). The character span stays the original position, so gold mappings are unchanged.",
+    d_lang: "language", d_pages: "pages", d_license: "license", d_sha: "sha256", d_tool: "extractor", d_chars: "text characters", d_blocks: "blocks", d_count: "", d_dropped: "dropped", d_kept: "kept", d_chunk_n: "chunks", d_tok: "tokens (mean · min · max)", d_ov: "chunks overlapping the previous one", d_ov_chars: "mean overlap, characters", d_th: "chunks with a repeated table header", d_span: "chunks spanning two sections", d_range: "character span", d_sec_chunks: "chunks", d_no_table: "No chunk of this document starts inside a table.", d_raw_missing: "The raw block file (data/raw/pdf, not committed) is absent, so only the kept blocks are shown.", d_open: "open text", d_toc: "table-of-contents lines", d_drop_sections: "dropped sections",
+    role_body: "body", "role_list-item": "list item", role_heading: "heading", role_caption: "caption", role_footnote: "footnote", role_other: "other (rotated text)", role_header: "header", role_footer: "footer", role_table: "table", role_figure: "figure", role_image: "figure (image)", role_vector: "figure (vector)",
+    foot_pdf: "chunk file chunks_fixed_tok384_ov48_pdf_th.jsonl · scripts/build_pdf_docs.py · src/ragbench/chunking.py · scripts/export_site_docs.py",
+    foot_okf: "data/kb/*.md · data/kb_review.md · eval/kb/results.json (round 1) · eval/kb2/results.json (round 2) · scripts/export_site_docs.py",
     note_v2: "Corpus: 45 Wikipedia articles in Korean, English and German. Retrieval as in the chat server (English BM25 + dense, RRF, reranker on English text); answer prompt cite_v1.",
-    note_pdf: "Corpus: Wikipedia + 6 PDFs (NASA reports, theses), table headers repeated in chunks. Retrieval: English BM25 + English dense, RRF, reranker on English text; answer prompt cite_v1.",
-    note_user: "Practical questions written by the grader without looking at the documents. Same retrieval as the PDF set, serving prompt cite_refuse_v1 (refuses without evidence).",
     note_service: "The current chat-server config (configs/s7_pipeline_kb.json) on 50 human-written practical questions. When a question matches one of the 24 reviewed guide pages, the bundle answers without retrieval (path kb); otherwise document retrieval answers (path rag).",
     s_kbmatch: "Page match", s_bundle: "Bundle context",
     w_kbmatch: "The question is matched against the aliases (ko/en/de) of the knowledge bundle pages; without an alias match, the best dense match (bge-m3 cosine of question vs page text) of 0.55 or more is used. On a match, retrieval is skipped and the bundle answers.",
@@ -90,6 +144,7 @@ const DEFAULT_STAGES = ["input", "translate", "retrieve", "rrf", "rerank", "gene
 let STAGES = DEFAULT_STAGES;
 // 서비스 세트(지식 번들 포함): 입력 검증 뒤 "페이지 매칭" 단계가 있고, 매칭되면 검색 단계 대신 번들 컨텍스트 단계가 온다
 function stagesOf(r) {
+  if (r.kind === "okf_q") return r.path === "kb" ? ["kbmatch", "bundle", "generate", "output", "answer", "grade"] : ["kbmatch", "nobundle"];
   if (!r.kb) return DEFAULT_STAGES;
   return r.path === "kb" ? ["input", "kbmatch", "bundle", "generate", "output", "answer"]
                          : ["input", "kbmatch", "translate", "retrieve", "rrf", "rerank", "generate", "output", "answer"];
@@ -113,10 +168,17 @@ async function init() {
   try { saved = localStorage.getItem("lang"); } catch {}
   STATE.lang = saved === "ko" || saved === "en" ? saved : ((navigator.language || "ko").startsWith("ko") ? "ko" : "en");
   applyTheme(readTheme());
-  [STATE.meta, STATE.chunks] = await Promise.all([getJSON("data/meta.json"), getJSON("data/chunks.json")]);
-  await Promise.all(SETS.map(async (s) => { STATE.rows[s] = await getJSON(`data/${s}.json`); }));
+  let pdfdocs, okf;
+  [STATE.meta, STATE.chunks, pdfdocs, okf] = await Promise.all([getJSON("data/meta.json"), getJSON("data/chunks.json"), getJSON("data/pdfdocs.json"), getJSON("data/okf.json")]);
+  await Promise.all(SETS.filter((s) => KIND[s] === "trace").map(async (s) => { STATE.rows[s] = await getJSON(`data/${s}.json`); }));
+  STATE.pdfmeta = pdfdocs.meta;
+  STATE.pdfdocs = pdfdocs.docs.map((d) => ({ ...d, kind: "pdf_doc", qid: d.id }));
+  const pagesById = Object.fromEntries(okf.pages.map((p) => [p.id, p]));
+  const promptOf = Object.fromEntries(okf.meta.rounds.map((x) => [x.round, x.prompt_version]));
+  STATE.okf = { meta: okf.meta, pagesById, pages: okf.pages.map((p) => ({ ...p, kind: "okf_p", qid: p.id })), questions: okf.questions.map((q) => okfQuestionRow({ ...q, prompt: promptOf[q.round] }, pagesById)) };
   const h = new URLSearchParams(location.hash.slice(1));
   if (SETS.includes(h.get("set"))) STATE.set = h.get("set");
+  STATE.view = h.get("view") === "pages" ? "pages" : "q";
   bind();
   renderStatic();
   buildList(h.get("q"));
@@ -132,7 +194,10 @@ function applyTheme(m) {
 function bind() {
   $("#lang-btn").onclick = () => { STATE.lang = STATE.lang === "ko" ? "en" : "ko"; try { localStorage.setItem("lang", STATE.lang); } catch {} renderStatic(); buildList(cur()?.qid); };
   $("#theme-btn").onclick = () => { const order = ["auto", "light", "dark"]; const m = order[(order.indexOf(STATE.theme) + 1) % 3]; try { localStorage.setItem("theme", m); } catch {} applyTheme(m); };
-  $("#f-pair").onchange = () => buildList(cur()?.qid);
+  $("#f-pair").onchange = () => {
+    if (KIND[STATE.set] === "okf") { STATE.view = $("#f-pair").value; $("#f-kind").innerHTML = ""; renderStatic(); buildList(); }
+    else buildList(cur()?.qid);
+  };
   $("#f-kind").onchange = () => buildList(cur()?.qid);
   $("#f-q").onchange = (e) => { STATE.idx = Number(e.target.value); show(); };
   $("#prev").onclick = () => step(-1);
@@ -162,13 +227,21 @@ function bind() {
   addEventListener("mousedown", (e) => { if (e.clientX >= document.documentElement.clientWidth) scrollDown(); });
   $("#p-restart").onclick = () => restart();
   $("#p-speed").onchange = (e) => { STATE.speed = Number(e.target.value); };
-  document.addEventListener("click", (e) => { const b = e.target.closest("[data-cid]"); if (b) openChunk(b.dataset.cid); });
+  document.addEventListener("click", (e) => {
+    const pg = e.target.closest("[data-page]"); if (pg) return goto("okf", "pages", pg.dataset.page);
+    const qq = e.target.closest("[data-q]"); if (qq) return goto("okf", "q", qq.dataset.q);
+    const b = e.target.closest("[data-cid]"); if (!b) return;
+    // OKF 세트에서 번들 페이지 ID(kb_<페이지>#0)를 누르면 조각 대화상자 대신 그 페이지로 간다
+    if (STATE.set === "okf" && b.dataset.cid.startsWith("kb_")) return goto("okf", "pages", b.dataset.cid.replace(/^kb_/, "").replace(/#\d+$/, ""));
+    openChunk(b.dataset.cid);
+  });
   // 공유 링크(#set=..&q=..)로 들어오거나 주소창의 해시만 바뀐 경우
   window.addEventListener("hashchange", () => {
     const h = new URLSearchParams(location.hash.slice(1));
     const s = SETS.includes(h.get("set")) ? h.get("set") : STATE.set;
-    if (s === STATE.set && h.get("q") === cur()?.qid) return;
-    STATE.set = s; $("#f-pair").value = ""; $("#f-kind").value = "all";
+    const v = h.get("view") === "pages" ? "pages" : "q";
+    if (s === STATE.set && v === STATE.view && h.get("q") === cur()?.qid) return;
+    STATE.set = s; STATE.view = v; $("#f-pair").value = ""; $("#f-kind").innerHTML = "";
     renderStatic(); buildList(h.get("q"));
   });
   document.addEventListener("keydown", (e) => {
@@ -185,18 +258,55 @@ function renderStatic() {
   applyTheme(STATE.theme);
   if (STATE.list.length) syncPlayer();
   $("#set-tabs").innerHTML = SETS.map((s) => `<button class="tab" role="tab" aria-selected="${s === STATE.set}" data-set="${s}">${esc(t("set_" + s))}<small>${esc(t("set_" + s + "_s"))}</small></button>`).join("");
-  document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => { STATE.set = b.dataset.set; $("#f-pair").value = ""; $("#f-kind").value = "all"; renderStatic(); buildList(); }));
+  document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => { STATE.set = b.dataset.set; STATE.view = "q"; $("#f-pair").value = ""; $("#f-kind").innerHTML = ""; renderStatic(); buildList(); }));
   $("#set-note").textContent = t("note_" + STATE.set);
-  const rows = STATE.rows[STATE.set];
-  const pairs = [...new Set(rows.map((r) => r.group))].sort();
-  const pv = $("#f-pair").value;
-  $("#f-pair").innerHTML = `<option value="">${esc(t("all"))}</option>` + pairs.map((p) => `<option ${p === pv ? "selected" : ""}>${esc(p)}</option>`).join("");
-  $("#f-pair").disabled = pairs.length < 2;
-  const kinds = STATE.set === "service" ? ["all", "kb", "rag", "blocked"] : ["all", "missing", "blocked"].filter((k) => STATE.set !== "user" || k !== "missing");
+  const kind = KIND[STATE.set];
+  const pairL = $("#f-pair").closest("label"), kindL = $("#f-kind").closest("label"), qSpan = $("#f-q").closest("label").querySelector("span");
   const kv = $("#f-kind").value || "all";
-  $("#f-kind").innerHTML = kinds.map((k) => `<option value="${k}" ${k === kv ? "selected" : ""}>${esc(t("k_" + k))}</option>`).join("");
-  $("#foot").innerHTML = `<p>${esc(t("foot1"))}</p><p>${esc(t("foot2"))}</p><p>${esc(t("foot3"))}</p><p>${esc(t("foot4"))}</p>
-    <p><code>${esc(STATE.meta.sets[STATE.set].config)}</code> · <code>${esc(STATE.meta.sets[STATE.set].answers)}</code> · <code>scripts/export_site_data.py</code></p>`;
+  const kindOpts = (kinds) => { $("#f-kind").innerHTML = kinds.map((k) => `<option value="${k}" ${k === kv ? "selected" : ""}>${esc(t("k_" + k))}</option>`).join(""); };
+  // 정적 보기(PDF 청크화, OKF 페이지)에서는 재생 도크를 숨긴다
+  $("#dock").hidden = kind === "chunking" || (kind === "okf" && STATE.view === "pages");
+  pairL.hidden = kind === "chunking"; kindL.hidden = kind === "chunking";
+  if (kind === "chunking") {
+    qSpan.textContent = t("doc");
+  } else if (kind === "okf") {
+    pairL.querySelector("span").textContent = t("target");
+    $("#f-pair").innerHTML = [["q", t("okf_questions")], ["pages", t("okf_pages")]].map(([v, l]) => `<option value="${v}" ${v === STATE.view ? "selected" : ""}>${esc(l)}</option>`).join("");
+    $("#f-pair").disabled = false;
+    kindOpts(STATE.view === "pages" ? ["all", "r1", "r2"] : ["all", "r1", "r2", "correct", "partial", "wrong", "refuse_ok", "refuse_bad", "nomatch"]);
+    qSpan.textContent = STATE.view === "pages" ? t("page") : t("question");
+  } else {
+    const rows = STATE.rows[STATE.set];
+    const pairs = [...new Set(rows.map((r) => r.group))].sort();
+    const pv = $("#f-pair").value;
+    $("#f-pair").innerHTML = `<option value="">${esc(t("all"))}</option>` + pairs.map((p) => `<option ${p === pv ? "selected" : ""}>${esc(p)}</option>`).join("");
+    $("#f-pair").disabled = pairs.length < 2;
+    kindOpts(STATE.set === "service" ? ["all", "kb", "rag", "blocked"] : ["all", "missing", "blocked"]);
+  }
+  const src = kind === "trace" ? `<code>${esc(STATE.meta.sets[STATE.set].config)}</code> · <code>${esc(STATE.meta.sets[STATE.set].answers)}</code> · <code>scripts/export_site_data.py</code>` : `<code>${esc(t(kind === "chunking" ? "foot_pdf" : "foot_okf"))}</code>`;
+  $("#foot").innerHTML = (kind === "trace" ? `<p>${esc(t("foot1"))}</p><p>${esc(t("foot2"))}</p>` : "") + `<p>${esc(t("foot3"))}</p><p>${esc(t("foot4"))}</p><p>${src}</p>`;
+}
+
+// 다른 세트·보기의 항목으로 이동 (페이지 칩, 질문 줄, 공유 링크)
+function goto(set, view, qid) {
+  STATE.set = set; STATE.view = view; $("#f-pair").value = ""; $("#f-kind").innerHTML = "";
+  renderStatic(); buildList(qid);
+  scrollTo({ top: $("#question-card").offsetTop - 8, behavior: reduced() ? "auto" : "smooth" });
+}
+
+function matchesOkf(r, kind) {
+  const g = r.human || {};
+  switch (kind) {
+    case "r1": return r.round === 1;
+    case "r2": return r.round === 2;
+    case "correct": return g.correctness === "맞음";
+    case "partial": return g.correctness === "부분";
+    case "wrong": return g.correctness === "틀림";
+    case "refuse_ok": return g.refusal === "적절";
+    case "refuse_bad": return g.refusal === "부적절";
+    case "nomatch": return r.path !== "kb";
+    default: return true;
+  }
 }
 
 function matches(r, kind) {
@@ -209,12 +319,14 @@ function matches(r, kind) {
 }
 
 function buildList(keepQid) {
-  const rows = STATE.rows[STATE.set];
-  const pair = $("#f-pair").value, kind = $("#f-kind").value || "all";
-  STATE.list = rows.filter((r) => (!pair || r.group === pair) && matches(r, kind));
+  const K = KIND[STATE.set], kind = $("#f-kind").value || "all";
+  if (K === "chunking") STATE.list = STATE.pdfdocs;
+  else if (K === "okf") STATE.list = STATE.view === "pages" ? STATE.okf.pages.filter((p) => kind === "all" || p.round === Number(kind.slice(1))) : STATE.okf.questions.filter((q) => matchesOkf(q, kind));
+  else { const pair = $("#f-pair").value; STATE.list = STATE.rows[STATE.set].filter((r) => (!pair || r.group === pair) && matches(r, kind)); }
+  const short = (s) => (s.length > 70 ? s.slice(0, 70) + "…" : s);
   const sel = $("#f-q");
   sel.innerHTML = STATE.list.length
-    ? STATE.list.map((r, i) => `<option value="${i}">${esc(r.qid)} · ${esc(r.question.length > 70 ? r.question.slice(0, 70) + "…" : r.question)}</option>`).join("")
+    ? STATE.list.map((r, i) => `<option value="${i}">${esc(r.qid)} · ${esc(short(r.question ?? r.title))}</option>`).join("")
     : `<option>-</option>`;
   const k = STATE.list.findIndex((r) => r.qid === keepQid);
   STATE.idx = k >= 0 ? k : 0;
@@ -225,12 +337,20 @@ function buildList(keepQid) {
 const cur = () => STATE.list[STATE.idx];
 function step(d) { if (!STATE.list.length) return; STATE.idx = (STATE.idx + d + STATE.list.length) % STATE.list.length; $("#f-q").value = String(STATE.idx); show(); }
 
+function setHash(r) {
+  const view = KIND[STATE.set] === "okf" && STATE.view === "pages" ? "&view=pages" : "";
+  history.replaceState(null, "", `#set=${STATE.set}${view}&q=${encodeURIComponent(r.qid)}`);
+}
+
 function show() {
   const wasWaiting = STATE.waiting;   // 아직 한 번도 재생하지 않았으면 새 질문도 대기부터 시작한다
   cancel();
   const r = cur();
   if (!r) { $("#question-card").innerHTML = `<p class="empty">-</p>`; $("#flow").innerHTML = ""; $("#stages").innerHTML = ""; return; }
-  history.replaceState(null, "", `#set=${STATE.set}&q=${encodeURIComponent(r.qid)}`);
+  setHash(r);
+  // 정적 보기: 재생 없이 전부 바로 그린다
+  if (r.kind === "pdf_doc") { STAGES = []; STATE.revealed = 0; renderPdfDoc(r); return; }
+  if (r.kind === "okf_p") { STAGES = []; STATE.revealed = 0; renderOkfPage(r); return; }
   STAGES = stagesOf(r);
   renderQuestion(r);
   renderFlow(r);
@@ -249,13 +369,19 @@ const cidBtn = (r, cid) => `<button class="cid" data-cid="${esc(cid)}" title="${
 function renderQuestion(r) {
   const pills = [`<span class="pill">${esc(r.qid)}</span>`, `<span class="pill">${esc(r.group)}</span>`];
   if (r.evidence_kind) pills.push(`<span class="pill">${esc(r.evidence_kind)}</span>`);
-  if (r.kb) pills.push(`<span class="pill ${r.path === "kb" ? "gold" : ""}">${r.path === "kb" ? "kb" : "rag"}</span>`);
+  if (r.kind === "okf_q") {
+    pills.length = 1;
+    pills.push(`<span class="pill">${esc(roundLabel(r.round))}</span>`, `<span class="pill">${esc(t(r.scope === "in" ? "scope_in" : "scope_out"))}</span>`,
+      `<span class="pill ${r.path === "kb" ? "gold" : ""}">${esc(t(r.path === "kb" ? "path_bundle" : "path_none"))}</span>`);
+    if (r.human) pills.push(gradePill(r.human, t("grade")));
+    if (r.rag) pills.push(gradePill(r.rag, "RAG", true));
+  } else if (r.kb) pills.push(`<span class="pill ${r.path === "kb" ? "gold" : ""}">${r.path === "kb" ? "kb" : "rag"}</span>`);
   if (Object.keys(r.gold).length) pills.push(`<span class="pill gold">★ ${esc(t("gold"))} ${Object.keys(r.gold).length}</span>`);
   $("#question-card").innerHTML = `<div class="q-meta">${pills.join("")}</div><p class="q-text">${esc(r.question)}</p>`;
 }
 
 function nodeVal(r, s) {
-  const st = r.stages, m = STATE.meta.sets[STATE.set];
+  const st = r.stages, m = setMeta(r);
   switch (s) {
     case "input": return st ? (st.input.ok ? t("pass") : t("blocked")) : t("pass");
     case "kbmatch": return r.kb.match.ids.length ? r.kb.match.ids.join(", ") : "-";
@@ -267,6 +393,8 @@ function nodeVal(r, s) {
     case "generate": return r.gen ? `${fmt(r.gen.seconds, 1)} ${t("s")}` : m.prompt;
     case "output": return r.output.ok ? t("pass") : t("blocked");
     case "answer": return r.output.ok ? t("delivered") : t("fixed_msg");
+    case "grade": return r.human ? gradeText(r.human) : "-";
+    case "nobundle": return r.dense_best ? `${r.dense_best[0]} ${r.dense_best[1].toFixed(2)}` : "-";
   }
 }
 
@@ -284,9 +412,19 @@ function renderFlow(r) {
   }));
 }
 
-function card(s, i, timing, body) {
+function card(s, i, timing, body, what) {
   i = STAGES.indexOf(s);
-  return `<article class="stage" data-stage="${s}" id="stage-${s}" hidden><div class="stage-head"><h2><span class="num">${i + 1}</span>${esc(t("s_" + s))}</h2>${timing ? `<span class="timing">${timing}</span>` : ""}</div><p class="what">${esc(t("w_" + s))}</p>${body}</article>`;
+  return `<article class="stage" data-stage="${s}" id="stage-${s}" hidden><div class="stage-head"><h2><span class="num">${i + 1}</span>${esc(t("s_" + s))}</h2>${timing ? `<span class="timing">${timing}</span>` : ""}</div><p class="what">${esc(what ?? t("w_" + s))}</p>${body}</article>`;
+}
+// 정적 보기의 카드: 숨기지 않고 번호만 붙인다
+function staticCard(n, title, what, body) {
+  return `<article class="stage"><div class="stage-head"><h2><span class="num">${n}</span>${esc(title)}</h2></div><p class="what">${esc(what)}</p>${body}</article>`;
+}
+function commitStages(out) {
+  $("#stages").innerHTML = out.join("");
+  // 애니메이션은 DOM을 바꾸므로, 멈추거나 건너뛸 때 되돌릴 최종 모습을 단계별로 저장해 둔다
+  STATE.cardHTML = {};
+  document.querySelectorAll(".stage").forEach((c) => { STATE.cardHTML[c.dataset.stage] = c.innerHTML; });
 }
 
 function scoreRows(r, hits, color, opts = {}) {
@@ -324,26 +462,30 @@ function renderBundle(r) {
   return `<div class="col-title">${esc(t("kb_pages"))} · ${r.kb.passages.length} · ${esc(t("kb_verified"))} ${r.kb.verified}/${r.kb.passages.length}</div><div class="ctx-list">${pages}</div>`;
 }
 
+// OKF 세트에는 meta.sets 항목이 없다: 프롬프트 이름만 질문 행에서 가져온다
+const setMeta = (r) => STATE.meta.sets[STATE.set] || { prompt: r.prompt || "cite_refuse_v1", retrieval: {}, n_chunks: 0 };
 function renderStages(r) {
-  const st = r.stages, m = STATE.meta.sets[STATE.set];
+  const st = r.stages, m = setMeta(r);
   const out = [];
   // 1. 입력 검증
   const inOk = st ? st.input.ok : true;
-  out.push(card("input", 0, st ? ms(st.input.ms) : "", `<ul class="checks"><li><span class="ic ${inOk ? "ok" : "no"}">${inOk ? "✓" : "✕"}</span>${esc(inOk ? `${t("pass")} · ${r.question.length} / 1000` : st.input.reason)}</li></ul>`));
+  if (STAGES.includes("input")) out.push(card("input", 0, st ? ms(st.input.ms) : "", `<ul class="checks"><li><span class="ic ${inOk ? "ok" : "no"}">${inOk ? "✓" : "✕"}</span>${esc(inOk ? `${t("pass")} · ${r.question.length} / 1000` : st.input.reason)}</li></ul>`));
   if (r.kb) {
     out.push(card("kbmatch", 0, "", renderKbMatch(r)));
+    if (r.kind === "okf_q" && r.path !== "kb") {
+      out.push(card("nobundle", 0, "", renderNoBundle(r)));
+      return commitStages(out);
+    }
     if (r.path === "kb") {
-      out.push(card("bundle", 0, `${r.kb.passages.length} ${STATE.lang === "ko" ? "쪽" : "pages"}`, renderBundle(r)));
+      out.push(card("bundle", 0, `${r.kb.passages.length} ${STATE.lang === "ko" ? "쪽" : "pages"}`, renderBundle(r), r.kind === "okf_q" ? t(r.round === 1 ? "w_bundle_r1" : "w_bundle_r2") : undefined));
       out.push(card("generate", 0, r.gen ? `${fmt(r.gen.seconds, 2)} ${t("s")} · ${esc(m.prompt)}` : esc(m.prompt),
         `<div class="col-title">${esc(t("context"))}</div><div class="ctx-list">${r.context_ids.map((c) => `<button class="ctx gold" data-cid="${esc(c)}">${esc(c)}</button>`).join("")}</div>` +
         (r.gen ? `<dl class="kv"><dt>${esc(t("prompt_tok"))}</dt><dd>${r.gen.prompt_tokens}</dd><dt>${esc(t("out_tok"))}</dt><dd>${r.gen.completion_tokens}</dd><dt>${esc(t("gen_time"))}</dt><dd>${fmt(r.gen.seconds, 2)} ${t("s")}</dd></dl>` : "") +
         `<details><summary>${esc(t("system_prompt"))} (${esc(m.prompt)})</summary><pre class="sys">${esc(STATE.meta.prompts[m.prompt])}\n\nContext:\n\n[${esc(r.context_ids[0])}] …\n…\n\nQuestion: ${esc(r.question)}</pre></details>`));
       out.push(card("output", 0, "", renderChecks(r)));
       out.push(card("answer", 0, "", renderDelivered(r)));
-      $("#stages").innerHTML = out.join("");
-      STATE.cardHTML = {};
-      document.querySelectorAll(".stage").forEach((c) => { STATE.cardHTML[c.dataset.stage] = c.innerHTML; });
-      return;
+      if (STAGES.includes("grade")) out.push(card("grade", 0, r.human ? `${t("blind_item")} ${esc(r.human.item)}` : "", renderGrade(r)));
+      return commitStages(out);
     }
   }
   // 2. 번역
@@ -378,10 +520,7 @@ function renderStages(r) {
   out.push(card("output", 6, "", renderChecks(r)));
   // 8. 답변: 사용자에게 실제로 전달되는 글 (차단되면 고정 문구, 모델 원문은 접어 둔다)
   out.push(card("answer", 7, "", renderDelivered(r)));
-  $("#stages").innerHTML = out.join("");
-  // 애니메이션은 DOM을 바꾸므로, 멈추거나 건너뛸 때 되돌릴 최종 모습을 단계별로 저장해 둔다
-  STATE.cardHTML = {};
-  document.querySelectorAll(".stage").forEach((c) => { STATE.cardHTML[c.dataset.stage] = c.innerHTML; });
+  commitStages(out);
 }
 
 const SAFE = {
@@ -393,7 +532,7 @@ const SAFE = {
 function renderDelivered(r) {
   if (r.output.ok) return `<div class="answer final">${renderAnswer(r)}</div>`;
   // 서비스 경로(사람이 쓴 질문)는 저장된 답변이 이미 고정 문구이고 모델 원문은 NO_ANSWER다
-  const served = STATE.set === "user" || STATE.set === "service";
+  const served = STATE.set === "service" || STATE.set === "okf";
   const shown = served ? r.answer : SAFE[r.q_lang] || SAFE.en;
   const raw = served ? (r.raw_answer || (r.output.reason === "refusal_sentinel" ? "NO_ANSWER" : "")) : r.answer;
   return `<div class="answer final blocked">${esc(shown)}</div>` +
@@ -605,6 +744,22 @@ async function typeText(node, text, id, maxMs) {
 }
 
 const ANIM = {
+  async grade(el, id) {
+    prep(el, ".reveal, .gold-line");
+    await sleep(350);
+    for (const x of el.querySelectorAll(".reveal")) { if (id !== RUN) return; showEl(x); x.querySelector(".pill")?.classList.add("popin"); await sleep(400); }
+    await sleep(200); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
+  async nobundle(el, id) {
+    prep(el, ".checks li, .gold-line");
+    await sleep(350);
+    for (const li of el.querySelectorAll(".checks li")) { if (id !== RUN) return; showEl(li, true); await sleep(300); }
+    await sleep(200); if (id !== RUN) return;
+    el.querySelectorAll(".gold-line").forEach((g) => showEl(g));
+    await sleep(500);
+  },
   async kbmatch(el, id) {
     prep(el, ".checks li, .gold-line");
     await sleep(350);
@@ -737,5 +892,194 @@ const ANIM = {
     await sleep(300);
   },
 };
+
+// ---------- OKF 세트: 번들 전용 질문 (행 변환, 채점 카드) ----------
+// eval/kb·kb2의 번들 답변을 서비스 세트의 kb 경로와 같은 모양으로 바꿔 같은 카드(매칭·번들·생성·출력 검증·답변)를 재사용한다
+function okfQuestionRow(q, pagesById) {
+  const matched = q.path === "bundle";
+  const ids = q.match.ids || [], related = q.match.related || [];
+  const ctx = matched ? q.pages : [];
+  return {
+    ...q, kind: "okf_q", group: `round ${q.round}`, q_lang: "ko", gold: {}, path: matched ? "kb" : "none",
+    context_ids: matched ? q.context_ids : [],
+    kb: {
+      match: { alias: q.match.alias || {}, dense: q.match.dense || [], ids, related, canonical_names: q.match.canonical_names || [] },
+      passages: ctx.map((id) => ({ id, cid: `kb_${id}#0`, title: pagesById[id]?.title || id })),
+      verified: ctx.filter((id) => pagesById[id]?.verified).length, dense_best: q.dense_best,
+    },
+    output: matched
+      ? { ok: !q.blocked, reason: q.reason, cited: q.blocked ? [] : [...new Set([...(q.answer || "").matchAll(CITE)].map((m) => m[1]))], refused: ["refusal_sentinel", "refusal_text"].includes(q.reason) }
+      : { ok: false, reason: null, cited: [], refused: false },
+  };
+}
+
+const roundLabel = (n) => (STATE.lang === "ko" ? `${n}차` : `round ${n}`);
+function gradeText(g) {
+  if (!g) return "";
+  return g.correctness ? t("gr_" + g.correctness) : g.refusal ? `${t("refused")} · ${t("gr_" + g.refusal)}` : "";
+}
+function gradeClass(g) {
+  return g.correctness === "맞음" || g.refusal === "적절" ? "good" : g.correctness === "부분" ? "warn" : "bad";
+}
+function gradePill(g, label, small) {
+  if (!g) return "";
+  return `<span class="pill ${gradeClass(g)}${small ? " soft" : ""}">${label ? esc(label) + ": " : ""}${esc(gradeText(g))}</span>`;
+}
+
+function ragLine(r) {
+  return r.rag ? `<div class="gold-line">${esc(t("rag_same"))}: ${gradePill(r.rag)} <span class="pill soft">${esc(t("blind_item"))} ${esc(r.rag.item)}</span>${r.rag.note ? ` · ${esc(r.rag.note)}` : ""}</div>` : "";
+}
+
+function renderGrade(r) {
+  const g = r.human;
+  if (!g) return `<p class="empty">-</p>` + ragLine(r);
+  return `<div class="reveal"><span class="pill big ${gradeClass(g)}">${esc(t("grade"))}: ${esc(gradeText(g))}</span> <span class="pill soft">${esc(t("blind_item"))} ${esc(g.item)}</span></div>` +
+    (g.note ? `<div class="reveal note"><b>${esc(t("note_lbl"))}</b> · ${esc(g.note)}</div>` : "") + ragLine(r);
+}
+
+function renderNoBundle(r) {
+  const best = r.dense_best ? `<li><span class="ic na">–</span><span>${esc(t("kb_best"))}: ${esc(r.dense_best[0])} (${r.dense_best[1].toFixed(2)} &lt; 0.55)</span></li>` : "";
+  return `<ul class="checks"><li><span class="ic no">✕</span><span>${esc(t("kb_none"))}</span></li>${best}</ul>` + ragLine(r);
+}
+
+// ---------- OKF 세트: 페이지 보기 (정적) ----------
+const mdInline = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`([^`]+)`/g, "<code>$1</code>");
+function mdList(items) {
+  // 들여쓰기(칸 수)로 중첩한다
+  let html = "";
+  const stack = [];
+  for (const it of items) {
+    const ind = it.match(/^\s*/)[0].length, ordered = /^\s*\d+\./.test(it), text = it.replace(/^\s*(?:[-*]|\d+\.)\s+/, "");
+    while (stack.length && stack[stack.length - 1].ind > ind) html += `</li></${stack.pop().tag}>`;
+    if (!stack.length || stack[stack.length - 1].ind < ind) { const tag = ordered ? "ol" : "ul"; stack.push({ ind, tag }); html += `<${tag}><li>${mdInline(text)}`; }
+    else html += `</li><li>${mdInline(text)}`;
+  }
+  while (stack.length) html += `</li></${stack.pop().tag}>`;
+  return html;
+}
+// 페이지 본문(마크다운 부분집합: 제목, 글머리, 번호, 표, 굵게, 코드)을 HTML로
+function md(src) {
+  const lines = src.split("\n"), out = [];
+  const isList = (ln) => /^\s*(?:[-*]|\d+\.)\s+/.test(ln), isTable = (ln) => /^\s*\|/.test(ln), isHead = (ln) => /^#{1,6}\s/.test(ln);
+  let i = 0;
+  while (i < lines.length) {
+    const ln = lines[i];
+    if (isHead(ln)) { const lvl = Math.min(ln.match(/^#+/)[0].length + 2, 6); out.push(`<h${lvl}>${mdInline(ln.replace(/^#+\s*/, ""))}</h${lvl}>`); i++; continue; }
+    if (isTable(ln)) {
+      const rows = [];
+      while (i < lines.length && isTable(lines[i])) rows.push(lines[i++]);
+      const cells = (r) => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => mdInline(c.trim()));
+      const body = rows.filter((r) => !/^\s*\|?\s*:?-{2,}/.test(r));
+      if (body.length) out.push(`<table class="md-t"><thead><tr>${cells(body[0]).map((c) => `<th>${c}</th>`).join("")}</tr></thead><tbody>${body.slice(1).map((r) => `<tr>${cells(r).map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+      continue;
+    }
+    if (isList(ln)) { const items = []; while (i < lines.length && isList(lines[i])) items.push(lines[i++]); out.push(mdList(items)); continue; }
+    if (!ln.trim()) { i++; continue; }
+    const para = [];
+    while (i < lines.length && lines[i].trim() && !isHead(lines[i]) && !isTable(lines[i]) && !isList(lines[i])) para.push(lines[i++]);
+    out.push(`<p>${mdInline(para.join(" "))}</p>`);
+  }
+  return out.join("");
+}
+
+const pageChip = (id, star) => { const p = STATE.okf.pagesById[id]; return `<button class="ctx${star ? " gold" : ""}" data-page="${esc(id)}" title="${esc(id)}">${star ? "★ " : ""}${esc(p ? p.title : id)}</button>`; };
+
+function renderOkfPage(p) {
+  const pills = [`<span class="pill">${esc(p.id)}</span>`, `<span class="pill">${esc(roundLabel(p.round))} ${esc(t("p_round"))}</span>`,
+    `<span class="pill ${p.verified ? "good" : "bad"}">${p.verified ? "✓ " : "✕ "}${esc(t("p_verified"))}</span>`, `<span class="pill">${p.n_chars} ${esc(STATE.lang === "ko" ? "자" : "chars")}</span>`];
+  $("#question-card").innerHTML = `<div class="q-meta">${pills.join("")}</div><p class="q-text">${esc(p.title)}</p>`;
+  $("#flow").innerHTML = "";
+  const langs = [["ko", "한국어"], ["en", "English"], ["de", "Deutsch"]];
+  const aliases = `<div class="alias-rows">${langs.map(([l, name]) => `<div class="alias-row"><span class="alias-lang">${name}</span><div class="ctx-list">${(p.names[l] || []).map((n) => `<span class="ctx static">${esc(n)}</span>`).join("") || `<span class="empty">${esc(t("p_none"))}</span>`}</div></div>`).join("")}</div>`;
+  const related = `<div class="col-title">${esc(t("p_related"))} · ${p.related.length}</div><div class="ctx-list">${p.related.map((id) => pageChip(id)).join("") || `<span class="empty">${esc(t("p_none"))}</span>`}</div>` +
+    `<div class="col-title">${esc(t("p_backlinks"))} · ${p.backlinks.length}</div><div class="ctx-list">${p.backlinks.map((id) => pageChip(id)).join("") || `<span class="empty">${esc(t("p_none"))}</span>`}</div>`;
+  const body = `<div class="md">${md(p.body)}</div><p class="note">${esc(t("p_author"))}: ${esc(p.author)}</p>`;
+  const used = STATE.okf.questions.filter((q) => q.kb.match.ids.includes(p.id) || (q.pages || []).includes(p.id));
+  const rows = used.map((q) => `<li class="q-row" data-q="${esc(q.qid)}"><span class="pill">${esc(q.qid)}</span><span class="pill soft">${q.kb.match.ids.includes(p.id) ? esc(t("p_matched")) : esc(t("p_context"))}</span><span class="q-row-text">${esc(q.question)}</span>${q.human ? gradePill(q.human) : `<span class="pill soft">${esc(t("path_none"))}</span>`}</li>`).join("");
+  $("#stages").innerHTML = [
+    staticCard(1, t("p_aliases"), t("w_aliases"), aliases),
+    staticCard(2, t("p_related"), t("w_related"), related),
+    staticCard(3, t("p_body"), t("w_body"), body),
+    staticCard(4, t("p_used"), t("w_used"), rows ? `<ul class="q-rows">${rows}</ul>` : `<p class="empty">${esc(t("p_none"))}</p>`),
+  ].join("");
+}
+
+// ---------- PDF 세트: 문서가 청크가 되는 과정 (정적) ----------
+async function ensurePdfChunks() {
+  if (!STATE.pdfChunks) STATE.pdfChunks = getJSON("data/pdfchunks.json").then((d) => { Object.assign(STATE.chunks, d); return d; });
+  return STATE.pdfChunks;
+}
+const SEC_COLORS = ["#2a78d6", "#eb6834", "#1baf7a", "#6250d6", "#d6a12a", "#d03b7a", "#2ab0c8", "#8a8a3a"];
+
+function hbars(rows, dropped) {
+  // rows: [key, count]; 가로 막대 (최댓값 기준)
+  const max = Math.max(1, ...rows.map((r) => r[1]));
+  return `<ul class="hbars">${rows.map(([k, n]) => `<li class="hbar${dropped.has(k) ? " dropped" : ""}"><span class="hb-label">${esc(t("role_" + k))}${dropped.has(k) ? ` <span class="hb-x">✕ ${esc(t("d_dropped"))}</span>` : ""}</span><span class="bar"><span style="width:${(100 * n / max).toFixed(1)}%"></span></span><span class="hb-n">${n}</span></li>`).join("")}</ul>`;
+}
+
+function renderPdfDoc(d) {
+  const pills = [`<span class="pill">${esc(d.lang)}</span>`, `<span class="pill">${d.pages} ${esc(STATE.lang === "ko" ? "쪽" : "pages")}</span>`, `<span class="pill">${esc(d.license)}</span>`, `<span class="pill gold">${d.stats.n_chunks} ${esc(t("d_chunk_n"))}</span>`];
+  $("#question-card").innerHTML = `<div class="q-meta">${pills.join("")}</div><p class="q-text"><a href="${esc(d.url)}" rel="noopener">${esc(d.title)}</a></p>`;
+  $("#flow").innerHTML = "";
+  $("#stages").innerHTML = `<p class="empty">…</p>`;
+  ensurePdfChunks().then(() => { if (cur() === d) renderPdfDocCards(d); });
+}
+
+function renderPdfDocCards(d) {
+  const unit = t("d_count");
+  // 1. 원본
+  const source = `<dl class="kv"><dt>${esc(t("d_lang"))}</dt><dd>${esc(d.lang)}</dd><dt>${esc(t("d_pages"))}</dt><dd>${d.pages}</dd><dt>${esc(t("d_license"))}</dt><dd>${esc(d.license)}</dd><dt>${esc(t("d_sha"))}</dt><dd><code>${esc(d.sha256.slice(0, 16))}…</code></dd><dt>${esc(t("d_tool"))}</dt><dd>${esc(d.extractor.tool)} · <code>${esc(d.extractor.pdf_editor_commit.slice(0, 7))}</code></dd><dt>PDF</dt><dd><a href="${esc(d.pdf_url)}" rel="noopener">${esc(d.pdf_url)}</a></dd></dl>`;
+  // 2. 레이아웃 복원 블록 (원본 블록 파일이 있을 때)
+  const dropped = new Set(["header", "footer", "figure", "image", "vector"]);
+  let layout, drop;
+  if (d.raw) {
+    const rows = Object.entries(d.raw.paragraphs).sort((a, b) => b[1] - a[1]);
+    rows.push(["table", d.raw.tables], ...Object.entries(d.raw.figures).map(([k, n]) => [k, n]));
+    layout = hbars(rows, dropped);
+    const dr = d.raw.dropped;
+    drop = `<div class="cols"><div><div class="col-title">✕ ${esc(t("d_dropped"))}</div><ul class="checks">` +
+      [["header", dr.header], ["footer", dr.footer], ["figure", dr.figure]].map(([k, n]) => `<li><span class="ic no">✕</span><span>${esc(t("role_" + k))} · ${n}${unit}</span></li>`).join("") +
+      `<li><span class="ic no">✕</span><span>${esc(t("d_toc"))} · ${dr.toc_lines}${unit}</span></li><li><span class="ic no">✕</span><span>${esc(t("d_drop_sections"))} · ${dr.sections.length}${unit}${dr.sections.length ? ` (${esc(dr.sections.join(", "))})` : ""}</span></li></ul></div>` +
+      `<div><div class="col-title">✓ ${esc(t("d_kept"))}</div><ul class="checks">${Object.entries(d.kept).map(([k, n]) => `<li><span class="ic ok">✓</span><span>${esc(t("role_" + k.replace("paragraph:", "")))} · ${n}${unit}</span></li>`).join("")}</ul><div class="gold-line">${esc(t("d_chars"))}: ${d.n_chars.toLocaleString()}</div></div></div>`;
+  } else {
+    layout = `<p class="empty">${esc(t("d_raw_missing"))}</p>`;
+    drop = `<div class="col-title">✓ ${esc(t("d_kept"))}</div><ul class="checks">${Object.entries(d.kept).map(([k, n]) => `<li><span class="ic ok">✓</span><span>${esc(t("role_" + k.replace("paragraph:", "")))} · ${n}${unit}</span></li>`).join("")}</ul>`;
+  }
+  // 3. 절
+  const secRows = d.sections.map((s, i) => `<li class="sec-row"><span class="swatch" style="background:${SEC_COLORS[i % SEC_COLORS.length]}"></span><span class="sec-name">${esc(s.path.join(" › ") || "-")}</span><span class="sec-n">${(s.end - s.start).toLocaleString()} ${esc(STATE.lang === "ko" ? "자" : "chars")}</span><span class="sec-n">${s.chunks.length ? `#${s.chunks[0]}–#${s.chunks[s.chunks.length - 1]} (${s.chunks.length})` : "-"}</span></li>`).join("");
+  const sections = `<div class="gold-line">${d.sections.length} ${esc(t("d_sections"))}</div><ol class="sec-list">${secRows}</ol>`;
+  // 4. 청크 지도 + 통계
+  const st = d.stats;
+  const stats = `<dl class="kv"><dt>${esc(t("d_chunk_n"))}</dt><dd>${st.n_chunks}</dd><dt>${esc(t("d_tok"))}</dt><dd>${st.tokens_mean} · ${st.tokens_min} · ${st.tokens_max}</dd><dt>${esc(t("d_ov"))}</dt><dd>${st.n_overlap} / ${st.n_chunks - 1}</dd><dt>${esc(t("d_ov_chars"))}</dt><dd>${st.overlap_chars_mean}</dd><dt>${esc(t("d_th"))}</dt><dd>${st.n_th}</dd><dt>${esc(t("d_span"))}</dt><dd>${st.n_spanning}</dd></dl>`;
+  const map = `<div class="seg-map">${d.chunks.map((c) => `<button type="button" class="seg${c.th ? " th" : ""}" style="flex:${c.end - c.start} 0 0;background:${SEC_COLORS[c.section % SEC_COLORS.length]}" data-cid="${esc(d.id)}#${c.idx}" title="#${c.idx} · ${c.tokens} tok · ${esc(d.sections[c.section].path.join(" › "))}${c.th ? " · table header" : ""}"></button>`).join("")}</div>` +
+    `<div class="legend"><span>${esc(STATE.lang === "ko" ? "폭 = 문자 수, 색 = 절, 테두리 = 표 머리글 반복" : "width = characters, colour = section, outline = repeated table header")}</span></div>`;
+  // 5. 예시: 오버랩
+  const chunkBox = (c, html, extra) => `<div class="chunk-ex"><div class="chunk-head"><button class="cid" data-cid="${esc(d.id)}#${c.idx}">${esc(d.id)}#${c.idx}</button><span class="timing">${c.tokens} tok · ${esc(t("d_range"))} ${c.start.toLocaleString()}–${c.end.toLocaleString()}${extra || ""}</span></div><pre class="chunk-text">${html}</pre></div>`;
+  let exOverlap = `<p class="empty">-</p>`;
+  if (d.examples.overlap) {
+    const trio = d.examples.overlap.map((i) => d.chunks[i]);
+    exOverlap = `<div class="chunk-stack">${trio.map((c, k) => {
+      const text = STATE.chunks[`${d.id}#${c.idx}`]?.text || "";
+      const head = k > 0 ? c.ov_prev : 0, tail = k < trio.length - 1 ? trio[k + 1].ov_prev : 0;
+      const html = (head ? `<mark class="ov">${esc(text.slice(0, head))}</mark>` : "") + esc(text.slice(head, text.length - tail)) + (tail ? `<mark class="ov">${esc(text.slice(text.length - tail))}</mark>` : "");
+      return chunkBox(c, html, head ? ` · ${esc(STATE.lang === "ko" ? "겹침" : "overlap")} ${head}` : "");
+    }).join("")}</div>`;
+  }
+  // 6. 예시: 표 머리글
+  let exTable = `<p class="empty">${esc(t("d_no_table"))}</p>`;
+  if (d.examples.table != null) {
+    const c = d.chunks[d.examples.table], text = STATE.chunks[`${d.id}#${c.idx}`]?.text || "";
+    exTable = `<div class="chunk-stack">${chunkBox(c, `<mark class="th">${esc(text.slice(0, c.th))}</mark>${esc(text.slice(c.th))}`, ` · ${esc(STATE.lang === "ko" ? "붙인 머리글" : "prefix")} ${c.th}`)}</div>`;
+  }
+  $("#stages").innerHTML = [
+    staticCard(1, t("d_source"), t("w_source"), source),
+    staticCard(2, t("d_layout"), t("w_layout"), layout),
+    staticCard(3, t("d_drop"), t("w_drop"), drop),
+    staticCard(4, t("d_sections"), t("w_sections"), sections),
+    staticCard(5, t("d_chunks"), t("w_chunks"), stats + map),
+    staticCard(6, t("d_ex_overlap"), t("w_ex_overlap"), exOverlap),
+    staticCard(7, t("d_ex_table"), t("w_ex_table"), exTable),
+  ].join("");
+}
 
 init().catch((e) => { document.querySelector("main").insertAdjacentHTML("afterbegin", `<p class="empty">Failed to load data: ${esc(e.message)}</p>`); });
