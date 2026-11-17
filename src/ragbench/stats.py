@@ -69,3 +69,55 @@ def compare(diff: np.ndarray, clusters: list[str] | None = None) -> dict[str, fl
         out["ci_cluster"] = bootstrap_ci(d, clusters)
         out["n_clusters"] = len(set(clusters))
     return out
+
+
+def cohen_kappa(a: list, b: list) -> float:
+    """Cohen's kappa of two raters over any label set (nan when chance agreement is 1)."""
+    if len(a) != len(b) or not a:
+        raise ValueError("two non-empty rating lists of the same length are needed")
+    n = len(a)
+    labels = sorted(set(a) | set(b), key=str)
+    po = sum(x == y for x, y in zip(a, b)) / n
+    pe = sum((a.count(lab) / n) * (b.count(lab) / n) for lab in labels)
+    return float("nan") if pe == 1 else (po - pe) / (1 - pe)
+
+
+def corrected_rate(observed_yes: float, sensitivity: float, specificity: float) -> float:
+    """Rogan-Gladen estimate of the true YES rate from a judge's YES rate.
+
+    [KO] 판정 모델의 YES 비율을, 사람 기준 dev 세트에서 잰 민감도(사람 YES를 YES로)와 특이도(사람 NO를 NO로)로 보정한다:
+    p = (q + spec - 1) / (sens + spec - 1), [0, 1]로 자른다. sens + spec <= 1이면 판정이 우연 이하라 보정할 수 없다(nan).
+    """
+    j = sensitivity + specificity - 1
+    if j <= 0:
+        return float("nan")
+    return float(min(1.0, max(0.0, (observed_yes + specificity - 1) / j)))
+
+
+def corrected_rate_ci(judge_yes: np.ndarray, cal_human: np.ndarray, cal_judge: np.ndarray, n: int = 10000,
+                      seed: int = 42) -> tuple[float, tuple[float, float]]:
+    """Corrected YES rate with a 95 % bootstrap interval that resamples both the judged answers and the calibration set.
+
+    judge_yes: judge verdicts (bool) on the answers being reported; cal_human / cal_judge: human and judge verdicts on
+    the calibration (dev) items. Draws whose calibration has sens + spec <= 1 are dropped.
+    """
+    jy, ch, cj = (np.asarray(x, dtype=bool) for x in (judge_yes, cal_human, cal_judge))
+
+    def est(jy_, ch_, cj_) -> float:
+        pos, neg = ch_.sum(), (~ch_).sum()
+        if pos == 0 or neg == 0:
+            return float("nan")
+        return corrected_rate(jy_.mean(), (cj_ & ch_).sum() / pos, (~cj_ & ~ch_).sum() / neg)
+
+    point = est(jy, ch, cj)
+    rng = np.random.default_rng(seed)
+    draws = []
+    for _ in range(n):
+        i = rng.integers(0, len(jy), len(jy))
+        k = rng.integers(0, len(ch), len(ch))
+        v = est(jy[i], ch[k], cj[k])
+        if not math.isnan(v):
+            draws.append(v)
+    if not draws:
+        return point, (float("nan"), float("nan"))
+    return point, (float(np.percentile(draws, 2.5)), float(np.percentile(draws, 97.5)))

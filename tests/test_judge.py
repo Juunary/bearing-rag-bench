@@ -39,6 +39,19 @@ def test_dimension_prompts_contain_only_what_they_judge():
         assert m.rstrip().endswith("`VERDICT: YES` or `VERDICT: NO`.")
 
 
+def test_judge_v2_changes_only_correctness():
+    from ragbench.judge import parse_grade
+    q, ans = "What?", "An answer [a#1]."
+    v2 = build_judge_messages("correctness", q, answer=ans, references=["Ref."], version="judge_v2")[1]["content"]
+    assert "GRADE: PARTIAL" in v2 and "- Ref." in v2 and "VERDICT" not in v2
+    assert build_judge_messages("faithfulness", q, answer=ans, passages=[BY_ID["a#1"]], version="judge_v2") == \
+        build_judge_messages("faithfulness", q, answer=ans, passages=[BY_ID["a#1"]])
+    assert parse_grade("claims...\nGRADE: partial") == "PARTIAL"
+    assert parse_grade("GRADE: CORRECT\nGRADE: INCORRECT") == "INCORRECT" and parse_grade("no grade") is None
+    with pytest.raises(ValueError):
+        build_judge_messages("correctness", q, answer=ans, version="judge_v9")
+
+
 def test_unknown_dimension():
     assert set(DIMENSIONS) == {"faithfulness", "answer_relevance", "context_relevance", "correctness"}
     with pytest.raises(ValueError):

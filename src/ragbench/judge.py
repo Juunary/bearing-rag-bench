@@ -70,6 +70,31 @@ TASKS = {
 FORMAT = "First write one short sentence of reasoning. Then on a new line write exactly `VERDICT: YES` or `VERDICT: NO`."
 VERDICT_RE = re.compile(r"VERDICT:\s*(YES|NO)\b", re.IGNORECASE)
 
+# judge_v2 (2026-11-17): correctness only, three grades with the wording of the human grading sheet
+# (eval/human_gold/sheet_grader2.md), claim-by-claim comparison before the grade. The other dimensions stay judge_v1.
+# [KO] judge_v2: 정확성만 바꾼다. 사람 채점표와 같은 3등급 기준, 판정 전에 주장별 대조. 나머지 항목은 judge_v1 그대로.
+PROMPT_VERSIONS = ("judge_v1", "judge_v2")
+GRADES = ("CORRECT", "PARTIAL", "INCORRECT")
+GRADE_TO_HUMAN = {"CORRECT": "맞음", "PARTIAL": "부분", "INCORRECT": "틀림"}
+TASK_V2_CORRECTNESS = (
+    "Task: grade the Answer by comparing it with the Reference. The Reference is verified evidence and may be in a "
+    "different language than the Question.\n"
+    "Step 1: list the key claims the Answer makes about what the Question asks (at most four, one short line each).\n"
+    "Step 2: after each claim write AGREES, CONTRADICTS or NOT IN REFERENCE.\n"
+    "Step 3: grade.\n"
+    "- CORRECT: the Answer gives the core of what is asked and nothing in it contradicts the Reference.\n"
+    "- PARTIAL: the Answer gives only part of what is asked, or mixes in claims that are not in the Reference.\n"
+    "- INCORRECT: the core is wrong or missing, the Answer addresses something else, or it only says the information is missing.\n"
+    "End with a line that is exactly `GRADE: CORRECT`, `GRADE: PARTIAL` or `GRADE: INCORRECT`.")
+GRADE_RE = re.compile(r"GRADE:\s*(CORRECT|PARTIAL|INCORRECT)\b", re.IGNORECASE)
+V2_MAX_NEW_TOKENS = 320          # 주장 4줄 + 판정 줄. judge_v1의 80토큰에서는 Granite의 판정 줄이 잘렸다
+
+
+def parse_grade(text: str) -> str | None:
+    """Last GRADE line of a judge_v2 reply, or None."""
+    found = GRADE_RE.findall(text or "")
+    return None if not found else found[-1].upper()
+
 
 def parse_verdict(text: str) -> bool | None:
     found = VERDICT_RE.findall(text or "")
@@ -88,9 +113,16 @@ def _passages(chunks: list[dict[str, Any]]) -> str:
 
 
 def build_judge_messages(dimension: str, question: str, answer: str | None = None,
-                         passages: list[dict[str, Any]] | None = None, references: list[str] | None = None) -> list[dict[str, str]]:
+                         passages: list[dict[str, Any]] | None = None, references: list[str] | None = None,
+                         version: str = JUDGE_PROMPT_VERSION) -> list[dict[str, str]]:
     if dimension not in TASKS:
         raise ValueError(f"unknown dimension {dimension!r}; choose from {DIMENSIONS}")
+    if version not in PROMPT_VERSIONS:
+        raise ValueError(f"unknown judge prompt version {version!r}; choose from {PROMPT_VERSIONS}")
+    if version == "judge_v2" and dimension == "correctness":
+        parts = [f"Question: {question}", "Reference:\n" + "\n".join(f"- {r}" for r in (references or [])),
+                 f"Answer: {answer}", TASK_V2_CORRECTNESS]
+        return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": "\n\n".join(parts)}]
     parts = [f"Question: {question}"]
     if dimension in ("faithfulness", "context_relevance"):
         parts.append(f"Passages:\n\n{_passages(passages or [])}")

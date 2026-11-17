@@ -35,3 +35,18 @@ def test_compare_reports_counts_and_both_cis():
     d = np.array([0.2, 0.0, -0.1, 0.3])
     out = compare(d, ["a", "a", "b", "b"])
     assert (out["better"], out["worse"], out["tie"]) == (2, 1, 1) and out["n_clusters"] == 2 and "ci_cluster" in out
+
+
+def test_cohen_kappa_and_corrected_rate():
+    import math
+    from ragbench.stats import cohen_kappa, corrected_rate, corrected_rate_ci
+    assert cohen_kappa(["a", "b", "a", "b"], ["a", "b", "a", "b"]) == 1.0
+    assert cohen_kappa([True, True, False, False], [True, False, True, False]) == 0.0     # po 0.5 = pe 0.5
+    assert math.isnan(cohen_kappa(["a", "a"], ["a", "a"]))
+    # 판정 YES 0.9, 민감도 0.95, 특이도 0.5 -> (0.9 + 0.5 - 1) / 0.45
+    assert abs(corrected_rate(0.9, 0.95, 0.5) - 0.4 / 0.45) < 1e-12
+    assert corrected_rate(0.1, 0.9, 0.9) == 0.0 and math.isnan(corrected_rate(0.5, 0.5, 0.5))
+    human = np.array([True] * 8 + [False] * 4)
+    judge = np.array([True] * 8 + [True, True, False, False])
+    p, (lo, hi) = corrected_rate_ci(np.array([True] * 9 + [False]), human, judge, n=500)
+    assert abs(p - (0.9 + 0.5 - 1) / 0.5) < 1e-12 and lo <= p <= hi

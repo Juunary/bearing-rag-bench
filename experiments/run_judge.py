@@ -34,6 +34,8 @@
 - 판정 줄이 없는 응답(추론이 80토큰 한도에서 잘림)은 한도를 3배로 늘려 한 번 더 묻고, 그래도 실패하면 파싱
   불가(None)로 남겨 비율 계산에서 뺀다.
 - 사용: uv run python experiments/run_judge.py configs/s3_judge.json s3_gen_cite_v1 s3_gen_cite_refuse_v1
+- --prompt-version judge_v2: 정확성만 3등급(CORRECT/PARTIAL/INCORRECT, YES = CORRECT)으로 묻고 등급을 grades에 남긴다. 결과 ID에 _v2가 붙어
+  judge_v1 결과를 덮어쓰지 않는다.
 """
 
 from __future__ import annotations
@@ -51,7 +53,8 @@ from ragbench.chunking import load_chunks  # noqa: E402
 from ragbench.config import ChunkingConfig, ExperimentConfig, ExperimentResult, environment_snapshot, set_seed  # noqa: E402
 from ragbench.evalset import load_queries  # noqa: E402
 from ragbench.ingest import REPO  # noqa: E402
-from ragbench.judge import JUDGE_PROMPT_VERSION, Judge, build_judge_messages, parse_verdict, select_passages  # noqa: E402
+from ragbench.judge import (JUDGE_PROMPT_VERSION, PROMPT_VERSIONS, V2_MAX_NEW_TOKENS, Judge, build_judge_messages,  # noqa: E402
+                            parse_grade, parse_verdict, select_passages)
 from ragbench.validation import validate_answer  # noqa: E402
 
 DIMS = ("faithfulness", "answer_relevance", "context_relevance", "correctness")
@@ -74,7 +77,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("config", type=Path)
     ap.add_argument("results", nargs="+", help="generation result names, e.g. s3_gen_cite_v1")
+    ap.add_argument("--prompt-version", default=JUDGE_PROMPT_VERSION, choices=PROMPT_VERSIONS,
+                    help="judge_v2 changes correctness only: three grades, YES = CORRECT; the grade is kept in `grades`")
     args = ap.parse_args()
+    v2 = args.prompt_version == "judge_v2"
     cfg = ExperimentConfig.load(args.config)
     set_seed(cfg.seed)
 
@@ -96,7 +102,7 @@ def main() -> None:
             verdict = validate_answer(answer, ctx_ids)
             refused = verdict.reason in ("refusal_sentinel", "refusal_text")
             gold_in_ctx = bool(p["metrics"]["gold_in_context"])
-            labels, reasons = {}, {}
+            labels, reasons, grades = {}, {}, {}
             for dim in DIMS:
                 if refused and dim != "context_relevance":
                     labels[dim], reasons[dim] = None, "n/a (refusal)"
@@ -108,7 +114,15 @@ def main() -> None:
                 elif dim == "answer_relevance":
                     msgs = build_judge_messages(dim, q["question"], answer=answer)
                 else:
-                    msgs = build_judge_messages(dim, q["question"], answer=answer, references=[g["anchor"] for g in q["gold"]])
+                    msgs = build_judge_messages(dim, q["question"], answer=answer, references=[g["anchor"] for g in q["gold"]],
+                                                version=args.prompt_version)
+                if v2 and dim == "correctness":
+                    out = judge.ask(msgs, max_new_tokens=V2_MAX_NEW_TOKENS)
+                    n_calls += 1
+                    n_cached += out["cached"]
+                    grades[dim] = parse_grade(out["text"])
+                    labels[dim], reasons[dim] = (None if grades[dim] is None else grades[dim] == "CORRECT"), out["text"]
+                    continue
                 out = judge.ask(msgs, max_new_tokens=cfg.generation.max_new_tokens)
                 n_calls += 1
                 n_cached += out["cached"]
@@ -122,7 +136,8 @@ def main() -> None:
                 labels[dim], reasons[dim] = verdict_label, out["text"]
             cls = outcome(refused, gold_in_ctx, labels["correctness"], labels["faithfulness"])
             per_query.append({"qid": p["qid"], "group": p["group"], "question": p["question"], "answer": answer,
-                              "refused": refused, "gold_in_context": gold_in_ctx, "labels": labels, "reasons": reasons, "outcome": cls})
+                              "refused": refused, "gold_in_context": gold_in_ctx, "labels": labels, "reasons": reasons, "outcome": cls,
+                              **({"grades": grades} if v2 else {})})
             print(f"{name} {p['qid']} [{p['group']}] {cls:18} " + " ".join(f"{d[:4]}={'-' if labels[d] is None else int(labels[d])}" for d in DIMS))
 
         overall, groups = {}, defaultdict(lambda: defaultdict(list))
@@ -137,12 +152,12 @@ def main() -> None:
                 groups[x["group"]][d].append(x["labels"][d])
         by_group = {g: {**{d: rate(v)[0] for d, v in dims.items()}, "n": len(dims["correctness"])} for g, dims in sorted(groups.items())}
         exp_cfg = cfg.to_dict()
-        exp_cfg["exp_id"] = f"{cfg.exp_id}_{name.removeprefix('s3_gen_')}"
+        exp_cfg["exp_id"] = f"{cfg.exp_id}{'_v2' if v2 else ''}_{name.removeprefix('s3_gen_')}"
         exp_cfg["description"] = f"{cfg.description}; judged file: {name}"
         result = ExperimentResult(
             config=exp_cfg, environment=environment_snapshot(), metrics={"overall": overall, "by_group": by_group}, per_query=per_query,
             extra={"judged_result": name, "judge_model": cfg.generation.model, "judge_model_revision": judge.revision, "judge_max_memory": judge.max_memory,
-                   "judge_prompt_version": JUDGE_PROMPT_VERSION, "outcomes": dict(Counter(x["outcome"] for x in per_query)),
+                   "judge_prompt_version": args.prompt_version, "outcomes": dict(Counter(x["outcome"] for x in per_query)),
                    "judge_calls": n_calls, "judge_cache_hits": n_cached, "judge_retries_for_cut_off_verdict": n_retries,
                    "source_commit": src["environment"]["git_commit"]})
         path = result.save()
