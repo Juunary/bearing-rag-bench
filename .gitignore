@@ -14,6 +14,7 @@ data/raw/*
 data/processed/*
 !data/processed/docs.jsonl
 !data/processed/docs_pdf.jsonl
+!data/processed/docs_pdf2.jsonl
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 

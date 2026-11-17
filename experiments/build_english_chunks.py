@@ -38,7 +38,7 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None, help="translate only the first N non-English chunks (smoke test)")
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--cache", default=str(REPO / "logs" / "translate_cache.sqlite"))
-    ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf (PDF chunks get their own chunks_en_<set>_pdf.jsonl)")
+    ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf | wiki_pdf2 (each gets its own chunks_en_<set>_pdf[2].jsonl)")
     ap.add_argument("--table-header", action="store_true", help="chunk set with repeated table headers (chunking.table_header)")
     ap.add_argument("--glossary", action="store_true", help="add term hints from data/glossary.json; writes chunks_en_<set>_gl.jsonl")
     args = ap.parse_args()

@@ -236,7 +236,7 @@ def main() -> None:
     ap.add_argument("--unit", default="token")
     ap.add_argument("--size", type=int, default=384)
     ap.add_argument("--overlap", type=int, default=48)
-    ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf")
+    ap.add_argument("--corpus", default="wiki", help="wiki | wiki_pdf | wiki_pdf2")
     ap.add_argument("--table-header", action="store_true", help="repeat table caption and header row in chunks that start inside a table")
     args = ap.parse_args()
     cfg = ChunkingConfig(strategy=args.strategy, unit=args.unit, size=args.size, overlap=args.overlap, corpus=args.corpus,

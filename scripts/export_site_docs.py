@@ -95,7 +95,9 @@ def export_pdfdocs() -> None:
     docs = {d["doc_id"]: d for d in jsonl(PROCESSED / "docs_pdf.jsonl")}
     chunks = [c for c in jsonl(CHUNKS) if c["doc_id"] in docs]
     en = {c["chunk_id"]: c for c in jsonl(CHUNKS_EN) if c["chunk_id"].rsplit("#", 1)[0] in docs}
-    order = [d["id"] for d in json.loads((REPO / "data" / "pdf_sources.json").read_text(encoding="utf-8"))["documents"]]
+    # docs_pdf.jsonl에 든 wiki_pdf 문서만 (corpus = wiki_pdf2 항목은 docs_pdf2.jsonl에 따로 있다)
+    order = [d["id"] for d in json.loads((REPO / "data" / "pdf_sources.json").read_text(encoding="utf-8"))["documents"]
+             if d.get("corpus", "wiki_pdf") == "wiki_pdf"]
     out, texts = [], {}
     for doc_id in order:
         d = docs[doc_id]

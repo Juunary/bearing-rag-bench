@@ -64,3 +64,37 @@ def test_table_header_prefix_when_chunk_starts_in_second_header_line():
     text = "|  | C (kN) |  |\n| Type | static | dynamic |\n| 6205 | 7.8 | 14.8 |"
     doc = {"text": text, "blocks": [{"kind": "table", "start": 0, "end": len(text)}]}
     assert table_header_prefix(doc, text.index("| Type")) == "|  | C (kN) |  |\n| Type | static | dynamic |"
+
+
+# excludePages의 쪽은 통째로 빠지고 문서에 기록된다. 뺀 쪽이 없는 문서 레코드에는 키가 생기지 않는다(기존 docs_pdf.jsonl 그대로)
+def test_build_doc_excludes_pages():
+    rows = [
+        {"page": 0, "kind": "paragraph", "role": "heading", "text": "3. Grease"},
+        {"page": 0, "kind": "paragraph", "role": "body", "text": "Grease is oil plus a thickener."},
+        {"page": 1, "kind": "paragraph", "role": "caption", "text": "Table 1.—Grease application guide (Copyright 1989)"},
+        {"page": 1, "kind": "table", "cells": [["Property", "Lithium"], ["Dropping point", "177-204"]], "rows": 2, "cols": 2},
+        {"page": 2, "kind": "paragraph", "role": "body", "text": "The oil does the lubricating."},
+    ]
+    d = build_doc({**SRC, "excludePages": [1]}, rows, META)
+    assert d["text"] == "Grease is oil plus a thickener.\nThe oil does the lubricating." and d["excluded_pages"] == [1]
+    assert "excluded_pages" not in build_doc(SRC, rows, META)
+
+
+# 매니페스트: wiki_pdf 문서는 기존 6건 그대로, 새 문서는 wiki_pdf2이고 sha256과 라이선스 근거, 뺀 쪽의 이유가 있다
+def test_manifest_corpora():
+    import json
+
+    from build_pdf_docs import OUTS, SOURCES, corpus_of
+    from ragbench.ingest import CORPORA
+
+    docs = json.loads(SOURCES.read_text(encoding="utf-8"))["documents"]
+    assert len({d["id"] for d in docs}) == len(docs)
+    assert {corpus_of(d) for d in docs} <= set(OUTS) <= set(CORPORA)
+    assert [d["id"] for d in docs if corpus_of(d) == "wiki_pdf"] == [
+        "nasa-tp-2013-215305-rev1", "nasa-tm-2017-219545", "nasa-tm-2015-218895", "luh-diss-stuhler-2024",
+        "luh-diss-pelzer-2022", "innotrac-2020-467"]
+    for d in docs:
+        assert len(d["sha256"]) == 64 and d["licenseEvidence"] and d["url"].startswith("https://")
+        assert bool(d.get("excludePages")) == bool(d.get("excludeReason"))
+        assert all(0 <= p < d["pages"] for p in d.get("excludePages", []))
+    assert chunk_set_id(ChunkingConfig(corpus="wiki_pdf2", table_header=True)) == "fixed_tok384_ov48_pdf2_th"

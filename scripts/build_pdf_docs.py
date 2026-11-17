@@ -11,6 +11,10 @@
   (References, Literatur, 참고문헌 ...) are dropped, as for Wikipedia.
 - Extra fields: source_type "pdf", sha256, pages, extractor {tool, pdf_editor_commit}, blocks [{page, kind, role,
   start, end}] with char offsets into `text` (which page an anchor comes from; tables can be found again).
+- Corpora: a manifest entry's `corpus` (default wiki_pdf) picks the output file: wiki_pdf -> docs_pdf.jsonl (the six
+  documents of 2026-11-02), wiki_pdf2 -> docs_pdf2.jsonl (practical maintenance documents, 2026-11-17).
+- `excludePages` (0-based PDF page indexes, reason in `excludeReason`): pages holding only third-party material are
+  dropped whole; the document then records `excluded_pages`.
 - Usage: uv run python scripts/build_pdf_docs.py [--pdf-editor /path/to/pdf-editor] [--only id ...]
 
 [KO]
@@ -22,6 +26,9 @@
   (축 눈금, 범례)와 목차 줄(점선 뒤 쪽 번호)은 버린다. 참고문헌류 절(ingest.py 목록)은 위키와 같이 버린다.
 - 추가 필드: source_type "pdf", sha256, pages, extractor {tool, pdf_editor_commit}, blocks [{page, kind, role,
   start, end}](text 안의 글자 위치. 근거 문장이 몇 쪽인지, 표가 어디인지 다시 찾을 수 있다).
+- 코퍼스: 매니페스트 항목의 corpus(기본 wiki_pdf)로 출력 파일을 고른다. wiki_pdf -> docs_pdf.jsonl(2026-11-02의 6건),
+  wiki_pdf2 -> docs_pdf2.jsonl(실무 정비 문서, 2026-11-17).
+- excludePages(0부터 센 PDF 쪽, 이유는 excludeReason): 제3자 저작물만 있는 쪽은 통째로 빼고 문서에 excluded_pages를 남긴다.
 - 사용: uv run python scripts/build_pdf_docs.py [--pdf-editor /path/to/pdf-editor] [--only id ...]
 """
 
@@ -44,6 +51,8 @@ from ragbench.ingest import DROP_SECTIONS, REPO, clean_body  # noqa: E402
 SOURCES = REPO / "data" / "pdf_sources.json"
 RAW = REPO / "data" / "raw" / "pdf"
 OUT = REPO / "data" / "processed" / "docs_pdf.jsonl"
+# 매니페스트 항목의 corpus(기본 wiki_pdf)마다 출력 파일이 따로다. wiki_pdf 파일은 기존 6건 그대로 남는다
+OUTS = {"wiki_pdf": OUT, "wiki_pdf2": REPO / "data" / "processed" / "docs_pdf2.jsonl"}
 EXPORTER = REPO / "scripts" / "pdf_layout_export.mjs"
 DROP_ROLES = {"header", "footer"}
 # 목차·그림 목록 줄: 점선(". . . ." 또는 "....") 뒤 쪽 번호로 끝난다
@@ -75,11 +84,17 @@ def table_lines(cells: list[list[str]]) -> list[str]:
     return ["| " + " | ".join(r) + " |" for r in rows if any(r)]
 
 
+def corpus_of(src: dict[str, Any]) -> str:
+    return src.get("corpus", "wiki_pdf")
+
+
 def build_doc(src: dict[str, Any], rows: list[dict[str, Any]], meta: dict[str, Any]) -> dict[str, Any]:
     # 1) 블록을 절로 묶는다. 각 절 = [(줄 텍스트, 블록 정보)], 블록 하나가 여러 줄(표의 행)일 수 있다
+    # excludePages: 제3자 저작물만 있는 쪽(0부터 센 PDF 쪽 번호, 매니페스트에 이유를 적는다)은 통째로 뺀다
+    excluded = set(src.get("excludePages", []))
     sections: list[dict[str, Any]] = [{"path": [], "level": 1, "lines": []}]
     for r in rows:
-        if r["kind"] == "figure" or r.get("role") in DROP_ROLES:
+        if r["kind"] == "figure" or r.get("role") in DROP_ROLES or r["page"] in excluded:
             continue
         if r["kind"] == "paragraph" and r["role"] == "heading":
             sections.append({"path": [" ".join(r["text"].split())], "level": 2, "lines": []})
@@ -117,12 +132,15 @@ def build_doc(src: dict[str, Any], rows: list[dict[str, Any]], meta: dict[str, A
     text = "".join(text_parts)
     for b in blocks:
         del b["_id"]
-    return {
+    doc = {
         "doc_id": src["id"], "lang": src["lang"], "title": src["title"], "url": src["landingUrl"], "revid": None,
         "license": src["license"], "source_type": "pdf", "pdf_url": src["url"], "sha256": src["sha256"], "pages": meta["pages"],
         "extractor": {"tool": "pdf-editor layout-recon", "pdf_editor_commit": meta["pdfEditorCommit"]},
         "sections": out_sections, "text": text, "n_chars": len(text), "blocks": blocks,
     }
+    if excluded:                         # 뺀 쪽이 없는 문서는 기존 레코드와 글자 하나까지 같게 둔다
+        doc["excluded_pages"] = sorted(excluded)
+    return doc
 
 
 def main() -> None:
@@ -145,13 +163,15 @@ def main() -> None:
               f"paragraphs {kinds['paragraph']:4d} tables {kinds['table']:3d}")
         docs.append(doc)
     if args.only:
-        print("--only: docs_pdf.jsonl not written")
+        print("--only: docs_pdf*.jsonl not written")
         return
-    docs.sort(key=lambda d: (d["lang"], d["doc_id"]))
-    with open(OUT, "w", encoding="utf-8") as f:
-        for d in docs:
-            f.write(json.dumps(d, ensure_ascii=False) + "\n")
-    print(f"wrote {len(docs)} docs -> {OUT.relative_to(REPO)}")
+    by_id = {s["id"]: s for s in sources}
+    for corpus, out in OUTS.items():
+        part = sorted((d for d in docs if corpus_of(by_id[d["doc_id"]]) == corpus), key=lambda d: (d["lang"], d["doc_id"]))
+        with open(out, "w", encoding="utf-8") as f:
+            for d in part:
+                f.write(json.dumps(d, ensure_ascii=False) + "\n")
+        print(f"wrote {len(part)} docs -> {out.relative_to(REPO)}")
 
 
 if __name__ == "__main__":

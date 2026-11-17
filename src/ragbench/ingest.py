@@ -35,7 +35,8 @@ REPO = Path(__file__).resolve().parents[2]
 RAW_WIKI = REPO / "data" / "raw" / "wiki"
 DOCS_PATH = REPO / "data" / "processed" / "docs.jsonl"
 PDF_DOCS_PATH = REPO / "data" / "processed" / "docs_pdf.jsonl"     # scripts/build_pdf_docs.py
-CORPORA = ("wiki", "wiki_pdf")
+PDF2_DOCS_PATH = REPO / "data" / "processed" / "docs_pdf2.jsonl"   # 같은 스크립트, 매니페스트 corpus = wiki_pdf2
+CORPORA = ("wiki", "wiki_pdf", "wiki_pdf2")
 
 HEADING_RE = re.compile(r"^(={2,6})\s*(.+?)\s*\1\s*$")
 
@@ -106,12 +107,21 @@ def load_docs(path: Path = DOCS_PATH) -> list[dict[str, Any]]:
 
 
 def load_corpus(corpus: str = "wiki") -> list[dict[str, Any]]:
-    """Documents of a corpus: "wiki" = docs.jsonl, "wiki_pdf" = docs.jsonl + docs_pdf.jsonl (PDF documents)."""
+    """Documents of a corpus: "wiki" = docs.jsonl, "wiki_pdf" = docs.jsonl + docs_pdf.jsonl (PDF documents),
+    "wiki_pdf2" = wiki_pdf + docs_pdf2.jsonl (practical maintenance PDFs, 2026-11-17).
+
+    Each later corpus only appends documents, and chunks are cut per document, so the chunk ids of the earlier
+    corpus stay the same (the eval sets' gold chunk ids remain valid on wiki_pdf2).
+    """
     if corpus not in CORPORA:
         raise ValueError(f"unknown corpus {corpus!r}, expected one of {CORPORA}")
     docs = load_docs(DOCS_PATH)
-    if corpus == "wiki_pdf":
+    if corpus in ("wiki_pdf", "wiki_pdf2"):
         docs += load_docs(PDF_DOCS_PATH)
+    if corpus == "wiki_pdf2":
+        if not PDF2_DOCS_PATH.exists():
+            raise FileNotFoundError(f"{PDF2_DOCS_PATH.relative_to(REPO)} is missing; run scripts/build_pdf_docs.py")
+        docs += load_docs(PDF2_DOCS_PATH)
     return docs
 
 
